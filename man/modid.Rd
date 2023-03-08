@@ -2,23 +2,23 @@
 % Please edit documentation in R/modid.R
 \name{modid}
 \alias{modid}
-\title{Model identification}
+\title{modid: A Model identification helper function for fitting the D3mirt object}
 \usage{
 modid(x, head = TRUE)
 }
 \arguments{
-\item{x}{A data frame or matrix, ≥ 4 columns, with factor loadings and difficulty parameters estimated with the graded response model as item model.}
+\item{x}{A data frame or matrix with factor loadings.}
 
 \item{head}{Logical, should output contain first five rows per factor only? Default is TRUE.}
 }
 \value{
-Lists of factor loadings and absolute sums scores.
+Lists of factor loadings and absolute sum scores.
 }
 \description{
 The function \code{modid} can help with the model identification process in the dmirt procedure. The function takes in a data frame with factor loadings for and outputs lists of, one per factor from the fitted factor model: one column for the loadings from each item on the factor of interest, and one column with absolute sum scores calculated from remaining factor loadings in the fitted model. Each list is sorted with the lowest absolute sum score highest. The user is advised to select two items from two different factors in the output that best meet the assumption of orthogonality, i.e., preferably items with absolute sum scores of < .10 and having factor loading > .80. If these conditions cannot be meet the user is advised to proceed with caution since the loading scores implies that an orthogonal structure may not be empirically attainable.
 }
 \examples{
-# x is data frame with item scores, number of factors set to three
+# x is data frame with item scores
 library(psych)
 f <- fa(x, nfactors = 3, rotate = "oblimin", residuals = FALSE, SMC=FALSE)
 # Assign data frame that only holds factor loadings to z
