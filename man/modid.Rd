@@ -12,14 +12,16 @@ modid(x, head = TRUE)
 \item{head}{Logical, should output contain first five rows per factor only? Default is TRUE.}
 }
 \value{
-The output consists of lists, one per factor from the fitted factor model, containing one column for the factor loadings from each item on the factor interest, and one column with absolute sum scores calculated from remaining factor loadings in the model. Each list is sorted with the lowest absolute sum score highest, and the user is advised to select two items from two different factors in the output that best meet the assumption of orthogonality, i.e., preferably items with absolute sum scores of < .10 and having factor loading > .80. If these conditions cannot be meet the user is advised to proceed with caution since the loading structure implies that an orthogonal structure may not be empirically attainable.
+Lists of factor loadings and absolute sums scores.
 }
 \description{
-Model identification
+The function \code{modid} can help with the model identification process in the dmirt procedure. The function takes in a data frame with factor loadings for and outputs lists of, one per factor from the fitted factor model: one column for the loadings from each item on the factor of interest, and one column with absolute sum scores calculated from remaining factor loadings in the fitted model. Each list is sorted with the lowest absolute sum score highest. The user is advised to select two items from two different factors in the output that best meet the assumption of orthogonality, i.e., preferably items with absolute sum scores of < .10 and having factor loading > .80. If these conditions cannot be meet the user is advised to proceed with caution since the loading scores implies that an orthogonal structure may not be empirically attainable.
 }
 \examples{
+# x is data frame with item scores, number of factors set to three
 library(psych)
 f <- fa(x, nfactors = 3, rotate = "oblimin", residuals = FALSE, SMC=FALSE)
+# Assign data frame that only holds factor loadings to z
 z <- data.frame(f$loadings[,])
 modid(z)
 }
