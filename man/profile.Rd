@@ -2,7 +2,7 @@
 % Please edit documentation in R/profile.R
 \name{profile}
 \alias{profile}
-\title{Profile}
+\title{profile: Selection of Respondents for Plotting}
 \usage{
 profile(
   x,
