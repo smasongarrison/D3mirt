@@ -1,4 +1,4 @@
-#' Profile
+#' profile: Selection of Respondents for Plotting
 #' @description `profile()` is a wrapper function to `fscores()` from the `mirt` package. Respondents factor scores are selected row wise based on the logical condition set by user. Factor scores can then be used to plot respondents as spheres in the 3D `dmirt` object. Please consult documentation on [mirt::fscores()] for more details and available options regarding the `fscores()` function.
 #' @param x S4 mirt object.
 #' @param y S4 mirt object or data frame with respondents scores.
