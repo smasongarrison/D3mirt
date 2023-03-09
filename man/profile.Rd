@@ -29,22 +29,27 @@ profile(
 
 \item{method}{The method used to extract respondent factor scores from the S4 mirt object. Default is "EAP".}
 
-\item{full.scores}{Logical, should full scores from the \code{fscores()} function be printed? Default is TRUE.}
+\item{full.scores}{Logical, if full scores from the \code{fscores()} function should be printed. Default is TRUE.}
 
-\item{full.scores.SE}{Logical, should standard errors from the \code{fscores()} function be printed? Default is FALSE.}
+\item{full.scores.SE}{Logical, if standard errors from the \code{fscores()} function should be printed. Default is FALSE.}
 
 \item{QMC}{Integration method for extracting respondents factor scores from the \code{fscores()} function. Default is "QMC".}
 }
 \value{
-List of factor scores from the \code{mirt} S4 object.
+List of factor scores from the \code{mirt()} S4 object.
 }
 \description{
-\code{profile()} is a wrapper function to \code{fscores()} from the \code{mirt} package. Respondents factor scores are selected row wise based on the logical condition set by user. Factor scores can then be used to plot respondents as spheres in the 3D \code{dmirt} object. Please consult documentation on \code{\link[mirt:fscores]{mirt::fscores()}} for more details and available options regarding the \code{fscores()} function.
+\code{profile()} is a wrapper function to \code{fscores()} from the \link{mirt} package.
+}
+\details{
+Respondents factor scores are selected row wise based on the logical condition set by user. Factor scores can then be used to plot respondents as spheres in the 3D \code{dmirt()} object. Please consult documentation on \code{\link[mirt:fscores]{mirt::fscores()}} for more details and available options regarding the \code{fscores()} function.
 }
 \examples{
 # x is the fitted three dimensional S4 mirt object
 # y is a data frame containing scores from the same respondents
 p <- profile(x, y, column = 20, condition = ">", prob = .75)
-# To plot with the `D3mirt` plot function while hiding item vectors
+
+
+# To plot with the D3mirt plot function while hiding item vectors
 plot(x, profiles = p, hide = TRUE)
 }

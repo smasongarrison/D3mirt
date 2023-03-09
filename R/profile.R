@@ -1,23 +1,27 @@
 #' profile: Selection of Respondents for Plotting
-#' @description `profile()` is a wrapper function to `fscores()` from the `mirt` package. Respondents factor scores are selected row wise based on the logical condition set by user. Factor scores can then be used to plot respondents as spheres in the 3D `dmirt` object. Please consult documentation on [mirt::fscores()] for more details and available options regarding the `fscores()` function.
+#' @description `profile()` is a wrapper function to `fscores()` from the [mirt] package.
 #' @param x S4 mirt object.
 #' @param y S4 mirt object or data frame with respondents scores.
 #' @param column Select what column in the input for y to use for selection of respondent rows. Default is 1.
 #' @param condition String input on what logical condition to use for filtering respondents. Options are: ">", "<", ">=", and "<=" and default is set to ">".
 #' @param prob Indicate what probability to use as cut off, default is .75.
 #' @param method The method used to extract respondent factor scores from the S4 mirt object. Default is "EAP".
-#' @param full.scores Logical, should full scores from the `fscores()` function be printed? Default is TRUE.
-#' @param full.scores.SE Logical, should standard errors from the `fscores()` function be printed? Default is FALSE.
+#' @param full.scores Logical, if full scores from the `fscores()` function should be printed. Default is TRUE.
+#' @param full.scores.SE Logical, if standard errors from the `fscores()` function should be printed. Default is FALSE.
 #' @param QMC Integration method for extracting respondents factor scores from the `fscores()` function. Default is "QMC".
 #'
-#' @return List of factor scores from the `mirt` S4 object.
+#' @return List of factor scores from the `mirt()` S4 object.
 #' @export
+#'
+#' @details Respondents factor scores are selected row wise based on the logical condition set by user. Factor scores can then be used to plot respondents as spheres in the 3D `dmirt()` object. Please consult documentation on [mirt::fscores()] for more details and available options regarding the `fscores()` function.
 #'
 #' @examples
 #' # x is the fitted three dimensional S4 mirt object
 #' # y is a data frame containing scores from the same respondents
 #' p <- profile(x, y, column = 20, condition = ">", prob = .75)
-#' # To plot with the `D3mirt` plot function while hiding item vectors
+#'
+#'
+#' # To plot with the D3mirt plot function while hiding item vectors
 #' plot(x, profiles = p, hide = TRUE)
 profile <- function(x, y = NULL, column = 1, condition = c(">"), prob = .75, method = "EAP", full.scores = TRUE, full.scores.SE = FALSE, QMC = TRUE){
   if(!isS4(x)) warning("x must be S4 mirt object from mirt package")
