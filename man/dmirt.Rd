@@ -2,30 +2,36 @@
 % Please edit documentation in R/dmirt.R
 \name{dmirt}
 \alias{dmirt}
-\title{dmirt: Estimation of the D3mirt S3 Object}
+\title{dmirt: Item Analysis using Descriptive 3D Item Response Theory}
 \usage{
 dmirt(x, constructs = NULL, max.norm = 1.1, min.norm = 0.6)
 }
 \arguments{
-\item{x}{data frame or matrix}
+\item{x}{Data frame or matrix}
 
-\item{constructs}{Nested list or lists with integers indicating what items are part of what construct. Default is NULL.}
+\item{constructs}{Nested list or lists with integers indicating what items are part of what construct. Default is \code{constructs = NULL}.}
 
-\item{max.norm}{Scaling factor for the length of the construct arrow above center in the model. Default is set to 1.1.}
+\item{max.norm}{Scaling factor for the length of the construct arrow above center in the model. Default is \code{max.norm = 1.1}.}
 
-\item{min.norm}{Scaling factor for the length of the construct arrow below center in the model. Default is set to 0.6.}
+\item{min.norm}{Scaling factor for the length of the construct arrow below center in the model. Default is \code{min.norm = 0.6}.}
 }
 \value{
-S3 object that contain lists with estimates.
+S3 object
 }
 \description{
-The \code{dmirt()}function creates an S3 object that contains all necessary estimates for the three dimensional measurement model.
+The \code{dmirt()}function outputs an S3 object that contains all necessary estimates for plotting a three dimensional measurement model.
 }
 \details{
-Input consists of a data frame that holds factor loadings and difficulty parameters for all items in the scale or set. Importantly, rows must be items and number of columns must be ≥ 4, i.e., three columns for factor loadings and at least one column for item difficulty. The vector arrows that can be plotted with the \code{plot()} function represents item characteristics the three dimensional theta space. More specifically, item location shows the items three dimensional level of difficulty. If Likert items are used, each item will have multiple level of difficulty and can therefore be said to show the difficulty range of an item. Moreover, the angle of the vector arrows shows the direction of optimal discrimination in the model. In turn, this indicates what traits, one up to three, the item can be said to describe. Lastly, the length of each vector arrows shows the strength of discrimination, in which longer arrows indicate higher discrimination. Short vector arrows are therefore signs of model violations. The user has the option of including constructs in the estimation, by creating one or more nested lists that states what items belongs to what construct (see the examples section). From this, the \code{dmirt()}function extract direction vectors by averaging the direction cosines for the items contained in each construct list. The constructs vector arrows, therefore, can contribute by visualizing the average direction for at larger set of items. However, the length of the construct arrow has no meaning and can be set by the user by changing the \code{max.norm} and \code{min.norm} arguments.
+Input consists of a data frame that holds factor loadings and difficulty parameters for all items in the scale or item set. Importantly, rows must be items and number of columns must be ≥ 4, i.e., three columns containing factor loadings and at least one column for item difficulty. The output include lists of tables for factor loadings, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines and degrees for vector angles. The output can then also be visualized in 3D space using the \code{plot()} function.
+
+The user has the option of including constructs in the estimation, by creating one or more nested lists that indicate what items belongs to what construct (see the examples section). From this, the \code{dmirt()}function calculates construct direction cosines by adding and normalizing the direction cosines for the items contained in each construct list. In so doing, the constructs vector arrows can contribute to the analysis by visualizing the average direction for a subset set of items. However, the length of the construct arrow is arbitrary and can be set by the user by changing the \code{max.norm} and \code{min.norm} arguments.
+
+An important part of the analytically process is the model identification and the fitting of the multidimensional graded response model with the \code{\link[mirt:mirt]{mirt::mirt()}} function. This is done prior using \code{dmirt()}. An example based on a 10 item set in which the model has already been identified is given below. In short, all items in the set is specified to load on all three factor (F1 to F3). The START and FIXED command are used to create the orthogonal axis by stating that the first item is orthogonal to the the y and z-axis (a2 ans a3 respectively) and that item two is orthogonal only to the z-axis (a3).
+For more information on model identification please study the documentation included under \code{modid()}.
 }
 \examples{
-# Preparation: Fitting three dimensional mirt S4 object with the graded response model as item model
+# Preparation: Fitting a three dimensional graded response model
+
 library(mirt)
 spec <- ' F1 = 1-10
           F2 = 1-10
@@ -43,9 +49,11 @@ spec <- ' F1 = 1-10
 
 
 mod1 <- mirt(x, spec, itemtype='graded', SE=T, method = 'QMCEM')
-d <- data.frame(mirt::coef(mod.1, simplify=T)$'items'[,1:7])
 
-# Estimation with the `dmirt()` with nested lists for specification of constructs
+# Assign data frame with factor loadings (column 1-3) and difficulty parameters (column 4-7) from mod1
+d <- data.frame(mirt::coef(mod1, simplify=T)$'items'[,1:7])
+
+# Estimation with dmirt(), in this case including nested lists for constructs
 c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
 g <- dmirt(d, c)
 }

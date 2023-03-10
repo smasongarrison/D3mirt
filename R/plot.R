@@ -53,8 +53,8 @@
 #' @details The RGL device has orthogonal standardized axis centered at 0. The function allows plotting of all items, a selection of items as well as plotting a single item and adding constructs to the graphical output (see examples section). The user can also choose to plot one level of difficulty at a time if multiple levels of difficulty are used in the model. Item names are plotted by default but the user has the option of imputing new names for the items and include names for the constructs.
 #'
 #' Moreover, the function can also plots respondents on top of the item model represented as spheres located with the help of respondents factors scores providing the necessary coordinates (see [D3mirt::profile] for more details). This allows for profile analysis in which the user can select respondent rows based on some criteria. When analyzing respondent profiles the user has the option of hiding the item vectors to avoid visual cluttering.
-#'
-#'
+#'More specifically, item location shows the items three dimensional level of difficulty. If Likert items are used, each item will have multiple level of
+#'difficulty and can therefore be said to show the difficulty range of an item. Moreover, the angle of the vector arrows shows the direction of optimal discrimination in the model. In turn, this indicates what traits, one up to three, the item can be said to describe. Lastly, the length of each vector arrows shows the strength of discrimination, in which longer arrows indicate higher discrimination. Short vector arrows are therefore signs of model violations.
 #' @examples
 #' # Preparation: Calculate dmirt estimates with constructs
 #' c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
