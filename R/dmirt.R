@@ -3,8 +3,6 @@
 #' @description The `dmirt()`function outputs an S3 object that contains all necessary estimates for plotting a three dimensional measurement model.
 #' @param x Data frame or matrix
 #' @param constructs Nested list or lists with integers indicating what items are part of what construct. Default is `constructs = NULL`.
-#' @param max.norm Scaling factor for the length of the construct arrow above center in the model. Default is `max.norm = 1.1`.
-#' @param min.norm Scaling factor for the length of the construct arrow below center in the model. Default is `min.norm = 0.6`.
 #'
 #' @return S3 object
 #' @export
@@ -44,7 +42,7 @@
 #' # Estimation with dmirt(), in this case including nested lists for constructs
 #' c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
 #' g <- dmirt(d, c)
-dmirt <- function(x, constructs = NULL, max.norm = 1.1, min.norm = 0.6){
+dmirt <- function(x, constructs = NULL){
   # Warning for format
   if(!is.data.frame(x) && !is.matrix(x)) stop("Input object is not of type data frame or matrix")
   if(ncol(x) < 4) stop("Data frame must have at least 4 columns")
@@ -86,8 +84,8 @@ dmirt <- function(x, constructs = NULL, max.norm = 1.1, min.norm = 0.6){
       }
       cscos <- matrix(colSums(cos), ncol = 3)
       cdcos <- 1/sqrt(rowSums(cscos^2))*cscos
-      maxnorm <- (max.norm*max(vector))*cdcos
-      minnorm <- (min.norm*min(vector))*cdcos
+      maxnorm <- (1.1*max(vector))*cdcos
+      minnorm <- (0.6*min(vector))*cdcos
       con <- matrix(rbind(con,rbind(minnorm, maxnorm)), ncol = 3)
       ncos <- matrix(rbind(ncos,cdcos), ncol = 3)
       cdeg <- matrix(rbind(cdeg,(acos(cdcos)*(180/pi))), ncol = 3)
