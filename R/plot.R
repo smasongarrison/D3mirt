@@ -2,7 +2,9 @@
 #'
 #' @description The `plot.dmirt()`visualize the S3 `dmirt()` object in a 3D theta space. The plot function is based on [rgl] package for data visualization. Output consists of a RGL graphical device that can be exported with dedicated functions (see the examples section).
 #' @param x S3 dmirt object
-#' @param constructs Logical, if construct vector arrows should be plotted. Default set to FALSE.
+#' @param constructs Logical, if construct vector arrows should be plotted. Default set to FALSE
+#' @param vector.scalar
+#' @param con.scalar
 #' @param profiles Data frame with coordinates for spheres representing respondents
 #' @param hide Logical, if items should be plotted. Default is `hide = FALSE`.
 #' @param items Optional. The user can input a list of integers indicating what item vector arrows will be visible while remaining items are only hidden.
@@ -15,7 +17,7 @@
 #' @param width.rgl.x Width in the x direction for `par3d()`. Default is `width.rgl.x = 1040`.
 #' @param width.rgl.y Width in the y direction for `par3d()`. Default is `width.rgl.y = 1040`.
 #' @param view Vector with polar coordinates and zoom factor for the `view3d` function. Default is `view = c(15,20, 0.7)`.
-#' @param axis.fac Scalar factor the length of all three axis in the 3D model. Default is `axis.fac = 1.2`.
+#' @param axis.scalar Scalar factor the length of all three axis in the 3D model. Default is `axis.fac = 1.2`.
 #' @param axis.col Color of axis for the `segment3D()`function, default is `axis.col = "Black"`.
 #' @param axis.points Color of axis points for the `points3d()` function. Default is `axis.points = "black"`.
 #' @param points Logical, if axis from the `points3d()` should have end points. Default is `points = TRUE`.
@@ -77,9 +79,11 @@
 #' # Export RGL device to file
 #' plot.dmirt(g, constructs = TRUE) # ta bort dmirt?
 #' rgl.snapshot('RGLdevice.png', fmt = 'png')
-plot.dmirt <- function (x, constructs = FALSE, profiles = NULL, hide = FALSE, items = NULL, item.lab = TRUE, item.names = NULL, construct.lab = NULL, adjustlab = c(0.5, -0.8),
+#'
+#' Addera skalär för vektorlängd
+plot.dmirt <- function (x, constructs = FALSE, vector.scalar = 1, con.scalar = c(1,1), profiles = NULL, hide = FALSE, items = NULL, item.lab = TRUE, item.names = NULL, construct.lab = NULL, adjustlab = c(0.5, -0.8),
                         diff.level = NULL, background = "white",
-                        width.rgl.x = 1040, width.rgl.y= 1040, view = c(15,20, 0.7), axis.fac = 1.2, axis.col = "black", axis.points = "black",
+                        width.rgl.x = 1040, width.rgl.y= 1040, view = c(15,20, 0.7), axis.scalar = 1.2, axis.col = "black", axis.points = "black",
                         points = TRUE, axis.ticks = TRUE, nticks = 8, title="", line = -5, x.lab = "X", y.lab="Y", z.lab="Z", show.plane = TRUE, plane.color = "grey80",
                         type = "rotation", col = c("black", "grey20", "grey40", "grey60", "grey80"),
                         arrow.width = 0.6, n = 20, theta = 0.2, barblen = 0.03,
@@ -94,20 +98,20 @@ plot.dmirt <- function (x, constructs = FALSE, profiles = NULL, hide = FALSE, it
     ax <- x$dir.vec
     low <- as.data.frame(ax[1], drop = FALSE)
     hig <- as.data.frame(ax[length(ax)], drop = FALSE)
-    xaxis.min <- min(low[,1])*axis.fac
-    xaxis.max <- max(hig[,1])*axis.fac
-    yaxis.min <- min(low[,2])*axis.fac
-    yaxis.max <- max(hig[,2])*axis.fac
-    zaxis.min <- min(low[,3])*axis.fac
-    zaxis.max <- max(hig[,3])*axis.fac
+    xaxis.min <- min(low[,1])*axis.scalar
+    xaxis.max <- max(hig[,1])*axis.scalar
+    yaxis.min <- min(low[,2])*axis.scalar
+    yaxis.max <- max(hig[,2])*axis.scalar
+    zaxis.min <- min(low[,3])*axis.scalar
+    zaxis.max <- max(hig[,3])*axis.scalar
   } else{
     ax <- x$dir.vec
-    xaxis.min <- min(ax[,1])*axis.fac
-    xaxis.max <- max(ax[,1])*axis.fac
-    yaxis.min <- min(ax[,2])*axis.fac
-    yaxis.max <- max(ax[,2])*axis.fac
-    zaxis.min <- min(ax[,3])*axis.fac
-    zaxis.max <- max(ax[,3])*axis.fac
+    xaxis.min <- min(ax[,1])*axis.scalar
+    xaxis.max <- max(ax[,1])*axis.scalar
+    yaxis.min <- min(ax[,2])*axis.scalar
+    yaxis.max <- max(ax[,2])*axis.scalar
+    zaxis.min <- min(ax[,3])*axis.scalar
+    zaxis.max <- max(ax[,3])*axis.scalar
   }
   xaxis <- c(-abs(xaxis.min), abs(xaxis.max))
   yaxis <- c(-abs(yaxis.min), abs(yaxis.max))
@@ -143,20 +147,20 @@ plot.dmirt <- function (x, constructs = FALSE, profiles = NULL, hide = FALSE, it
           for (i in seq_along(items)){
             m <- items[i]*2-1
             sapply(seq_along(vec), function(i){
-              arrow3d(vec[[i, drop = FALSE]][m,], vec[[i, drop = FALSE]][m+1,], type = type, col = col[i], width = arrow.width, n = n, theta = theta, barblen = barblen)
+              arrow3d(vec[[i, drop = FALSE]][m,], vec[[i, drop = FALSE]][m+1,]*vector.scalar, type = type, col = col[i], width = arrow.width, n = n, theta = theta, barblen = barblen)
             })
           }
         } else {
           m <- items*2-1
           sapply(m, function(x){
-            arrow3d(vec[x,], vec[x+1,], type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
+            arrow3d(vec[x,], vec[x+1,]*vector.scalar, type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
         }
       } else {
         if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high") # format warning
         v <- vec[[diff.level]]
         m <- items*2-1
         sapply(m, function(i){
-          arrow3d(v[i,], v[i+1,], type = type, col = col[diff.level], width = arrow.width, n = n, theta = theta, barblen = barblen)
+          arrow3d(v[i,], v[i+1,]*vector.scalar, type = type, col = col[diff.level], width = arrow.width, n = n, theta = theta, barblen = barblen)
         })
       }
     }
@@ -167,7 +171,7 @@ plot.dmirt <- function (x, constructs = FALSE, profiles = NULL, hide = FALSE, it
         v <- as.data.frame(vec[d, drop = FALSE])
         color <- col[d]
         for (i in seq(from = 1, to = nrow(v), by = 2)){
-          arrow3d(v[i,], v[i+1,], type = type, col = color, width = arrow.width, n = n, theta = theta, barblen = c.barblen)
+          arrow3d(v[i,], v[i+1,]*vector.scalar, type = type, col = color, width = arrow.width, n = n, theta = theta, barblen = c.barblen)
         }
       }
     } else {
@@ -176,12 +180,12 @@ plot.dmirt <- function (x, constructs = FALSE, profiles = NULL, hide = FALSE, it
           v <- vec[[i]]
           color <- col[i]
           for (i in seq(from = 1, to = nrow(v), by=2)){
-            arrow3d(v[i,], v[i+1,], type = c.type, col = color, width = arrow.width, n = n, theta = theta, barblen = barblen)
+            arrow3d(v[i,], v[i+1,]*vector.scalar, type = c.type, col = color, width = arrow.width, n = n, theta = theta, barblen = barblen)
           }
         }
       } else {
         sapply(seq(from = 1, to = nrow(v), by=2), function(i){
-          arrow3d(vec[i,], vec[i+1,], type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
+          arrow3d(vec[i,], vec[i+1,]*vector.scalar, type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
       }
     }
     if (item.lab == TRUE && is.null(items)){
@@ -189,9 +193,9 @@ plot.dmirt <- function (x, constructs = FALSE, profiles = NULL, hide = FALSE, it
         if (is.null(item.names)){
           inames <- rownames(x$loadings)
           if (is.null(ncol(vec))){
-            max <-  x$dir.vec[[ncol(x$mdiff)]]
+            max <-  x$dir.vec[[ncol(x$mdiff)]]*vector.scalar
           } else {
-            max <-  x$dir.vec
+            max <-  x$dir.vec*vector.scalar
           }
           sapply(seq(nrow(x$mdisc)), function(i){
             text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(inames[i]), color = axis.col,
@@ -202,9 +206,9 @@ plot.dmirt <- function (x, constructs = FALSE, profiles = NULL, hide = FALSE, it
           if(length(item.names) < nrow(x$loadings)) warning("There are too few item labels")
           inames <- rownames(x$loadings)
           if (is.null(ncol(vec))){
-            max <-  x$dir.vec[[ncol(x$mdiff)]]
+            max <-  x$dir.vec[[ncol(x$mdiff)]]*vector.scalar
           } else {
-            max <-  x$dir.vec
+            max <-  x$dir.vec*vector.scalar
           }
           sapply(seq(nrow(x$mdisc)), function(i){
             text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.names[i]), color = axis.col,
@@ -213,7 +217,7 @@ plot.dmirt <- function (x, constructs = FALSE, profiles = NULL, hide = FALSE, it
         }
       } else {
         inames <- rownames(x$loadings)
-        dl <-  x$dir.vec[[diff.level]]
+        dl <-  x$dir.vec[[diff.level]]*vector.scalar
         sapply(seq(nrow(x$mdisc)), function(i){
           text3d(dl[(i*2),1],dl[(i*2),2], dl[(i*2),3], text = c(inames[i]), color = axis.col,
                  adj = adjustlab, size = 2)
@@ -251,7 +255,7 @@ plot.dmirt <- function (x, constructs = FALSE, profiles = NULL, hide = FALSE, it
         }
       } else {
         if (is.null(item.names)){
-          dl <-  x$dir.vec[[diff.level]]
+          dl <-  x$dir.vec[[diff.level]]*vector.scalar
           inames <- rownames(x$loadings)
           sapply(seq_along(items), function(i){
             m <- items[i]
@@ -259,7 +263,7 @@ plot.dmirt <- function (x, constructs = FALSE, profiles = NULL, hide = FALSE, it
                    adj = adjustlab, size = 2)
           })
         } else {
-          dl <-  as.data.frame(x$dir.vec[diff.level], drop = FALSE)
+          dl <-  as.data.frame(x$dir.vec[diff.level], drop = FALSE)*vector.scalar
           sapply(seq_along(items), function(i){
             m <- items[i]
             text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(item.names[i]), color = axis.col,
@@ -273,11 +277,11 @@ plot.dmirt <- function (x, constructs = FALSE, profiles = NULL, hide = FALSE, it
     if (is.null(x$constructs)) warning("3D mirt object does not contain any constructs")
     cvec <- x$c.vec
     sapply(seq(from = 1, to = nrow(cvec), by=2), function(x){
-      arrow3d(cvec[x,], cvec[x+1,], type = c.type, col = c.col, width = c.arrow.width, n = c.n, theta = c.theta, barblen = c.barblen)
+      arrow3d(cvec[x,]*con.scalar[1], cvec[x+1,]*con.scalar[2], type = c.type, col = c.col, width = c.arrow.width, n = c.n, theta = c.theta, barblen = c.barblen)
     })
     if (!is.null(construct.lab) && constructs == TRUE){
       if(!length(construct.lab) <= nrow(x$c.vec)) warning("There are more construct labels than constructs")
-      clab <-  x$c.vec
+      clab <-  x$c.vec*con.scalar[2]
       sapply(seq(nrow(x$c.dir.cos)), function(i){
         text3d(clab[(i*2),1],clab[(i*2),2], clab[(i*2),3], text = c(construct.lab[i]), color = axis.col,
                adj = adjustlab, size = 2)
