@@ -16,8 +16,8 @@
 #'
 #'
 #' @examples
+#' \dontrun{
 #' # Preparation: Fitting a three dimensional graded response model
-#'
 #' library(mirt)
 #' spec <- ' F1 = 1-10
 #'           F2 = 1-10
@@ -34,14 +34,16 @@
 #'           FIXED=(I_30,a3) '
 #'
 #'
-#' mod1 <- mirt(x, spec, itemtype='graded', SE=T, method = 'QMCEM')
+#' mod1 <- mirt(x, spec, itemtype='graded', SE=TRUE, method = 'QMCEM')
 #'
-#' # Assign data frame with factor loadings (column 1-3) and difficulty parameters (column 4-7) from mod1
-#' d <- data.frame(mirt::coef(mod1, simplify=T)$'items'[,1:7])
+#' # Assign data frame with factor loadings (column 1-3)
+#' # and difficulty parameters (column 4-7) from mod1
+#' d <- data.frame(mirt::coef(mod1, simplify=TRUE)$'items'[,1:7])
 #'
 #' # Estimation with dmirt(), in this case including nested lists for constructs
 #' c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
 #' g <- dmirt(d, c)
+#' }
 dmirt <- function(x, constructs = NULL){
   # Warning for format
   if(!is.data.frame(x) && !is.matrix(x)) stop("Input object is not of type data frame or matrix")
@@ -99,7 +101,7 @@ dmirt <- function(x, constructs = NULL){
   dcos <- as.data.frame(dcos)
   colnames(dcos) <- c("D.Cos X", "D.Cos Y", "D.Cos Z")
   deg <- as.data.frame(deg, drop = FALSE)
-  colnames(deg) <- c("X°", "Y°", "Z°")
+  colnames(deg) <- c("Deg.X", "Deg.Y", "Deg.Z")
   mdiff <- as.data.frame(mdiff, drop = FALSE)
   sapply(ncol(mdiff), function(x){
     colnames(mdiff) <- paste("d", 1:x, sep = "")})
@@ -112,7 +114,7 @@ dmirt <- function(x, constructs = NULL){
     ncos <- as.data.frame(ncos, drop = FALSE)
     colnames(ncos) <- c("D.Cos X","D.Cos Y", "D.Cos Z")
     cdeg <- as.data.frame(cdeg, drop = FALSE)
-    colnames(cdeg) <- c("X°", "Y°", "Z°")
+    colnames(cdeg) <- c("Deg.X", "Deg.Y", "Deg.Z")
     dmirt <- list(loadings = a, mdisc = mdisc, dir.cos = dcos, degrees = deg, mdiff = mdiff,
                   dir.vec = dir.vec, c = constructs, c.dir.cos = ncos ,c.degrees = cdeg, c.vec = con)
   } else {
@@ -120,5 +122,6 @@ dmirt <- function(x, constructs = NULL){
                   dir.vec = dir.vec, ndiff)
   }
   class(dmirt) = "dmirt"
+  UseMethod("dmirt")
   dmirt
 }
