@@ -7,6 +7,8 @@
 \method{plot}{dmirt}(
   x,
   constructs = FALSE,
+  vec.scalar = 1,
+  con.scalars = c(1, 1),
   profiles = NULL,
   hide = FALSE,
   items = NULL,
@@ -19,7 +21,7 @@
   width.rgl.x = 1040,
   width.rgl.y = 1040,
   view = c(15, 20, 0.7),
-  axis.fac = 1.2,
+  axis.scalar = 1.2,
   axis.col = "black",
   axis.points = "black",
   points = TRUE,
@@ -49,13 +51,18 @@
   ellips = TRUE,
   CI.level = 0.95,
   ellips.col = "grey80",
-  ellips.alpha = 0.2
+  ellips.alpha = 0.2,
+  ...
 )
 }
 \arguments{
 \item{x}{S3 dmirt object}
 
-\item{constructs}{Logical, if construct vector arrows should be plotted. Default set to FALSE.}
+\item{constructs}{Logical, if construct vector arrows should be plotted. Default set to FALSE}
+
+\item{vec.scalar}{Scalar for changing item arrow length. Default is \code{vec.scalar = 1}.}
+
+\item{con.scalars}{Scalars, for values <0 and >0, for changing construct arrow length. Default is \code{con.scalars = c(1,1)}.}
 
 \item{profiles}{Data frame with coordinates for spheres representing respondents}
 
@@ -81,7 +88,7 @@
 
 \item{view}{Vector with polar coordinates and zoom factor for the \code{view3d} function. Default is \code{view = c(15,20, 0.7)}.}
 
-\item{axis.fac}{Scalar factor the length of all three axis in the 3D model. Default is \code{axis.fac = 1.2}.}
+\item{axis.scalar}{Scalar factor the length of all three axis in the 3D model. Default is \code{axis.fac = 1.2}.}
 
 \item{axis.col}{Color of axis for the \code{segment3D()}function, default is \code{axis.col = "Black"}.}
 
@@ -142,6 +149,8 @@
 \item{ellips.col}{Color of the ellipse from \code{ellipse3d()}. Default is \code{ellips.col = "grey80"}.}
 
 \item{ellips.alpha}{Opacity for the confidence region from \code{ellipse3d()}. Default is \code{ellips.alpha = 0.20}.}
+
+\item{...}{Any additional arguments to be passed to RGL}
 }
 \value{
 RGL graphical device.
@@ -157,6 +166,7 @@ More specifically, item location shows the items three dimensional level of diff
 difficulty and can therefore be said to show the difficulty range of an item. Moreover, the angle of the vector arrows shows the direction of optimal discrimination in the model. In turn, this indicates what traits, one up to three, the item can be said to describe. Lastly, the length of each vector arrows shows the strength of discrimination, in which longer arrows indicate higher discrimination. Short vector arrows are therefore signs of model violations.
 }
 \examples{
+\dontrun{
 # Preparation: Calculate dmirt estimates with constructs
 c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
 g <- dmirt(d, c)
@@ -167,7 +177,8 @@ plot.dmirt(g, constructs = TRUE)
 
 
 # Plot a selection of items from the model
-plot.dmirt(g, constructs = TRUE, items = c(1,3,4,6,8)))
+plot.dmirt(g, constructs = TRUE, items = c(1,3,4,6,8))
+
 
 
 # Export RGL device in consol
@@ -178,4 +189,5 @@ rglwidget(width = 1040, height = 1040)
 # Export RGL device to file
 plot.dmirt(g, constructs = TRUE) # ta bort dmirt?
 rgl.snapshot('RGLdevice.png', fmt = 'png')
+}
 }
