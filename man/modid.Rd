@@ -36,6 +36,7 @@ If these conditions cannot be meet the user is advised to proceed with caution s
 However, it is also important to recognize that the \code{modid} function gives suggestion to the model identification and there can be situations where the output from \code{modid} can not be used.
 }
 \examples{
+\dontrun{
 # Preparation: fit a factor model with number of factors set to 3
 library(psych)
 f <- fa(x, nfactors = 3, rotate = "oblimin", residuals = FALSE, SMC=FALSE)
@@ -46,4 +47,5 @@ z <- data.frame(f$loadings[,])
 
 # Perform identification estimation
 modid(z)
+}
 }
