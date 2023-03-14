@@ -4,16 +4,12 @@
 \alias{dmirt}
 \title{dmirt: Item Analysis using Descriptive 3D Item Response Theory}
 \usage{
-dmirt(x, constructs = NULL, max.norm = 1.1, min.norm = 0.6)
+dmirt(x, constructs = NULL)
 }
 \arguments{
 \item{x}{Data frame or matrix}
 
 \item{constructs}{Nested list or lists with integers indicating what items are part of what construct. Default is \code{constructs = NULL}.}
-
-\item{max.norm}{Scaling factor for the length of the construct arrow above center in the model. Default is \code{max.norm = 1.1}.}
-
-\item{min.norm}{Scaling factor for the length of the construct arrow below center in the model. Default is \code{min.norm = 0.6}.}
 }
 \value{
 S3 object
@@ -30,8 +26,8 @@ An important part of the analytically process is the model identification and th
 For more information on model identification please study the documentation included under \code{modid()}.
 }
 \examples{
+\dontrun{
 # Preparation: Fitting a three dimensional graded response model
-
 library(mirt)
 spec <- ' F1 = 1-10
           F2 = 1-10
@@ -48,12 +44,14 @@ spec <- ' F1 = 1-10
           FIXED=(I_30,a3) '
 
 
-mod1 <- mirt(x, spec, itemtype='graded', SE=T, method = 'QMCEM')
+mod1 <- mirt(x, spec, itemtype='graded', SE=TRUE, method = 'QMCEM')
 
-# Assign data frame with factor loadings (column 1-3) and difficulty parameters (column 4-7) from mod1
-d <- data.frame(mirt::coef(mod1, simplify=T)$'items'[,1:7])
+# Assign data frame with factor loadings (column 1-3)
+# and difficulty parameters (column 4-7) from mod1
+d <- data.frame(mirt::coef(mod1, simplify=TRUE)$'items'[,1:7])
 
 # Estimation with dmirt(), in this case including nested lists for constructs
 c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
 g <- dmirt(d, c)
+}
 }
