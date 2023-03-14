@@ -29,6 +29,7 @@
 #' However, it is also important to recognize that the `modid` function gives suggestion to the model identification and there can be situations where the output from `modid` can not be used.
 #'
 #' @examples
+#' \dontrun{
 #' # Preparation: fit a factor model with number of factors set to 3
 #' library(psych)
 #' f <- fa(x, nfactors = 3, rotate = "oblimin", residuals = FALSE, SMC=FALSE)
@@ -39,6 +40,7 @@
 #'
 #' # Perform identification estimation
 #' modid(z)
+#' }
 modid <- function(x, head = TRUE){
   if(!is.data.frame(x) && !is.matrix(x)) stop("Input object is not of type data frame or matrix")
   f <- NULL
