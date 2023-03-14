@@ -4,12 +4,10 @@
 \alias{summary.dmirt}
 \title{summary.dmirt}
 \usage{
-\method{summary}{dmirt}(x, digits = 4)
+\method{summary}{dmirt}(x)
 }
 \arguments{
 \item{x}{\code{dmirt()} S3 object}
-
-\item{digits}{number of digits to show in the output.}
 }
 \value{
 Lists # double check
@@ -18,13 +16,15 @@ Lists # double check
 The \code{summary.dmirt()} function presents a compressed output from the \code{dmirt()} S3 object.
 }
 \details{
-The user have option to reduce the number of digits in the output by varying the digits argument. The output presents one frame with item factor loadings, difficulty parameters the MDISC estimate for each item. This is followed by a frame with columns for the direction cosines and columns for the direction cosines transformed to degrees. If the S3 object contain constructs, an extra frame containing direction cosines and angles in degrees for the constructs will be included in the output.
+The output presents one frame with item factor loadings, difficulty parameters the MDISC estimate for each item. This is followed by a frame with columns for the direction cosines and columns for the direction cosines transformed to degrees. If the S3 object contain constructs, an extra frame containing direction cosines and angles in degrees for the constructs will be included in the output.
 }
 \examples{
+\dontrun{
 # Preparation
 #' c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
 g <- dmirt(d, c)
 
 # Call summary
 summary(g)
+}
 }
