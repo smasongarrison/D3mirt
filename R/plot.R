@@ -3,8 +3,8 @@
 #' @description The `plot.dmirt()`visualize the S3 `dmirt()` object in a 3D theta space. The plot function is based on [rgl] package for data visualization. Output consists of a RGL graphical device that can be exported with dedicated functions (see the examples section).
 #' @param x S3 dmirt object
 #' @param constructs Logical, if construct vector arrows should be plotted. Default set to FALSE
-#' @param vector.scalar
-#' @param con.scalar
+#' @param vec.scalar Scalar for changing item arrow length. Default is `vec.scalar = 1`.
+#' @param con.scalars Scalars, for values <0 and >0, for changing construct arrow length. Default is `con.scalars = c(1,1)`.
 #' @param profiles Data frame with coordinates for spheres representing respondents
 #' @param hide Logical, if items should be plotted. Default is `hide = FALSE`.
 #' @param items Optional. The user can input a list of integers indicating what item vector arrows will be visible while remaining items are only hidden.
@@ -48,8 +48,11 @@
 #' @param CI.level Level of confidence for `ellipse3d()`, default is `CI.level = 0.95`.
 #' @param ellips.col Color of the ellipse from `ellipse3d()`. Default is `ellips.col = "grey80"`.
 #' @param ellips.alpha Opacity for the confidence region from `ellipse3d()`. Default is `ellips.alpha = 0.20`.
+#' @param ... Any additional arguments to be passed to RGL
 #'
 #' @return RGL graphical device.
+#' @import rgl
+#' @importFrom stats cov
 #' @export
 #'
 #' @details The RGL device has orthogonal standardized axis centered at 0. The function allows plotting of all items, a selection of items as well as plotting a single item and adding constructs to the graphical output (see examples section). The user can also choose to plot one level of difficulty at a time if multiple levels of difficulty are used in the model. Item names are plotted by default but the user has the option of imputing new names for the items and include names for the constructs.
@@ -58,6 +61,7 @@
 #'More specifically, item location shows the items three dimensional level of difficulty. If Likert items are used, each item will have multiple level of
 #'difficulty and can therefore be said to show the difficulty range of an item. Moreover, the angle of the vector arrows shows the direction of optimal discrimination in the model. In turn, this indicates what traits, one up to three, the item can be said to describe. Lastly, the length of each vector arrows shows the strength of discrimination, in which longer arrows indicate higher discrimination. Short vector arrows are therefore signs of model violations.
 #' @examples
+#' \dontrun{
 #' # Preparation: Calculate dmirt estimates with constructs
 #' c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
 #' g <- dmirt(d, c)
@@ -68,7 +72,8 @@
 #'
 #'
 #' # Plot a selection of items from the model
-#' plot.dmirt(g, constructs = TRUE, items = c(1,3,4,6,8)))
+#' plot.dmirt(g, constructs = TRUE, items = c(1,3,4,6,8))
+#'
 #'
 #'
 #' # Export RGL device in consol
@@ -79,9 +84,8 @@
 #' # Export RGL device to file
 #' plot.dmirt(g, constructs = TRUE) # ta bort dmirt?
 #' rgl.snapshot('RGLdevice.png', fmt = 'png')
-#'
-#' Addera skalär för vektorlängd
-plot.dmirt <- function (x, constructs = FALSE, vector.scalar = 1, con.scalar = c(1,1), profiles = NULL, hide = FALSE, items = NULL, item.lab = TRUE, item.names = NULL, construct.lab = NULL, adjustlab = c(0.5, -0.8),
+#' }
+plot.dmirt <- function (x, constructs = FALSE, vec.scalar = 1, con.scalars = c(1,1), profiles = NULL, hide = FALSE, items = NULL, item.lab = TRUE, item.names = NULL, construct.lab = NULL, adjustlab = c(0.5, -0.8),
                         diff.level = NULL, background = "white",
                         width.rgl.x = 1040, width.rgl.y= 1040, view = c(15,20, 0.7), axis.scalar = 1.2, axis.col = "black", axis.points = "black",
                         points = TRUE, axis.ticks = TRUE, nticks = 8, title="", line = -5, x.lab = "X", y.lab="Y", z.lab="Z", show.plane = TRUE, plane.color = "grey80",
@@ -89,11 +93,11 @@ plot.dmirt <- function (x, constructs = FALSE, vector.scalar = 1, con.scalar = c
                         arrow.width = 0.6, n = 20, theta = 0.2, barblen = 0.03,
                         c.type = "rotation", c.col = "black", c.arrow.width = 0.6,
                         c.n = 20, c.theta = 0.2, c.barblen = 0.03, spheres.r = 0.05,
-                        sphere.col = "grey20", ellips = TRUE, CI.level = 0.95, ellips.col = "grey80", ellips.alpha = 0.20){
-  open3d()
-  par3d(windowRect = 50 + c( 0, 0, width.rgl.x, width.rgl.y))
-  bg3d(color = background)
-  view3d(theta = view[1], phi = view[2], zoom = view[3])
+                        sphere.col = "grey20", ellips = TRUE, CI.level = 0.95, ellips.col = "grey80", ellips.alpha = 0.20, ...){
+  rgl::open3d()
+  rgl::par3d(windowRect = 50 + c( 0, 0, width.rgl.x, width.rgl.y))
+  rgl::bg3d(color = background)
+  rgl::view3d(theta = view[1], phi = view[2], zoom = view[3])
   if (is.null(ncol(x$dir.vec))){
     ax <- x$dir.vec
     low <- as.data.frame(ax[1], drop = FALSE)
@@ -116,26 +120,26 @@ plot.dmirt <- function (x, constructs = FALSE, vector.scalar = 1, con.scalar = c
   xaxis <- c(-abs(xaxis.min), abs(xaxis.max))
   yaxis <- c(-abs(yaxis.min), abs(yaxis.max))
   zaxis <- c(-abs(zaxis.min), abs(yaxis.max))
-  segments3d(xaxis, c(0, 0), c(0, 0), color = axis.col)
-  segments3d(c(0, 0), yaxis, c(0, 0), color = axis.col)
-  segments3d(c(0, 0), c(0, 0), zaxis, color = axis.col)
+  rgl::segments3d(xaxis, c(0, 0), c(0, 0), color = axis.col)
+  rgl::segments3d(c(0, 0), yaxis, c(0, 0), color = axis.col)
+  rgl::segments3d(c(0, 0), c(0, 0), zaxis, color = axis.col)
   if (axis.ticks == TRUE){
-    axis3d('x', pos = c(0, 0, 0), ticks = TRUE, nticks=nticks)
-    axis3d('y', pos = c(0, 0, 0), ticks = TRUE, nticks=nticks)
-    axis3d('z',pos = c(0, 0, 0), ticks = TRUE, nticks=nticks)
+    rgl::axis3d('x', pos = c(0, 0, 0), ticks = TRUE, nticks=nticks)
+    rgl::axis3d('y', pos = c(0, 0, 0), ticks = TRUE, nticks=nticks)
+    rgl::axis3d('z',pos = c(0, 0, 0), ticks = TRUE, nticks=nticks)
   }
   if (points == TRUE){
     axes <- rbind(c(xaxis[2], 0, 0), c(0, yaxis[2], 0),
                   c(0, 0, zaxis[2]))
-    points3d(axes, color = axis.points, size = 3)
+    rgl::points3d(axes, color = axis.points, size = 3)
   }
-  text3d(axes, text = c(x.lab, y.lab, z.lab), color = axis.col,
+  rgl::text3d(axes, text = c(x.lab, y.lab, z.lab), color = axis.col,
          adj = c(0.5, -0.8), size = 2)
-  title3d(main= title,line= line)
+  rgl::title3d(main= title,line= line)
   if (show.plane == TRUE) {
-    material3d(color = plane.color)
+    rgl::material3d(color = plane.color)
     xlim <- xaxis/1.5; zlim <- zaxis /1.5
-    quads3d( x = rep(xlim, each = 2), y = c(0, 0, 0, 0),
+    rgl::quads3d( x = rep(xlim, each = 2), y = c(0, 0, 0, 0),
              z = c(zlim[1], zlim[2], zlim[2], zlim[1]))
   }
   if (hide == FALSE){
@@ -147,20 +151,20 @@ plot.dmirt <- function (x, constructs = FALSE, vector.scalar = 1, con.scalar = c
           for (i in seq_along(items)){
             m <- items[i]*2-1
             sapply(seq_along(vec), function(i){
-              arrow3d(vec[[i, drop = FALSE]][m,], vec[[i, drop = FALSE]][m+1,]*vector.scalar, type = type, col = col[i], width = arrow.width, n = n, theta = theta, barblen = barblen)
+              rgl::arrow3d(vec[[i, drop = FALSE]][m,], vec[[i, drop = FALSE]][m+1,]*vec.scalar, type = type, col = col[i], width = arrow.width, n = n, theta = theta, barblen = barblen)
             })
           }
         } else {
           m <- items*2-1
           sapply(m, function(x){
-            arrow3d(vec[x,], vec[x+1,]*vector.scalar, type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
+            rgl::arrow3d(vec[x,], vec[x+1,]*vec.scalar, type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
         }
       } else {
         if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high") # format warning
         v <- vec[[diff.level]]
         m <- items*2-1
         sapply(m, function(i){
-          arrow3d(v[i,], v[i+1,]*vector.scalar, type = type, col = col[diff.level], width = arrow.width, n = n, theta = theta, barblen = barblen)
+          rgl::arrow3d(v[i,], v[i+1,]*vec.scalar, type = type, col = col[diff.level], width = arrow.width, n = n, theta = theta, barblen = barblen)
         })
       }
     }
@@ -171,7 +175,7 @@ plot.dmirt <- function (x, constructs = FALSE, vector.scalar = 1, con.scalar = c
         v <- as.data.frame(vec[d, drop = FALSE])
         color <- col[d]
         for (i in seq(from = 1, to = nrow(v), by = 2)){
-          arrow3d(v[i,], v[i+1,]*vector.scalar, type = type, col = color, width = arrow.width, n = n, theta = theta, barblen = c.barblen)
+          rgl::arrow3d(v[i,], v[i+1,]*vec.scalar, type = type, col = color, width = arrow.width, n = n, theta = theta, barblen = c.barblen)
         }
       }
     } else {
@@ -180,12 +184,12 @@ plot.dmirt <- function (x, constructs = FALSE, vector.scalar = 1, con.scalar = c
           v <- vec[[i]]
           color <- col[i]
           for (i in seq(from = 1, to = nrow(v), by=2)){
-            arrow3d(v[i,], v[i+1,]*vector.scalar, type = c.type, col = color, width = arrow.width, n = n, theta = theta, barblen = barblen)
+            rgl::arrow3d(v[i,], v[i+1,]*vec.scalar, type = c.type, col = color, width = arrow.width, n = n, theta = theta, barblen = barblen)
           }
         }
       } else {
         sapply(seq(from = 1, to = nrow(v), by=2), function(i){
-          arrow3d(vec[i,], vec[i+1,]*vector.scalar, type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
+          rgl::arrow3d(vec[i,], vec[i+1,]*vec.scalar, type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
       }
     }
     if (item.lab == TRUE && is.null(items)){
@@ -193,12 +197,12 @@ plot.dmirt <- function (x, constructs = FALSE, vector.scalar = 1, con.scalar = c
         if (is.null(item.names)){
           inames <- rownames(x$loadings)
           if (is.null(ncol(vec))){
-            max <-  x$dir.vec[[ncol(x$mdiff)]]*vector.scalar
+            max <-  x$dir.vec[[ncol(x$mdiff)]]*vec.scalar
           } else {
-            max <-  x$dir.vec*vector.scalar
+            max <-  x$dir.vec*vec.scalar
           }
           sapply(seq(nrow(x$mdisc)), function(i){
-            text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(inames[i]), color = axis.col,
+            rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(inames[i]), color = axis.col,
                    adj = adjustlab, size = 2)
           })
         } else {
@@ -206,20 +210,20 @@ plot.dmirt <- function (x, constructs = FALSE, vector.scalar = 1, con.scalar = c
           if(length(item.names) < nrow(x$loadings)) warning("There are too few item labels")
           inames <- rownames(x$loadings)
           if (is.null(ncol(vec))){
-            max <-  x$dir.vec[[ncol(x$mdiff)]]*vector.scalar
+            max <-  x$dir.vec[[ncol(x$mdiff)]]*vec.scalar
           } else {
-            max <-  x$dir.vec*vector.scalar
+            max <-  x$dir.vec*vec.scalar
           }
           sapply(seq(nrow(x$mdisc)), function(i){
-            text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.names[i]), color = axis.col,
+            rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.names[i]), color = axis.col,
                    adj = adjustlab, size = 2)
           } )
         }
       } else {
         inames <- rownames(x$loadings)
-        dl <-  x$dir.vec[[diff.level]]*vector.scalar
+        dl <-  x$dir.vec[[diff.level]]*vec.scalar
         sapply(seq(nrow(x$mdisc)), function(i){
-          text3d(dl[(i*2),1],dl[(i*2),2], dl[(i*2),3], text = c(inames[i]), color = axis.col,
+          rgl::text3d(dl[(i*2),1],dl[(i*2),2], dl[(i*2),3], text = c(inames[i]), color = axis.col,
                  adj = adjustlab, size = 2)
         })
       }
@@ -236,7 +240,7 @@ plot.dmirt <- function (x, constructs = FALSE, vector.scalar = 1, con.scalar = c
           }
           sapply(seq_along(items), function(i){
             m <- items[i]
-            text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(inames[m]), color = axis.col,
+            rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(inames[m]), color = axis.col,
                    adj = adjustlab, size = 2)
           })
         } else {
@@ -249,24 +253,24 @@ plot.dmirt <- function (x, constructs = FALSE, vector.scalar = 1, con.scalar = c
           }
           sapply(seq_along(items), function(i){
             m <- items[i]
-            text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(item.names[i]), color = axis.col,
+            rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(item.names[i]), color = axis.col,
                    adj = adjustlab, size = 2)
           })
         }
       } else {
         if (is.null(item.names)){
-          dl <-  x$dir.vec[[diff.level]]*vector.scalar
+          dl <-  x$dir.vec[[diff.level]]*vec.scalar
           inames <- rownames(x$loadings)
           sapply(seq_along(items), function(i){
             m <- items[i]
-            text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(inames[m]), color = axis.col,
+            rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(inames[m]), color = axis.col,
                    adj = adjustlab, size = 2)
           })
         } else {
-          dl <-  as.data.frame(x$dir.vec[diff.level], drop = FALSE)*vector.scalar
+          dl <-  as.data.frame(x$dir.vec[diff.level], drop = FALSE)*vec.scalar
           sapply(seq_along(items), function(i){
             m <- items[i]
-            text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(item.names[i]), color = axis.col,
+            rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(item.names[i]), color = axis.col,
                    adj = adjustlab, size = 2)
           })
         }
@@ -277,13 +281,13 @@ plot.dmirt <- function (x, constructs = FALSE, vector.scalar = 1, con.scalar = c
     if (is.null(x$constructs)) warning("3D mirt object does not contain any constructs")
     cvec <- x$c.vec
     sapply(seq(from = 1, to = nrow(cvec), by=2), function(x){
-      arrow3d(cvec[x,]*con.scalar[1], cvec[x+1,]*con.scalar[2], type = c.type, col = c.col, width = c.arrow.width, n = c.n, theta = c.theta, barblen = c.barblen)
+      rgl::arrow3d(cvec[x,]*con.scalars[1], cvec[x+1,]*con.scalars[2], type = c.type, col = c.col, width = c.arrow.width, n = c.n, theta = c.theta, barblen = c.barblen)
     })
     if (!is.null(construct.lab) && constructs == TRUE){
       if(!length(construct.lab) <= nrow(x$c.vec)) warning("There are more construct labels than constructs")
-      clab <-  x$c.vec*con.scalar[2]
+      clab <-  x$c.vec*con.scalars[2]
       sapply(seq(nrow(x$c.dir.cos)), function(i){
-        text3d(clab[(i*2),1],clab[(i*2),2], clab[(i*2),3], text = c(construct.lab[i]), color = axis.col,
+        rgl::text3d(clab[(i*2),1],clab[(i*2),2], clab[(i*2),3], text = c(construct.lab[i]), color = axis.col,
                adj = adjustlab, size = 2)
       })
     }
@@ -293,11 +297,11 @@ plot.dmirt <- function (x, constructs = FALSE, vector.scalar = 1, con.scalar = c
     x <- profiles[,1]
     y <- profiles[,2]
     z <- profiles[,3]
-    spheres3d(x,y,z, radius = spheres.r, color = sphere.col) # double check
+    rgl::spheres3d(x,y,z, radius = spheres.r, color = sphere.col) # double check
     if (ellips == TRUE){
-      ellips <- ellipse3d(cov(cbind(x,y,z)),
+      ellips <- rgl::ellipse3d(cov(cbind(x,y,z)),
                           centre=c(mean(x), mean(y), mean(z)), level = CI.level)
-      shade3d(ellips, col = ellips.col, alpha = ellips.alpha)
+      rgl::shade3d(ellips, col = ellips.col, alpha = ellips.alpha)
     }
   }
 }
