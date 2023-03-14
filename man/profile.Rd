@@ -39,12 +39,13 @@ profile(
 List of factor scores from the \code{mirt()} S4 object.
 }
 \description{
-\code{profile()} is a wrapper function to \code{fscores()} from the \link{mirt} package.
+\code{profile()} is a wrapper function to \verb{[mirt::fscores()]} from the \code{mirt} package that use using \verb{[stats::quantile()]} to select respondent rows. The returned obejct can then be used to plot respondents based on factor scores in the \verb{[D3mirt::plot()]}function.
 }
 \details{
 Respondents factor scores are selected row wise based on the logical condition set by user. Factor scores can then be used to plot respondents as spheres in the 3D \code{dmirt()} object. Please consult documentation on \code{\link[mirt:fscores]{mirt::fscores()}} for more details and available options regarding the \code{fscores()} function.
 }
 \examples{
+\dontrun{
 # x is the fitted three dimensional S4 mirt object
 # y is a data frame containing scores from the same respondents
 p <- profile(x, y, column = 20, condition = ">", prob = .75)
@@ -52,4 +53,5 @@ p <- profile(x, y, column = 20, condition = ">", prob = .75)
 
 # To plot with the D3mirt plot function while hiding item vectors
 plot(x, profiles = p, hide = TRUE)
+}
 }
