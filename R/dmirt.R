@@ -60,14 +60,18 @@ dmirt <- function(x, constructs = NULL){
   md <- mdisc%*%matrix(rep(1,3), nrow=1, ncol=3)
   dcos <- as.matrix(a/md, ncol = 3)
   deg <- acos(dcos)*(180/pi)
-  vector <- NULL
+  vector1 <- NULL
+  vector2 <- NULL
   for (i in seq_len(ndiff)){
     d <- mdiff[,i]
     distance <- -d/mdisc
     xyz <- distance*dcos
-    uvw <- mdisc*dcos+xyz
-    vec <- do.call(rbind,list(xyz,uvw))[order(sequence(sapply(list(xyz,uvw),nrow))),]
-    vector <- matrix(rbind(vector,vec), ncol = 3)
+    uvw1 <- mdisc*dcos+xyz
+    uvw2 <- 1*dcos+xyz
+    vec1 <- do.call(rbind,list(xyz,uvw1))[order(sequence(sapply(list(xyz,uvw1),nrow))),]
+    vector1 <- matrix(rbind(vector1,vec1), ncol = 3)
+    vec2 <- do.call(rbind,list(xyz,uvw2))[order(sequence(sapply(list(xyz,uvw2),nrow))),]
+    vector2 <- matrix(rbind(vector2,vec2), ncol = 3)
   }
   if (!is.null(constructs)){
     if(!is.list(constructs)) stop("Construct object must be of type list")
@@ -106,9 +110,11 @@ dmirt <- function(x, constructs = NULL){
   sapply(ncol(mdiff), function(x){
     colnames(mdiff) <- paste("d", 1:x, sep = "")})
   if (ndiff == 1){
-    dir.vec = vector
+    dir.vec <- vector1
+    scal.vec <- vector2
   } else {
-    dir.vec = split.data.frame(vector, cut(seq_len(nrow(vector)), ndiff))
+    dir.vec <- split.data.frame(vector1, cut(seq_len(nrow(vector1)), ndiff))
+    scal.vec <- split.data.frame(vector2, cut(seq_len(nrow(vector2)), ndiff))
   }
   if (!is.null(constructs)){
     ncos <- as.data.frame(ncos, drop = FALSE)
@@ -116,12 +122,11 @@ dmirt <- function(x, constructs = NULL){
     cdeg <- as.data.frame(cdeg, drop = FALSE)
     colnames(cdeg) <- c("Deg.X", "Deg.Y", "Deg.Z")
     dmirt <- list(loadings = a, mdisc = mdisc, dir.cos = dcos, degrees = deg, mdiff = mdiff,
-                  dir.vec = dir.vec, c = constructs, c.dir.cos = ncos ,c.degrees = cdeg, c.vec = con)
+                  dir.vec = dir.vec, scal.vec = scal.vec, c = constructs, c.dir.cos = ncos ,c.degrees = cdeg, c.vec = con)
   } else {
     dmirt <- list(loadings = a, mdisc = mdisc, dir.cos = dcos, degrees = deg, mdiff = mdiff,
-                  dir.vec = dir.vec, ndiff)
+                  dir.vec = dir.vec, scal.vec = scal.vec)
   }
   class(dmirt) = "dmirt"
-  UseMethod("dmirt")
   dmirt
 }
