@@ -18,7 +18,7 @@
 #' # Call summary
 #' summary(g)
 #' }
-summary.D3dmirt <- function(object, ..., digits = 4){
+summary.dmirt <- function(object, ..., digits = 4){
   tab1 <- as.data.frame(object$loadings, drop = FALSE)
   tab2 <- as.data.frame(object$mdiff, drop = FALSE)
   tab3 <- as.data.frame(object$mdisc, drop = FALSE)
