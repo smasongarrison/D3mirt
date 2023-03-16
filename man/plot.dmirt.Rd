@@ -6,8 +6,8 @@
 \usage{
 \method{plot}{dmirt}(
   x,
+  scale = FALSE,
   constructs = FALSE,
-  vec.scalar = 1,
   con.scalars = c(1, 1),
   profiles = NULL,
   hide = FALSE,
@@ -58,11 +58,11 @@
 \arguments{
 \item{x}{S3 dmirt object}
 
+\item{scale}{Logical, if item vector arrow length should visualize the MDISC estimates. If set to FALSE, vector arrow length will be uniform by adding the direction cosines times one for every level of multidimensional difficulty. Default is \code{scale = FALSE}.}
+
 \item{constructs}{Logical, if construct vector arrows should be plotted. Default set to FALSE}
 
-\item{vec.scalar}{Scalar for changing item arrow length. Default is \code{vec.scalar = 1}.}
-
-\item{con.scalars}{Scalars, for values <0 and >0, for changing construct arrow length. Default is \code{con.scalars = c(1,1)}.}
+\item{con.scalars}{Set of scalars for adjusting construct arrow length. The first positive numeric adjusts the length in the negative direction and the second positive numeric adjusts the length in the positive direction. Default is \code{con.scalars = c(1,1)}.}
 
 \item{profiles}{Data frame with coordinates for spheres representing respondents}
 
