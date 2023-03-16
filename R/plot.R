@@ -48,7 +48,7 @@
 #' @param CI.level Level of confidence for `ellipse3d()`, default is `CI.level = 0.95`.
 #' @param ellips.col Color of the ellipse from `ellipse3d()`. Default is `ellips.col = "grey80"`.
 #' @param ellips.alpha Opacity for the confidence region from `ellipse3d()`. Default is `ellips.alpha = 0.20`.
-#' @param ... Any additional arguments to be passed to RGL
+#' @param ... Additional arguments to be passed to RGL or methods.
 #'
 #' @return RGL graphical device.
 #' @import rgl
@@ -85,7 +85,7 @@
 #' plot.dmirt(g, constructs = TRUE) # ta bort dmirt?
 #' rgl.snapshot('RGLdevice.png', fmt = 'png')
 #' }
-plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,1), profiles = NULL, hide = FALSE, items = NULL, item.lab = TRUE, item.names = NULL, construct.lab = NULL, adjustlab = c(0.5, -0.8),
+plot.D3mirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,1), profiles = NULL, hide = FALSE, items = NULL, item.lab = TRUE, item.names = NULL, construct.lab = NULL, adjustlab = c(0.5, -0.8),
                         diff.level = NULL, background = "white",
                         width.rgl.x = 1040, width.rgl.y= 1040, view = c(15,20, 0.7), axis.scalar = 1.2, axis.col = "black", axis.points = "black",
                         points = TRUE, axis.ticks = TRUE, nticks = 8, title="", line = -5, x.lab = "X", y.lab="Y", z.lab="Z", show.plane = TRUE, plane.color = "grey80",
