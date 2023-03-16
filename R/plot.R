@@ -85,7 +85,7 @@
 #' plot.dmirt(g, constructs = TRUE) # ta bort dmirt?
 #' rgl.snapshot('RGLdevice.png', fmt = 'png')
 #' }
-plot.D3mirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,1), profiles = NULL, hide = FALSE, items = NULL, item.lab = TRUE, item.names = NULL, construct.lab = NULL, adjustlab = c(0.5, -0.8),
+plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,1), profiles = NULL, hide = FALSE, items = NULL, item.lab = TRUE, item.names = NULL, construct.lab = NULL, adjustlab = c(0.5, -0.8),
                         diff.level = NULL, background = "white",
                         width.rgl.x = 1040, width.rgl.y= 1040, view = c(15,20, 0.7), axis.scalar = 1.2, axis.col = "black", axis.points = "black",
                         points = TRUE, axis.ticks = TRUE, nticks = 8, title="", line = -5, x.lab = "X", y.lab="Y", z.lab="Z", show.plane = TRUE, plane.color = "grey80",
