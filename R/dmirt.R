@@ -67,10 +67,10 @@ dmirt <- function(x, constructs = NULL){
     distance <- -d/mdisc
     xyz <- distance*dcos
     uvw1 <- mdisc*dcos+xyz
-    uvw2 <- 1*dcos+xyz
+    uvw2 <- dcos+xyz
     vec1 <- do.call(rbind,list(xyz,uvw1))[order(sequence(sapply(list(xyz,uvw1),nrow))),]
-    vector1 <- matrix(rbind(vector1,vec1), ncol = 3)
     vec2 <- do.call(rbind,list(xyz,uvw2))[order(sequence(sapply(list(xyz,uvw2),nrow))),]
+    vector1 <- matrix(rbind(vector1,vec1), ncol = 3)
     vector2 <- matrix(rbind(vector2,vec2), ncol = 3)
   }
   if (!is.null(constructs)){
@@ -90,8 +90,8 @@ dmirt <- function(x, constructs = NULL){
       }
       cscos <- matrix(colSums(cos), ncol = 3)
       cdcos <- 1/sqrt(rowSums(cscos^2))*cscos
-      maxnorm <- (1.1*max(vector))*cdcos
-      minnorm <- (0.6*min(vector))*cdcos
+      maxnorm <- (1.1*max(vector1))*cdcos
+      minnorm <- (0.6*min(vector1))*cdcos
       con <- matrix(rbind(con,rbind(minnorm, maxnorm)), ncol = 3)
       ncos <- matrix(rbind(ncos,cdcos), ncol = 3)
       cdeg <- matrix(rbind(cdeg,(acos(cdcos)*(180/pi))), ncol = 3)
