@@ -127,6 +127,6 @@ dmirt <- function(x, constructs = NULL){
     dmirt <- list(loadings = a, mdisc = mdisc, dir.cos = dcos, degrees = deg, mdiff = mdiff,
                   dir.vec = dir.vec, scal.vec = scal.vec)
   }
-  class(dmirt) = "D3dmirt"
+  class(dmirt) <- "dmirt"
   dmirt
 }
