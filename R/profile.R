@@ -23,7 +23,7 @@
 #' \dontrun{
 #' # mod1 is the fitted three dimensional S4 mirt object
 #' # y is a data frame containing scores from the same respondents
-#' # The function call states that rows containing scores higher than .75, of all scores in column 20 from data frame y, will be selected
+#' # Condition: scores >.75, of all scores in column 20 in data frame y
 #' p <- profile(mod1, y, column = 20, condition = ">", prob = .75)
 #'
 #'
@@ -36,7 +36,7 @@ profile <- function(x, y = NULL, column = 1, condition = c(">"), prob = .75, met
   if (!is.null(y)){
     if (isS4(y)){
       if(column > 3) warning("Column argument set to high, must be 3 or less for S4 objects")
-      y <- as.data.frame(mirt::fscores(y, method = method, full.scores= full.scores, full.scores.SE = full.scores.SE, QMC = QMC), drop = FALSE)
+      y <- as.data.frame(mirt::fscores(y, method = method, ffull.scores= TRUE, full.scores.SE = FALSE, QMC = QMC), drop = FALSE)
       y <- as.matrix(y[,column, drop = FALSE])
     } else {
       if(!is.data.frame(y) && !is.matrix(y)) stop("Input object is not of type data frame or matrix")
