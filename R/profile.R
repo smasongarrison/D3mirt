@@ -1,38 +1,42 @@
-#' profile: Selection of Respondents for Plotting
-#' @description `profile()` is a wrapper function to `[mirt::fscores()]` from the `mirt` package that use using `[stats::quantile()]` to select respondent rows. The returned obejct can then be used to plot respondents based on factor scores in the `[D3mirt::plot()]`function.
-#' @param x S4 mirt object.
-#' @param y S4 mirt object or data frame with respondents scores.
-#' @param column Select what column in the input for y to use for selection of respondent rows. Default is 1.
-#' @param condition String input on what logical condition to use for filtering respondents. Options are: ">", "<", ">=", and "<=" and default is set to ">".
-#' @param prob Indicate what probability to use as cut off, default is .75.
-#' @param method The method used to extract respondent factor scores from the S4 mirt object. Default is "EAP".
-#' @param full.scores Logical, if full scores from the `fscores()` function should be printed. Default is TRUE.
-#' @param full.scores.SE Logical, if standard errors from the `fscores()` function should be printed. Default is FALSE.
-#' @param QMC Integration method for extracting respondents factor scores from the `fscores()` function. Default is "QMC".
+#' D3mirt Profile Analysis
 #'
-#' @return List of factor scores from the `mirt()` S4 object.
-#' @importFrom stats cov
+#' @description `profile()` is a wrapper function to [mirt::fscores()] (Chalmers, 2012) and use [stats::quantile()] to select respondent by row.
+#' @param x A three-dimensional S4 [mirt::mirt] object, fitted using descriptive multidimensional item response theory modeling (Reckase, 2009)
+#' @param y A S4 [mirt::mirt] object of the same type as above, or a data frame with respondent's scores.
+#' @param column Numeric indicating what column to use regarding the input for y. Default is `column = 1`.
+#' @param condition String indicating what logical condition to use for filtering. Options are: `">"`, `"<"`, `">="`, and `"<="`. Default is `condition = >`.
+#' @param prob Decimal indicating what probability to use as cut-off. Default is `prob = .75`.
+#' @param method The method used to extract respondent factor scores with [mirt::fscores()]. Default is `method = EAP`.
+#' @param QMC Logical, if Quasi-Monte Carlo integration should be used for extracting respondents' factor scores from [mirt::fscores()]. Default is `QMC = TRUE`.
+#'
+#' @return List of factor scores
 #' @export
+#' @importFrom stats cov
 #'
-#' @details Respondents factor scores are selected row wise based on the logical condition set by user. Factor scores can then be used to plot respondents as spheres in the 3D `dmirt()` object. Please consult documentation on [mirt::fscores()] for more details and available options regarding the `fscores()` function.
+#' @details The returned object can be used to plot respondents' scores with [D3mirt::plot()], using factor scores as coordinates in the graphical output. Please consult the documentation on [mirt::fscores()] for more details and available options regarding the `fscores()` function.
+#'
+#' @author Erik Forsberg
+#' @references Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
+#' @references Reckase, M. D. (2009). \emph{Multidimensional Item Response Theory}. Springer.
 #'
 #' @examples
 #' \dontrun{
-#' # x is the fitted three dimensional S4 mirt object
+#' # mod1 is the fitted three dimensional S4 mirt object
 #' # y is a data frame containing scores from the same respondents
-#' p <- profile(x, y, column = 20, condition = ">", prob = .75)
+#' # The function call states that rows containing scores higher than .75, of all scores in column 20 from data frame y, will be selected
+#' p <- profile(mod1, y, column = 20, condition = ">", prob = .75)
 #'
 #'
-#' # To plot with the D3mirt plot function while hiding item vectors
+#' # Plot model with the D3mirt plot function while hiding item vectors
 #' plot(x, profiles = p, hide = TRUE)
 #' }
-profile <- function(x, y = NULL, column = 1, condition = c(">"), prob = .75, method = "EAP", full.scores = TRUE, full.scores.SE = FALSE, QMC = TRUE){
+profile <- function(x, y = NULL, column = 1, condition = c(">"), prob = .75, method = "EAP", QMC = TRUE){
   if(!isS4(x)) warning("x must be S4 mirt object from mirt package")
-  m <- as.data.frame(mirt::fscores(x, method = method, full.scores= full.scores, full.scores.SE = full.scores.SE, QMC=QMC), drop = FALSE)
+  m <- as.data.frame(mirt::fscores(x, method = method, full.scores= TRUE, full.scores.SE = FALSE, QMC = QMC), drop = FALSE)
   if (!is.null(y)){
     if (isS4(y)){
       if(column > 3) warning("Column argument set to high, must be 3 or less for S4 objects")
-      y <- as.data.frame(mirt::fscores(y, method = method, full.scores= full.scores, full.scores.SE = full.scores.SE, QMC=QMC), drop = FALSE)
+      y <- as.data.frame(mirt::fscores(y, method = method, full.scores= full.scores, full.scores.SE = full.scores.SE, QMC = QMC), drop = FALSE)
       y <- as.matrix(y[,column, drop = FALSE])
     } else {
       if(!is.data.frame(y) && !is.matrix(y)) stop("Input object is not of type data frame or matrix")
