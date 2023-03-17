@@ -2,50 +2,65 @@
 % Please edit documentation in R/modid.R
 \name{modid}
 \alias{modid}
-\title{modid: A Model identification Helper for D3mirt}
+\title{D3mirt Model Identification}
 \usage{
 modid(x, head = TRUE)
 }
 \arguments{
-\item{x}{A data frame or matrix with factor loadings.}
+\item{x}{A data frame with factor loadings}
 
 \item{head}{Logical, if output should contain first five rows per factor only. Default is \code{head = TRUE}.}
 }
 \value{
-Lists of factor loadings and absolute sum scores.
+Lists of factor loadings and absolute sum scores, sorted by the latter.
 }
 \description{
-The function \code{modid()} can assist with the model identification step in the D3mirt procedure. This results in the selection of two items from the item set under investigation that are used when fitting the graded response model with the \code{\link[mirt:mirt]{mirt::mirt}} function. The S4 object that \code{mirt} returns is then used in \code{dmirt()} from the \code{D3mirt}package that calculates all necessary estimates for the descriptive 3D IRT analysis.
+The function \code{modid()} can assist with the model identification of the D3mirt object.
+The model identification procedure in descriptive multidimensional item repose theory consists of the user selecting two items from the item set or scale that best meet the assumption of orthogonality (Reckase, 2009).
+These items are then used for setting the orthogonal axes when fitting the graded response model with \code{\link[mirt:mirt]{mirt::mirt}} (Chalmers, 2012).
 }
 \details{
-To visualize the D3mirt measurement model in 3D space it is necessary to investigate if it is empirically possible to create the necessary orthogonal axis in the model.
-For a 3D model, this means that at least two items must be selected. The first item should not show any systematic relation to the remaining two axis, and the second item should not be systematically related to the third axis.
-In praxis, this implies that item one, orthogonal the y and z axis, will identify the x-axis. Next, item two, orthogonal to the z-axis, will identify the y-axis, while the z-axis remains free.
+Before performing descriptive item response theory analysis it is necessary to investigate if the item score patterns can be used to create empirically valid orthogonal axes in the model.
+For a three-dimensional model, this entails that at least two items must be selected.
+The first item should not show any systematic relation to the remaining two axes, and the second item should not be systematically related to the third axis.
+In praxis, this implies that item one, orthogonal to the y and z-axis, will identify the x-axis. Item two, orthogonal to the z-axis, will identify the y-axis, while the z-axis remains free.
 
-Thus, before using \code{modid()}, the factor structure must be explored. This can be done using classical test theory exploratory factor methods (EFA), such as \code{\link[psych:fa]{psych::fa()}}.
+Thus, to begin the factor structure must be explored. This can be done using classical test theory exploratory factor methods (EFA), such as \code{\link[psych:fa]{psych::fa()}} (Revelle, 2022). assuming three factors.
 Preferably, the EFA method should be carefully chosen.
-For instance, since the factors in most psychological methods can be assumed to correlate the \code{oblimin} rotation is a reasonable choice. However, if the factor structure is ambiguous, a 'varimax' rotation could be an option to consider.
-Regardless, it is important that the model identification process is made transparent and that the choice of EFA for the model identification is reported.
+For instance, since the factors in most psychological methods can be assumed to correlate the \code{oblimin} rotation is a reasonable choice.
+However, if the factor structure is ambiguous, a 'varimax' rotation could be an option to consider.
 
-Regarding the function output, \code{modid()} takes a data frame with factor loadings as input and outputs lists, one list per factor from the EFA.
-These lists contains one column for the loadings from each item on the factor of interest, and one column with absolute sum scores for each item calculated from the remaining factor loadings in the model.
-Each list is sorted with the lowest absolute sum score highest up. Accordingly, the items located at the top in each list are the items that best meet the assumption of orthogonality in the given set.
+Next, the \code{modid()} takes the factor structure assigned to a data frame, and outputs lists, one list per factor from the EFA.
+These lists contain one column for the loadings from each item on the factor of interest, and one column with absolute sum scores for each item calculated from the remaining factor loadings in the model.
+Each list is sorted with the lowest absolute sum score highest up.
+Accordingly, the top items are the items that best meet the assumption of orthogonality in the given item set or scale, assuming three dimensions.
 
-The user is advised to select two items from two different factors that can be used to identify the measurement model in 3D space. Preferably, this should be items with absolute sum scores of < .10 and with factor loading > .80.
-If these conditions cannot be meet the user is advised to proceed with caution since the loading scores implies that an orthogonal structure may not be empirically attainable.
-However, it is also important to recognize that the \code{modid} function gives suggestion to the model identification and there can be situations where the output from \code{modid} can not be used.
+Regarding item selection, model identification items should preferably have an absolute sum score of < .10 and s factor loading > .80.
+If these conditions cannot be met, the user is advised to proceed with caution since the loading scores imply that an orthogonal structure may not be empirically attainable.
+However, it is also important to recognize that the \code{modid} function gives suggestions to the model identification and there can be situations where the output from \code{modid} can not be used.
 }
 \examples{
 \dontrun{
-# Preparation: fit a factor model with number of factors set to 3
+# Preparation: Fit a three-factor EFA model
 library(psych)
-f <- fa(x, nfactors = 3, rotate = "oblimin", residuals = FALSE, SMC=FALSE)
+f <- fa(x, nfactors = 3, rotate = "oblimin", residuals = FALSE, SMC = FALSE)
 
 
-# Assign data frame with factor loadings
+# Assign data frame with factor loadings from EFA
 z <- data.frame(f$loadings[,])
 
 # Perform identification estimation
 modid(z)
 }
+#' @export
+}
+\references{
+Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
+
+Reckase, M. D. (2009). \emph{Multidimensional Item Response Theory}. Springer.
+
+Revelle W (2022). \emph{psych: Procedures for Psychological, Psychometric, and Personality Research}. Northwestern University, Evanston, Illinois. R package version 2.2.9, https://CRAN.R-project.org/package=psych.
+}
+\author{
+Erik Forsberg
 }
