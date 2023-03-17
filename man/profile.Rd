@@ -2,7 +2,7 @@
 % Please edit documentation in R/profile.R
 \name{profile}
 \alias{profile}
-\title{profile: Selection of Respondents for Plotting}
+\title{D3mirt Profile Analysis}
 \usage{
 profile(
   x,
@@ -11,47 +11,50 @@ profile(
   condition = c(">"),
   prob = 0.75,
   method = "EAP",
-  full.scores = TRUE,
-  full.scores.SE = FALSE,
   QMC = TRUE
 )
 }
 \arguments{
-\item{x}{S4 mirt object.}
+\item{x}{A three-dimensional S4 \link[mirt:mirt]{mirt::mirt} object, fitted using descriptive multidimensional item response theory modeling (Reckase, 2009)}
 
-\item{y}{S4 mirt object or data frame with respondents scores.}
+\item{y}{A S4 \link[mirt:mirt]{mirt::mirt} object of the same type as above, or a data frame with respondent's scores.}
 
-\item{column}{Select what column in the input for y to use for selection of respondent rows. Default is 1.}
+\item{column}{Numeric indicating what column to use regarding the input for y. Default is \code{column = 1}.}
 
-\item{condition}{String input on what logical condition to use for filtering respondents. Options are: ">", "<", ">=", and "<=" and default is set to ">".}
+\item{condition}{String indicating what logical condition to use for filtering. Options are: \code{">"}, \code{"<"}, \code{">="}, and \code{"<="}. Default is \verb{condition = >}.}
 
-\item{prob}{Indicate what probability to use as cut off, default is .75.}
+\item{prob}{Decimal indicating what probability to use as cut-off. Default is \code{prob = .75}.}
 
-\item{method}{The method used to extract respondent factor scores from the S4 mirt object. Default is "EAP".}
+\item{method}{The method used to extract respondent factor scores with \code{\link[mirt:fscores]{mirt::fscores()}}. Default is \code{method = EAP}.}
 
-\item{full.scores}{Logical, if full scores from the \code{fscores()} function should be printed. Default is TRUE.}
-
-\item{full.scores.SE}{Logical, if standard errors from the \code{fscores()} function should be printed. Default is FALSE.}
-
-\item{QMC}{Integration method for extracting respondents factor scores from the \code{fscores()} function. Default is "QMC".}
+\item{QMC}{Logical, if Quasi-Monte Carlo integration should be used for extracting respondents' factor scores from \code{\link[mirt:fscores]{mirt::fscores()}}. Default is \code{QMC = TRUE}.}
 }
 \value{
-List of factor scores from the \code{mirt()} S4 object.
+List of factor scores
 }
 \description{
-\code{profile()} is a wrapper function to \verb{[mirt::fscores()]} from the \code{mirt} package that use using \verb{[stats::quantile()]} to select respondent rows. The returned obejct can then be used to plot respondents based on factor scores in the \verb{[D3mirt::plot()]}function.
+\code{profile()} is a wrapper function to \code{\link[mirt:fscores]{mirt::fscores()}} (Chalmers, 2012) and use \code{\link[stats:quantile]{stats::quantile()}} to select respondent by row.
 }
 \details{
-Respondents factor scores are selected row wise based on the logical condition set by user. Factor scores can then be used to plot respondents as spheres in the 3D \code{dmirt()} object. Please consult documentation on \code{\link[mirt:fscores]{mirt::fscores()}} for more details and available options regarding the \code{fscores()} function.
+The returned object can be used to plot respondents' scores with \code{\link[=plot]{plot()}}, using factor scores as coordinates in the graphical output. Please consult the documentation on \code{\link[mirt:fscores]{mirt::fscores()}} for more details and available options regarding the \code{fscores()} function.
 }
 \examples{
 \dontrun{
-# x is the fitted three dimensional S4 mirt object
+# mod1 is the fitted three dimensional S4 mirt object
 # y is a data frame containing scores from the same respondents
-p <- profile(x, y, column = 20, condition = ">", prob = .75)
+# The function call states that rows containing scores higher than .75, of all scores in column 20 from data frame y, will be selected
+p <- profile(mod1, y, column = 20, condition = ">", prob = .75)
 
 
-# To plot with the D3mirt plot function while hiding item vectors
+# Plot model with the D3mirt plot function while hiding item vectors
 plot(x, profiles = p, hide = TRUE)
 }
+}
+\references{
+Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
+
+Reckase, M. D. (2009). \emph{Multidimensional Item Response Theory}. Springer.
+}
+\author{
+Erik Forsberg
 }
