@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{plot.dmirt}
 \alias{plot.dmirt}
-\title{plot.dmirt: Plot function for the D3mirt package}
+\title{Graphical Output for D3mirt Analysis}
 \usage{
 \method{plot}{dmirt}(
   x,
@@ -190,4 +190,5 @@ rglwidget(width = 1040, height = 1040)
 plot.dmirt(g, constructs = TRUE) # ta bort dmirt?
 rgl.snapshot('RGLdevice.png', fmt = 'png')
 }
+#' @export
 }
