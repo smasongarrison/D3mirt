@@ -1,4 +1,4 @@
-#' plot.dmirt: Plot function for the D3mirt package
+#' Graphical Output for D3mirt Analysis
 #'
 #' @description The `plot.dmirt()`visualize the S3 `dmirt()` object in a 3D theta space. The plot function is based on [rgl] package for data visualization. Output consists of a RGL graphical device that can be exported with dedicated functions (see the examples section).
 #' @param x S3 dmirt object
@@ -53,7 +53,6 @@
 #' @return RGL graphical device.
 #' @import rgl
 #' @importFrom stats cov
-#' @export
 #'
 #' @details The RGL device has orthogonal standardized axis centered at 0. The function allows plotting of all items, a selection of items as well as plotting a single item and adding constructs to the graphical output (see examples section). The user can also choose to plot one level of difficulty at a time if multiple levels of difficulty are used in the model. Item names are plotted by default but the user has the option of imputing new names for the items and include names for the constructs.
 #'
@@ -85,6 +84,7 @@
 #' plot.dmirt(g, constructs = TRUE) # ta bort dmirt?
 #' rgl.snapshot('RGLdevice.png', fmt = 'png')
 #' }
+#' #' @export
 plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,1), profiles = NULL, hide = FALSE, items = NULL, item.lab = TRUE, item.names = NULL, construct.lab = NULL, adjustlab = c(0.5, -0.8),
                         diff.level = NULL, background = "white",
                         width.rgl.x = 1040, width.rgl.y= 1040, view = c(15,20, 0.7), axis.scalar = 1.2, axis.col = "black", axis.points = "black",
