@@ -2,32 +2,46 @@
 % Please edit documentation in R/dmirt.R
 \name{dmirt}
 \alias{dmirt}
-\title{dmirt: Item Analysis using Descriptive 3D Item Response Theory}
+\title{D3mirt S3 Object}
 \usage{
 dmirt(x, constructs = NULL)
 }
 \arguments{
-\item{x}{Data frame or matrix}
+\item{x}{Data frame with rows for items and columns for model parameters. The number of columns must be ≥ 4, i.e., three columns for \emph{a} parameters and at least one column for \emph{d} parameters.}
 
-\item{constructs}{Nested list or lists with integers indicating what items are part of what construct. Default is \code{constructs = NULL}.}
+\item{constructs}{Optional. Nested lists with integers indicating construct. Default is \code{constructs = NULL}.}
 }
 \value{
-S3 object
+S3 object with lists of \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines and degrees for vector angles, construct lists, and vector coordinates.
 }
 \description{
-The \code{dmirt()}function outputs an S3 object that contains all necessary estimates for plotting a three dimensional measurement model.
+Descriptive multidimensional item response theroy modeling, following Reckase (2009), restricted to three dimensions.
+The \code{dmirt()} function takes in a data frame of factor slopes (\emph{a}) and difficulty parameters (\emph{d}) from a three-dimensional graded response model,
+fitted with \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012). The function returns an S3
+object containing dmirt estimates that can be graphically displayed with \code{\link[=plot]{plot()}}.
 }
 \details{
-Input consists of a data frame that holds factor loadings and difficulty parameters for all items in the scale or item set. Importantly, rows must be items and number of columns must be ≥ 4, i.e., three columns containing factor loadings and at least one column for item difficulty. The output include lists of tables for factor loadings, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines and degrees for vector angles. The output can then also be visualized in 3D space using the \code{plot()} function.
+Model parameters for the multidimensional graded response model must be estimated before using \code{dmirt()} (see examples below) and follow the necessary model specification and limitations.
+This includes that items must be set to load on all factors in the graded response model and that the number of factors must be three.
 
-The user has the option of including constructs in the estimation, by creating one or more nested lists that indicate what items belongs to what construct (see the examples section). From this, the \code{dmirt()}function calculates construct direction cosines by adding and normalizing the direction cosines for the items contained in each construct list. In so doing, the constructs vector arrows can contribute to the analysis by visualizing the average direction for a subset set of items. However, the length of the construct arrow is arbitrary and can be set by the user by changing the \code{max.norm} and \code{min.norm} arguments.
+The user has the option of including constructs in the estimation, by creating one or more nested lists that indicate what items belong to what construct (see the examples section).
+From this, the \code{dmirt()} function calculates construct direction cosines by adding and normalizing the direction cosines for the items contained in each construct list.
+In so doing, the constructs vector arrows can contribute to the analysis by visualizing the average direction for a subset set of items.
 
-An important part of the analytically process is the model identification and the fitting of the multidimensional graded response model with the \code{\link[mirt:mirt]{mirt::mirt()}} function. This is done prior using \code{dmirt()}. An example based on a 10 item set in which the model has already been identified is given below. In short, all items in the set is specified to load on all three factor (F1 to F3). The START and FIXED command are used to create the orthogonal axis by stating that the first item is orthogonal to the the y and z-axis (a2 ans a3 respectively) and that item two is orthogonal only to the z-axis (a3).
-For more information on model identification please study the documentation included under \code{modid()}.
+Regarding plotting, the \code{dmirt()} function returns vector coordinates estimated with and without the MDISC as a scalar for arrow length. If the MDISC is not used, all vector arrows are scaled to one.
+This can be useful to reduce clutter in the graphical output.
+
+An important part of the dmirt process is the model identification that is performed before fitting the three-dimensional graded response model.
+An example based on a 10-item set in which the model has already been identified is given below.
+For more information on model identification please study the documentation included under \code{D3mirt::modid()}.
 }
 \examples{
 \dontrun{
-# Preparation: Fitting a three dimensional graded response model
+# Preparation: Fitting a three-dimensional graded response model
+# Example uses a scale with 10 items in total, named I_01...I_10
+# In the example below item I_01 and item I_10 have been selected to identify the model
+# All items in the set are specified to load on all three factors (F1 to F3)
+The START and FIXED commands are used to locate the orthogonal axis in the model
 library(mirt)
 spec <- ' F1 = 1-10
           F2 = 1-10
@@ -36,22 +50,29 @@ spec <- ' F1 = 1-10
           START=(I_05,a2,0)
           START=(I_05,a3,0)
 
-          START=(I_30,a3,0)
+          START=(I_10,a3,0)
 
           FIXED=(I_05,a2)
           FIXED=(I_05,a3)
 
-          FIXED=(I_30,a3) '
+          FIXED=(I_10,a3) '
 
 
-mod1 <- mirt(x, spec, itemtype='graded', SE=TRUE, method = 'QMCEM')
+mod1 <- mirt(x, spec, itemtype = 'graded', SE = TRUE, method = 'QMCEM')
 
-# Assign data frame with factor loadings (column 1-3)
-# and difficulty parameters (column 4-7) from mod1
+# Assign data frame with factor loadings (columns 1-3) and difficulty parameters (columns 4-7) from mod1
 d <- data.frame(mirt::coef(mod1, simplify=TRUE)$'items'[,1:7])
 
-# Estimation with dmirt(), in this case including nested lists for constructs
+# Estimation with dmirt(), including nested lists for two constructs
 c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
 g <- dmirt(d, c)
 }
+}
+\references{
+Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
+
+Reckase, M. D. (2009). \emph{Multidimensional Item Response Theory}. Springer.
+}
+\author{
+Erik Forsberg
 }
