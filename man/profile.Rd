@@ -42,7 +42,7 @@ The returned object can be used to plot respondents' scores with \code{\link[=pl
 \dontrun{
 # mod1 is the fitted three dimensional S4 mirt object
 # y is a data frame containing scores from the same respondents
-# The function call states that rows containing scores higher than .75, of all scores in column 20 from data frame y, will be selected
+# Condition: scores >.75, of all scores in column 20 in data frame y
 p <- profile(mod1, y, column = 20, condition = ">", prob = .75)
 
 
