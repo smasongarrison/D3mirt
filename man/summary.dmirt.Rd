@@ -17,7 +17,7 @@
 Lists containing \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines, and degrees for vector angles for items and constructs.
 }
 \description{
-The \code{summary.dmirt()} function presents a compressed output from the \code{\link[=D3mirt:dmirt]{D3mirt:dmirt()}} S3 object.
+The \code{summary.dmirt()} function presents a compressed output from the \code{\link[=dmirt]{dmirt()}} S3 object.
 }
 \examples{
 \dontrun{
