@@ -54,7 +54,8 @@
 #'
 #' mod1 <- mirt(x, spec, itemtype = 'graded', SE = TRUE, method = 'QMCEM')
 #'
-#' # Assign data frame with factor loadings (columns 1-3) and difficulty parameters (columns 4-7) from mod1
+#' # Assign data frame with factor loadings (columns 1-3)
+#' # and difficulty parameters (columns 4-7) from mod1
 #' d <- data.frame(mirt::coef(mod1, simplify=TRUE)$'items'[,1:7])
 #'
 #' # Estimation with dmirt(), including nested lists for two constructs
