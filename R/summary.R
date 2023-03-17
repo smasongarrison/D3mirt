@@ -1,6 +1,6 @@
 #' D3mirt Summary Function
 #'
-#' @description The `summary.dmirt()` function presents a compressed output from the [D3mirt:dmirt()] S3 object.
+#' @description The `summary.dmirt()` function presents a compressed output from the [D3mirt::dmirt()] S3 object.
 #' @param object S3 object of class `dmirt`.
 #' @param ... Additional arguments to be passed to methods.
 #' @param digits User can adjust the number of digits shown per estimate. Default is `digits = 4`.
