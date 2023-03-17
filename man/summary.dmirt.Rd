@@ -2,25 +2,22 @@
 % Please edit documentation in R/summary.R
 \name{summary.dmirt}
 \alias{summary.dmirt}
-\title{summary.dmirt}
+\title{D3mirt Summary Function}
 \usage{
 \method{summary}{dmirt}(object, ..., digits = 4)
 }
 \arguments{
-\item{object}{S3 object of class \code{D3mirt}.}
+\item{object}{S3 object of class \code{dmirt}.}
 
 \item{...}{Additional arguments to be passed to methods.}
 
-\item{digits}{User can adjust number of digiots shown per estimate. Default is \code{digits = 4}.}
+\item{digits}{User can adjust the number of digits shown per estimate. Default is \code{digits = 4}.}
 }
 \value{
-Lists # double check
+Lists containing \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines, and degrees for vector angles for items and constructs.
 }
 \description{
-The \code{summary.dmirt()} function presents a compressed output from the \code{dmirt()} S3 object.
-}
-\details{
-The output presents one frame with item factor loadings, difficulty parameters the MDISC estimate for each item. This is followed by a frame with columns for the direction cosines and columns for the direction cosines transformed to degrees. If the S3 object contain constructs, an extra frame containing direction cosines and angles in degrees for the constructs will be included in the output.
+The \code{summary.dmirt()} function presents a compressed output from the \code{\link[=D3mirt:dmirt]{D3mirt:dmirt()}} S3 object.
 }
 \examples{
 \dontrun{
@@ -31,4 +28,7 @@ g <- dmirt(d, c)
 # Call summary
 summary(g)
 }
+}
+\author{
+Erik Forsberg
 }
