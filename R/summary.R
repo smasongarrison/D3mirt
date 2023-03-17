@@ -1,13 +1,14 @@
-#' summary.dmirt
-#' @description The `summary.dmirt()` function presents a compressed output from the `dmirt()` S3 object.
-#' @param object S3 object of class `D3mirt`.
-#' @param ... Additional arguments to be passed to methods.
-#' @param digits User can adjust number of digiots shown per estimate. Default is `digits = 4`.
+#' D3mirt Summary Function
 #'
-#' @return Lists # double check
+#' @description The `summary.dmirt()` function presents a compressed output from the [D3mirt:dmirt()] S3 object.
+#' @param object S3 object of class `dmirt`.
+#' @param ... Additional arguments to be passed to methods.
+#' @param digits User can adjust the number of digits shown per estimate. Default is `digits = 4`.
+#'
+#' @return Lists containing \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines, and degrees for vector angles for items and constructs.
 #' @export
 #'
-#' @details The output presents one frame with item factor loadings, difficulty parameters the MDISC estimate for each item. This is followed by a frame with columns for the direction cosines and columns for the direction cosines transformed to degrees. If the S3 object contain constructs, an extra frame containing direction cosines and angles in degrees for the constructs will be included in the output.
+#' @author Erik Forsberg
 #'
 #' @examples
 #' \dontrun{
