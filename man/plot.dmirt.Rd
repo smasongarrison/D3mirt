@@ -21,7 +21,7 @@
   width.rgl.x = 1040,
   width.rgl.y = 1040,
   view = c(15, 20, 0.7),
-  axis.scalar = 1.2,
+  axis.scalar = c(1.1, 1.1, 1.1),
   axis.col = "black",
   axis.points = "black",
   points = TRUE,
@@ -88,7 +88,7 @@
 
 \item{view}{Vector with polar coordinates and zoom factor for the \code{view3d} function. Default is \code{view = c(15,20, 0.7)}.}
 
-\item{axis.scalar}{Scalar factor adjusts the length of all three axes in the 3D model. Default is \code{axis.fac = 1.2}.}
+\item{axis.scalar}{Scalar factors to adjusts the length of the axes (x, y, z) in the 3D model. Default is \code{axis.scalar = c(1.1,1.1,1.1)}}
 
 \item{axis.col}{Color of axis for the \code{segment3D()}function, default is \code{axis.col = "Black"}.}
 
@@ -164,7 +164,7 @@ The RGL device can be exported as an interactive html file or as a still shoot (
 In the case of the latter, the model perspective in the still shoot can be adjusted by changing the \code{view} argument for the function.
 
 The function allows plotting of all items, a selection of items as well as plotting a single item (see examples section).
-Items can also be plotted with unit lenght by setting \code{scale = TRUE}.
+Items can also be plotted with unit length by setting \code{scale = TRUE}.
 In addition, the user also has the option of adding constructs to the graphical output with \code{constructs = TRUE} (see the documentation for \link{dmirt} regarding constructs).
 Plotting can be limited to showing one level of difficulty with the \code{diff.level} argument at a time if multiple levels of difficulty are used in the model.
 Item names are displayed by default, but the user has the option of imputing new names for the items (with \code{item.names}) and adding names for the constructs (with \code{construct.names}).
