@@ -16,20 +16,18 @@
 #'
 #'
 #' Thus, to begin the factor structure must be explored. This can be done using classical test theory exploratory factor methods (EFA), such as [psych::fa()] (Revelle, 2022). assuming three factors.
-#' Preferably, the EFA method should be carefully chosen.
-#' For instance, since the factors in most psychological methods can be assumed to correlate the `oblimin` rotation is a reasonable choice.
-#' However, if the factor structure is ambiguous, a 'varimax' rotation could be an option to consider.
+#' Preferably, the EFA method should be carefully chosen based on theory or otherwise statistically reasonable.
 #'
 #'
 #' Next, the `modid()` takes the factor structure assigned to a data frame, and outputs lists, one list per factor from the EFA.
 #' These lists contain one column for the loadings from each item on the factor of interest, and one column with absolute sum scores for each item calculated from the remaining factor loadings in the model.
 #' Each list is sorted with the lowest absolute sum score highest up.
-#' Accordingly, the top items are the items that best meet the assumption of orthogonality in the given item set or scale, assuming three dimensions.
+#' Accordingly, the top items are the items that best meet the assumption of orthogonality in the given item set or scale.
 #'
 #'
-#' Regarding item selection, model identification items should preferably have an absolute sum score of < .10 and s factor loading > .80.
+#' Regarding item selection, model identification items should preferably have an absolute sum score of < .10 and factor loading > .80.
 #' If these conditions cannot be met, the user is advised to proceed with caution since the loading scores imply that an orthogonal structure may not be empirically attainable.
-#' However, it is also important to recognize that the `modid` function gives suggestions to the model identification and there can be situations where the output from `modid` can not be used.
+#' However, it is also important to recognize that the `modid` function gives suggestions to the model identification and there could be situations where the researcher would need to use other methods.
 #'
 #' @author Erik Forsberg
 #' @references Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
