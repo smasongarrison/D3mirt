@@ -17,7 +17,7 @@
 #' @param width.rgl.x Width in the x direction for `par3d()`. Default is `width.rgl.x = 1040`.
 #' @param width.rgl.y Width in the y direction for `par3d()`. Default is `width.rgl.y = 1040`.
 #' @param view Vector with polar coordinates and zoom factor for the `view3d` function. Default is `view = c(15,20, 0.7)`.
-#' @param axis.scalar Scalar factor adjusts the length of all three axes in the 3D model. Default is `axis.fac = 1.2`.
+#' @param axis.scalar Scalar factors to adjusts the length of the axes (x, y, z) in the 3D model. Default is `axis.scalar = c(1.1,1.1,1.1)`
 #' @param axis.col Color of axis for the `segment3D()`function, default is `axis.col = "Black"`.
 #' @param axis.points Color of axis points for the `points3d()` function. Default is `axis.points = "black"`.
 #' @param points Logical, if axis from `points3d()` have end points. Default is `points = TRUE`.
@@ -60,7 +60,7 @@
 #'
 #'
 #' The function allows plotting of all items, a selection of items as well as plotting a single item (see examples section).
-#' Items can also be plotted with unit lenght by setting `scale = TRUE`.
+#' Items can also be plotted with unit length by setting `scale = TRUE`.
 #' In addition, the user also has the option of adding constructs to the graphical output with `constructs = TRUE` (see the documentation for [D3mirt::dmirt] regarding constructs).
 #' Plotting can be limited to showing one level of difficulty with the `diff.level` argument at a time if multiple levels of difficulty are used in the model.
 #' Item names are displayed by default, but the user has the option of imputing new names for the items (with `item.names`) and adding names for the constructs (with `construct.names`).
@@ -122,7 +122,7 @@
 #' #' @export
 plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,1), profiles = NULL, hide = FALSE, items = NULL, item.lab = TRUE, item.names = NULL, construct.names = NULL, adjust.lab = c(0.5, -0.8),
                         diff.level = NULL, background = "white",
-                        width.rgl.x = 1040, width.rgl.y= 1040, view = c(15,20, 0.7), axis.scalar = 1.2, axis.col = "black", axis.points = "black",
+                        width.rgl.x = 1040, width.rgl.y= 1040, view = c(15,20, 0.7), axis.scalar = c(1.1,1.1,1.1), axis.col = "black", axis.points = "black",
                         points = TRUE, axis.ticks = TRUE, nticks = 8, title="", line = -5, x.lab = "X", y.lab="Y", z.lab="Z", show.plane = TRUE, plane.color = "grey80",
                         type = "rotation", col = c("black", "grey20", "grey40", "grey60", "grey80"),
                         arrow.width = 0.6, n = 20, theta = 0.2, barblen = 0.03,
@@ -137,24 +137,24 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
     ax <- x$dir.vec
     low <- as.data.frame(ax[1], drop = FALSE)
     hig <- as.data.frame(ax[length(ax)], drop = FALSE)
-    xaxis.min <- min(low[,1])*axis.scalar
-    xaxis.max <- max(hig[,1])*axis.scalar
-    yaxis.min <- min(low[,2])*axis.scalar
-    yaxis.max <- max(hig[,2])*axis.scalar
-    zaxis.min <- min(low[,3])*axis.scalar
-    zaxis.max <- max(hig[,3])*axis.scalar
+    xaxis.min <- min(low[,1])*axis.scalar[1]
+    xaxis.max <- max(hig[,1])*axis.scalar[1]
+    yaxis.min <- min(low[,2])*axis.scalar[2]
+    yaxis.max <- max(hig[,2])*axis.scalar[2]
+    zaxis.min <- min(low[,3])*axis.scalar[3]
+    zaxis.max <- max(hig[,3])*axis.scalar[3]
   } else{
     ax <- x$dir.vec
-    xaxis.min <- min(ax[,1])*axis.scalar
-    xaxis.max <- max(ax[,1])*axis.scalar
-    yaxis.min <- min(ax[,2])*axis.scalar
-    yaxis.max <- max(ax[,2])*axis.scalar
-    zaxis.min <- min(ax[,3])*axis.scalar
-    zaxis.max <- max(ax[,3])*axis.scalar
+    xaxis.min <- min(ax[,1])*axis.scalar[1]
+    xaxis.max <- max(ax[,1])*axis.scalar[1]
+    yaxis.min <- min(ax[,2])*axis.scalar[2]
+    yaxis.max <- max(ax[,2])*axis.scalar[2]
+    zaxis.min <- min(ax[,3])*axis.scalar[3]
+    zaxis.max <- max(ax[,3])*axis.scalar[3]
   }
   xaxis <- c(-abs(xaxis.min), abs(xaxis.max))
   yaxis <- c(-abs(yaxis.min), abs(yaxis.max))
-  zaxis <- c(-abs(zaxis.min), abs(yaxis.max))
+  zaxis <- c(-abs(zaxis.min), abs(zaxis.max))
   rgl::segments3d(xaxis, c(0, 0), c(0, 0), color = axis.col)
   rgl::segments3d(c(0, 0), yaxis, c(0, 0), color = axis.col)
   rgl::segments3d(c(0, 0), c(0, 0), zaxis, color = axis.col)
