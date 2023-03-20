@@ -1,39 +1,39 @@
 #' Graphical Output for D3mirt Analysis
 #'
-#' @description The `plot.dmirt()`visualize the S3 `dmirt()` object in a 3D theta space. The plot function is based on [rgl] package for data visualization. Output consists of a RGL graphical device that can be exported with dedicated functions (see the examples section).
+#' @description Three-dimensional interactive graphical function for the S3 object from [D3mirt::dmirt()], based on [rgl] package for visualization with OpenGL.
 #' @param x S3 dmirt object
-#' @param scale Logical, if item vector arrow length should visualize the MDISC estimates. If set to FALSE, vector arrow length will be uniform by adding the direction cosines times one for every level of multidimensional difficulty. Default is `scale = FALSE`.
+#' @param scale Logical, if item vector arrow length should visualize the MDISC estimates. If set to FALSE, the vector arrow length will be one unit length. Default is `scale = FALSE`.
 #' @param constructs Logical, if construct vector arrows should be plotted. Default set to FALSE
-#' @param con.scalars Set of scalars for adjusting construct arrow length. The first positive numeric adjusts the length in the negative direction and the second positive numeric adjusts the length in the positive direction. Default is `con.scalars = c(1,1)`.
-#' @param profiles Data frame with coordinates for spheres representing respondents
+#' @param con.scalars Set of scalars for adjusting construct arrow length. The first numeric adjust the length in the negative direction and the second numeric the length in the positive direction. Default is `con.scalars = c(1,1)`.
+#' @param profiles Data frame with coordinates for spheres representing respondent scores.
 #' @param hide Logical, if items should be plotted. Default is `hide = FALSE`.
-#' @param items Optional. The user can input a list of integers indicating what item vector arrows will be visible while remaining items are only hidden.
+#' @param items Optional. The user can input a list of integers indicating what item vector arrows will be visible while the remaining items are hidden.
 #' @param item.lab Logical, if item labels should be plotted. Default is `item.names = TRUE`.
-#' @param item.names Optional. The user can provide a list of item names that will override row names extracted from the data frame. Names can be numbers or characters.
-#' @param construct.lab Optional. User can provide list of names for constructs.
-#' @param adjustlab Vector of adjustment parameters for position of item and construct labels for the `text3d` function. The first value is for horizontal adjustment and the second is for vertical adjustment. Default is `adjustlab = c(0.5, -0.8)`.
-#' @param diff.level Optional. If multiple levels of difficulty are used in the model, it is possible to plot a single level of difficulty by imputing its integer value.
+#' @param item.names Optional. String vector of item names that will override row names extracted from the data frame.
+#' @param construct.names Optional. String vector of names for constructs.
+#' @param adjust.lab Vector of parameters for the position of item and construct labels for the `text3d` function. The first value is for horizontal adjustment and the second is for vertical adjustment. Default is `adjust.lab = c(0.5, -0.8)`.
+#' @param diff.level Optional. Plotting of a single level of difficulty indicated by an integer.
 #' @param background Set background color for the graphical device, Default is `background = "white"`.
 #' @param width.rgl.x Width in the x direction for `par3d()`. Default is `width.rgl.x = 1040`.
 #' @param width.rgl.y Width in the y direction for `par3d()`. Default is `width.rgl.y = 1040`.
 #' @param view Vector with polar coordinates and zoom factor for the `view3d` function. Default is `view = c(15,20, 0.7)`.
-#' @param axis.scalar Scalar factor the length of all three axis in the 3D model. Default is `axis.fac = 1.2`.
+#' @param axis.scalar Scalar factor adjusts the length of all three axes in the 3D model. Default is `axis.fac = 1.2`.
 #' @param axis.col Color of axis for the `segment3D()`function, default is `axis.col = "Black"`.
 #' @param axis.points Color of axis points for the `points3d()` function. Default is `axis.points = "black"`.
-#' @param points Logical, if axis from the `points3d()` should have end points. Default is `points = TRUE`.
-#' @param axis.ticks Logical, if axis ticks from the `axis3d()`function should be plotted. Default is `axis.ticks = TRUE'.
-#' @param nticks Number of ticks for the `axis3d()`function. Default is `nticks = 8`.
-#' @param title The main title for the plot plotted with the `title3d()` function.
+#' @param points Logical, if axis from `points3d()` have end points. Default is `points = TRUE`.
+#' @param axis.ticks Logical, if axis ticks from the `axis3d()` function should be plotted. Default is `axis.ticks = TRUE'.
+#' @param nticks Number of ticks for `axis3d()`. Default is `nticks = 8`.
+#' @param title The main title for the graphical device, plotted with the `title3d()` function.
 #' @param line  Title placement for `title3d()`. Default is `line = -5`.
 #' @param x.lab Labels for x-axis, Default is `x.lab = "X"`.
 #' @param y.lab Labels for y-axis, Default is `y.lab = "Y"`.
 #' @param z.lab Labels for y-axis, Default is `z.lab = "Z"`.
-#' @param show.plane Logical, if xz-plane should be plotted in graphical device. Default is `show.plane = TRUE`.
-#' @param plane.color Color of plane, default is `plane.color = "grey80"`.
+#' @param show.plane Logical, if xz-plane should be visible in the graphical device. Default is `show.plane = TRUE`.
+#' @param plane.color Color of the plane, default is `plane.color = "grey80"`.
 #' @param type Type of vector arrow for items, default is `type = "rotation"`. See [rgl::arrow3d] for more options regarding arrow types.
-#' @param col Vector of colors representing difficulty levels for items using the `arrow3d()` function. Default is `col = c("black", "grey20", "grey40", "grey60", "grey80")`
+#' @param col Vector of colors representing difficulty levels for item response functions used in `arrow3d()`. Default is `col = c("black", "grey20", "grey40", "grey60", "grey80")`.
 #' @param arrow.width Width of vector arrows for `arrow3d()`. Default is `arrow.width = 0.6`.
-#' @param n Number of barbs for the vector arrows from the `arrow3d()` function. Default is `n = 20`.
+#' @param n Number of barbs for the vector arrows from `arrow3d()`. Default is `n = 20`.
 #' @param theta Opening angle of barbs for vector arrows from `arrow3d()`. Default is `theta = 0.2`.
 #' @param barblen The length of the barbs for vector arrows from `arrow3d()`. Default is `barblen = 0.03`.
 #' @param c.type Type of vector arrow for constructs. See [rgl::arrow3d] for more options regarding arrow types. Default is `c.type = "rotation"`.
@@ -42,26 +42,61 @@
 #' @param c.n Number of barbs for the construct vector arrows from the `arrow3d()` function. Default is `c.n = 20`.
 #' @param c.theta Opening angle of barbs for construct vector arrows from `arrow3d()`. Default is `c.theta = 0.2`.
 #' @param c.barblen The length of the barbs for construct vector arrows from `arrow3d()`. Default is `c.barblen = 0.03`.
-#' @param spheres.r Radius of sphere for `spheres3d()`. Default is `spheres.r = 0.05`.
+#' @param spheres.r Radius of the spheres for `spheres3d()`. Default is `spheres.r = 0.05`.
 #' @param sphere.col Color of sphere `spheres3d()`. Default is `sphere.col = "grey20"`.
-#' @param ellips Logical, if spheres should include an ellipsoid outlining an confidence region returned from the `ellipse3d()` function. Default is `ellips = TRUE`.
+#' @param ellipse Logical, if spheres should include an ellipsoid outlining a confidence region returned from the `ellipse3d()` function. Default is `ellipse = TRUE`.
 #' @param CI.level Level of confidence for `ellipse3d()`, default is `CI.level = 0.95`.
-#' @param ellips.col Color of the ellipse from `ellipse3d()`. Default is `ellips.col = "grey80"`.
-#' @param ellips.alpha Opacity for the confidence region from `ellipse3d()`. Default is `ellips.alpha = 0.20`.
+#' @param ellipse.col Color of the ellipse from `ellipse3d()`. Default is `ellipse.col = "grey80"`.
+#' @param ellipse.alpha Opacity for the confidence region from `ellipse3d()`. Default is `ellipse.alpha = 0.20`.
 #' @param ... Additional arguments to be passed to RGL or methods.
 #'
 #' @return RGL graphical device.
 #' @import rgl
 #' @importFrom stats cov
 #'
-#' @details The RGL device has orthogonal standardized axis centered at 0. The function allows plotting of all items, a selection of items as well as plotting a single item and adding constructs to the graphical output (see examples section). The user can also choose to plot one level of difficulty at a time if multiple levels of difficulty are used in the model. Item names are plotted by default but the user has the option of imputing new names for the items and include names for the constructs.
+#' @details The function outputs a three-dimensional RGL device containing the descriptive multidimensional item response theory model with orthogonal standardized axes centered at 0.
+#' The RGL device can be exported as an interactive html file or as a still shoot (see examples below).
+#' In the case of the latter, the model perspective in the still shoot can be adjusted by changing the `view` argument for the function.
 #'
-#' Moreover, the function can also plots respondents on top of the item model represented as spheres located with the help of respondents factors scores providing the necessary coordinates (see [D3mirt::profile] for more details). This allows for profile analysis in which the user can select respondent rows based on some criteria. When analyzing respondent profiles the user has the option of hiding the item vectors to avoid visual cluttering.
-#'More specifically, item location shows the items three dimensional level of difficulty. If Likert items are used, each item will have multiple level of
-#'difficulty and can therefore be said to show the difficulty range of an item. Moreover, the angle of the vector arrows shows the direction of optimal discrimination in the model. In turn, this indicates what traits, one up to three, the item can be said to describe. Lastly, the length of each vector arrows shows the strength of discrimination, in which longer arrows indicate higher discrimination. Short vector arrows are therefore signs of model violations.
+#'
+#' The function allows plotting of all items, a selection of items as well as plotting a single item (see examples section).
+#' Items can also be plotted with unit lenght by setting `scale = TRUE`.
+#' In addition, the user also has the option of adding constructs to the graphical output with `constructs = TRUE` (see the documentation for [D3mirt::dmirt] regarding constructs).
+#' Plotting can be limited to showing one level of difficulty with the `diff.level` argument at a time if multiple levels of difficulty are used in the model.
+#' Item names are displayed by default, but the user has the option of imputing new names for the items (with `item.names`) and adding names for the constructs (with `construct.names`).
+#'
+#'
+#' In addition, the plot function can also display respondent scores in the model, represented as spheres located with factors scores as coordinates.
+#' This allows for a type of profile analysis in which respondents' can be selected and displayed conditioned on some external criteria (see [D3mirt::profile] for more details).
+#' This is done by first extracting respondent factor scores with [mirt::fscores](Chalmers, 2012) and then selecting respondent rows.
+#' The resulting data frame is imputed in the `profiles` argument.
+#' When analyzing respondent profiles the user has the option of hiding the item vectors (with `hide = TRUE`) to avoid visual cluttering.
+#'
+#'
+#' Some guiding comments regarding the output.
+#' Vector arrows represent item response functions and the location, angle, and length of the arrows indicate item characteristics (Reckase, 2009).
+#' If Likert items are used then each item can have multiple item response functions that run successively.
+#' The distance of the lower end of the vector arrows away from the origin indicates the an items multidimensional difficulty (MDIFF).
+#' For Likert items that hold multiple item response functions, the MDIFF can be said to show the multidimensional range of difficulty for an item.
+#' The length of the arrow indicates the item's level of discrimination, in which a longer arrow indicates high discrimination and a short indicates lower discrimination.
+#' The angle between axes and the vector arrows indicates the direction of maximal slope for the item response function.
+#' This means that the arrows point towards where an item has its highest possible discrimination parameter in the model.
+#' In turn, this angle shows what traits, located along the orthogonal axes, the item can be said to describe.
+#' For instance, an item located at 0° seen from x-axis, and 90° as seen from the y and z-axis, only describes trait x. Such an item is unidimensional.
+#' In contrast, an item located at 45° between all three axes describes all three traits in the model equally well. Such an item is within-multidimensional.
+#'
+#' Since descriptive multidimensional item response theory is based on the graded response model (Samejima, 1969), all items must meet the statistical assumptions of the latter.
+#' In the D3mirt analysis, item model violations can foremost be observed visually. For instance, shorter vector arrows indicate weaker discrimination on level of ability.
+#' Moreover, when a Likert item struggles to fit any of the latent variables in the model it can be observed as an extreme stretch of the MDIFF range.
+#' This is comparable to a tendency to horizontal trace lines in a unidimensional item response theory model.
+#' @author Erik Forsberg
+#' @references Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
+#' @references Reckase, M. D. (2009). \emph{Multidimensional Item Response Theory}. Springer.
+#' @references Samejima, F. (1969). Estimation of latent ability using a response pattern of graded scores. \emph{Psychometrika 34}, 1–97. https://doi.org/10.1007/BF03372160
+#'
 #' @examples
 #' \dontrun{
-#' # Preparation: Calculate dmirt estimates with constructs
+#' # Preparation: Calculate dmirt object estimates with constructs
 #' c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
 #' g <- dmirt(d, c)
 #'
@@ -71,21 +106,21 @@
 #'
 #'
 #' # Plot a selection of items from the model
-#' plot.dmirt(g, constructs = TRUE, items = c(1,3,4,6,8))
+#' plot(g, constructs = TRUE, items = c(1,3,4,6,8))
 #'
 #'
 #'
 #' # Export RGL device in consol
-#' plot.dmirt(g, constructs = TRUE)
+#' plot(g, constructs = TRUE)
 #' rglwidget(width = 1040, height = 1040)
 #'
 #'
 #' # Export RGL device to file
-#' plot.dmirt(g, constructs = TRUE) # ta bort dmirt?
+#' plot(g, constructs = TRUE) # ta bort dmirt?
 #' rgl.snapshot('RGLdevice.png', fmt = 'png')
 #' }
 #' #' @export
-plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,1), profiles = NULL, hide = FALSE, items = NULL, item.lab = TRUE, item.names = NULL, construct.lab = NULL, adjustlab = c(0.5, -0.8),
+plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,1), profiles = NULL, hide = FALSE, items = NULL, item.lab = TRUE, item.names = NULL, construct.names = NULL, adjust.lab = c(0.5, -0.8),
                         diff.level = NULL, background = "white",
                         width.rgl.x = 1040, width.rgl.y= 1040, view = c(15,20, 0.7), axis.scalar = 1.2, axis.col = "black", axis.points = "black",
                         points = TRUE, axis.ticks = TRUE, nticks = 8, title="", line = -5, x.lab = "X", y.lab="Y", z.lab="Z", show.plane = TRUE, plane.color = "grey80",
@@ -93,7 +128,7 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
                         arrow.width = 0.6, n = 20, theta = 0.2, barblen = 0.03,
                         c.type = "rotation", c.col = "black", c.arrow.width = 0.6,
                         c.n = 20, c.theta = 0.2, c.barblen = 0.03, spheres.r = 0.05,
-                        sphere.col = "grey20", ellips = TRUE, CI.level = 0.95, ellips.col = "grey80", ellips.alpha = 0.20, ...){
+                        sphere.col = "grey20", ellipse = TRUE, CI.level = 0.95, ellipse.col = "grey80", ellipse.alpha = 0.20, ...){
   rgl::open3d()
   rgl::par3d(windowRect = 50 + c( 0, 0, width.rgl.x, width.rgl.y))
   rgl::bg3d(color = background)
@@ -162,6 +197,7 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
         }
       } else {
         if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high") # format warning
+        if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
         v <- vec[[diff.level]]
         m <- items*2-1
         sapply(m, function(i){
@@ -171,6 +207,7 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
     }
     else if (!is.null(diff.level)) {
       if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high")
+      if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
       for (i in seq_along(diff.level)){
         d <- diff.level[i]
         v <- as.data.frame(vec[d, drop = FALSE])
@@ -204,7 +241,7 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
           }
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(inames[i]), color = axis.col,
-                        adj = adjustlab, size = 2)
+                        adj = adjust.lab, size = 2)
           })
         } else {
           if(!length(item.names) <= nrow(x$loadings)) warning("There are more item labels than items")
@@ -217,7 +254,7 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
           }
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.names[i]), color = axis.col,
-                        adj = adjustlab, size = 2)
+                        adj = adjust.lab, size = 2)
           } )
         }
       } else {
@@ -225,7 +262,7 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
         dl <-  x$dir.vec[[diff.level]]
         sapply(seq(nrow(x$mdisc)), function(i){
           rgl::text3d(dl[(i*2),1],dl[(i*2),2], dl[(i*2),3], text = c(inames[i]), color = axis.col,
-                      adj = adjustlab, size = 2)
+                      adj = adjust.lab, size = 2)
         })
       }
     }
@@ -242,7 +279,7 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(inames[m]), color = axis.col,
-                        adj = adjustlab, size = 2)
+                        adj = adjust.lab, size = 2)
           })
         } else {
           if(!length(item.names) <= length(items)) warning("There are more item labels than items in list")
@@ -255,7 +292,7 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(item.names[i]), color = axis.col,
-                        adj = adjustlab, size = 2)
+                        adj = adjust.lab, size = 2)
           })
         }
       } else {
@@ -265,14 +302,14 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(inames[m]), color = axis.col,
-                        adj = adjustlab, size = 2)
+                        adj = adjust.lab, size = 2)
           })
         } else {
           dl <-  as.data.frame(x$dir.vec[diff.level], drop = FALSE)
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(item.names[i]), color = axis.col,
-                        adj = adjustlab, size = 2)
+                        adj = adjust.lab, size = 2)
           })
         }
       }
@@ -296,6 +333,7 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
         }
       } else {
         if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high") # format warning
+        if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
         v <- vec[[diff.level]]
         m <- items*2-1
         sapply(m, function(i){
@@ -305,6 +343,7 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
     }
     else if (!is.null(diff.level)) {
       if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high")
+      if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
       for (i in seq_along(diff.level)){
         d <- diff.level[i]
         v <- as.data.frame(vec[d, drop = FALSE])
@@ -338,7 +377,7 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
           }
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(inames[i]), color = axis.col,
-                        adj = adjustlab, size = 2)
+                        adj = adjust.lab, size = 2)
           })
         } else {
           if(!length(item.names) <= nrow(x$loadings)) warning("There are more item labels than items")
@@ -351,7 +390,7 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
           }
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.names[i]), color = axis.col,
-                        adj = adjustlab, size = 2)
+                        adj = adjust.lab, size = 2)
           } )
         }
       } else {
@@ -359,7 +398,7 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
         dl <-  x$scal.vec[[diff.level]]
         sapply(seq(nrow(x$mdisc)), function(i){
           rgl::text3d(dl[(i*2),1],dl[(i*2),2], dl[(i*2),3], text = c(inames[i]), color = axis.col,
-                      adj = adjustlab, size = 2)
+                      adj = adjust.lab, size = 2)
         })
       }
     }
@@ -376,7 +415,7 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(inames[m]), color = axis.col,
-                        adj = adjustlab, size = 2)
+                        adj = adjust.lab, size = 2)
           })
         } else {
           if(!length(item.names) <= length(items)) warning("There are more item labels than items in list")
@@ -389,7 +428,7 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(item.names[i]), color = axis.col,
-                        adj = adjustlab, size = 2)
+                        adj = adjust.lab, size = 2)
           })
         }
       } else {
@@ -399,14 +438,14 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(inames[m]), color = axis.col,
-                        adj = adjustlab, size = 2)
+                        adj = adjust.lab, size = 2)
           })
         } else {
           dl <-  as.data.frame(x$scal.vec[diff.level], drop = FALSE)
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(item.names[i]), color = axis.col,
-                        adj = adjustlab, size = 2)
+                        adj = adjust.lab, size = 2)
           })
         }
       }
@@ -419,12 +458,12 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
     sapply(seq(from = 1, to = nrow(cvec), by=2), function(x){
       rgl::arrow3d(cvec[x,]*con.scalars[1], cvec[x+1,]*con.scalars[2], type = c.type, col = c.col, width = c.arrow.width, n = c.n, theta = c.theta, barblen = c.barblen)
     })
-    if (!is.null(construct.lab) && constructs == TRUE){
-      if(!length(construct.lab) <= nrow(x$c.vec)) warning("There are more construct labels than constructs")
+    if (!is.null(construct.names) && constructs == TRUE){
+      if(!length(construct.names) <= nrow(x$c.vec)) warning("There are more construct labels than constructs")
       clab <-  x$c.vec*con.scalars[2]
       sapply(seq(nrow(x$c.dir.cos)), function(i){
-        rgl::text3d(clab[(i*2),1],clab[(i*2),2], clab[(i*2),3], text = c(construct.lab[i]), color = axis.col,
-                    adj = adjustlab, size = 2)
+        rgl::text3d(clab[(i*2),1],clab[(i*2),2], clab[(i*2),3], text = c(construct.names[i]), color = axis.col,
+                    adj = adjust.lab, size = 2)
       })
     }
   }
@@ -434,10 +473,10 @@ plot.dmirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
     y <- profiles[,2]
     z <- profiles[,3]
     rgl::spheres3d(x,y,z, radius = spheres.r, color = sphere.col) # double check
-    if (ellips == TRUE){
-      ellips <- rgl::ellipse3d(cov(cbind(x,y,z)),
+    if (ellipse == TRUE){
+      ellipse <- rgl::ellipse3d(cov(cbind(x,y,z)),
                                centre=c(mean(x), mean(y), mean(z)), level = CI.level)
-      rgl::shade3d(ellips, col = ellips.col, alpha = ellips.alpha)
+      rgl::shade3d(ellipse, col = ellipse.col, alpha = ellipse.alpha)
     }
   }
 }
