@@ -14,8 +14,8 @@
   items = NULL,
   item.lab = TRUE,
   item.names = NULL,
-  construct.lab = NULL,
-  adjustlab = c(0.5, -0.8),
+  construct.names = NULL,
+  adjust.lab = c(0.5, -0.8),
   diff.level = NULL,
   background = "white",
   width.rgl.x = 1040,
@@ -48,37 +48,37 @@
   c.barblen = 0.03,
   spheres.r = 0.05,
   sphere.col = "grey20",
-  ellips = TRUE,
+  ellipse = TRUE,
   CI.level = 0.95,
-  ellips.col = "grey80",
-  ellips.alpha = 0.2,
+  ellipse.col = "grey80",
+  ellipse.alpha = 0.2,
   ...
 )
 }
 \arguments{
 \item{x}{S3 dmirt object}
 
-\item{scale}{Logical, if item vector arrow length should visualize the MDISC estimates. If set to FALSE, vector arrow length will be uniform by adding the direction cosines times one for every level of multidimensional difficulty. Default is \code{scale = FALSE}.}
+\item{scale}{Logical, if item vector arrow length should visualize the MDISC estimates. If set to FALSE, the vector arrow length will be one unit length. Default is \code{scale = FALSE}.}
 
 \item{constructs}{Logical, if construct vector arrows should be plotted. Default set to FALSE}
 
-\item{con.scalars}{Set of scalars for adjusting construct arrow length. The first positive numeric adjusts the length in the negative direction and the second positive numeric adjusts the length in the positive direction. Default is \code{con.scalars = c(1,1)}.}
+\item{con.scalars}{Set of scalars for adjusting construct arrow length. The first numeric adjust the length in the negative direction and the second numeric the length in the positive direction. Default is \code{con.scalars = c(1,1)}.}
 
-\item{profiles}{Data frame with coordinates for spheres representing respondents}
+\item{profiles}{Data frame with coordinates for spheres representing respondent scores.}
 
 \item{hide}{Logical, if items should be plotted. Default is \code{hide = FALSE}.}
 
-\item{items}{Optional. The user can input a list of integers indicating what item vector arrows will be visible while remaining items are only hidden.}
+\item{items}{Optional. The user can input a list of integers indicating what item vector arrows will be visible while the remaining items are hidden.}
 
 \item{item.lab}{Logical, if item labels should be plotted. Default is \code{item.names = TRUE}.}
 
-\item{item.names}{Optional. The user can provide a list of item names that will override row names extracted from the data frame. Names can be numbers or characters.}
+\item{item.names}{Optional. String vector of item names that will override row names extracted from the data frame.}
 
-\item{construct.lab}{Optional. User can provide list of names for constructs.}
+\item{construct.names}{Optional. String vector of names for constructs.}
 
-\item{adjustlab}{Vector of adjustment parameters for position of item and construct labels for the \code{text3d} function. The first value is for horizontal adjustment and the second is for vertical adjustment. Default is \code{adjustlab = c(0.5, -0.8)}.}
+\item{adjust.lab}{Vector of parameters for the position of item and construct labels for the \code{text3d} function. The first value is for horizontal adjustment and the second is for vertical adjustment. Default is \code{adjust.lab = c(0.5, -0.8)}.}
 
-\item{diff.level}{Optional. If multiple levels of difficulty are used in the model, it is possible to plot a single level of difficulty by imputing its integer value.}
+\item{diff.level}{Optional. Plotting of a single level of difficulty indicated by an integer.}
 
 \item{background}{Set background color for the graphical device, Default is \code{background = "white"}.}
 
@@ -88,19 +88,19 @@
 
 \item{view}{Vector with polar coordinates and zoom factor for the \code{view3d} function. Default is \code{view = c(15,20, 0.7)}.}
 
-\item{axis.scalar}{Scalar factor the length of all three axis in the 3D model. Default is \code{axis.fac = 1.2}.}
+\item{axis.scalar}{Scalar factor adjusts the length of all three axes in the 3D model. Default is \code{axis.fac = 1.2}.}
 
 \item{axis.col}{Color of axis for the \code{segment3D()}function, default is \code{axis.col = "Black"}.}
 
 \item{axis.points}{Color of axis points for the \code{points3d()} function. Default is \code{axis.points = "black"}.}
 
-\item{points}{Logical, if axis from the \code{points3d()} should have end points. Default is \code{points = TRUE}.}
+\item{points}{Logical, if axis from \code{points3d()} have end points. Default is \code{points = TRUE}.}
 
-\item{axis.ticks}{Logical, if axis ticks from the \code{axis3d()}function should be plotted. Default is `axis.ticks = TRUE'.}
+\item{axis.ticks}{Logical, if axis ticks from the \code{axis3d()} function should be plotted. Default is `axis.ticks = TRUE'.}
 
-\item{nticks}{Number of ticks for the \code{axis3d()}function. Default is \code{nticks = 8}.}
+\item{nticks}{Number of ticks for \code{axis3d()}. Default is \code{nticks = 8}.}
 
-\item{title}{The main title for the plot plotted with the \code{title3d()} function.}
+\item{title}{The main title for the graphical device, plotted with the \code{title3d()} function.}
 
 \item{line}{Title placement for \code{title3d()}. Default is \code{line = -5}.}
 
@@ -110,17 +110,17 @@
 
 \item{z.lab}{Labels for y-axis, Default is \code{z.lab = "Z"}.}
 
-\item{show.plane}{Logical, if xz-plane should be plotted in graphical device. Default is \code{show.plane = TRUE}.}
+\item{show.plane}{Logical, if xz-plane should be visible in the graphical device. Default is \code{show.plane = TRUE}.}
 
-\item{plane.color}{Color of plane, default is \code{plane.color = "grey80"}.}
+\item{plane.color}{Color of the plane, default is \code{plane.color = "grey80"}.}
 
 \item{type}{Type of vector arrow for items, default is \code{type = "rotation"}. See \link[rgl:arrow3d]{rgl::arrow3d} for more options regarding arrow types.}
 
-\item{col}{Vector of colors representing difficulty levels for items using the \code{arrow3d()} function. Default is \code{col = c("black", "grey20", "grey40", "grey60", "grey80")}}
+\item{col}{Vector of colors representing difficulty levels for item response functions used in \code{arrow3d()}. Default is \code{col = c("black", "grey20", "grey40", "grey60", "grey80")}.}
 
 \item{arrow.width}{Width of vector arrows for \code{arrow3d()}. Default is \code{arrow.width = 0.6}.}
 
-\item{n}{Number of barbs for the vector arrows from the \code{arrow3d()} function. Default is \code{n = 20}.}
+\item{n}{Number of barbs for the vector arrows from \code{arrow3d()}. Default is \code{n = 20}.}
 
 \item{theta}{Opening angle of barbs for vector arrows from \code{arrow3d()}. Default is \code{theta = 0.2}.}
 
@@ -138,17 +138,17 @@
 
 \item{c.barblen}{The length of the barbs for construct vector arrows from \code{arrow3d()}. Default is \code{c.barblen = 0.03}.}
 
-\item{spheres.r}{Radius of sphere for \code{spheres3d()}. Default is \code{spheres.r = 0.05}.}
+\item{spheres.r}{Radius of the spheres for \code{spheres3d()}. Default is \code{spheres.r = 0.05}.}
 
 \item{sphere.col}{Color of sphere \code{spheres3d()}. Default is \code{sphere.col = "grey20"}.}
 
-\item{ellips}{Logical, if spheres should include an ellipsoid outlining an confidence region returned from the \code{ellipse3d()} function. Default is \code{ellips = TRUE}.}
+\item{ellipse}{Logical, if spheres should include an ellipsoid outlining a confidence region returned from the \code{ellipse3d()} function. Default is \code{ellipse = TRUE}.}
 
 \item{CI.level}{Level of confidence for \code{ellipse3d()}, default is \code{CI.level = 0.95}.}
 
-\item{ellips.col}{Color of the ellipse from \code{ellipse3d()}. Default is \code{ellips.col = "grey80"}.}
+\item{ellipse.col}{Color of the ellipse from \code{ellipse3d()}. Default is \code{ellipse.col = "grey80"}.}
 
-\item{ellips.alpha}{Opacity for the confidence region from \code{ellipse3d()}. Default is \code{ellips.alpha = 0.20}.}
+\item{ellipse.alpha}{Opacity for the confidence region from \code{ellipse3d()}. Default is \code{ellipse.alpha = 0.20}.}
 
 \item{...}{Additional arguments to be passed to RGL or methods.}
 }
@@ -156,18 +156,45 @@
 RGL graphical device.
 }
 \description{
-The \code{plot.dmirt()}visualize the S3 \code{dmirt()} object in a 3D theta space. The plot function is based on \link{rgl} package for data visualization. Output consists of a RGL graphical device that can be exported with dedicated functions (see the examples section).
+Three-dimensional interactive graphical function for the S3 object from \code{\link[=dmirt]{dmirt()}}, based on \link{rgl} package for visualization with OpenGL.
 }
 \details{
-The RGL device has orthogonal standardized axis centered at 0. The function allows plotting of all items, a selection of items as well as plotting a single item and adding constructs to the graphical output (see examples section). The user can also choose to plot one level of difficulty at a time if multiple levels of difficulty are used in the model. Item names are plotted by default but the user has the option of imputing new names for the items and include names for the constructs.
+The function outputs a three-dimensional RGL device containing the descriptive multidimensional item response theory model with orthogonal standardized axes centered at 0.
+The RGL device can be exported as an interactive html file or as a still shoot (see examples below).
+In the case of the latter, the model perspective in the still shoot can be adjusted by changing the \code{view} argument for the function.
 
-Moreover, the function can also plots respondents on top of the item model represented as spheres located with the help of respondents factors scores providing the necessary coordinates (see \link{profile} for more details). This allows for profile analysis in which the user can select respondent rows based on some criteria. When analyzing respondent profiles the user has the option of hiding the item vectors to avoid visual cluttering.
-More specifically, item location shows the items three dimensional level of difficulty. If Likert items are used, each item will have multiple level of
-difficulty and can therefore be said to show the difficulty range of an item. Moreover, the angle of the vector arrows shows the direction of optimal discrimination in the model. In turn, this indicates what traits, one up to three, the item can be said to describe. Lastly, the length of each vector arrows shows the strength of discrimination, in which longer arrows indicate higher discrimination. Short vector arrows are therefore signs of model violations.
+The function allows plotting of all items, a selection of items as well as plotting a single item (see examples section).
+Items can also be plotted with unit lenght by setting \code{scale = TRUE}.
+In addition, the user also has the option of adding constructs to the graphical output with \code{constructs = TRUE} (see the documentation for \link{dmirt} regarding constructs).
+Plotting can be limited to showing one level of difficulty with the \code{diff.level} argument at a time if multiple levels of difficulty are used in the model.
+Item names are displayed by default, but the user has the option of imputing new names for the items (with \code{item.names}) and adding names for the constructs (with \code{construct.names}).
+
+In addition, the plot function can also display respondent scores in the model, represented as spheres located with factors scores as coordinates.
+This allows for a type of profile analysis in which respondents' can be selected and displayed conditioned on some external criteria (see \link{profile} for more details).
+This is done by first extracting respondent factor scores with \link[mirt:fscores]{mirt::fscores}(Chalmers, 2012) and then selecting respondent rows.
+The resulting data frame is imputed in the \code{profiles} argument.
+When analyzing respondent profiles the user has the option of hiding the item vectors (with \code{hide = TRUE}) to avoid visual cluttering.
+
+Some guiding comments regarding the output.
+Vector arrows represent item response functions and the location, angle, and length of the arrows indicate item characteristics (Reckase, 2009).
+If Likert items are used then each item can have multiple item response functions that run successively.
+The distance of the lower end of the vector arrows away from the origin indicates the an items multidimensional difficulty (MDIFF).
+For Likert items that hold multiple item response functions, the MDIFF can be said to show the multidimensional range of difficulty for an item.
+The length of the arrow indicates the item's level of discrimination, in which a longer arrow indicates high discrimination and a short indicates lower discrimination.
+The angle between axes and the vector arrows indicates the direction of maximal slope for the item response function.
+This means that the arrows point towards where an item has its highest possible discrimination parameter in the model.
+In turn, this angle shows what traits, located along the orthogonal axes, the item can be said to describe.
+For instance, an item located at 0° seen from x-axis, and 90° as seen from the y and z-axis, only describes trait x. Such an item is unidimensional.
+In contrast, an item located at 45° between all three axes describes all three traits in the model equally well. Such an item is within-multidimensional.
+
+Since descriptive multidimensional item response theory is based on the graded response model (Samejima, 1969), all items must meet the statistical assumptions of the latter.
+In the D3mirt analysis, item model violations can foremost be observed visually. For instance, shorter vector arrows indicate weaker discrimination on level of ability.
+Moreover, when a Likert item struggles to fit any of the latent variables in the model it can be observed as an extreme stretch of the MDIFF range.
+This is comparable to a tendency to horizontal trace lines in a unidimensional item response theory model.
 }
 \examples{
 \dontrun{
-# Preparation: Calculate dmirt estimates with constructs
+# Preparation: Calculate dmirt object estimates with constructs
 c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
 g <- dmirt(d, c)
 
@@ -177,18 +204,28 @@ plot.dmirt(g, constructs = TRUE)
 
 
 # Plot a selection of items from the model
-plot.dmirt(g, constructs = TRUE, items = c(1,3,4,6,8))
+plot(g, constructs = TRUE, items = c(1,3,4,6,8))
 
 
 
 # Export RGL device in consol
-plot.dmirt(g, constructs = TRUE)
+plot(g, constructs = TRUE)
 rglwidget(width = 1040, height = 1040)
 
 
 # Export RGL device to file
-plot.dmirt(g, constructs = TRUE) # ta bort dmirt?
+plot(g, constructs = TRUE) # ta bort dmirt?
 rgl.snapshot('RGLdevice.png', fmt = 'png')
 }
 #' @export
+}
+\references{
+Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
+
+Reckase, M. D. (2009). \emph{Multidimensional Item Response Theory}. Springer.
+
+Samejima, F. (1969). Estimation of latent ability using a response pattern of graded scores. \emph{Psychometrika 34}, 1–97. https://doi.org/10.1007/BF03372160
+}
+\author{
+Erik Forsberg
 }
