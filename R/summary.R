@@ -1,6 +1,6 @@
 #' D3mirt Summary Function
 #'
-#' @description The `summary.dmirt()` function presents a compressed output from the [D3mirt::dmirt()] S3 object.
+#' @description The `summary.D3mirt()` function presents a compressed output from the [D3mirt::D3mirt()] S3 object.
 #' @param object S3 object of class `dmirt`.
 #' @param ... Additional arguments to be passed to methods.
 #' @param digits User can adjust the number of digits shown per estimate. Default is `digits = 4`.
@@ -19,7 +19,7 @@
 #' # Call summary
 #' summary(g)
 #' }
-summary.dmirt <- function(object, ..., digits = 4){
+summary.D3mirt <- function(object, ..., digits = 4){
   tab1 <- as.data.frame(object$loadings, drop = FALSE)
   tab2 <- as.data.frame(object$mdiff, drop = FALSE)
   tab3 <- as.data.frame(object$mdisc, drop = FALSE)
