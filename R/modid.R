@@ -7,7 +7,7 @@
 #' @param x A data frame with factor loadings
 #' @param head Logical, if output should contain first five rows per factor only. Default is `head = TRUE`.
 #'
-#' @return Lists of factor loadings and absolute sum scores, sorted by the latter.
+#' @return Lists of factors loadings and absolute sum scores (denoted with `modid`), sorted by the latter, and lastly a frame with raw factor loadings (denoted with `loadings`).
 #'
 #' @details Before performing descriptive item response theory analysis it is necessary to investigate if the item score patterns can be used to create empirically valid orthogonal axes in the model.
 #' For a three-dimensional model, this entails that at least two items must be selected.
@@ -36,16 +36,25 @@
 #'
 #' @examples
 #' \dontrun{
-#' # Preparation: Fit a three-factor EFA model
+#' # Preparation: Fit a three-factor EFA model with oblimin rotation
 #' library(psych)
 #' f <- fa(x, nfactors = 3, rotate = "oblimin", residuals = FALSE, SMC = FALSE)
 #'
 #'
 #' # Assign data frame with factor loadings from EFA
-#' z <- data.frame(f$loadings[,])
-#'
-#' # Perform identification estimation
+#' g <- data.frame(f$loadings[,])
 #' modid(z)
+#'
+#'
+#' # Using mirt for EFA with three factors
+#' library(mirt)
+#' f <- mirt(x, 3)
+#'
+#'
+#' # Assign data frame with factor loadings and varimax rotation
+#' g <- summary(f, rotate= 'varimax')
+#' h <- data.frame(g$rotF)
+#' modid(h)
 #' }
 #' #' @export
 modid <- function(x, head = TRUE){
@@ -63,5 +72,6 @@ modid <- function(x, head = TRUE){
     }
     f[[i]] <- a
   }
-  print(f)
+  id <- list(modid = f, loadings = x)
+  print(id)
 }
