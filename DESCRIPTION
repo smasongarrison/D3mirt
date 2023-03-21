@@ -9,7 +9,8 @@ Description: Estimation and plotting of 3D dmirt objects.
 License: MIT + file LICENSE
 URL: https://github.com/ForsbergPyschometrics/D3mirt
 BugReports: https://github.com/ForsbergPyschometrics/D3mirt/issues
-Imports: 
+Depends:
+    R (>= 3.3.0),
     rgl (>= 1.0.1)
 Suggests: 
     mirt,
