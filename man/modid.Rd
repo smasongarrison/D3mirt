@@ -12,7 +12,7 @@ modid(x, head = TRUE)
 \item{head}{Logical, if output should contain first five rows per factor only. Default is \code{head = TRUE}.}
 }
 \value{
-Lists of factor loadings and absolute sum scores, sorted by the latter.
+Lists of factors loadings and absolute sum scores (denoted with \code{modid}), sorted by the latter, and lastly a frame with raw factor loadings (denoted with \code{loadings}).
 }
 \description{
 The function \code{modid()} can assist with the model identification of the D3mirt object.
@@ -39,16 +39,25 @@ However, it is also important to recognize that the \code{modid} function gives 
 }
 \examples{
 \dontrun{
-# Preparation: Fit a three-factor EFA model
+# Preparation: Fit a three-factor EFA model with oblimin rotation
 library(psych)
 f <- fa(x, nfactors = 3, rotate = "oblimin", residuals = FALSE, SMC = FALSE)
 
 
 # Assign data frame with factor loadings from EFA
-z <- data.frame(f$loadings[,])
-
-# Perform identification estimation
+g <- data.frame(f$loadings[,])
 modid(z)
+
+
+# Using mirt for EFA with three factors
+library(mirt)
+f <- mirt(x, 3)
+
+
+# Assign data frame with factor loadings and varimax rotation
+g <- summary(f, rotate= 'varimax')
+h <- data.frame(g$rotF)
+modid(h)
 }
 #' @export
 }
