@@ -31,16 +31,24 @@
 #' plot(x, profiles = p, hide = TRUE)
 #' }
 profile <- function(x, y = NULL, column = 1, condition = c(">"), prob = .75, method = "EAP", QMC = TRUE){
+  if (!requireNamespace("mirt", quietly = TRUE)) {
+    stop(
+      "Package \"mirt\" must be installed to use this function.",
+      call. = FALSE
+    )
+  }
   if(!isS4(x)) warning("x must be S4 mirt object from mirt package")
   m <- as.data.frame(mirt::fscores(x, method = method, full.scores= TRUE, full.scores.SE = FALSE, QMC = QMC), drop = FALSE)
   if (!is.null(y)){
     if (isS4(y)){
       if(column > 3) warning("Column argument set to high, must be 3 or less for S4 objects")
-      y <- as.data.frame(mirt::fscores(y, method = method, ffull.scores= TRUE, full.scores.SE = FALSE, QMC = QMC), drop = FALSE)
+      y <- as.data.frame(mirt::fscores(y, method = method, full.scores= TRUE, full.scores.SE = FALSE, QMC = QMC), drop = FALSE)
       y <- as.matrix(y[,column, drop = FALSE])
     } else {
       if(!is.data.frame(y) && !is.matrix(y)) stop("Input object is not of type data frame or matrix")
+      if (column > ncol(y)) stop("Column argument is too high")
       y <- as.matrix(y[,column, drop = FALSE])
+      if (!nrow(y)==nrow(m)) stop("Data frames does not have the same number of rows")
     }
     if (condition == ">"){
       m$dummy <- ifelse(y[,1] > stats::quantile(y, prob = prob),1,0)
