@@ -6,7 +6,7 @@
 #' @param digits User can adjust the number of digits shown per estimate. Default is `digits = 4`.
 #'
 #' @return Lists containing \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines, and degrees for vector angles for items and constructs.
-#' @export
+#'
 #'
 #' @author Erik Forsberg
 #'
@@ -19,6 +19,7 @@
 #' # Call summary
 #' summary(g)
 #' }
+#' @export
 summary.D3mirt <- function(object, ..., digits = 4){
   tab1 <- as.data.frame(object$loadings, drop = FALSE)
   tab2 <- as.data.frame(object$mdiff, drop = FALSE)
