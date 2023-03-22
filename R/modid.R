@@ -16,19 +16,23 @@
 #' In praxis, this implies that item one, orthogonal to the y and z-axis, will identify the x-axis. Item two, orthogonal to the z-axis, will identify the y-axis, while the z-axis remains free.
 #'
 #' # Step 1: Explore Data Structure
-#' Thus, to begin the factor structure must be explored. This can be done using classical test theory exploratory factor methods (EFA), such as [psych::fa()] (Revelle, 2022). assuming three factors.
-#' Preferably, the EFA method should be carefully chosen based on theory or otherwise statistically reasonable.
+#' Thus, to begin the factor structure must be explored with exploratory exploratory factor analysis (EFA).
+#' Because `D3mirt` analysis is based on item response theory, it is recommended to use multidimensional item response theory EFA methods, such as the EFA option in [mirt::mirt] (Chalmers, 2012) assuming three factors.
+#' However, it is also possible to use classical test theory EFA, such as [psych::fa()] (Revelle, 2022).
+#' Preferably, the EFA method and rotation option should be carefully chosen based on theory or otherwise statistically reasonable.
 #'
 #' # Step 2: Item Selection
 #' Next, the `modid()` takes the factor structure assigned to a data frame, and outputs lists, one list per factor from the EFA.
 #' These lists contain one column for the loadings from each item on the factor of interest, and one column with absolute sum scores for each item calculated from the remaining factor loadings in the model.
 #' Each list is sorted with the lowest absolute sum score highest up.
-#' Accordingly, the top items are the items that best meet the assumption of orthogonality in the given item set or scale.
+#' Accordingly, the top items are the items that best meet the assumption of orthogonality in the given item set or scale in the EFA model.
+#' Regarding item selection, the model identification items should preferably have: (a) an absolute sum score of < .10, and (b) the highest factor loading score of the all items in the set on the factor of interest.
 #'
-#' Limitations
-#' Regarding item selection, model identification items should preferably have an absolute sum score of < .10 and factor loading > .80.
-#' If these conditions cannot be met, the user is advised to proceed with caution since the loading scores imply that an orthogonal structure may not be empirically attainable.
-#' However, it is also important to recognize that the `modid` function gives suggestions to the model identification and there could be situations where the researcher would need to use other methods.
+#'
+#' # Limitations
+#' If the conditions just mention cannot be met, the user is advised to proceed with caution since the loading scores imply that an orthogonal structure may not be empirically attainable.
+#' However, it is also important to recognize that the `modid` function gives suggestions to the model identification and there could be situations where the researcher should consider other methods.
+#' It also important to investigate more than one model identification and to compare different solutions in light of both psychometric analytical results and theory.
 #'
 #' @author Erik Forsberg
 #' @references Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
@@ -37,25 +41,23 @@
 #'
 #' @examples
 #' \dontrun{
-#' # Preparation: Fit a three-factor EFA model with oblimin rotation
-#' library(psych)
-#' f <- fa(x, nfactors = 3, rotate = "oblimin", residuals = FALSE, SMC = FALSE)
-#'
-#'
-#' # Assign data frame with factor loadings from EFA
-#' g <- data.frame(f$loadings[,])
-#' modid(z)
-#'
-#'
-#' # Using mirt for EFA with three factors
+#' # Preparation: Fit a three-factor EFA model
+#' # With mirt package
 #' library(mirt)
 #' f <- mirt(x, 3)
 #'
-#'
-#' # Assign data frame with factor loadings and varimax rotation
+#' # Assign data frame with factor loadings with varimax rotation
 #' g <- summary(f, rotate= 'varimax')
 #' h <- data.frame(g$rotF)
 #' modid(h)
+#'
+#' # With psych package and oblimin rotation
+#' library(psych)
+#' f <- fa(x, nfactors = 3, rotate = "oblimin", residuals = FALSE, SMC = FALSE)
+#'
+#' # Assign data frame with factor loadings
+#' g <- data.frame(f$loadings[,])
+#' modid(z)
 #' }
 #' @export
 modid <- function(x, head = TRUE){
