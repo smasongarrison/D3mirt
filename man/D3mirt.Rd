@@ -72,7 +72,7 @@ d <- data.frame(mirt::coef(mod1, simplify=TRUE)$'items'[,1:7])
 
 # Estimation with dmirt(), including nested lists for two constructs
 c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
-g <- dmirt(d, c)
+g <- D3mirt(d, c)
 }
 }
 \references{
