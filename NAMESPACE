@@ -2,7 +2,8 @@
 
 S3method(summary,D3mirt)
 export(D3mirt)
+export(modid)
 export(plotD3mirt)
-export(profile)
+export(profiles)
 import(rgl)
 importFrom(stats,cov)
