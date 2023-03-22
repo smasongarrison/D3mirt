@@ -32,7 +32,7 @@
 #' # mod1 is the fitted three dimensional S4 mirt object
 #' # y is a data frame containing scores from the same respondents
 #' # Condition: scores >.75, of all scores in column 20 in data frame y
-#' p <- profile(mod1, y, column = 20, condition = ">", prob = .75)
+#' p <- profiles(mod1, y, column = 20, condition = ">", prob = .75)
 #'
 #'
 #' # Plot model with the D3mirt plot function while hiding item vectors
