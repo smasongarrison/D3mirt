@@ -162,19 +162,24 @@ For graphing S3 objects of class \code{D3mirt} from the \code{\link[=D3mirt]{D3m
 The function is based on the \link{rgl} package for visualization with OpenGL. outputs a three-dimensional interactive RGL device containing the descriptive multidimensional item response theory model with orthogonal standardized axes centered at 0.
 The RGL device can be exported as an interactive html file or as a still shoot (see examples below).
 In the case of the latter, the model perspective in the still shoot can be adjusted by changing the \code{view} argument for the function.
-
+}
+\section{Plotting options}{
 The function allows plotting of all items, a selection of items as well as plotting a single item (see examples section).
 Items can also be plotted with unit length by setting \code{scale = TRUE}.
 In addition, the user also has the option of adding constructs to the graphical output with \code{constructs = TRUE} (see the documentation for \link{D3mirt} regarding constructs).
 Plotting can be limited to showing one level of difficulty with the \code{diff.level} argument at a time if multiple levels of difficulty are used in the model.
 Item names are displayed by default, but the user has the option of imputing new names for the items (with \code{item.names}) and adding names for the constructs (with \code{construct.names}).
+}
 
+\section{Visual Profile Analysis}{
 In addition, the plot function can also display respondent scores in the model, represented as spheres located with factors scores as coordinates.
 This allows for a type of profile analysis in which respondents' can be selected and displayed conditioned on some external criteria (see \link{profile} for more details).
 This is done by first extracting respondent factor scores with \link[mirt:fscores]{mirt::fscores}(Chalmers, 2012) and then selecting respondent rows.
 The resulting data frame is imputed in the \code{profiles} argument.
 When analyzing respondent profiles the user has the option of hiding the item vectors (with \code{hide = TRUE}) to avoid visual cluttering.
+}
 
+\section{Guidelines for the Graphical Output}{
 Some guiding comments regarding the output.
 Vector arrows represent item response functions and the location, angle, and length of the arrows indicate item characteristics (Reckase, 2009).
 If Likert items are used then each item can have multiple item response functions that run successively.
@@ -186,12 +191,15 @@ This means that the arrows point towards where an item has its highest possible 
 In turn, this angle shows what traits, located along the orthogonal axes, the item can be said to describe.
 For instance, an item located at 0° seen from x-axis, and 90° as seen from the y and z-axis, only describes trait x. Such an item is unidimensional.
 In contrast, an item located at 45° between all three axes describes all three traits in the model equally well. Such an item is within-multidimensional.
+}
 
+\section{Model Violations}{
 Since descriptive multidimensional item response theory is based on the graded response model (Samejima, 1969), all items must meet the statistical assumptions of the latter.
 In the D3mirt analysis, item model violations can foremost be observed visually. For instance, shorter vector arrows indicate weaker discrimination on level of ability.
 Moreover, when a Likert item struggles to fit any of the latent variables in the model it can be observed as an extreme stretch of the MDIFF range.
 This is comparable to a tendency to horizontal trace lines in a unidimensional item response theory model.
 }
+
 \examples{
 \dontrun{
 # Create S3 object of class D3mirt
