@@ -51,6 +51,8 @@
 #' @param ... Additional arguments to be passed to RGL or methods.
 #'
 #' @return RGL graphical device.
+#'
+#'
 #' @import rgl
 #' @importFrom stats cov
 #'
@@ -58,21 +60,21 @@
 #' The RGL device can be exported as an interactive html file or as a still shoot (see examples below).
 #' In the case of the latter, the model perspective in the still shoot can be adjusted by changing the `view` argument for the function.
 #'
-#'
+#' # Plotting options
 #' The function allows plotting of all items, a selection of items as well as plotting a single item (see examples section).
 #' Items can also be plotted with unit length by setting `scale = TRUE`.
 #' In addition, the user also has the option of adding constructs to the graphical output with `constructs = TRUE` (see the documentation for [D3mirt::D3mirt] regarding constructs).
 #' Plotting can be limited to showing one level of difficulty with the `diff.level` argument at a time if multiple levels of difficulty are used in the model.
 #' Item names are displayed by default, but the user has the option of imputing new names for the items (with `item.names`) and adding names for the constructs (with `construct.names`).
 #'
-#'
+#' # Visual Profile Analysis
 #' In addition, the plot function can also display respondent scores in the model, represented as spheres located with factors scores as coordinates.
 #' This allows for a type of profile analysis in which respondents' can be selected and displayed conditioned on some external criteria (see [D3mirt::profile] for more details).
 #' This is done by first extracting respondent factor scores with [mirt::fscores](Chalmers, 2012) and then selecting respondent rows.
 #' The resulting data frame is imputed in the `profiles` argument.
 #' When analyzing respondent profiles the user has the option of hiding the item vectors (with `hide = TRUE`) to avoid visual cluttering.
 #'
-#'
+#' # Guidelines for the Graphical Output
 #' Some guiding comments regarding the output.
 #' Vector arrows represent item response functions and the location, angle, and length of the arrows indicate item characteristics (Reckase, 2009).
 #' If Likert items are used then each item can have multiple item response functions that run successively.
@@ -85,6 +87,7 @@
 #' For instance, an item located at 0° seen from x-axis, and 90° as seen from the y and z-axis, only describes trait x. Such an item is unidimensional.
 #' In contrast, an item located at 45° between all three axes describes all three traits in the model equally well. Such an item is within-multidimensional.
 #'
+#' # Model Violations
 #' Since descriptive multidimensional item response theory is based on the graded response model (Samejima, 1969), all items must meet the statistical assumptions of the latter.
 #' In the D3mirt analysis, item model violations can foremost be observed visually. For instance, shorter vector arrows indicate weaker discrimination on level of ability.
 #' Moreover, when a Likert item struggles to fit any of the latent variables in the model it can be observed as an extreme stretch of the MDIFF range.
