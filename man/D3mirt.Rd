@@ -15,7 +15,7 @@ D3mirt(x, constructs = NULL)
 S3 object with lists of \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines and degrees for vector angles, construct lists, and vector coordinates.
 }
 \description{
-Descriptive multidimensional item response theory modeling, following Reckase (2009), restricted to three dimensions.
+Descriptive multidimensional item response theory modeling (Reckase, 2009, 1985, Reckase & McKinley, 1991), restricted to three dimensions.
 The \code{dmirt()} function takes in a data frame of factor slopes (\emph{a}) and difficulty parameters (\emph{d}) from a three-dimensional graded response model (Samejima, 1969),
 fitted with \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012). The function returns an S3
 object containing dmirt estimates that can be graphically displayed with \code{\link[=plot]{plot()}}.
@@ -23,18 +23,24 @@ object containing dmirt estimates that can be graphically displayed with \code{\
 \details{
 Model parameters for the multidimensional graded response model must be estimated before using \code{dmirt()} (see examples below) and follow the necessary model specification and limitations.
 This includes that items must be set to load on all factors in the graded response model and that the number of factors must be three.
-
+}
+\section{Constructs}{
 The user has the option of including constructs in the estimation, by creating one or more nested lists that indicate what items belong to what construct (see the examples section).
 From this, the \code{dmirt()} function calculates new direction cosines for the constructs by adding and normalizing the direction cosines for the items contained in each construct list.
 The construct vector arrows can contribute to the analysis by visualizing the average direction for a subset set of items.
+}
 
+\section{Scaling of Vector Arrows}{
 Regarding plotting, the \code{dmirt()} function returns vector coordinates estimated with and without the MDISC as a scalar for arrow length. If the MDISC is not used, all vector arrows are scaled to unit length.
 This can help reduce clutter in the graphical output.
+}
 
+\section{Model Identification}{
 An important part of descriptive multidimensional item response theory modeling is the model identification that is performed before fitting the three-dimensional graded response model.
 An example based on a 10-item set in which the model has already been identified is given below.
 For more information on model identification, please read the documentation included under \code{D3mirt::modid()}.
 }
+
 \examples{
 \dontrun{
 # Preparation: Fitting a three-dimensional graded response model
@@ -73,6 +79,10 @@ g <- dmirt(d, c)
 Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
 
 Reckase, M. D. (2009). \emph{Multidimensional Item Response Theory}. Springer.
+
+Reckase, M. D. (1985). The Difficulty of Test Items That Measure More Than One Ability. \emph{Applied Psychological Measurement, 9}(4), 401-412–412. https://doi-org.ezp.sub.su.se/10.1177/014662168500900409
+
+Reckase, M. D., & McKinley, R. L. (1991). The Discriminating Power of Items That Measure More Than One Dimension. \emph{Applied Psychological Measurement, 15}(4), 361-373–373. https://doi-org.ezp.sub.su.se/10.1177/014662169101500407
 
 Samejima, F. (1969). Estimation of latent ability using a response pattern of graded scores. \emph{Psychometrika 34}, 1–97. https://doi.org/10.1007/BF03372160
 }
