@@ -66,7 +66,7 @@
 #'
 #' # Estimation with dmirt(), including nested lists for two constructs
 #' c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
-#' g <- dmirt(d, c)
+#' g <- D3mirt(d, c)
 #' }
 #' @export
 D3mirt <- function(x, constructs = NULL){
