@@ -3,45 +3,46 @@
 #' @description For graphing S3 objects of class `D3mirt` from the [D3mirt::D3mirt()] function.
 #' @param x S3 dmirt object
 #' @param scale Logical, if item vector arrow length should visualize the MDISC estimates. If set to FALSE, the vector arrow length will be one unit length. Default is `scale = FALSE`.
-#' @param constructs Logical, if construct vector arrows should be plotted. Default set to FALSE
-#' @param con.scalars Set of scalars for adjusting construct arrow length. The first numeric adjust the length in the negative direction and the second numeric the length in the positive direction. Default is `con.scalars = c(1,1)`.
-#' @param profiles Data frame with coordinates for spheres representing respondent scores.
 #' @param hide Logical, if items should be plotted. Default is `hide = FALSE`.
+#' @param diff.level Optional. Plotting of a single level of difficulty indicated by an integer.
 #' @param items Optional. The user can input a list of integers indicating what item vector arrows will be visible while the remaining items are hidden.
 #' @param item.lab Logical, if item labels should be plotted. Default is `item.names = TRUE`.
 #' @param item.names Optional. String vector of item names that will override row names extracted from the data frame.
+#' @param constructs Logical, if construct vector arrows should be plotted. Default set to FALSE
 #' @param construct.names Optional. String vector of names for constructs.
 #' @param adjust.lab Vector of parameters for the position of item and construct labels for the `text3d` function. The first value is for horizontal adjustment and the second is for vertical adjustment. Default is `adjust.lab = c(0.5, -0.8)`.
-#' @param diff.level Optional. Plotting of a single level of difficulty indicated by an integer.
-#' @param background Set background color for the graphical device, Default is `background = "white"`.
-#' @param width.rgl.x Width in the x direction for `par3d()`. Default is `width.rgl.x = 1040`.
-#' @param width.rgl.y Width in the y direction for `par3d()`. Default is `width.rgl.y = 1040`.
-#' @param view Vector with polar coordinates and zoom factor for the `view3d` function. Default is `view = c(15,20, 0.7)`.
-#' @param axis.scalar Scalar factors to adjusts the length of the axes (x, y, z) in the 3D model. Default is `axis.scalar = c(1.1,1.1,1.1)`
-#' @param axis.col Color of axis for the `segment3D()`function, default is `axis.col = "Black"`.
-#' @param axis.points Color of axis points for the `points3d()` function. Default is `axis.points = "black"`.
-#' @param points Logical, if axis from `points3d()` have end points. Default is `points = TRUE`.
-#' @param axis.ticks Logical, if axis ticks from the `axis3d()` function should be plotted. Default is `axis.ticks = TRUE'.
-#' @param nticks Number of ticks for `axis3d()`. Default is `nticks = 8`.
-#' @param title The main title for the graphical device, plotted with the `title3d()` function.
-#' @param line  Title placement for `title3d()`. Default is `line = -5`.
 #' @param x.lab Labels for x-axis, Default is `x.lab = "X"`.
 #' @param y.lab Labels for y-axis, Default is `y.lab = "Y"`.
 #' @param z.lab Labels for y-axis, Default is `z.lab = "Z"`.
+#' @param title The main title for the graphical device, plotted with the `title3d()` function.
+#' @param line  Title placement for `title3d()`. Default is `line = -5`.
+#' @param axis.scalar Scalar factors to adjusts the length of the axes (x, y, z) in the 3D model. Default is `axis.scalar = c(1.1,1.1,1.1)`
+#' @param axis.col Color of axis for the `segment3D()`function, default is `axis.col = "Black"`.
+#' @param axis.points Color of axis points for the `points3d()` function. Default is `axis.points = "black"`.
+#'
+#' @param points Logical, if axis from `points3d()` have end points. Default is `points = TRUE`.
+#' @param axis.ticks Logical, if axis ticks from the `axis3d()` function should be plotted. Default is `axis.ticks = TRUE'.
+#' @param nticks Number of ticks for `axis3d()`. Default is `nticks = 8`.
+#' @param width.rgl.x Width in the x direction for `par3d()`. Default is `width.rgl.x = 1040`.
+#' @param width.rgl.y Width in the y direction for `par3d()`. Default is `width.rgl.y = 1040`.
+#' @param view Vector with polar coordinates and zoom factor for the `view3d` function. Default is `view = c(15,20, 0.7)`.
 #' @param show.plane Logical, if xz-plane should be visible in the graphical device. Default is `show.plane = TRUE`.
 #' @param plane.color Color of the plane, default is `plane.color = "grey80"`.
+#' @param background Set background color for the graphical device, Default is `background = "white"`.
 #' @param type Type of vector arrow for items, default is `type = "rotation"`. See [rgl::arrow3d] for more options regarding arrow types.
 #' @param col Vector of colors representing difficulty levels for item response functions used in `arrow3d()`. Default is `col = c("black", "grey20", "grey40", "grey60", "grey80")`.
 #' @param arrow.width Width of vector arrows for `arrow3d()`. Default is `arrow.width = 0.6`.
 #' @param n Number of barbs for the vector arrows from `arrow3d()`. Default is `n = 20`.
 #' @param theta Opening angle of barbs for vector arrows from `arrow3d()`. Default is `theta = 0.2`.
 #' @param barblen The length of the barbs for vector arrows from `arrow3d()`. Default is `barblen = 0.03`.
+#' @param c.scalars Set of scalars for adjusting construct arrow length. The first numeric adjust the length in the negative direction and the second numeric the length in the positive direction. Default is `c.scalars = c(1,1)`.
 #' @param c.type Type of vector arrow for constructs. See [rgl::arrow3d] for more options regarding arrow types. Default is `c.type = "rotation"`.
 #' @param c.col Color for construct vector arrows from `arrow3d()`, default is `c.col = "black"`.
 #' @param c.arrow.width Width of construct vector arrows for `arrow3d()`. Default is `c.arrow.width = 0.6`.
 #' @param c.n Number of barbs for the construct vector arrows from the `arrow3d()` function. Default is `c.n = 20`.
 #' @param c.theta Opening angle of barbs for construct vector arrows from `arrow3d()`. Default is `c.theta = 0.2`.
 #' @param c.barblen The length of the barbs for construct vector arrows from `arrow3d()`. Default is `c.barblen = 0.03`.
+#' @param profiles Data frame with coordinates for spheres representing respondent scores.
 #' @param spheres.r Radius of the spheres for `spheres3d()`. Default is `spheres.r = 0.05`.
 #' @param sphere.col Color of sphere `spheres3d()`. Default is `sphere.col = "grey20"`.
 #' @param ellipse Logical, if spheres should include an ellipsoid outlining a confidence region returned from the `ellipse3d()` function. Default is `ellipse = TRUE`.
@@ -130,14 +131,18 @@
 #' rgl.snapshot('RGLdevice.png', fmt = 'png')
 #' }
 #' @export
-plotD3mirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,1), profiles = NULL, hide = FALSE, items = NULL, item.lab = TRUE, item.names = NULL, construct.names = NULL, adjust.lab = c(0.5, -0.8),
-                        diff.level = NULL, background = "white",
-                        width.rgl.x = 1040, width.rgl.y= 1040, view = c(15,20, 0.7), axis.scalar = c(1.1,1.1,1.1), axis.col = "black", axis.points = "black",
-                        points = TRUE, axis.ticks = TRUE, nticks = 8, title="", line = -5, x.lab = "X", y.lab="Y", z.lab="Z", show.plane = TRUE, plane.color = "grey80",
+plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items = NULL, item.lab = TRUE, item.names = NULL,
+                        constructs = FALSE, construct.names = NULL, adjust.lab = c(0.5, -0.8),
+                        x.lab = "X", y.lab="Y", z.lab="Z", title="", line = -5,
+                        axis.scalar = c(1.1,1.1,1.1), axis.col = "black", axis.points = "black",
+                        points = TRUE, axis.ticks = TRUE, nticks = 8,  width.rgl.x = 1040, width.rgl.y= 1040, view = c(15,20, 0.7),
+                        show.plane = TRUE, plane.color = "grey80", background = "white",
                         type = "rotation", col = c("black", "grey20", "grey40", "grey60", "grey80"),
                         arrow.width = 0.6, n = 20, theta = 0.2, barblen = 0.03,
+                        c.scalars = c(1,1),
                         c.type = "rotation", c.col = "black", c.arrow.width = 0.6,
-                        c.n = 20, c.theta = 0.2, c.barblen = 0.03, spheres.r = 0.05,
+                        c.n = 20, c.theta = 0.2, c.barblen = 0.03,
+                        profiles = NULL, spheres.r = 0.05,
                         sphere.col = "grey20", ellipse = TRUE, CI.level = 0.95, ellipse.col = "grey80", ellipse.alpha = 0.20, ...){
   if (!isa(x, "D3mirt")) stop("Input object must be of class D3mirt")
   rgl::open3d()
@@ -145,11 +150,7 @@ plotD3mirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
   rgl::bg3d(color = background)
   rgl::view3d(theta = view[1], phi = view[2], zoom = view[3])
   if (is.null(ncol(x$dir.vec))){
-    if (scale == FALSE){
-      ax <- x$dir.vec
-    } else {
-      ax <- x$scal.vec
-    }
+    ax <- x$dir.vec
     low <- as.data.frame(ax[1], drop = FALSE)
     hig <- as.data.frame(ax[length(ax)], drop = FALSE)
     xaxis.min <- min(low[,1])*axis.scalar[1]
@@ -159,11 +160,7 @@ plotD3mirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
     zaxis.min <- min(low[,3])*axis.scalar[3]
     zaxis.max <- max(hig[,3])*axis.scalar[3]
   } else {
-    if (scale == FALSE){
-      ax <- x$dir.vec
-    } else {
-      ax <- x$scal.vec
-    }
+    ax <- x$dir.vec
     xaxis.min <- min(ax[,1])*axis.scalar[1]
     xaxis.max <- max(ax[,1])*axis.scalar[1]
     yaxis.min <- min(ax[,2])*axis.scalar[2]
@@ -475,11 +472,11 @@ plotD3mirt <- function (x, scale = FALSE, constructs = FALSE, con.scalars = c(1,
     if (is.null(x$c.vec)) warning("3D mirt object does not contain any constructs")
     cvec <- x$c.vec
     sapply(seq(from = 1, to = nrow(cvec), by=2), function(x){
-      rgl::arrow3d(cvec[x,]*con.scalars[1], cvec[x+1,]*con.scalars[2], type = c.type, col = c.col, width = c.arrow.width, n = c.n, theta = c.theta, barblen = c.barblen)
+      rgl::arrow3d(cvec[x,]*c.scalars[1], cvec[x+1,]*c.scalars[2], type = c.type, col = c.col, width = c.arrow.width, n = c.n, theta = c.theta, barblen = c.barblen)
     })
     if (!is.null(construct.names) && constructs == TRUE){
       if(!length(construct.names) <= nrow(x$c.vec)) warning("There are more construct labels than constructs")
-      clab <-  x$c.vec*con.scalars[2]
+      clab <-  x$c.vec*c.scalars[2]
       sapply(seq(nrow(x$c.dir.cos)), function(i){
         rgl::text3d(clab[(i*2),1],clab[(i*2),2], clab[(i*2),3], text = c(construct.names[i]), color = axis.col,
                     adj = adjust.lab, size = 2)
