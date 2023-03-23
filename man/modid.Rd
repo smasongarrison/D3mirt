@@ -4,12 +4,15 @@
 \alias{modid}
 \title{D3mirt Model Identification}
 \usage{
-modid(x, head = TRUE)
+modid(x, factor.order = NULL, head = 5)
 }
 \arguments{
 \item{x}{A data frame with factor loadings}
 
-\item{head}{Logical, if output should contain first five rows per factor only. Default is \code{head = TRUE}.}
+\item{factor.order}{Optional. User can override the automatic sorting of factors by sum of squares loadings in data frame x by manually setting factor order with integer values, e.g., \code{c(2,1,3)}to use the second factor (or column) in data frame x first, first factor (or column) in x second, and the third factor (or column) is left untouched.
+Default is \code{factor.order = NULL}.}
+
+\item{head}{The number of highest loading items to use in the item selection algorithm. Indicated with integer a value. Default is \code{head = 5}.}
 }
 \value{
 Lists of factors loadings and absolute sum scores (denoted with \code{modid}), sorted by the latter, and lastly a frame with raw factor loadings (denoted with \code{loadings}).
@@ -56,7 +59,9 @@ f <- mirt(x, 3)
 # Assign data frame with factor loadings with varimax rotation
 g <- summary(f, rotate= 'varimax')
 h <- data.frame(g$rotF)
-modid(h)
+modid(h, head = 10)
+
+# Override factor order
 
 # With psych package and oblimin rotation
 library(psych)
