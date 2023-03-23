@@ -7,45 +7,45 @@
 plotD3mirt(
   x,
   scale = FALSE,
-  constructs = FALSE,
-  con.scalars = c(1, 1),
-  profiles = NULL,
   hide = FALSE,
+  diff.level = NULL,
   items = NULL,
   item.lab = TRUE,
   item.names = NULL,
+  constructs = FALSE,
   construct.names = NULL,
   adjust.lab = c(0.5, -0.8),
-  diff.level = NULL,
-  background = "white",
-  width.rgl.x = 1040,
-  width.rgl.y = 1040,
-  view = c(15, 20, 0.7),
+  x.lab = "X",
+  y.lab = "Y",
+  z.lab = "Z",
+  title = "",
+  line = -5,
   axis.scalar = c(1.1, 1.1, 1.1),
   axis.col = "black",
   axis.points = "black",
   points = TRUE,
   axis.ticks = TRUE,
   nticks = 8,
-  title = "",
-  line = -5,
-  x.lab = "X",
-  y.lab = "Y",
-  z.lab = "Z",
+  width.rgl.x = 1040,
+  width.rgl.y = 1040,
+  view = c(15, 20, 0.7),
   show.plane = TRUE,
   plane.color = "grey80",
+  background = "white",
   type = "rotation",
   col = c("black", "grey20", "grey40", "grey60", "grey80"),
   arrow.width = 0.6,
   n = 20,
   theta = 0.2,
   barblen = 0.03,
+  c.scalars = c(1, 1),
   c.type = "rotation",
   c.col = "black",
   c.arrow.width = 0.6,
   c.n = 20,
   c.theta = 0.2,
   c.barblen = 0.03,
+  profiles = NULL,
   spheres.r = 0.05,
   sphere.col = "grey20",
   ellipse = TRUE,
@@ -60,13 +60,9 @@ plotD3mirt(
 
 \item{scale}{Logical, if item vector arrow length should visualize the MDISC estimates. If set to FALSE, the vector arrow length will be one unit length. Default is \code{scale = FALSE}.}
 
-\item{constructs}{Logical, if construct vector arrows should be plotted. Default set to FALSE}
-
-\item{con.scalars}{Set of scalars for adjusting construct arrow length. The first numeric adjust the length in the negative direction and the second numeric the length in the positive direction. Default is \code{con.scalars = c(1,1)}.}
-
-\item{profiles}{Data frame with coordinates for spheres representing respondent scores.}
-
 \item{hide}{Logical, if items should be plotted. Default is \code{hide = FALSE}.}
+
+\item{diff.level}{Optional. Plotting of a single level of difficulty indicated by an integer.}
 
 \item{items}{Optional. The user can input a list of integers indicating what item vector arrows will be visible while the remaining items are hidden.}
 
@@ -74,19 +70,21 @@ plotD3mirt(
 
 \item{item.names}{Optional. String vector of item names that will override row names extracted from the data frame.}
 
+\item{constructs}{Logical, if construct vector arrows should be plotted. Default set to FALSE}
+
 \item{construct.names}{Optional. String vector of names for constructs.}
 
 \item{adjust.lab}{Vector of parameters for the position of item and construct labels for the \code{text3d} function. The first value is for horizontal adjustment and the second is for vertical adjustment. Default is \code{adjust.lab = c(0.5, -0.8)}.}
 
-\item{diff.level}{Optional. Plotting of a single level of difficulty indicated by an integer.}
+\item{x.lab}{Labels for x-axis, Default is \code{x.lab = "X"}.}
 
-\item{background}{Set background color for the graphical device, Default is \code{background = "white"}.}
+\item{y.lab}{Labels for y-axis, Default is \code{y.lab = "Y"}.}
 
-\item{width.rgl.x}{Width in the x direction for \code{par3d()}. Default is \code{width.rgl.x = 1040}.}
+\item{z.lab}{Labels for y-axis, Default is \code{z.lab = "Z"}.}
 
-\item{width.rgl.y}{Width in the y direction for \code{par3d()}. Default is \code{width.rgl.y = 1040}.}
+\item{title}{The main title for the graphical device, plotted with the \code{title3d()} function.}
 
-\item{view}{Vector with polar coordinates and zoom factor for the \code{view3d} function. Default is \code{view = c(15,20, 0.7)}.}
+\item{line}{Title placement for \code{title3d()}. Default is \code{line = -5}.}
 
 \item{axis.scalar}{Scalar factors to adjusts the length of the axes (x, y, z) in the 3D model. Default is \code{axis.scalar = c(1.1,1.1,1.1)}}
 
@@ -100,19 +98,17 @@ plotD3mirt(
 
 \item{nticks}{Number of ticks for \code{axis3d()}. Default is \code{nticks = 8}.}
 
-\item{title}{The main title for the graphical device, plotted with the \code{title3d()} function.}
+\item{width.rgl.x}{Width in the x direction for \code{par3d()}. Default is \code{width.rgl.x = 1040}.}
 
-\item{line}{Title placement for \code{title3d()}. Default is \code{line = -5}.}
+\item{width.rgl.y}{Width in the y direction for \code{par3d()}. Default is \code{width.rgl.y = 1040}.}
 
-\item{x.lab}{Labels for x-axis, Default is \code{x.lab = "X"}.}
-
-\item{y.lab}{Labels for y-axis, Default is \code{y.lab = "Y"}.}
-
-\item{z.lab}{Labels for y-axis, Default is \code{z.lab = "Z"}.}
+\item{view}{Vector with polar coordinates and zoom factor for the \code{view3d} function. Default is \code{view = c(15,20, 0.7)}.}
 
 \item{show.plane}{Logical, if xz-plane should be visible in the graphical device. Default is \code{show.plane = TRUE}.}
 
 \item{plane.color}{Color of the plane, default is \code{plane.color = "grey80"}.}
+
+\item{background}{Set background color for the graphical device, Default is \code{background = "white"}.}
 
 \item{type}{Type of vector arrow for items, default is \code{type = "rotation"}. See \link[rgl:arrow3d]{rgl::arrow3d} for more options regarding arrow types.}
 
@@ -126,6 +122,8 @@ plotD3mirt(
 
 \item{barblen}{The length of the barbs for vector arrows from \code{arrow3d()}. Default is \code{barblen = 0.03}.}
 
+\item{c.scalars}{Set of scalars for adjusting construct arrow length. The first numeric adjust the length in the negative direction and the second numeric the length in the positive direction. Default is \code{c.scalars = c(1,1)}.}
+
 \item{c.type}{Type of vector arrow for constructs. See \link[rgl:arrow3d]{rgl::arrow3d} for more options regarding arrow types. Default is \code{c.type = "rotation"}.}
 
 \item{c.col}{Color for construct vector arrows from \code{arrow3d()}, default is \code{c.col = "black"}.}
@@ -137,6 +135,8 @@ plotD3mirt(
 \item{c.theta}{Opening angle of barbs for construct vector arrows from \code{arrow3d()}. Default is \code{c.theta = 0.2}.}
 
 \item{c.barblen}{The length of the barbs for construct vector arrows from \code{arrow3d()}. Default is \code{c.barblen = 0.03}.}
+
+\item{profiles}{Data frame with coordinates for spheres representing respondent scores.}
 
 \item{spheres.r}{Radius of the spheres for \code{spheres3d()}. Default is \code{spheres.r = 0.05}.}
 
