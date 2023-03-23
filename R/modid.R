@@ -5,7 +5,9 @@
 #'  These items are then used for setting the orthogonal axes when fitting the graded response model with [`mirt::mirt`] (Chalmers, 2012).
 #'
 #' @param x A data frame with factor loadings
-#' @param head Logical, if output should contain first five rows per factor only. Default is `head = TRUE`.
+#' @param factor.order Optional. User can override the automatic sorting of factors by sum of squares loadings in data frame x by manually setting factor order with integer values, e.g., `c(2,1,3)`to use the second factor (or column) in data frame x first, first factor (or column) in x second, and the third factor (or column) is left untouched.
+#' Default is `factor.order = NULL`.
+#' @param head The number of highest loading items to use in the item selection algorithm. Indicated with integer a value. Default is `head = 5`.
 #'
 #' @return Lists of factors loadings and absolute sum scores (denoted with `modid`), sorted by the latter, and lastly a frame with raw factor loadings (denoted with `loadings`).
 #'
@@ -49,7 +51,9 @@
 #' # Assign data frame with factor loadings with varimax rotation
 #' g <- summary(f, rotate= 'varimax')
 #' h <- data.frame(g$rotF)
-#' modid(h)
+#' modid(h, head = 10)
+#'
+#' # Override factor order
 #'
 #' # With psych package and oblimin rotation
 #' library(psych)
@@ -60,21 +64,35 @@
 #' modid(z)
 #' }
 #' @export
-modid <- function(x, head = TRUE){
+modid <- function(x, factor.order = NULL, head = 5){
   if(!is.data.frame(x) && !is.matrix(x)) stop("Input object is not of type data frame or matrix")
+  if (head>nrow(x)) stop("Head argument is higher than number of rows in the data frame")
+  if(!head== round(head)) stop("Number of heads must be indicated with integer values")
+  if (is.null(factor.order)){
+    y <- x[,order(colSums(x^2), decreasing = TRUE)]
+  } else {
+    if(!factor.order== round(factor.order)) stop("Factor order must be indicated with integer values")
+    if (any(duplicated(factor.order))) stop("The factor order argument has duplicate elements")
+    if(any(!factor.order <= ncol(x))) stop("The factor argument has at least one factor indicator that is higher than the total number of factors")
+    y <- x[, factor.order]
+  }
   f <- NULL
-  for (i in seq(ncol(x))){
-    v <- data.frame(x[,i, drop = FALSE])
-    colnames(v) <- paste("F", i, sep = "")
-    ABS <- data.frame(rowSums(abs(x[,-i, drop = FALSE])))
-    colnames(ABS) <- paste("ABS", i, sep = "")
+  for (i in seq(ncol(y)-1)){
+    v <- data.frame(y[,i, drop = FALSE])
+    colnames(v) <- paste("Item", i, sep = " ")
+    ABS <- data.frame(rowSums(abs(y[,-(1:i), drop = FALSE])))
+    colnames(ABS) <- paste("ABS")
     a <- data.frame(cbind(v,ABS))
-    a <- a[order(a$ABS),]
-    if (head == TRUE){
-      a <- head(a)
-    }
+    a <- a[order(a[,1], decreasing = TRUE),]
+    a <- a[1:head,]
+    a <- a[order(a[,2]),]
     f[[i]] <- a
   }
-  id <- list(modid = f, loadings = x)
+  if (is.null(factor.order)){
+    ss <- sort(colSums(x^2), decreasing = TRUE)
+  } else {
+    ss <- colSums((x^2)[, factor.order])
+  }
+  id <- list(modid = f, loadings = y, ss.loadings = ss)
   print(id)
 }
