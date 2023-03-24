@@ -38,7 +38,11 @@ List of factor scores
 \details{
 The function can be used to extract respondent using \link[stats:quantile]{stats::quantile} and logical operators \code{">"}, \code{"<"}, \code{">="}, and \code{"<="}.
 The returned object can be used to plot respondents' scores with \code{\link[=plot]{plot()}}, using factor scores as coordinates in the graphical output.
-However, selection of respondents can be achieved in many different ways and the \verb{profile() function is therefore very limited in this sense. Importantly, selection of respondents for }plotD3mirt\verb{only require that respondents' factor scores from the current model is extracted with}fscores\verb{(for coordinates of spheres), and that respondent row identity in the}fscroes()\verb{output is the same as in the external data frame. Another option is to select respondents from the }fscores() output itself.
+However, selection of respondents can be achieved in many different ways and the \code{profile()} function is therefore very limited in this sense.
+
+Selection of respondents for \code{plotD3mirt} only require that respondents' factor scores from the current model is extracted with \code{fscores} (for coordinates of spheres),
+and that respondent row identity in the \code{fscroes()}output is the same as in the external data frame.
+Another option is to select respondents from the `fscores() output itself.
 
 Please consult the documentation on \code{\link[mirt:fscores]{mirt::fscores()}} for more details and available options regarding the \code{fscores()} function.
 }
