@@ -117,7 +117,7 @@ modid <- function(x, head = 5, factor.order = NULL){
   } else {
     ss <- colSums((x^2)[, factor.order])
   }
-  id <- list(items = f, ss.loadings = ss, loadings = y)
+  modid <- list(items = f, ss.loadings = ss, loadings = y)
   class(modid) <- "modid"
-  print(id)
+  modid
 }
