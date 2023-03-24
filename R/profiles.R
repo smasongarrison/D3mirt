@@ -9,7 +9,6 @@
 #' @param method The method used to extract respondent factor scores with [mirt::fscores()]. Default is `method = EAP`.
 #' @param QMC Logical, if Quasi-Monte Carlo integration should be used for extracting respondents' factor scores from [mirt::fscores()]. Default is `QMC = TRUE`.
 #'
-#' @return List of factor scores
 #'
 #' @importFrom stats cov
 #'
@@ -22,6 +21,8 @@
 #'
 #'
 #' Please consult the documentation on [mirt::fscores()] for more details and available options regarding the `fscores()` function.
+#'
+#' @return List of factor scores
 #'
 #' @author Erik Forsberg
 #' @references Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
