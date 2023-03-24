@@ -5,10 +5,9 @@
 #' @param ... Additional arguments to be passed to methods.
 #' @param digits User can adjust the number of digits shown per estimate. Default is `digits = 4`.
 #'
-#' @return Lists containing \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines, and degrees for vector angles for items and constructs.
-#'
-#'
 #' @author Erik Forsberg
+#'
+#' @return Lists containing \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines, and degrees for vector angles for items and constructs.
 #'
 #' @examples
 #' \dontrun{
