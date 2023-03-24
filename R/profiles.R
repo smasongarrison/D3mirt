@@ -2,10 +2,11 @@
 #'
 #' @description `profile()` is a wrapper function to [mirt::fscores()] (Chalmers, 2012) and use [stats::quantile()] to select respondent by row.
 #' @param x A three-dimensional S4 [mirt::mirt] object, fitted using descriptive multidimensional item response theory modeling (Reckase, 2009)
-#' @param y A S4 [mirt::mirt] object of the same type as above, or a data frame with respondent's scores.
-#' @param column Numeric indicating what column to use regarding the input for y. Default is `column = 1`.
-#' @param condition String indicating what logical condition to use for filtering. Options are: `">"`, `"<"`, `">="`, and `"<="`. Default is `condition = >`.
-#' @param prob Decimal indicating what probability to use as cut-off. Default is `prob = .75`.
+#' @param y Optional. A S4 [mirt::mirt] object of the same type as above, or a data frame with respondent's scores.
+#' @param z Optional. A data frame with respondent's scores.
+#' @param column Numeric indicating what columns to use regarding the input for y. Default is `column = c(1)`.
+#' @param condition String indicating what logical conditions to use for filtering. Options are: `">"`, `"<"`, `">="`, and `"<="`. Default is `condition = ">"`.
+#' @param probs Decimal indicating what probability to use as cut-off. Default is `probs = c(.75)`.
 #' @param method The method used to extract respondent factor scores with [mirt::fscores()]. Default is `method = EAP`.
 #' @param QMC Logical, if Quasi-Monte Carlo integration should be used for extracting respondents' factor scores from [mirt::fscores()]. Default is `QMC = TRUE`.
 #'
@@ -42,53 +43,110 @@
 #' plot(x, profiles = p, hide = TRUE)
 #' }
 #' @export
-profiles <- function(x, y = NULL, column = 1, condition = c(">"), prob = .75, method = "EAP", QMC = TRUE){
+profiles <- function(x, y = NULL, z = NULL, column = c(1), condition = c(">"), probs = c(.25), method = "EAP", QMC = TRUE){
   if (!requireNamespace("mirt", quietly = TRUE)) {
     stop(
       "Package \"mirt\" must be installed to use this function.",
       call. = FALSE
     )
   }
-  if(!isS4(x)) warning("x must be S4 mirt object from mirt package")
-  m <- as.data.frame(mirt::fscores(x, method = method, full.scores= TRUE, full.scores.SE = FALSE, QMC = QMC), drop = FALSE)
-  if (!is.null(y)){
+  if(!isS4(x)) stop("x must be S4 mirt object from mirt package")
+  m <- data.frame(mirt::fscores(x, method = method, full.scores= TRUE, full.scores.SE = FALSE, QMC = QMC))
+  if (!is.null(y) && is.null(z)){
     if (isS4(y)){
-      if(column > 3) warning("Column argument set to high, must be 3 or less for S4 objects")
-      y <- as.data.frame(mirt::fscores(y, method = method, full.scores= TRUE, full.scores.SE = FALSE, QMC = QMC), drop = FALSE)
-      y <- as.matrix(y[,column, drop = FALSE])
+      if(column > 3) stop("Column argument set to high, must be 3 or less for S4 objects")
+      y <- data.frame(mirt::fscores(y, method = method, full.scores= TRUE, full.scores.SE = FALSE, QMC = QMC))
+      y <- as.matrix(y[,column[1], drop = FALSE])
     } else {
-      if(!is.data.frame(y) && !is.matrix(y)) stop("Input object is not of type data frame or matrix")
       if (column > ncol(y)) stop("Column argument is too high")
-      y <- as.matrix(y[,column, drop = FALSE])
-      if (!nrow(y)==nrow(m)) stop("Data frames does not have the same number of rows")
+      y <- as.matrix(y[,column[1], drop = FALSE])
     }
-    if (condition == ">"){
-      m$dummy <- ifelse(y[,1] > stats::quantile(y, prob = prob),1,0)
+    if (condition[1] == ">"){
+      m$dummy <- ifelse(y[,1] > stats::quantile(y, probs= probs[1]),1,0)
     }
-    else if (condition == "<"){
-      m$dummy <- ifelse(y[,1] < stats::quantile(y, prob = prob),1,0)
+    else if (condition[1] == "<"){
+      m$dummy <- ifelse(y[,1] < stats::quantile(y, probs= probs[1]),1,0)
     }
-    else if (condition == ">="){
-      m$dummy <- ifelse(y[,1] >= stats::quantile(y, prob = prob),1,0)
+    else if (condition[1] == ">="){
+      m$dummy <- ifelse(y[,1] >= stats::quantile(y, probs= probs[1]),1,0)
     }
-    else if (condition == "<="){
-      m$dummy <- ifelse(y[,1] <= stats::quantile(y, prob = prob),1,0)
-    }
-  }
-  if (is.null(y)){
-    if (condition == ">"){
-      m$dummy <- ifelse(m[,column[1]] > stats::quantile(m[,column], prob = prob),1,0)
-    }
-    else if (condition == "<"){
-      m$dummy <- ifelse(m[,column[1]] < stats::quantile(m[,column], prob = prob),1,0)
-    }
-    else  if (condition == ">="){
-      m$dummy <- ifelse(m[,column[1]] >= stats::quantile(m[,column], prob = prob),1,0)
-    }
-    else  if (condition == "<="){
-      m$dummy <- ifelse(m[,column[1]] <= stats::quantile(m[,column], prob = prob),1,0)
+    else if (condition[1] == "<="){
+      m$dummy <- ifelse(y[,1] <= stats::quantile(y, probs= probs[1]),1,0)
     }
   }
-  class(profiles) <- "profiles"
+  if (!is.null(y) && !is.null(z)){
+    if (isS4(y)){
+      if(!isS4(y)) stop("y must be S4 mirt object from mirt package")
+      y <- data.frame(mirt::fscores(y, method = method, full.scores= TRUE, full.scores.SE = FALSE, QMC=QMC))
+      y <- as.matrix(y[,column[1], drop = FALSE])
+      z <- as.matrix(z[,column[2], drop = FALSE])
+    } else {
+      y <- as.matrix(y[,column[1], drop = FALSE])
+      z <- as.matrix(z[,column[2], drop = FALSE])
+    }
+    if (condition[1] == ">" && condition[2] ==">"){
+      m$dummy <- ifelse(y[,1] > stats::quantile(y, probs= probs[1]) & z[,1] > stats::quantile(z, probs = probs[2]),1,0)
+    }
+    else if  (condition[1] == ">" && condition[2] =="<"){
+      m$dummy <- ifelse(y[,1] > stats::quantile(y, probs= probs[1]) & z[,1] < stats::quantile(z, probs = probs[2]),1,0)
+    }
+    else if (condition[1] == ">" && condition[2] ==">="){
+      m$dummy <- ifelse(y[,1] > stats::quantile(y, probs= probs[1]) & z[,1] >= stats::quantile(z, probs = probs[2]),1,0)
+    }
+    else if (condition[1] == ">" && condition[2] =="<="){
+      m$dummy <- ifelse(y[,1] > stats::quantile(y, probs= probs[1]) & z[,1] <= stats::quantile(z, probs = probs[2]),1,0)
+    }
+    else if (condition[1] == "<" && condition[2] ==">"){
+      m$dummy <- ifelse(y[,1] < stats::quantile(y, probs= probs[1]) & z[,1] > stats::quantile(z, probs = probs[2]),1,0)
+    }
+    else if  (condition[1] == "<" && condition[2] =="<"){
+      m$dummy <- ifelse(y[,1] < stats::quantile(y, probs= probs[1]) & z[,1] < stats::quantile(z, probs = probs[2]),1,0)
+    }
+    else if (condition[1] == "<" && condition[2] ==">="){
+      m$dummy <- ifelse(y[,1] < stats::quantile(y, probs= probs[1]) & z[,1] >= stats::quantile(z, probs = probs[2]),1,0)
+    }
+    else if (condition[1] == "<" && condition[2] =="<="){
+      m$dummy <- ifelse(y[,1] < stats::quantile(y, probs= probs[1]) & z[,1] <= stats::quantile(z, probs = probs[2]),1,0)
+    }
+    else if (condition[1] == ">=" && condition[2] ==">"){
+      m$dummy <- ifelse(y[,1] >= stats::quantile(y, probs= probs[1]) & z[,1] > stats::quantile(z, probs = probs[2]),1,0)
+    }
+    else if  (condition[1] == ">=" && condition[2] =="<"){
+      m$dummy <- ifelse(y[,1] >= stats::quantile(y, probs= probs[1]) & z[,1] < stats::quantile(z, probs = probs[2]),1,0)
+    }
+    else if (condition[1] == ">=" && condition[2] ==">="){
+      m$dummy <- ifelse(y[,1] >= stats::quantile(y, probs= probs[1]) & z[,1] >= stats::quantile(z, probs= probs[2]),1,0)
+    }
+    else if (condition[1] == ">=" && condition[2] =="<="){
+      m$dummy <- ifelse(y[,1] >= stats::quantile(y, probs= probs[1]) & z[,1] <= stats::quantile(z, probs = probs[2]),1,0)
+    }
+    else if (condition[1] == "<=" && condition[2] ==">"){
+      m$dummy <- ifelse(y[,1] <= stats::quantile(y, probs= probs[1]) & z[,1] > stats::quantile(z, probs = probs[2]),1,0)
+    }
+    else if  (condition[1] == "<=" && condition[2] =="<"){
+      m$dummy <- ifelse(y[,1] <= stats::quantile(y, probs= probs[1]) & z[,1] < stats::quantile(z, probs = probs[2]),1,0)
+    }
+    else if (condition[1] == "<=" && condition[2] ==">="){
+      m$dummy <- ifelse(y[,1] <= stats::quantile(y, probs= probs[1]) & z[,1] >= stats::quantile(z, probs = probs[2]),1,0)
+    }
+    else if (condition[1] == "<=" && condition[2] =="<="){
+      m$dummy <- ifelse(y[,1] <= stats::quantile(y, probs= probs[1]) & z[,1] <= stats::quantile(z, probs = probs[2]),1,0)
+    }
+  }
+  if (is.null(y) && is.null(z)){
+    if (condition[1] == ">"){
+      m$dummy <- ifelse(m[,column[1]] > stats::quantile(m[,column[1]], probs = probs),1,0)
+    }
+    else if (condition[1] == "<"){
+      m$dummy <- ifelse(m[,column[1]] < stats::quantile(m[,column[1]], probs = probs),1,0)
+    }
+    else  if (condition[1] == ">="){
+      m$dummy <- ifelse(m[,column[1]] >= stats::quantile(m[,column[1]], probs = probs),1,0)
+    }
+    else  if (condition[1] == "<="){
+      m$dummy <- ifelse(m[,column[1]] <= stats::quantile(m[,column[1]], probs = probs),1,0)
+    }
+  }
   m[m$dummy == 1, ]
 }
+cov
