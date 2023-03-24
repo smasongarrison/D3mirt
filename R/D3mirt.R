@@ -8,9 +8,6 @@
 #' @param x Data frame with rows for items and columns for model parameters. The number of columns must be ≥ 4, i.e., three columns for \emph{a} parameters and at least one column for \emph{d} parameters.
 #' @param constructs Optional. Nested lists with integers indicating construct. Default is `constructs = NULL`.
 #'
-#' @return S3 object with lists of \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines and degrees for vector angles, construct lists, and vector coordinates.
-#'
-#'
 #' @details Model parameters for the multidimensional graded response model must be estimated before using `dmirt()` (see examples below) and follow the necessary model specification and limitations.
 #' This includes that items must be set to load on all factors in the graded response model and that the number of factors must be three.
 #'
@@ -27,6 +24,8 @@
 #' An important part of descriptive multidimensional item response theory modeling is the model identification that is performed before fitting the three-dimensional graded response model.
 #' An example based on a 10-item set in which the model has already been identified is given below.
 #' For more information on model identification, please read the documentation included under `D3mirt::modid()`.
+#'
+#' @return S3 object with lists of \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines and degrees for vector angles, construct lists, and vector coordinates.
 #'
 #' @author Erik Forsberg
 #' @references Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
