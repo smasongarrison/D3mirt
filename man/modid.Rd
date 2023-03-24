@@ -11,23 +11,23 @@ modid(x, head = 5, factor.order = NULL)
 
 \item{head}{The number of highest loading items to use in the automatic model identification procedure. Default is \code{head = 5}.}
 
-\item{factor.order}{Optional. User can override the automatic sorting of factors by manually indicating factor order with integer values, e.g., \code{c(2,1,3)}to use the second factor (or column) in data frame x first, first factor (or column) in x second, and the third factor (or column) is left untouched.
+\item{factor.order}{Optional. Users can override the automatic sorting of factors by manually indicating factor order with integer values, e.g., \code{c(2,1,3)} to use the second factor (or column) in data frame x first, first factor (or column) in x second, and the third factor (or column) is left untouched.
 Default is \code{factor.order = NULL}.}
 }
 \value{
 Lists of items and absolute sum scores, sorted by the latter, and sum of squared factor loadings and frame with raw factor loadings with columns ordered by explained variance (high to low) or according to user settings.
 }
 \description{
-\code{modid()} assists with the model identification of the D3mirt object by offering suggestions on what items, from the a set or scale, that can be used to identify the orthogonal structure in the D3mirt model.
+\code{modid()} assists with the model identification of the D3mirt object by indicating what items, from a set or scale, to use for identifying the model to use in the D3mirt analysis.
 }
 \details{
 Before performing descriptive item response theory analysis it is necessary to investigate if the item score patterns fit the \code{D3mirt} method.
-For a three-dimensional model, this implies that two items must be chosen that can be used to identify model.
-More specifically, the first item should not show any systematic relation to the remaining two axes (y and z), and the second item should not be systematically related to the third axis (z), following Reckase (2009) original specifications.
+For a three-dimensional model, this means that two items must be chosen that can be used to identify the model.
+More specifically, the first item should not show any systematic relation to the remaining two axes (y and z), and the second item should not be systematically related to the third axis (z), following Reckase's (2009) original specifications.
 These items are then used to specify the multidimensional graded response model with \code{\link[mirt:mirt]{mirt::mirt}} (Chalmers, 2012; see \link{D3mirt} documentation for more details on model specification).
 \subsection{Step 1: Explore Data Structure}{
 
-To begin the factor structure must be explored with exploratory exploratory factor analysis (EFA).
+To begin the factor structure must be explored with exploratory factor analysis (EFA).
 Because \code{D3mirt} analysis is based on item response theory, it is recommended to use multidimensional item response theory EFA methods, such as the EFA option in \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012).
 However, it is also possible to use classical test theory EFA, such as \code{\link[psych:fa]{psych::fa()}} (Revelle, 2022).
 Regardless, the EFA method and rotation should be carefully chosen based on theory or otherwise statistically reasonable.
@@ -35,12 +35,12 @@ Regardless, the EFA method and rotation should be carefully chosen based on theo
 
 \subsection{Step 2: Item Selection}{
 
-The \code{modid()} takes in the factor structure from the EFA, assigned to a data frame x, and outputs lists (denoted \emph{items}) with suggestions of items to use model identification.
+The \code{modid()} takes in the factor structure from the EFA, assigned to a data frame \emph{x}, and outputs lists (denoted \emph{items}) with suggestions of items to use model identification.
 These lists contain one column for the loadings from each item on the factor of interest, and one column with absolute sum scores for each item calculated from the remaining factor loadings in the model.
 Each list is sorted with the lowest absolute sum score highest up.
 
 Accordingly, the top items in each list are the items that best meet the assumption of orthogonality in the analysis, given item set or scale in the EFA model.
-For a three-dimensional model, all else, the best item from the first list should be used to identify the x-axis and the best item in second list should be used to identify the y-axis.
+For a three-dimensional model, all else equal, the best item from the first list should be used to identify the x-axis, and the best item in the second list should be used to identify the y-axis.
 Optimized model identification items should preferably (a) have an absolute sum score of < .10 and (b) a notably strong factor loading on the factor of interest.
 Of these two criteria, (a) should be given the strongest weight in the selection decision.
 
@@ -51,26 +51,26 @@ Regardless, because empirical data is noisy it is always necessary to try severa
 \subsection{The Automatic Model Identification Procedure}{
 
 The \code{modid} function uses an iterating model identification procedure that can be user adjusted.
-In brief, in automatic mode \code{modid} starts by first calculating the ss loadings on all factors F in the data frame x and rearrange the columns in x in decreasing order, following the level of strength of the ss loadings.
-Next, the function initiates an iterative process that starts by looking at the first factor, f1, and rearrange the rows in the frame x, based on the items factor loading strength on f1.
-The head (default head is 5 but can be adjusted by user) of the rearranged frame is extracted
-and the function continues by assessing the absolute sum score of the factor loadings in the remaining factors, i.e., F-f1, in the head, row wise.
+In brief, in automatic mode, \code{modid} starts by first calculating the ss loadings on all factors \emph{F} in the data frame x and then rearrange the columns in \emph{x}, in decreasing order following the level of strength of the ss loadings.
+Next, the function initiates an iterative process that starts by rearranging factor loadings in the first factor, \emph{f1}, based on the items factor loading strength on f1.
+The head (default head is 5 but can be adjusted by the user) of the rearranged frame is extracted
+and the function continues by assessing the absolute sum score of the factor loadings in the remaining factors, i.e., \emph{F-f1}, in the head, row-wise.
 The result is recorded in a list before the function starts over with the next factor.
 
-For every iteration, the algorithm jumps to the next the factor in the EFA model, rearrange and extract the head.
+For every iteration, the algorithm jumps to the next factor in the EFA model, rearrange and extract the head.
 However the absolute sum score is always assessed on the number of factors less than the total number of factors, following the order of iteration,
-That is, iteration 1 use factor loadings from all factors F-f1, iteration 2 F-(f1+f2), iteration 3 F-(f1+f2+f3) and so on, when calculating the absolute sum scores.
+That is, iteration 1 use factor loadings from all factors \emph{F-f1}, iteration 2 \emph{F-(f1+f2)}, iteration 3 \emph{F-(f1+f2+f3)}, and so on, when calculating the absolute sum scores.
 
 The user has the option of overriding the automatic sorting of factor order according to ss loadings, with the argument \code{factor.order} (see examples section).
-This can, for instance, be useful in cases where the ss loadings are very similar in strength in the EFA model.
+This can, for instance, be useful in cases where the ss loadings are very similar in strength in the EFA model, as well as to try to increase the head argument.
 }
 
 \subsection{Limitations}{
 
-The \code{modid}function is not limited to three-dimensional analysis, but can be used on any number of factors.
+The \code{modid} function is not limited to three-dimensional analysis, but can be used on any number of factors.
 The user must therefore make sure that the input data frame is of correct format and content.
-Although based on suggestions on model identification given by Reckase (2009) for this type of analysis, the function offers an expansion that gives more precision.
-The latter foremost include the introduction of automatization in the selection process, and to take sum of squares in consideration during item selection (unless the user has not specified otherwise).
+Although based on suggestions on model identification given by Reckase (2009) for this type of analysis the function offers an expansion that gives more precision.
+The latter foremost includes the introduction of automatization in the selection process, and in taking the sum of squares into consideration during item selection (unless the user has not specified otherwise).
 Experience tells that ordering factors by strength during item selection is good practice that often leads to better results compared to other options.
 However, it is important to recognize that the automatic model identification procedure only gives suggestions, and there could be situations where the researcher should consider other methods.
 }
@@ -93,7 +93,7 @@ f <- fa(x, nfactors = 3, rotate = "oblimin", residuals = FALSE, SMC = FALSE)
 # Assign data frame with factor loadings
 g <- data.frame(f$loadings[,])
 
-# call to modid with increased size of the head argument
+# call to modid with an increased head argument
 modid(h, head = 10)
 
 # Override factor order by reversing columns in the original data frame
