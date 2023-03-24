@@ -19,10 +19,9 @@
 #' @param axis.scalar Scalar factors to adjusts the length of the axes (x, y, z) in the 3D model. Default is `axis.scalar = c(1.1,1.1,1.1)`
 #' @param axis.col Color of axis for the `segment3D()`function, default is `axis.col = "Black"`.
 #' @param axis.points Color of axis points for the `points3d()` function. Default is `axis.points = "black"`.
-#'
 #' @param points Logical, if axis from `points3d()` have end points. Default is `points = TRUE`.
 #' @param axis.ticks Logical, if axis ticks from the `axis3d()` function should be plotted. Default is `axis.ticks = TRUE'.
-#' @param nticks Number of ticks for `axis3d()`. Default is `nticks = 8`.
+#' @param nticks Number of ticks for `axis3d()` indicated with integers for the x, y, and z axes. Default is `nticks = c(10,10,10)`.
 #' @param width.rgl.x Width in the x direction for `par3d()`. Default is `width.rgl.x = 1040`.
 #' @param width.rgl.y Width in the y direction for `par3d()`. Default is `width.rgl.y = 1040`.
 #' @param view Vector with polar coordinates and zoom factor for the `view3d` function. Default is `view = c(15,20, 0.7)`.
@@ -136,7 +135,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         constructs = FALSE, construct.names = NULL, adjust.lab = c(0.5, -0.8),
                         x.lab = "X", y.lab="Y", z.lab="Z", title="", line = -5,
                         axis.scalar = c(1.1,1.1,1.1), axis.col = "black", axis.points = "black",
-                        points = TRUE, axis.ticks = TRUE, nticks = 8,  width.rgl.x = 1040, width.rgl.y= 1040, view = c(15,20, 0.7),
+                        points = TRUE, axis.ticks = TRUE, nticks = c(10,10,10),  width.rgl.x = 1040, width.rgl.y= 1040, view = c(15,20, 0.7),
                         show.plane = TRUE, plane.color = "grey80", background = "white",
                         type = "rotation", col = c("black", "grey20", "grey40", "grey60", "grey80"),
                         arrow.width = 0.6, n = 20, theta = 0.2, barblen = 0.03,
@@ -176,9 +175,10 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
   rgl::segments3d(c(0, 0), yaxis, c(0, 0), color = axis.col)
   rgl::segments3d(c(0, 0), c(0, 0), zaxis, color = axis.col)
   if (axis.ticks == TRUE){
-    rgl::axis3d('x', pos = c(0, 0, 0), ticks = TRUE, nticks=nticks)
-    rgl::axis3d('y', pos = c(0, 0, 0), ticks = TRUE, nticks=nticks)
-    rgl::axis3d('z',pos = c(0, 0, 0), ticks = TRUE, nticks=nticks)
+    if(!nticks== round(nticks)) stop("The nticks argument must be indicated with three integer values")
+    rgl::axis3d('x', pos = c(0, 0, 0), ticks = TRUE, nticks=nticks[1])
+    rgl::axis3d('y', pos = c(0, 0, 0), ticks = TRUE, nticks=nticks[2])
+    rgl::axis3d('z',pos = c(0, 0, 0), ticks = TRUE, nticks=nticks[3])
   }
   if (points == TRUE){
     axes <- rbind(c(xaxis[2], 0, 0), c(0, yaxis[2], 0),
@@ -197,7 +197,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
   if (hide == FALSE){
     if (scale==FALSE){
     vec <- x$dir.vec
-    if (!is.null(items)){ # warning list items is not list
+    if (!is.null(items)){
       if(any(!items <= nrow(x$loadings))) stop("The items list contains one or more item indicators that are higher than the total number of items")
       if (is.null(diff.level)){
         if (is.null(ncol(vec))){
@@ -213,7 +213,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
             rgl::arrow3d(vec[x,], vec[x+1,], type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
         }
       } else {
-        if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high") # format warning
+        if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high")
         if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
         v <- vec[[diff.level]]
         m <- items*2-1
@@ -331,9 +331,9 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
         }
       }
     }
-  } else { # scale TRUE
+  } else {
     vec <- x$scal.vec
-    if (!is.null(items)){ # warning list items is not list
+    if (!is.null(items)){
       if(any(!items <= nrow(x$loadings))) stop("The items list contains one or more item indicators that are higher than the total number of items")
       if (is.null(diff.level)){
         if (is.null(ncol(vec))){
@@ -349,7 +349,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
             rgl::arrow3d(vec[x,], vec[x+1,], type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
         }
       } else {
-        if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high") # format warning
+        if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high")
         if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
         v <- vec[[diff.level]]
         m <- items*2-1
@@ -467,8 +467,8 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
         }
       }
     }
-  } # hide false
-} # hide false
+  }
+}
   if (constructs == TRUE){
     if (is.null(x$c.vec)) warning("3D mirt object does not contain any constructs")
     cvec <- x$c.vec
@@ -489,7 +489,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
     x <- profiles[,1]
     y <- profiles[,2]
     z <- profiles[,3]
-    rgl::spheres3d(x,y,z, radius = spheres.r, color = sphere.col) # double check
+    rgl::spheres3d(x,y,z, radius = spheres.r, color = sphere.col)
     if (ellipse == TRUE){
       ellipse <- rgl::ellipse3d(cov(cbind(x,y,z)),
                                centre=c(mean(x), mean(y), mean(z)), level = CI.level)
