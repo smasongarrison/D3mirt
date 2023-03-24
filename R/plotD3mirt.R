@@ -51,8 +51,6 @@
 #' @param ellipse.alpha Opacity for the confidence region from `ellipse3d()`. Default is `ellipse.alpha = 0.20`.
 #' @param ... Additional arguments to be passed to RGL or methods.
 #'
-#' @return RGL graphical device.
-#'
 #'
 #' @import rgl
 #' @importFrom stats cov
@@ -93,6 +91,9 @@
 #' In the D3mirt analysis, item model violations can foremost be observed visually. For instance, shorter vector arrows indicate weaker discrimination on level of ability.
 #' Moreover, when a Likert item struggles to fit any of the latent variables in the model it can be observed as an extreme stretch of the MDIFF range.
 #' This is comparable to a tendency to horizontal trace lines in a unidimensional item response theory model.
+#'
+#' @return RGL graphical device.
+#'
 #' @author Erik Forsberg
 #' @references Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
 #' @references Reckase, M. D. (2009). \emph{Multidimensional Item Response Theory}. Springer.
