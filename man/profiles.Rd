@@ -7,9 +7,10 @@
 profiles(
   x,
   y = NULL,
-  column = 1,
+  z = NULL,
+  column = c(1),
   condition = c(">"),
-  prob = 0.75,
+  probs = c(0.25),
   method = "EAP",
   QMC = TRUE
 )
@@ -17,13 +18,15 @@ profiles(
 \arguments{
 \item{x}{A three-dimensional S4 \link[mirt:mirt]{mirt::mirt} object, fitted using descriptive multidimensional item response theory modeling (Reckase, 2009)}
 
-\item{y}{A S4 \link[mirt:mirt]{mirt::mirt} object of the same type as above, or a data frame with respondent's scores.}
+\item{y}{Optional. A S4 \link[mirt:mirt]{mirt::mirt} object of the same type as above, or a data frame with respondent's scores.}
 
-\item{column}{Numeric indicating what column to use regarding the input for y. Default is \code{column = 1}.}
+\item{z}{Optional. A data frame with respondent's scores.}
 
-\item{condition}{String indicating what logical condition to use for filtering. Options are: \code{">"}, \code{"<"}, \code{">="}, and \code{"<="}. Default is \verb{condition = >}.}
+\item{column}{Numeric indicating what columns to use regarding the input for y. Default is \code{column = c(1)}.}
 
-\item{prob}{Decimal indicating what probability to use as cut-off. Default is \code{prob = .75}.}
+\item{condition}{String indicating what logical conditions to use for filtering. Options are: \code{">"}, \code{"<"}, \code{">="}, and \code{"<="}. Default is \code{condition = ">"}.}
+
+\item{probs}{Decimal indicating what probability to use as cut-off. Default is \code{probs = c(.75)}.}
 
 \item{method}{The method used to extract respondent factor scores with \code{\link[mirt:fscores]{mirt::fscores()}}. Default is \code{method = EAP}.}
 
