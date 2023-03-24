@@ -14,8 +14,10 @@
 #'
 #' @details The function can be used to extract respondent using [stats::quantile] and logical operators `">"`, `"<"`, `">="`, and `"<="`.
 #' The returned object can be used to plot respondents' scores with [D3mirt::plot()], using factor scores as coordinates in the graphical output.
-#' However, selection of respondents can be achieved in many different ways and the `profile() function is therefore very limited in this sense.
-#' Importantly, selection of respondents for `plotD3mirt` only require that respondents' factor scores from the current model is extracted with `fscores` (for coordinates of spheres),
+#' However, selection of respondents can be achieved in many different ways and the `profile()` function is therefore very limited in this sense.
+#'
+#'
+#' Selection of respondents for `plotD3mirt` only require that respondents' factor scores from the current model is extracted with `fscores` (for coordinates of spheres),
 #' and that respondent row identity in the `fscroes()`output is the same as in the external data frame.
 #' Another option is to select respondents from the `fscores() output itself.
 #'
@@ -87,5 +89,6 @@ profiles <- function(x, y = NULL, column = 1, condition = c(">"), prob = .75, me
       m$dummy <- ifelse(m[,column[1]] <= stats::quantile(m[,column], prob = prob),1,0)
     }
   }
+  class(profiles) <- "profiles"
   m[m$dummy == 1, ]
 }
