@@ -4,6 +4,7 @@
 #'
 #' @param x A data frame with factor loadings
 #' @param st.d The standard deviation used as the lower bound for item inclusion in the item list from each iteration. Default is `st.d = 0.5`.
+#' @param ABS Value for highest bound for the absolute value.
 #' @param fac.order Optional. Users can override the automatic sorting of factors by manually indicating factor order with integer values, e.g., `c(2,1,3)` to use the second factor (or column) in data frame x first, first factor (or column) in x second, and the third factor (or column) is left untouched.
 #' Default is `factor.order = NULL`.
 #'
@@ -91,7 +92,7 @@
 #'  modid(g, factor.order = c(3,2,1))
 #' }
 #' @export
-modid <- function(x, st.d = 0.5, fac.order = NULL){
+modid <- function(x, st.d = 1, ABS = .12, fac.order = NULL){
   if (is.null(fac.order)){
     y <- x[,order(colSums(x^2), decreasing = TRUE)]
   } else {
@@ -118,6 +119,7 @@ modid <- function(x, st.d = 0.5, fac.order = NULL){
       j <- (s[1,1]-s[k,1])
       k <- k + 1
     }
+    b <- b[(b[,2]) <.12,]
     b <- b[order(b[,2]),]
     f[[i]] <- b
   }
