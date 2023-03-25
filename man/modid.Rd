@@ -4,14 +4,14 @@
 \alias{modid}
 \title{D3mirt Model Identification}
 \usage{
-modid(x, head = 5, factor.order = NULL)
+modid(x, st.d = 0.5, fac.order = NULL)
 }
 \arguments{
 \item{x}{A data frame with factor loadings}
 
-\item{head}{The number of highest loading items to use in the automatic model identification procedure. Default is \code{head = 5}.}
+\item{st.d}{The standard deviation used as the lower bound for item inclusion in the item list from each iteration. Default is \code{st.d = 0.5}.}
 
-\item{factor.order}{Optional. Users can override the automatic sorting of factors by manually indicating factor order with integer values, e.g., \code{c(2,1,3)} to use the second factor (or column) in data frame x first, first factor (or column) in x second, and the third factor (or column) is left untouched.
+\item{fac.order}{Optional. Users can override the automatic sorting of factors by manually indicating factor order with integer values, e.g., \code{c(2,1,3)} to use the second factor (or column) in data frame x first, first factor (or column) in x second, and the third factor (or column) is left untouched.
 Default is \code{factor.order = NULL}.}
 }
 \value{
@@ -52,10 +52,13 @@ Regardless, because empirical data is noisy it is always necessary to try severa
 
 The \code{modid} function uses an iterating model identification procedure that can be user adjusted.
 In brief, in automatic mode, \code{modid} starts by first calculating the ss loadings on all factors \emph{F} in the data frame x and then rearrange the columns in \emph{x}, in decreasing order following the level of strength of the ss loadings.
-Next, the function initiates an iterative process that starts by rearranging factor loadings in the first factor, \emph{f1}, based on the items factor loading strength on f1.
-The head (default head is 5 but can be adjusted by the user) of the rearranged frame is extracted
-and the function continues by assessing the absolute sum score of the factor loadings in the remaining factors, i.e., \emph{F-f1}, in the head, row-wise.
-The result is recorded in a list before the function starts over with the next factor.
+Next, the function calculates the absolute sum scores of the factor loadings in the remaining factors, i.e., \emph{F-f1}, row-wise,
+and rearrange the data frame based on factor loading strength on the first factor, \emph{f1}.
+Items are selected by scaling f1, and using a standard deviation of 0.5 as the lower bound criteria.
+That is, starting form the top, rows with raw factor scores and absolut sum scores are extracted until the lower bound is reached.
+This allows the function to extract more rows in the case empirical factor loadings are very similar in strength.
+The lower bound can be adjusted by the user with the \code{st.d} argument.
+The result is recorded in a list before the function starts over with the next factor, f2, and so on.
 
 For every iteration, the algorithm jumps to the next factor in the EFA model, rearrange and extract the head.
 However the absolute sum score is always assessed on the number of factors less than the total number of factors, following the order of iteration,
