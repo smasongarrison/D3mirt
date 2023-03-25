@@ -4,12 +4,14 @@
 \alias{modid}
 \title{D3mirt Model Identification}
 \usage{
-modid(x, st.d = 0.5, fac.order = NULL)
+modid(x, st.d = 0.5, ABS = 0.12, fac.order = NULL)
 }
 \arguments{
 \item{x}{A data frame with factor loadings}
 
 \item{st.d}{The standard deviation used as the lower bound for item inclusion in the item list from each iteration. Default is \code{st.d = 0.5}.}
+
+\item{ABS}{Value for highest bound for the absolute value.}
 
 \item{fac.order}{Optional. Users can override the automatic sorting of factors by manually indicating factor order with integer values, e.g., \code{c(2,1,3)} to use the second factor (or column) in data frame x first, first factor (or column) in x second, and the third factor (or column) is left untouched.
 Default is \code{factor.order = NULL}.}
