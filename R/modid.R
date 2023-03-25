@@ -3,8 +3,8 @@
 #' @description `modid()` assists with the model identification of the D3mirt object by indicating what items, from a set or scale, to use for identifying the model to use in the D3mirt analysis.
 #'
 #' @param x A data frame with factor loadings
-#' @param head The number of highest loading items to use in the automatic model identification procedure. Default is `head = 5`.
-#' @param factor.order Optional. Users can override the automatic sorting of factors by manually indicating factor order with integer values, e.g., `c(2,1,3)` to use the second factor (or column) in data frame x first, first factor (or column) in x second, and the third factor (or column) is left untouched.
+#' @param st.d The standard deviation used as the lower bound for item inclusion in the item list from each iteration. Default is `st.d = 0.5`.
+#' @param fac.order Optional. Users can override the automatic sorting of factors by manually indicating factor order with integer values, e.g., `c(2,1,3)` to use the second factor (or column) in data frame x first, first factor (or column) in x second, and the third factor (or column) is left untouched.
 #' Default is `factor.order = NULL`.
 #'
 #' @details Before performing descriptive item response theory analysis it is necessary to investigate if the item score patterns fit the `D3mirt` method.
@@ -37,10 +37,13 @@
 #' ## The Automatic Model Identification Procedure
 #' The `modid` function uses an iterating model identification procedure that can be user adjusted.
 #' In brief, in automatic mode, `modid` starts by first calculating the ss loadings on all factors \emph{F} in the data frame x and then rearrange the columns in \emph{x}, in decreasing order following the level of strength of the ss loadings.
-#' Next, the function initiates an iterative process that starts by rearranging factor loadings in the first factor, \emph{f1}, based on the items factor loading strength on f1.
-#' The head (default head is 5 but can be adjusted by the user) of the rearranged frame is extracted
-#' and the function continues by assessing the absolute sum score of the factor loadings in the remaining factors, i.e., \emph{F-f1}, in the head, row-wise.
-#' The result is recorded in a list before the function starts over with the next factor.
+#' Next, the function calculates the absolute sum scores of the factor loadings in the remaining factors, i.e., \emph{F-f1}, row-wise,
+#' and rearrange the data frame based on factor loading strength on the first factor, \emph{f1}.
+#' Items are selected by scaling f1, and using a standard deviation of 0.5 as the lower bound criteria.
+#' That is, starting form the top, rows with raw factor scores and absolut sum scores are extracted until the lower bound is reached.
+#' This allows the function to extract more rows in the case empirical factor loadings are very similar in strength.
+#' The lower bound can be adjusted by the user with the `st.d` argument.
+#' The result is recorded in a list before the function starts over with the next factor, f2, and so on.
 #'
 #' For every iteration, the algorithm jumps to the next factor in the EFA model, rearrange and extract the head.
 #' However the absolute sum score is always assessed on the number of factors less than the total number of factors, following the order of iteration,
@@ -88,17 +91,15 @@
 #'  modid(g, factor.order = c(3,2,1))
 #' }
 #' @export
-modid <- function(x, head = 5, factor.order = NULL){
-  if(!is.data.frame(x) && !is.matrix(x)) stop("Input object is not of type data frame or matrix")
-  if (head>nrow(x)) stop("Head argument is higher than number of rows in the data frame")
-  if(!head== round(head)) stop("Number of heads must be indicated with integer values")
-  if (is.null(factor.order)){
+modid <- function(x, st.d = 0.5, fac.order = NULL){
+  if (is.null(fac.order)){
     y <- x[,order(colSums(x^2), decreasing = TRUE)]
   } else {
-    if(!factor.order== round(factor.order)) stop("Factor order must be indicated with integer values")
-    if (any(duplicated(factor.order))) stop("The factor order argument has duplicate elements")
-    if(any(!factor.order <= ncol(x))) stop("The factor argument has at least one factor indicator that is higher than the total number of factors")
-    y <- x[, factor.order]
+   if(any(!fac.order == round(fac.order))) stop("Factor order must be indicated with integer values")
+    if (any(duplicated(fac.order))) stop("The factor order argument has duplicate elements")
+    if (!length(fac.order) == length(x)) stop("The factor order argument has too many indicators")
+    if(any(!fac.order <= ncol(x))) stop("The factor argument has at least one factor indicator that is higher than the total number of factors")
+    y <- x[, fac.order]
   }
   f <- NULL
   for (i in seq(ncol(y)-1)){
@@ -108,14 +109,22 @@ modid <- function(x, head = 5, factor.order = NULL){
     colnames(ABS) <- paste("ABS")
     a <- data.frame(cbind(v,ABS))
     a <- a[order(a[,1], decreasing = TRUE),]
-    a <- a[1:head,]
-    a <- a[order(a[,2]),]
-    f[[i]] <- a
+    b <- NULL
+    j <- 0
+    k <- 1
+    while (j < st.d){
+      b <- rbind(b,a[k,])
+      s <- scale(a, center= TRUE, scale=TRUE)
+      j <- (s[1,1]-s[k,1])
+      k <- k + 1
+    }
+    b <- b[order(b[,2]),]
+    f[[i]] <- b
   }
-  if (is.null(factor.order)){
+  if (is.null(fac.order)){
     ss <- sort(colSums(x^2), decreasing = TRUE)
   } else {
-    ss <- colSums((x^2)[, factor.order])
+    ss <- colSums((x^2)[, fac.order])
   }
   modid <- list(items = f, ss.loadings = ss, loadings = y)
   class(modid) <- "modid"
