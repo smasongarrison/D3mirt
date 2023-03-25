@@ -98,11 +98,14 @@ f <- fa(x, nfactors = 3, rotate = "oblimin", residuals = FALSE, SMC = FALSE)
 # Assign data frame with factor loadings
 g <- data.frame(f$loadings[,])
 
-# call to modid with an increased head argument
-modid(h, head = 10)
+# call to modid
+modid(h)
+
+# call to modid with increased lower bound and decreased upper bound
+modid(h, lower = 1, upper = .08 )
 
 # Override factor order by reversing columns in the original data frame
- modid(g, factor.order = c(3,2,1))
+ modid(g, fac.order = c(3,2,1))
 }
 }
 \references{
