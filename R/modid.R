@@ -3,8 +3,8 @@
 #' @description `modid()` assists with the model identification of the D3mirt object by indicating what items, from a set or scale, to use for identifying the model to use in the D3mirt analysis.
 #'
 #' @param x A data frame with factor loadings
-#' @param st.d The standard deviation used as the lower bound for item inclusion in the item list from each iteration. Default is `st.d = 0.5`.
-#' @param ABS Value for highest bound for the absolute value.
+#' @param lower The the lower bound for item inclusion based on item factor loadings. Default is `lower = 0.8`.
+#' @param upper Value for upper bound for the absolute value criteria. Default is `upper = .10`
 #' @param fac.order Optional. Users can override the automatic sorting of factors by manually indicating factor order with integer values, e.g., `c(2,1,3)` to use the second factor (or column) in data frame x first, first factor (or column) in x second, and the third factor (or column) is left untouched.
 #' Default is `factor.order = NULL`.
 #'
@@ -92,7 +92,7 @@
 #'  modid(g, factor.order = c(3,2,1))
 #' }
 #' @export
-modid <- function(x, st.d = 1, ABS = .12, fac.order = NULL){
+modid <- function(x, lower = 0.8, upper = .10, fac.order = NULL){
   if (is.null(fac.order)){
     y <- x[,order(colSums(x^2), decreasing = TRUE)]
   } else {
@@ -113,13 +113,14 @@ modid <- function(x, st.d = 1, ABS = .12, fac.order = NULL){
     b <- NULL
     j <- 0
     k <- 1
-    while (j < st.d){
+    while (j < lower){
       b <- rbind(b,a[k,])
       s <- scale(a, center= TRUE, scale=TRUE)
       j <- (s[1,1]-s[k,1])
       k <- k + 1
     }
-    b <- b[(b[,2]) <.12,]
+    b <- b[(b[,2]) <= upper ,]
+    if (nrow(b)==0) stop ("Model identification failed, try adjusting lower or upper bound")
     b <- b[order(b[,2]),]
     f[[i]] <- b
   }
