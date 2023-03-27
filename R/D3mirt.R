@@ -1,4 +1,4 @@
-#' D3mirt S3 Object
+#' D3mirt Estimation
 #'
 #' @description Descriptive multidimensional item response theory modeling (Reckase, 2009, 1985, Reckase & McKinley, 1991), restricted to three dimensions.
 #' The `dmirt()` function takes in a data frame of factor slopes (\emph{a}) and difficulty parameters (\emph{d}) from a three-dimensional graded response model (Samejima, 1969),
@@ -36,7 +36,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' # Preparation: Fitting a three-dimensional graded response model
+#' # Preparation: Fitting a three-dimensional graded response model with orthogoanl factors
 #' # Example uses a scale with 10 items in total, named I_01...I_10
 #' # In the example below item I_01 and item I_10 have been selected to identify the model
 #' # All items in the set are specified to load on all three factors (F1 to F3)
