@@ -2,7 +2,7 @@
 % Please edit documentation in R/D3mirt.R
 \name{D3mirt}
 \alias{D3mirt}
-\title{D3mirt S3 Object}
+\title{D3mirt Estimation}
 \usage{
 D3mirt(x, constructs = NULL)
 }
@@ -43,7 +43,7 @@ For more information on model identification, please read the documentation incl
 
 \examples{
 \dontrun{
-# Preparation: Fitting a three-dimensional graded response model
+# Preparation: Fitting a three-dimensional graded response model with orthogoanl factors
 # Example uses a scale with 10 items in total, named I_01...I_10
 # In the example below item I_01 and item I_10 have been selected to identify the model
 # All items in the set are specified to load on all three factors (F1 to F3)
