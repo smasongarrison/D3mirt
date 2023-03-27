@@ -42,6 +42,8 @@
 #' @param c.theta Opening angle of barbs for construct vector arrows from `arrow3d()`. Default is `c.theta = 0.2`.
 #' @param c.barblen The length of the barbs for construct vector arrows from `arrow3d()`. Default is `c.barblen = 0.03`.
 #' @param profiles Data frame with coordinates for spheres representing respondent scores.
+#' @param lev = NULL, lev.col = NULL,
+#' @param lev.col text
 #' @param spheres.r Radius of the spheres for `spheres3d()`. Default is `spheres.r = 0.05`.
 #' @param sphere.col Color of sphere `spheres3d()`. Default is `sphere.col = "grey20"`.
 #' @param ellipse Logical, if spheres should include an ellipsoid outlining a confidence region returned from the `ellipse3d()` function. Default is `ellipse = TRUE`.
@@ -119,8 +121,23 @@
 #' # Plot a selection of items from the model with named constructs
 #' plotD3mirt(g, constructs = TRUE, items = c(1,3,4,6,8), construct.names = c("I_1", "I_2"))
 #'
-#' # Plot RGL device with profiles and items hidden
-#' plotD3mirt(g, hide = TRUE, profiles = y)
+#' # Profile analysis
+#' # Extract respondent factor scores from mod1 with `fscores`function from [mirt::mirt]
+#' library(mirt)
+#' f <- data.frame(fscores(mod.32, method="EAP", full.scores = TRUE, full.scores.SE = F, QMC = T))
+#'
+#' # Attach f to column 10 from data frame x containing empirical scores
+#' # Column bind fscores output first
+#' y <- data.frame(cbind(f, x[,10]))
+#'
+#' # Subset data frame y conditioned on values < 2 in column 10
+#' z <- subset(y, y[,1] < 2)
+#'
+#' # Subset data frame y conditioned on values >= 2 and <= 4 in column 10
+#' z <- subset(y, y[,1] >= 2 & y[,1] <= 4)
+#'
+#' # Call plotD3mirt with profiles, hidden items, and 3 levels of sphere coloring (low to high)
+#' plotD3mirt(g, hide = TRUE, profiles = z, z = z[,4], lev.color = c("black", "grey40", "grey60"))
 #'
 #' # Export RGL device to consol
 #' plotD3mirt(g, constructs = TRUE)
@@ -135,14 +152,14 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         constructs = FALSE, construct.names = NULL, adjust.lab = c(0.5, -0.8),
                         x.lab = "X", y.lab="Y", z.lab="Z", title="", line = -5,
                         axis.scalar = c(1.1,1.1,1.1), axis.col = "black", axis.points = "black",
-                        points = TRUE, axis.ticks = TRUE, nticks = c(10,10,10),  width.rgl.x = 1040, width.rgl.y= 1040, view = c(15,20, 0.7),
+                        points = TRUE, axis.ticks = TRUE, nticks = c(4,4,4),  width.rgl.x = 1040, width.rgl.y= 1040, view = c(15,20, 0.7),
                         show.plane = TRUE, plane.color = "grey80", background = "white",
                         type = "rotation", col = c("black", "grey20", "grey40", "grey60", "grey80"),
                         arrow.width = 0.6, n = 20, theta = 0.2, barblen = 0.03,
                         c.scalars = c(1,1),
                         c.type = "rotation", c.col = "black", c.arrow.width = 0.6,
                         c.n = 20, c.theta = 0.2, c.barblen = 0.03,
-                        profiles = NULL, spheres.r = 0.05,
+                        profiles = NULL, lev = NULL, lev.col = NULL, spheres.r = 0.05,
                         sphere.col = "grey20", ellipse = TRUE, CI.level = 0.95, ellipse.col = "grey80", ellipse.alpha = 0.20, ...){
   if (!isa(x, "D3mirt")) stop("Input object must be of class D3mirt")
   rgl::open3d()
@@ -175,7 +192,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
   rgl::segments3d(c(0, 0), yaxis, c(0, 0), color = axis.col)
   rgl::segments3d(c(0, 0), c(0, 0), zaxis, color = axis.col)
   if (axis.ticks == TRUE){
-    if(!nticks== round(nticks)) stop("The nticks argument must be indicated with three integer values")
+    if(!length(nticks) == 3) stop("The nticks argument must be indicated with three values")
     rgl::axis3d('x', pos = c(0, 0, 0), ticks = TRUE, nticks=nticks[1])
     rgl::axis3d('y', pos = c(0, 0, 0), ticks = TRUE, nticks=nticks[2])
     rgl::axis3d('z',pos = c(0, 0, 0), ticks = TRUE, nticks=nticks[3])
@@ -485,15 +502,25 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
     }
   }
   if (!is.null(profiles)){
-    if(!is.data.frame(profiles)) stop("Profiles must be data frame or matrix")
     x <- profiles[,1]
     y <- profiles[,2]
     z <- profiles[,3]
+    if (!is.null(lev)){
+      grad <- function (lev, lev.col){
+      lev <- as.factor(lev)
+      if (!length(lev) == length (lev.col)) stop ("There number of profile levels and profile colors are not identical")
+      color <- lev.col[as.numeric(lev)]
+      names(color) <- as.vector(lev)
+      color
+      }
+      rgl::spheres3d(x,y,z, radius = spheres.r, color = grad(lev, lev.col))
+    } else {
     rgl::spheres3d(x,y,z, radius = spheres.r, color = sphere.col)
     if (ellipse == TRUE){
       ellipse <- rgl::ellipse3d(cov(cbind(x,y,z)),
                                centre=c(mean(x), mean(y), mean(z)), level = CI.level)
       rgl::shade3d(ellipse, col = ellipse.col, alpha = ellipse.alpha)
+    }
     }
   }
 }
