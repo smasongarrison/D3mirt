@@ -25,7 +25,7 @@ plotD3mirt(
   axis.points = "black",
   points = TRUE,
   axis.ticks = TRUE,
-  nticks = c(10, 10, 10),
+  nticks = c(4, 4, 4),
   width.rgl.x = 1040,
   width.rgl.y = 1040,
   view = c(15, 20, 0.7),
@@ -46,6 +46,8 @@ plotD3mirt(
   c.theta = 0.2,
   c.barblen = 0.03,
   profiles = NULL,
+  lev = NULL,
+  lev.col = NULL,
   spheres.r = 0.05,
   sphere.col = "grey20",
   ellipse = TRUE,
@@ -138,6 +140,10 @@ plotD3mirt(
 
 \item{profiles}{Data frame with coordinates for spheres representing respondent scores.}
 
+\item{lev}{= NULL, lev.col = NULL,}
+
+\item{lev.col}{text}
+
 \item{spheres.r}{Radius of the spheres for \code{spheres3d()}. Default is \code{spheres.r = 0.05}.}
 
 \item{sphere.col}{Color of sphere \code{spheres3d()}. Default is \code{sphere.col = "grey20"}.}
@@ -221,8 +227,23 @@ plotD3mirt(g, scale = TRUE, constructs = TRUE)
 # Plot a selection of items from the model with named constructs
 plotD3mirt(g, constructs = TRUE, items = c(1,3,4,6,8), construct.names = c("I_1", "I_2"))
 
-# Plot RGL device with profiles and items hidden
-plotD3mirt(g, hide = TRUE, profiles = y)
+# Profile analysis
+# Extract respondent factor scores from mod1 with `fscores`function from [mirt::mirt]
+library(mirt)
+f <- data.frame(fscores(mod.32, method="EAP", full.scores = TRUE, full.scores.SE = F, QMC = T))
+
+# Attach f to column 10 from data frame x containing empirical scores
+# Column bind fscores output first
+y <- data.frame(cbind(f, x[,10]))
+
+# Subset data frame y conditioned on values < 2 in column 10
+z <- subset(y, y[,1] < 2)
+
+# Subset data frame y conditioned on values >= 2 and <= 4 in column 10
+z <- subset(y, y[,1] >= 2 & y[,1] <= 4)
+
+# Call plotD3mirt with profiles, hidden items, and 3 levels of sphere coloring
+plotD3mirt(g, hide = TRUE, profiles = z, z = z[,4], lev.color = c("black", "grey40", "grey60"))
 
 # Export RGL device to consol
 plotD3mirt(g, constructs = TRUE)
