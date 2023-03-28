@@ -63,7 +63,7 @@
 #' Experience tells that this is good practice that often leads to better results compared to other options.
 #' However, it is important to recognize that the automatic model identification procedure only gives suggestions, and there could be situations where the researcher should consider other methods.
 #'
-#' @return S3 object with lists of items and absolute sum scores, sorted by the latter, and sum of squared factor loadings and frame with raw factor loadings with columns ordered on explained variance (high to low) or according to user settings.
+#' @return S3 object of class `modid` with lists of items and absolute sum scores, sorted by the latter, and sum of squared factor loadings and frame with raw factor loadings with columns ordered on explained variance (high to low) or according to user settings.
 #' @author Erik Forsberg
 #' @references Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
 #' @references Reckase, M. D. (2009). \emph{Multidimensional Item Response Theory}. Springer.
