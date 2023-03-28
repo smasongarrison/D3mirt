@@ -1,7 +1,7 @@
 #' Graphical Output for D3mirt
 #'
 #' @description For graphing S3 objects of class `D3mirt` from the [D3mirt::D3mirt()] function.
-#' @param x S3 dmirt object
+#' @param x S3 object of class `D3mirt`
 #' @param scale Logical, if item vector arrow length should visualize the MDISC estimates. If set to FALSE, the vector arrow length will be one unit length. Default is `scale = FALSE`.
 #' @param hide Logical, if items should be plotted. Default is `hide = FALSE`.
 #' @param diff.level Optional. Plotting of a single level of difficulty indicated by an integer.
@@ -41,11 +41,10 @@
 #' @param c.n Number of barbs for the construct vector arrows from the `arrow3d()` function. Default is `c.n = 20`.
 #' @param c.theta Opening angle of barbs for construct vector arrows from `arrow3d()`. Default is `c.theta = 0.2`.
 #' @param c.barblen The length of the barbs for construct vector arrows from `arrow3d()`. Default is `c.barblen = 0.03`.
-#' @param profiles Data frame with coordinates for spheres representing respondent scores.
-#' @param lev = NULL, lev.col = NULL,
-#' @param lev.col text
+#' @param profiles Data frame with coordinates for spheres representing respondent scores. Default is `profiles = NULL`.
+#' @param lev Optional. Column with values indicating levels for sphere colors from the `sphere.col` vector. Default is `lev = NULL`.
 #' @param spheres.r Radius of the spheres for `spheres3d()`. Default is `spheres.r = 0.05`.
-#' @param sphere.col Color of sphere `spheres3d()`. Default is `sphere.col = "grey20"`.
+#' @param sphere.col Color vector for `spheres3d()`. Default is `sphere.col = c("black", "grey20", "grey40", "grey60", "grey80")`.
 #' @param ellipse Logical, if spheres should include an ellipsoid outlining a confidence region returned from the `ellipse3d()` function. Default is `ellipse = TRUE`.
 #' @param CI.level Level of confidence for `ellipse3d()`, default is `CI.level = 0.95`.
 #' @param ellipse.col Color of the ellipse from `ellipse3d()`. Default is `ellipse.col = "grey80"`.
@@ -68,30 +67,46 @@
 #' Item names are displayed by default, but the user has the option of imputing new names for the items (with `item.names`) and adding names for the constructs (with `construct.names`).
 #'
 #' # Visual Profile Analysis
-#' In addition, the plot function can also display respondent scores in the model, represented as spheres located with factors scores as coordinates.
-#' This allows for a type of profile analysis in which respondents' can be selected and displayed conditioned on some external criteria (see [D3mirt::profile] for more details).
-#' This is done by first extracting respondent factor scores with [mirt::fscores](Chalmers, 2012) and then selecting respondent rows.
-#' The resulting data frame is imputed in the `profiles` argument.
-#' When analyzing respondent profiles the user has the option of hiding the item vectors (with `hide = TRUE`) to avoid visual cluttering.
+#' In addition, the plot function can also display respondent scores in the model space, represented as spheres located with the help of factors scores as coordinates in the model.
+#' This allows for a type of profile analysis of respondent groups in which respondents' are selected and displayed based on some external criteria (see examples section below).
+#' This is done by first extracting respondent factor scores with [mirt::fscores](Chalmers, 2012) and then inducing some selection process that subset respondent rows.
+#' The resulting data frame is then imputed in the `profiles` argument.
+#'
+#'
+#' The user also has the option of imputing a grouping variable in the `lev` argument for the profile data that allows for varying the coloring of spheres based on a group variable indicator.
+#' The most easy way to achieve this is to use a single Likert-item as the selection criteria.
+#' More specifically, if respondent factor scores from the `fscores`function are combined column wise with respondents Likert scores on the criteria item, then `plotD3mirt` use the `as.factor`function to coerce the different Likert score options to be factor variables.
+#' These factor variables indicate what color to use from the `sphere.col` argument, e.g., respondents who gave a response of 1 on the likert item will be colored by the first color in the color vector, respondents ho gave a response of 2 will be colored by the second color, and so on.
+#' If the there are more factors than there are different colors contained in the `sphere.col` vector, then the user most add more color alternatives to the color vector.
+#' See examples section for more options on how to perform prfile analysis.
+#' A general advice is also to hiding vector arrows with `hide = TRUE` when analyzing respondent profiles to avoid visual cluttering.
 #'
 #' # Guidelines for the Graphical Output
-#' Some guiding comments regarding the output.
-#' Vector arrows represent item response functions and the location, angle, and length of the arrows indicate item characteristics (Reckase, 2009).
-#' If Likert items are used then each item can have multiple item response functions that run successively.
+#' In general, vector arrows represent item response functions and the location, angle, and length of the arrows indicate item characteristics (Reckase, 2009).
+#' If polytomous items, such as Likert items, are used then each an item will have multiple item response functions that run successively long the same line.
+#'
+#'
 #' The distance of the lower end of the vector arrows away from the origin indicates the an items multidimensional difficulty (MDIFF).
-#' For Likert items that hold multiple item response functions, the MDIFF can be said to show the multidimensional range of difficulty for an item.
-#' The length of the arrow indicates the item's level of discrimination, in which a longer arrow indicates high discrimination and a short indicates lower discrimination.
-#' The angle between axes and the vector arrows indicates the direction of maximal slope for the item response function.
-#' This means that the arrows point towards where an item has its highest possible discrimination parameter in the model.
-#' In turn, this angle shows what traits, located along the orthogonal axes, the item can be said to describe.
-#' For instance, an item located at 0° seen from x-axis, and 90° as seen from the y and z-axis, only describes trait x. Such an item is unidimensional.
-#' In contrast, an item located at 45° between all three axes describes all three traits in the model equally well. Such an item is within-multidimensional.
+#' For Likert items that hold multiple item response functions, the MDIFF can, therefore, be said to show the multidimensional range of difficulty for an item.
+#'
+#'
+#' The length of the arrow indicates the item's level of multidimensional discrimination (MDISC).
+#' Longer arrows indicates high discrimination and shorter arrows indicates lower discrimination.
+#'
+#'
+#' The angle of the vector arrows, seen from the model axes, indicates the direction of maximal slope of discrimination for the particular item response function.
+#' In turn, this also indicates what singular traits, located along the orthogonal axes, an item can be said to describe.
+#' For instance, an item located at 0° seen from x-axis, and 90° as seen from the y and z-axis, only describes trait x.
+#' Such an item is unidimensional because its direction vector of maximal discrimination slope lies parallel and on the x-axis.
+#' In contrast, an item located at 45° between all three axes in a three-dimensional model describes all three traits in the model equally well.
+#' Such an item is within-multidimensional because its direction vector lies parallel and on the 45° degree line.
 #'
 #' # Model Violations
-#' Since descriptive multidimensional item response theory is based on the graded response model (Samejima, 1969), all items must meet the statistical assumptions of the latter.
-#' In the D3mirt analysis, item model violations can foremost be observed visually. For instance, shorter vector arrows indicate weaker discrimination on level of ability.
-#' Moreover, when a Likert item struggles to fit any of the latent variables in the model it can be observed as an extreme stretch of the MDIFF range.
-#' This is comparable to a tendency to horizontal trace lines in a unidimensional item response theory model.
+#' Since descriptive multidimensional item response theory is based on the multidimensional version of the graded response model (Samejima, 1969), all items must adequately meet the necessary statistical assumptions of this type of model.
+#' In other words, this implies that violations of the multidimensional graded response model can be observed visually in the `plotD3mirt` graphical device.
+#' For instance, shorter vector arrows indicate weaker discrimination on level of ability.
+#' Moreover, if an item struggles or fail to describe any of the latent variables in the model it can be observed as an extreme stretch of the MDIFF range.
+#' This is comparable to observing horizontal trace lines in a unidimensional item response theory model turn horizontal.
 #'
 #' @return RGL graphical device.
 #'
@@ -136,8 +151,25 @@
 #' # Subset data frame y conditioned on values >= 2 and <= 4 in column 10
 #' z <- subset(y, y[,1] >= 2 & y[,1] <= 4)
 #'
+#' # Subset data frame y conditioned on age <= 30 in column 10
+#' z <- subset(y, y[,1] >= 2 & y[,1] <= 30)
+#'
 #' # Call plotD3mirt with profiles, hidden items, and 3 levels of sphere coloring (low to high)
 #' plotD3mirt(g, hide = TRUE, profiles = z, z = z[,4], lev.color = c("black", "grey40", "grey60"))
+#'
+#' # Check number of factor levles with `nlevels`
+#' nlevels(as.factor(z[,4]))
+#'
+#' # Add colors to match the number of factors (e.g., 20)
+#' # The use of `rep()`makes it possible to create groups by number of colors in color vector
+#' # Assume we want to divide our 20 factors in our age variable into 4 color groups, ordered from young to old
+#' z2 <- z2[order(z2[,4]), decreasing = FALSE]
+#'
+#' # Create color vector with 4 color groups, youngest will be colored red
+#' colvec <- c(rep("red", 5), rep("orange", 5), rep("violet", 5), rep("cyan", 5))
+#'
+#' # Call plotD3mirt with profiles on age and with hidden items
+#' plotD3mirt(g, hide = TRUE, profiles = z, z = z[,4], lev.color = colvec)
 #'
 #' # Export RGL device to consol
 #' plotD3mirt(g, constructs = TRUE)
@@ -159,8 +191,8 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         c.scalars = c(1,1),
                         c.type = "rotation", c.col = "black", c.arrow.width = 0.6,
                         c.n = 20, c.theta = 0.2, c.barblen = 0.03,
-                        profiles = NULL, lev = NULL, lev.col = NULL, spheres.r = 0.05,
-                        sphere.col = "grey20", ellipse = TRUE, CI.level = 0.95, ellipse.col = "grey80", ellipse.alpha = 0.20, ...){
+                        profiles = NULL, lev = NULL, sphere.col = c("black", "grey20", "grey40", "grey60", "grey80"), spheres.r = 0.05,
+                        ellipse = TRUE, CI.level = 0.95, ellipse.col = "grey80", ellipse.alpha = 0.20, ...){
   if (!isa(x, "D3mirt")) stop("Input object must be of class D3mirt")
   rgl::open3d()
   rgl::par3d(windowRect = 50 + c( 0, 0, width.rgl.x, width.rgl.y))
@@ -506,20 +538,25 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
     y <- profiles[,2]
     z <- profiles[,3]
     if (!is.null(lev)){
-      grad <- function (lev, lev.col){
+      grad <- function (lev, sphere.col){
       lev <- as.factor(lev)
-      if (!length(lev) == length (lev.col)) stop ("There number of profile levels and profile colors are not identical")
-      color <- lev.col[as.numeric(lev)]
+      if (nlevels(lev) > length(sphere.col)) stop ("There number of factor levels are more than the number of available sphere colors")
+      color <- sphere.col[as.numeric(lev)]
       names(color) <- as.vector(lev)
       color
       }
-      rgl::spheres3d(x,y,z, radius = spheres.r, color = grad(lev, lev.col))
+      rgl::spheres3d(x,y,z, radius = spheres.r, color = grad(lev, sphere.col))
+      if (ellipse == TRUE){
+        ellipse <- rgl::ellipse3d(cov(cbind(x,y,z)),
+                                  centre=c(mean(x), mean(y), mean(z)), level = CI.level)
+        rgl::shade3d(ellipse, col = ellipse.col, alpha = ellipse.alpha)
     } else {
-    rgl::spheres3d(x,y,z, radius = spheres.r, color = sphere.col)
-    if (ellipse == TRUE){
-      ellipse <- rgl::ellipse3d(cov(cbind(x,y,z)),
-                               centre=c(mean(x), mean(y), mean(z)), level = CI.level)
-      rgl::shade3d(ellipse, col = ellipse.col, alpha = ellipse.alpha)
+    rgl::spheres3d(x,y,z, radius = spheres.r, color = sphere.col[1])
+      if (ellipse == TRUE){
+        ellipse <- rgl::ellipse3d(cov(cbind(x,y,z)),
+                                  centre=c(mean(x), mean(y), mean(z)), level = CI.level)
+        rgl::shade3d(ellipse, col = ellipse.col, alpha = ellipse.alpha)
+      }
     }
     }
   }
