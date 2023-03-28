@@ -17,7 +17,7 @@ modid(x, lower = 0.5, upper = 0.1, fac.order = NULL)
 Default is \code{factor.order = NULL}.}
 }
 \value{
-S3 object with lists of items and absolute sum scores, sorted by the latter, and sum of squared factor loadings and frame with raw factor loadings with columns ordered on explained variance (high to low) or according to user settings.
+S3 object of class \code{modid} with lists of items and absolute sum scores, sorted by the latter, and sum of squared factor loadings and frame with raw factor loadings with columns ordered on explained variance (high to low) or according to user settings.
 }
 \description{
 \code{modid()} assists with the model identification of the D3mirt object by indicating what items, from a set or scale, to use for identifying the model to use in the D3mirt analysis.
