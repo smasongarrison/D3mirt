@@ -15,15 +15,37 @@ D3mirt(x, constructs = NULL)
 S3 object with lists of \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines and degrees for vector angles, construct lists, and vector coordinates.
 }
 \description{
-Descriptive multidimensional item response theory modeling (Reckase, 2009, 1985, Reckase & McKinley, 1991), restricted to three dimensions.
-The \code{dmirt()} function takes in a data frame of factor slopes (\emph{a}) and difficulty parameters (\emph{d}) from a three-dimensional graded response model (Samejima, 1969),
-fitted with \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012). The function returns an S3
-object containing dmirt estimates that can be graphically displayed with \code{\link[=plot]{plot()}}.
+Descriptive multidimensional item response theory modeling (DMIRT; Reckase, 2009, 1985, Reckase & McKinley, 1991), for dichotomous and polytomous items restricted to follow the graded response model (Samejima, 1969) in three dimensions.
 }
 \details{
-Model parameters for the multidimensional graded response model must be estimated before using \code{dmirt()} (see examples below) and follow the necessary model specification and limitations.
-This includes that items must be set to load on all factors in the graded response model and that the number of factors must be three.
+The \code{dmirt()} function takes in a data frame of factor slopes (\emph{a}) and difficulty parameters (\emph{d}) from a three-dimensional graded response model fitted with \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012).
+The function returns an S3 object containing dmirt estimates that can be graphically displayed with \code{\link[=plot]{plot()}}.
+Model parameters for the multidimensional graded response model must be estimated prior using \code{dmirt()} (see examples below) and follow the necessary model specification and limitations.
+This includes that items must be set to load on all factors in the multidimensional graded response model and that the number of factors must be three.
 }
+\section{Within Multidimensional Modelling}{
+In DMIRT it is assumed that items in a multidimensional trait space can measure single or multiple latent abilities (Reckase, 2009, 1985, Reckase & McKinley, 1991).
+Under this assumption the two parameter graded response model can be used to extract two parameter multidimensional item characteristics.
+These include a single multidimensional discrimination (MDISC) parameter and a multidimensional difficulty (MDIFF) index for each item.
+The MDISC  \eqn{A_i} for item \eqn{i} represents the highest level of discrimination the item \eqn{i} can achieve located in a multidimensional theta space.
+
+\deqn{MDISC=A_i=\sqrt{\sum_{k=1}^m a^2_{ik}}}{%
+MDISC=A_i=\sqrt{\sum_{k=1}^m a^2_{ik}}}
+
+Just as in unidimensional modelling, the  \eqn{A_i} indicates the direction, as seen from the origin of the model, to the point of maximun slope of the item response surface.
+The slope is similarly to the unidimensional case assessed as \eqn{A_i/4}.
+
+The item angle orientation is set by taking the direction cosines of \eqn{a_{il}}, i.e., the cosine angle of item \eqn{i} with respect to each trait dimension \eqn{l}.
+
+\deqn{a_{il}= cos^{-1}\left(\frac{a_{il}}{\sqrt{\sum_{k=1}^m a^2_{ik}}}\right)}{%
+a_{il}= cos^{-1}\left(\frac{a_{il}}{\sqrt{\sum_{k=1}^m a^2_{ik}}}\right)}
+
+The resulting direction vector is a characteristic of the item that describe the angle orientation of an item in a multidimensional theta space.
+
+\deqn{MDIFF=B_i= \frac{-d_i}{\sqrt{\sum_{k=1}^m a^2_{ik}}}}{%
+\frac{-d_i}{\sqrt{\sum_{k=1}^m a^2_{ik}}}}
+}
+
 \section{Constructs}{
 The user has the option of including constructs in the estimation, by creating one or more nested lists that indicate what items belong to what construct (see the examples section).
 From this, the \code{dmirt()} function calculates new direction cosines for the constructs by adding and normalizing the direction cosines for the items contained in each construct list.
