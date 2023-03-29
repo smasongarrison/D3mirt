@@ -47,8 +47,8 @@ Therefore, for a three-dimensional model, all else equal, the item highest up in
 
 \subsection{The Automatic Model Identification Procedure}{
 
-The \code{modid} function uses an iterating model identification procedure that can be user adjusted.
-In brief, in automatic mode, \code{modid} starts by first calculating the ss loadings on all factors \emph{F} in the data frame x and then rearrange the columns in \emph{x}, in decreasing order following the level of strength of the ss loadings.
+The \code{modid()} function uses an iterating model identification procedure that can be user adjusted.
+In brief, in automatic mode, \code{modid()} starts by first calculating the ss loadings on all factors \emph{F} in the data frame x and then rearrange the columns in \emph{x}, in decreasing order following the level of strength of the ss loadings.
 Next, the function creates a list containing factor loadings on the first factor, \emph{f1}, and absolute sum scores of the factor loadings in the remaining factors, i.e., \emph{F-f1}, row-wise.
 The list is then rearrange in decreasing order based on factor loading strength on \emph{f1}.
 Items are selected by scaling f1, and using a standard deviation of 0.5 (can be adjusted with the \code{lower} argument.) as the lower bound criteria for inclusion.
@@ -59,8 +59,10 @@ The result is recorded as a nested list before the function starts over with the
 For every iteration, the algorithm jumps to the next factor in the EFA model, rearrange rows and extract the strongest loading items.
 However the absolute sum score is always assessed on the number of factors less than the total number of factors following the order of iteration,
 That is, iteration 1 use factor loadings from all factors \emph{F-f1}, iteration 2 \emph{F-(f1+f2)}, iteration 3 \emph{F-(f1+f2+f3)}, and so on, when calculating the absolute sum scores.
+}
 
-#' ## Criteria
+\subsection{Criteria}{
+
 Optimized model identification items should preferably (a) have an absolute sum score of <= .10 and (b) a notably strong factor loading on the factor of interest.
 Of these two criteria, (a) should be given the strongest weight in the selection decision.
 If these conditions cannot be met, the user is advised to proceed with caution since the loading scores imply that an orthogonal structure may not be empirically attainable.
@@ -75,7 +77,7 @@ Regardless, because empirical data is noisy it is always necessary to try severa
 
 \subsection{Limitations}{
 
-The \code{modid} function is not limited to three-dimensional analysis and can be used on any number of factors.
+The \code{modid()} function is not limited to three-dimensional analysis and can be used on any number of factors.
 Although based on suggestions on model identification given by Reckase (2009) for this type of analysis, the function offers some expansions that introduce more precision.
 The latter foremost consist in incorporating sum of squares in the item selection process (unless the user has not specified otherwise).
 Experience tells that this is good practice that often leads to better results compared to other options.
