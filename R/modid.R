@@ -29,8 +29,8 @@
 #'
 #'
 #' ## The Automatic Model Identification Procedure
-#' The `modid` function uses an iterating model identification procedure that can be user adjusted.
-#' In brief, in automatic mode, `modid` starts by first calculating the ss loadings on all factors \emph{F} in the data frame x and then rearrange the columns in \emph{x}, in decreasing order following the level of strength of the ss loadings.
+#' The `modid()` function uses an iterating model identification procedure that can be user adjusted.
+#' In brief, in automatic mode, `modid()` starts by first calculating the ss loadings on all factors \emph{F} in the data frame x and then rearrange the columns in \emph{x}, in decreasing order following the level of strength of the ss loadings.
 #' Next, the function creates a list containing factor loadings on the first factor, \emph{f1}, and absolute sum scores of the factor loadings in the remaining factors, i.e., \emph{F-f1}, row-wise.
 #' The list is then rearrange in decreasing order based on factor loading strength on \emph{f1}.
 #' Items are selected by scaling f1, and using a standard deviation of 0.5 (can be adjusted with the `lower` argument.) as the lower bound criteria for inclusion.
@@ -43,7 +43,7 @@
 #' That is, iteration 1 use factor loadings from all factors \emph{F-f1}, iteration 2 \emph{F-(f1+f2)}, iteration 3 \emph{F-(f1+f2+f3)}, and so on, when calculating the absolute sum scores.
 #'
 #'
-#' #' ## Criteria
+#' ## Criteria
 #' Optimized model identification items should preferably (a) have an absolute sum score of <= .10 and (b) a notably strong factor loading on the factor of interest.
 #' Of these two criteria, (a) should be given the strongest weight in the selection decision.
 #' If these conditions cannot be met, the user is advised to proceed with caution since the loading scores imply that an orthogonal structure may not be empirically attainable.
@@ -57,7 +57,7 @@
 #' Regardless, because empirical data is noisy it is always necessary to try several options and to compare the outcomes before a final decision is made.
 #'
 #' ## Limitations
-#' The `modid` function is not limited to three-dimensional analysis and can be used on any number of factors.
+#' The `modid()` function is not limited to three-dimensional analysis and can be used on any number of factors.
 #' Although based on suggestions on model identification given by Reckase (2009) for this type of analysis, the function offers some expansions that introduce more precision.
 #' The latter foremost consist in incorporating sum of squares in the item selection process (unless the user has not specified otherwise).
 #' Experience tells that this is good practice that often leads to better results compared to other options.
