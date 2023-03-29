@@ -7,7 +7,7 @@
 \method{summary}{D3mirt}(object, ..., digits = 4)
 }
 \arguments{
-\item{object}{S3 object of class \code{dmirt}.}
+\item{object}{S3 object of class \code{D3mirt}.}
 
 \item{...}{Additional arguments to be passed to methods.}
 
@@ -21,11 +21,11 @@ The \code{summary.D3mirt()} function presents a compressed output from the \code
 }
 \examples{
 \dontrun{
-# Preparation
-#' c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
-g <- dmirt(d, c)
+# Preparation: Call `D3mirt()` and create list of constructs
+c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
+g <- D3mirt(d, c)
 
-# Call summary
+# Call to summary
 summary(g)
 }
 }
