@@ -1,15 +1,15 @@
 #' Graphical Output for D3mirt
 #'
-#' @description For graphing S3 objects of class `D3mirt` from the [D3mirt::D3mirt()] function.
-#' @param x S3 object of class `D3mirt`
+#' @description For graphing of objects of class `D3mirt` from the [D3mirt::D3mirt()] function.
+#' @param x S3 object of class `D3mirt`.
 #' @param scale Logical, if item vector arrow length should visualize the MDISC estimates. If set to FALSE, the vector arrow length will be one unit length. Default is `scale = FALSE`.
 #' @param hide Logical, if items should be plotted. Default is `hide = FALSE`.
 #' @param diff.level Optional. Plotting of a single level of difficulty indicated by an integer.
 #' @param items Optional. The user can input a list of integers indicating what item vector arrows will be visible while the remaining items are hidden.
-#' @param item.lab Logical, if item labels should be plotted. Default is `item.names = TRUE`.
-#' @param item.names Optional. String vector of item names that will override row names extracted from the data frame.
+#' @param item.names Logical, if item labels should be plotted. Default is `item.names = TRUE`.
+#' @param item.lab Optional. String vector of item names that will override row names extracted from the data frame.
 #' @param constructs Logical, if construct vector arrows should be plotted. Default set to FALSE
-#' @param construct.names Optional. String vector of names for constructs.
+#' @param construct.lab Optional. String vector of names for constructs.
 #' @param adjust.lab Vector of parameters for the position of item and construct labels for the `text3d` function. The first value is for horizontal adjustment and the second is for vertical adjustment. Default is `adjust.lab = c(0.5, -0.8)`.
 #' @param x.lab Labels for x-axis, Default is `x.lab = "X"`.
 #' @param y.lab Labels for y-axis, Default is `y.lab = "Y"`.
@@ -64,7 +64,7 @@
 #' Items can also be plotted with unit length by setting `scale = TRUE`.
 #' In addition, the user also has the option of adding constructs to the graphical output with `constructs = TRUE` (see the documentation for [D3mirt::D3mirt] regarding constructs).
 #' Plotting can be limited to showing one level of difficulty with the `diff.level` argument at a time if multiple levels of difficulty are used in the model.
-#' Item names are displayed by default, but the user has the option of imputing new names for the items (with `item.names`) and adding names for the constructs (with `construct.names`).
+#' Item names are displayed by default, but the user has the option of imputing new names for the items (with `item.lab`) and adding names for the constructs (with `construct.lab`).
 #'
 #' # Visual Profile Analysis
 #' In addition, the plot function can also display respondent scores in the model space, represented as spheres located with the help of factors scores as coordinates in the model.
@@ -75,7 +75,7 @@
 #'
 #' The user also has the option of imputing a grouping variable in the `lev` argument for the profile data that allows for varying the coloring of spheres based on a group variable indicator.
 #' The most easy way to achieve this is to use a single Likert-item as the selection criteria.
-#' More specifically, if respondent factor scores from the `fscores`function are combined column wise with respondents Likert scores on the criteria item, then `plotD3mirt` use the `as.factor`function to coerce the different Likert score options to be factor variables.
+#' More specifically, if respondent factor scores from the `fscores`function are combined column wise with respondents Likert scores on the criteria item, then `plotD3mirt()` use the `as.factor()`function to coerce the different Likert score options to be factor variables.
 #' These factor variables indicate what color to use from the `sphere.col` argument, e.g., respondents who gave a response of 1 on the likert item will be colored by the first color in the color vector, respondents ho gave a response of 2 will be colored by the second color, and so on.
 #' If the there are more factors than there are different colors contained in the `sphere.col` vector, then the user most add more color alternatives to the color vector.
 #' See examples section for more options on how to perform prfile analysis.
@@ -103,13 +103,12 @@
 #'
 #' # Model Violations
 #' Since descriptive multidimensional item response theory is based on the multidimensional version of the graded response model (Samejima, 1969), all items must adequately meet the necessary statistical assumptions of this type of model.
-#' In other words, this implies that violations of the multidimensional graded response model can be observed visually in the `plotD3mirt` graphical device.
+#' In other words, this implies that violations of the multidimensional graded response model can be observed visually in the `plotD3mirt()` graphical device.
 #' For instance, shorter vector arrows indicate weaker discrimination on level of ability.
 #' Moreover, if an item struggles or fail to describe any of the latent variables in the model it can be observed as an extreme stretch of the MDIFF range.
 #' This is comparable to observing horizontal trace lines in a unidimensional item response theory model turn horizontal.
 #'
-#' @return RGL graphical device.
-#'
+#' @return A RGL graphical device.
 #' @author Erik Forsberg
 #' @references Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
 #' @references Reckase, M. D. (2009). \emph{Multidimensional Item Response Theory}. Springer.
@@ -134,10 +133,10 @@
 #' plotD3mirt(g, scale = TRUE, constructs = TRUE)
 #'
 #' # Plot a selection of items from the model with named constructs
-#' plotD3mirt(g, constructs = TRUE, items = c(1,3,4,6,8), construct.names = c("I_1", "I_2"))
+#' plotD3mirt(g, constructs = TRUE, items = c(1,3,4,6,8), construct.lab = c("I_1", "I_2"))
 #'
 #' # Profile analysis
-#' # Extract respondent factor scores from mod1 with `fscores`function from [mirt::mirt]
+#' # Extract respondent factor scores from mod1 with `fscores()` function from [mirt::mirt]
 #' library(mirt)
 #' f <- data.frame(fscores(mod.32, method="EAP", full.scores = TRUE, full.scores.SE = F, QMC = T))
 #'
@@ -145,31 +144,37 @@
 #' # Column bind fscores output first
 #' y <- data.frame(cbind(f, x[,10]))
 #'
-#' # Subset data frame y conditioned on values < 2 in column 10
-#' z <- subset(y, y[,1] < 2)
+#' # Subset data frame y conditioned on values < 2 in column 4
+#' z <- subset(y, y[,4] < 2)
 #'
-#' # Subset data frame y conditioned on values >= 2 and <= 4 in column 10
-#' z <- subset(y, y[,1] >= 2 & y[,1] <= 4)
+#' # Subset data frame y conditioned on values >= 2 and <= 4 in column 4
+#' z <- subset(y, y[,4] >= 2 & y[,4] <= 4)
 #'
+#' # Call plotD3mirt with profiles, hidden items
+#' # And 3 levels of sphere coloring ("black" = 1 to "grey60" = 3)
+#' plotD3mirt(g, hide = TRUE, profiles = z, lev = z[,4], lev.color = c("black", "grey40", "grey60"))
+#'
+#' # Same example but with lowest score highlighted with red
+#' plotD3mirt(g, hide = TRUE, profiles = z, lev = z[,4], lev.color = c("red", "grey40", "grey60"))
+#'
+#' # The use of `rep()`makes it possible to create groups by number of colors in color vector
+#' # Can be useful on variables with a high amount of indicator levels
 #' # Subset data frame y conditioned on age <= 30 in column 10
-#' z <- subset(y, y[,1] >= 2 & y[,1] <= 30)
+#' z <- subset(y, y[,4] >= 2 & y[,4] <= 30)
 #'
-#' # Call plotD3mirt with profiles, hidden items, and 3 levels of sphere coloring (low to high)
-#' plotD3mirt(g, hide = TRUE, profiles = z, z = z[,4], lev.color = c("black", "grey40", "grey60"))
-#'
-#' # Check number of factor levles with `nlevels`
+#' # Check number of factor levles with `nlevels()`
 #' nlevels(as.factor(z[,4]))
 #'
-#' # Add colors to match the number of factors (e.g., 20)
-#' # The use of `rep()`makes it possible to create groups by number of colors in color vector
-#' # Assume we want to divide our 20 factors in our age variable into 4 color groups, ordered from young to old
-#' z2 <- z2[order(z2[,4]), decreasing = FALSE]
+#' # Repetition of colors can be used to create color groups based on the `factor()` output
+#' # Assume we want to divide 20 factors in the age variable into 4 color groups
+#' # Ordered from young to old
+#' z <- z[order(z[,4]), decreasing = FALSE]
 #'
 #' # Create color vector with 4 color groups, youngest will be colored red
 #' colvec <- c(rep("red", 5), rep("orange", 5), rep("violet", 5), rep("cyan", 5))
 #'
 #' # Call plotD3mirt with profiles on age and with hidden items
-#' plotD3mirt(g, hide = TRUE, profiles = z, z = z[,4], lev.color = colvec)
+#' plotD3mirt(g, hide = TRUE, profiles = z, lev = z[,4], lev.color = colvec)
 #'
 #' # Export RGL device to consol
 #' plotD3mirt(g, constructs = TRUE)
@@ -180,8 +185,8 @@
 #' rgl.snapshot('RGLdevice.png', fmt = 'png')
 #' }
 #' @export
-plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items = NULL, item.lab = TRUE, item.names = NULL,
-                        constructs = FALSE, construct.names = NULL, adjust.lab = c(0.5, -0.8),
+plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items = NULL, item.names = TRUE,  item.lab = NULL,
+                        constructs = FALSE, construct.lab = NULL, adjust.lab = c(0.5, -0.8),
                         x.lab = "X", y.lab="Y", z.lab="Z", title="", line = -5,
                         axis.scalar = c(1.1,1.1,1.1), axis.col = "black", axis.points = "black",
                         points = TRUE, axis.ticks = TRUE, nticks = c(4,4,4),  width.rgl.x = 1040, width.rgl.y= 1040, view = c(15,20, 0.7),
@@ -244,10 +249,11 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                   z = c(zlim[1], zlim[2], zlim[2], zlim[1]))
   }
   if (hide == FALSE){
-    if (scale==FALSE){
+    if (scale == FALSE){
     vec <- x$dir.vec
     if (!is.null(items)){
-      if(any(!items <= nrow(x$loadings))) stop("The items list contains one or more item indicators that are higher than the total number of items")
+      if(any(!items <= nrow(x$loadings))) stop("The items argument contains one or more item indicators that are higher than the total number of items")
+      if (any(duplicated(items))) stop("The items argument has duplicate elements")
       if (is.null(diff.level)){
         if (is.null(ncol(vec))){
           for (i in seq_along(items)){
@@ -296,9 +302,9 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
           rgl::arrow3d(vec[i,], vec[i+1,], type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
       }
     }
-    if (item.lab == TRUE && is.null(items)){
+    if (item.names == TRUE && is.null(items)){
       if (is.null(diff.level)){
-        if (is.null(item.names)){
+        if (is.null()){
           inames <- rownames(x$loadings)
           if (is.null(ncol(vec))){
             max <-  x$dir.vec[[ncol(x$mdiff)]]
@@ -310,8 +316,8 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         adj = adjust.lab, size = 2)
           })
         } else {
-          if(!length(item.names) <= nrow(x$loadings)) warning("There are more item labels than items")
-          if(length(item.names) < nrow(x$loadings)) warning("There are too few item labels")
+          if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
+          if(length(item.lab) < nrow(x$loadings)) warning("There are too few item labels")
           inames <- rownames(x$loadings)
           if (is.null(ncol(vec))){
             max <-  x$dir.vec[[ncol(x$mdiff)]]
@@ -319,7 +325,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
             max <-  x$dir.vec
           }
           sapply(seq(nrow(x$mdisc)), function(i){
-            rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.names[i]), color = axis.col,
+            rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.lab[i]), color = axis.col,
                         adj = adjust.lab, size = 2)
           } )
         }
@@ -332,10 +338,10 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
         })
       }
     }
-    if (item.lab == TRUE && !is.null(items)){
+    if (item.names == TRUE && !is.null(items)){
       if(any(!items <= nrow(x$loadings))) stop("The items list contains one or more item indicators that are higher than the total number of items")
       if (is.null(diff.level)){
-        if (is.null(item.names)){
+        if (is.null(item.lab)){
           inames <- rownames(x$loadings)
           if (is.null(ncol(vec))){
             max <-  x$dir.vec[[ncol(x$mdiff)]]
@@ -348,8 +354,8 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         adj = adjust.lab, size = 2)
           })
         } else {
-          if(!length(item.names) <= length(items)) warning("There are more item labels than items in list")
-          if(length(item.names) < length(items)) warning("There are too few item labels")
+          if(!length(item.lab) <= length(items)) warning("There are more item labels than items in list")
+          if(length(item.lab) < length(items)) warning("There are too few item labels")
           if (is.null(ncol(vec))){
             max <-  x$dir.vec[[ncol(x$mdiff)]]
           } else {
@@ -357,12 +363,12 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
           }
           sapply(seq_along(items), function(i){
             m <- items[i]
-            rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(item.names[i]), color = axis.col,
+            rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(item.lab[i]), color = axis.col,
                         adj = adjust.lab, size = 2)
           })
         }
       } else {
-        if (is.null(item.names)){
+        if (is.null(item.lab)){
           dl <-  x$dir.vec[[diff.level]]
           inames <- rownames(x$loadings)
           sapply(seq_along(items), function(i){
@@ -374,7 +380,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
           dl <-  as.data.frame(x$dir.vec[diff.level], drop = FALSE)
           sapply(seq_along(items), function(i){
             m <- items[i]
-            rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(item.names[i]), color = axis.col,
+            rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(item.lab[i]), color = axis.col,
                         adj = adjust.lab, size = 2)
           })
         }
@@ -432,9 +438,9 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
           rgl::arrow3d(vec[i,], vec[i+1,], type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
       }
     }
-    if (item.lab == TRUE && is.null(items)){
+    if (item.names == TRUE && is.null(items)){
       if (is.null(diff.level)){
-        if (is.null(item.names)){
+        if (is.null(item.lab)){
           inames <- rownames(x$loadings)
           if (is.null(ncol(vec))){
             max <-  x$scal.vec[[ncol(x$mdiff)]]
@@ -446,8 +452,8 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         adj = adjust.lab, size = 2)
           })
         } else {
-          if(!length(item.names) <= nrow(x$loadings)) warning("There are more item labels than items")
-          if(length(item.names) < nrow(x$loadings)) warning("There are too few item labels")
+          if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
+          if(length(item.lab) < nrow(x$loadings)) warning("There are too few item labels")
           inames <- rownames(x$loadings)
           if (is.null(ncol(vec))){
             max <-  x$scal.vec[[ncol(x$mdiff)]]
@@ -455,7 +461,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
             max <-  x$scal.vec
           }
           sapply(seq(nrow(x$mdisc)), function(i){
-            rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.names[i]), color = axis.col,
+            rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.lab[i]), color = axis.col,
                         adj = adjust.lab, size = 2)
           } )
         }
@@ -468,10 +474,10 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
         })
       }
     }
-    if (item.lab == TRUE && !is.null(items)){
+    if (item.names == TRUE && !is.null(items)){
       if(any(!items <= nrow(x$loadings))) stop("The items list contains one or more item indicators that are higher than the total number of items")
       if (is.null(diff.level)){
-        if (is.null(item.names)){
+        if (is.null(item.lab)){
           inames <- rownames(x$loadings)
           if (is.null(ncol(vec))){
             max <-  x$scal.vec[[ncol(x$mdiff)]]
@@ -484,8 +490,8 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         adj = adjust.lab, size = 2)
           })
         } else {
-          if(!length(item.names) <= length(items)) warning("There are more item labels than items in list")
-          if(length(item.names) < length(items)) warning("There are too few item labels")
+          if(!length(item.lab) <= length(items)) warning("There are more item labels than items in list")
+          if(length(item.lab) < length(items)) warning("There are too few item labels")
           if (is.null(ncol(vec))){
             max <-  x$scal.vec[[ncol(x$mdiff)]]
           } else {
@@ -493,12 +499,12 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
           }
           sapply(seq_along(items), function(i){
             m <- items[i]
-            rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(item.names[i]), color = axis.col,
+            rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(item.lab[i]), color = axis.col,
                         adj = adjust.lab, size = 2)
           })
         }
       } else {
-        if (is.null(item.names)){
+        if (is.null(item.lab)){
           dl <-  x$scal.vec[[diff.level]]
           inames <- rownames(x$loadings)
           sapply(seq_along(items), function(i){
@@ -510,7 +516,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
           dl <-  as.data.frame(x$scal.vec[diff.level], drop = FALSE)
           sapply(seq_along(items), function(i){
             m <- items[i]
-            rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(item.names[i]), color = axis.col,
+            rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(item.lab[i]), color = axis.col,
                         adj = adjust.lab, size = 2)
           })
         }
@@ -524,11 +530,11 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
     sapply(seq(from = 1, to = nrow(cvec), by=2), function(x){
       rgl::arrow3d(cvec[x,]*c.scalars[1], cvec[x+1,]*c.scalars[2], type = c.type, col = c.col, width = c.arrow.width, n = c.n, theta = c.theta, barblen = c.barblen)
     })
-    if (!is.null(construct.names) && constructs == TRUE){
-      if(!length(construct.names) <= nrow(x$c.vec)) warning("There are more construct labels than constructs")
+    if (!is.null(construct.lab) && constructs == TRUE){
+      if(!length(construct.lab) <= nrow(x$c.vec)) warning("There are more construct labels than constructs")
       clab <-  x$c.vec*c.scalars[2]
       sapply(seq(nrow(x$c.dir.cos)), function(i){
-        rgl::text3d(clab[(i*2),1],clab[(i*2),2], clab[(i*2),3], text = c(construct.names[i]), color = axis.col,
+        rgl::text3d(clab[(i*2),1],clab[(i*2),2], clab[(i*2),3], text = c(construct.lab[i]), color = axis.col,
                     adj = adjust.lab, size = 2)
       })
     }
@@ -550,6 +556,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
         ellipse <- rgl::ellipse3d(cov(cbind(x,y,z)),
                                   centre=c(mean(x), mean(y), mean(z)), level = CI.level)
         rgl::shade3d(ellipse, col = ellipse.col, alpha = ellipse.alpha)
+    }
     } else {
     rgl::spheres3d(x,y,z, radius = spheres.r, color = sphere.col[1])
       if (ellipse == TRUE){
@@ -557,7 +564,6 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                                   centre=c(mean(x), mean(y), mean(z)), level = CI.level)
         rgl::shade3d(ellipse, col = ellipse.col, alpha = ellipse.alpha)
       }
-    }
     }
   }
 }
