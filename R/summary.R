@@ -1,21 +1,19 @@
 #' D3mirt Summary Function
 #'
 #' @description The `summary.D3mirt()` function presents a compressed output from the [D3mirt::D3mirt()] S3 object.
-#' @param object S3 object of class `dmirt`.
+#' @param object S3 object of class `D3mirt`.
 #' @param ... Additional arguments to be passed to methods.
 #' @param digits User can adjust the number of digits shown per estimate. Default is `digits = 4`.
 #'
-#' @author Erik Forsberg
-#'
 #' @return Lists containing \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines, and degrees for vector angles for items and constructs.
-#'
+#' @author Erik Forsberg
 #' @examples
 #' \dontrun{
-#' # Preparation
-#' #' c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
-#' g <- dmirt(d, c)
+#' # Preparation: Call `D3mirt()` and create list of constructs
+#' c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
+#' g <- D3mirt(d, c)
 #'
-#' # Call summary
+#' # Call to summary
 #' summary(g)
 #' }
 #' @export
