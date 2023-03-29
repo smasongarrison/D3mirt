@@ -10,10 +10,10 @@ plotD3mirt(
   hide = FALSE,
   diff.level = NULL,
   items = NULL,
-  item.lab = TRUE,
-  item.names = NULL,
+  item.names = TRUE,
+  item.lab = NULL,
   constructs = FALSE,
-  construct.names = NULL,
+  construct.lab = NULL,
   adjust.lab = c(0.5, -0.8),
   x.lab = "X",
   y.lab = "Y",
@@ -57,7 +57,7 @@ plotD3mirt(
 )
 }
 \arguments{
-\item{x}{S3 object of class \code{D3mirt}}
+\item{x}{S3 object of class \code{D3mirt}.}
 
 \item{scale}{Logical, if item vector arrow length should visualize the MDISC estimates. If set to FALSE, the vector arrow length will be one unit length. Default is \code{scale = FALSE}.}
 
@@ -67,13 +67,13 @@ plotD3mirt(
 
 \item{items}{Optional. The user can input a list of integers indicating what item vector arrows will be visible while the remaining items are hidden.}
 
-\item{item.lab}{Logical, if item labels should be plotted. Default is \code{item.names = TRUE}.}
+\item{item.names}{Logical, if item labels should be plotted. Default is \code{item.names = TRUE}.}
 
-\item{item.names}{Optional. String vector of item names that will override row names extracted from the data frame.}
+\item{item.lab}{Optional. String vector of item names that will override row names extracted from the data frame.}
 
 \item{constructs}{Logical, if construct vector arrows should be plotted. Default set to FALSE}
 
-\item{construct.names}{Optional. String vector of names for constructs.}
+\item{construct.lab}{Optional. String vector of names for constructs.}
 
 \item{adjust.lab}{Vector of parameters for the position of item and construct labels for the \code{text3d} function. The first value is for horizontal adjustment and the second is for vertical adjustment. Default is \code{adjust.lab = c(0.5, -0.8)}.}
 
@@ -156,10 +156,10 @@ plotD3mirt(
 \item{...}{Additional arguments to be passed to RGL or methods.}
 }
 \value{
-RGL graphical device.
+A RGL graphical device.
 }
 \description{
-For graphing S3 objects of class \code{D3mirt} from the \code{\link[=D3mirt]{D3mirt()}} function.
+For graphing of objects of class \code{D3mirt} from the \code{\link[=D3mirt]{D3mirt()}} function.
 }
 \details{
 The function is based on the \link{rgl} package for visualization with OpenGL. outputs a three-dimensional interactive RGL device containing the descriptive multidimensional item response theory model with orthogonal standardized axes centered at 0.
@@ -171,7 +171,7 @@ The function allows plotting of all items, a selection of items as well as plott
 Items can also be plotted with unit length by setting \code{scale = TRUE}.
 In addition, the user also has the option of adding constructs to the graphical output with \code{constructs = TRUE} (see the documentation for \link{D3mirt} regarding constructs).
 Plotting can be limited to showing one level of difficulty with the \code{diff.level} argument at a time if multiple levels of difficulty are used in the model.
-Item names are displayed by default, but the user has the option of imputing new names for the items (with \code{item.names}) and adding names for the constructs (with \code{construct.names}).
+Item names are displayed by default, but the user has the option of imputing new names for the items (with \code{item.lab}) and adding names for the constructs (with \code{construct.lab}).
 }
 
 \section{Visual Profile Analysis}{
@@ -182,7 +182,7 @@ The resulting data frame is then imputed in the \code{profiles} argument.
 
 The user also has the option of imputing a grouping variable in the \code{lev} argument for the profile data that allows for varying the coloring of spheres based on a group variable indicator.
 The most easy way to achieve this is to use a single Likert-item as the selection criteria.
-More specifically, if respondent factor scores from the \code{fscores}function are combined column wise with respondents Likert scores on the criteria item, then \code{plotD3mirt} use the \code{as.factor}function to coerce the different Likert score options to be factor variables.
+More specifically, if respondent factor scores from the \code{fscores}function are combined column wise with respondents Likert scores on the criteria item, then \code{plotD3mirt()} use the \code{as.factor()}function to coerce the different Likert score options to be factor variables.
 These factor variables indicate what color to use from the \code{sphere.col} argument, e.g., respondents who gave a response of 1 on the likert item will be colored by the first color in the color vector, respondents ho gave a response of 2 will be colored by the second color, and so on.
 If the there are more factors than there are different colors contained in the \code{sphere.col} vector, then the user most add more color alternatives to the color vector.
 See examples section for more options on how to perform prfile analysis.
@@ -209,7 +209,7 @@ Such an item is within-multidimensional because its direction vector lies parall
 
 \section{Model Violations}{
 Since descriptive multidimensional item response theory is based on the multidimensional version of the graded response model (Samejima, 1969), all items must adequately meet the necessary statistical assumptions of this type of model.
-In other words, this implies that violations of the multidimensional graded response model can be observed visually in the \code{plotD3mirt} graphical device.
+In other words, this implies that violations of the multidimensional graded response model can be observed visually in the \code{plotD3mirt()} graphical device.
 For instance, shorter vector arrows indicate weaker discrimination on level of ability.
 Moreover, if an item struggles or fail to describe any of the latent variables in the model it can be observed as an extreme stretch of the MDIFF range.
 This is comparable to observing horizontal trace lines in a unidimensional item response theory model turn horizontal.
@@ -234,10 +234,10 @@ plotD3mirt(g, diff.level = 5)
 plotD3mirt(g, scale = TRUE, constructs = TRUE)
 
 # Plot a selection of items from the model with named constructs
-plotD3mirt(g, constructs = TRUE, items = c(1,3,4,6,8), construct.names = c("I_1", "I_2"))
+plotD3mirt(g, constructs = TRUE, items = c(1,3,4,6,8), construct.lab = c("I_1", "I_2"))
 
 # Profile analysis
-# Extract respondent factor scores from mod1 with `fscores`function from [mirt::mirt]
+# Extract respondent factor scores from mod1 with `fscores()` function from [mirt::mirt]
 library(mirt)
 f <- data.frame(fscores(mod.32, method="EAP", full.scores = TRUE, full.scores.SE = F, QMC = T))
 
@@ -245,31 +245,37 @@ f <- data.frame(fscores(mod.32, method="EAP", full.scores = TRUE, full.scores.SE
 # Column bind fscores output first
 y <- data.frame(cbind(f, x[,10]))
 
-# Subset data frame y conditioned on values < 2 in column 10
-z <- subset(y, y[,1] < 2)
+# Subset data frame y conditioned on values < 2 in column 4
+z <- subset(y, y[,4] < 2)
 
-# Subset data frame y conditioned on values >= 2 and <= 4 in column 10
-z <- subset(y, y[,1] >= 2 & y[,1] <= 4)
+# Subset data frame y conditioned on values >= 2 and <= 4 in column 4
+z <- subset(y, y[,4] >= 2 & y[,4] <= 4)
 
+# Call plotD3mirt with profiles, hidden items
+# And 3 levels of sphere coloring ("black" = 1 to "grey60" = 3)
+plotD3mirt(g, hide = TRUE, profiles = z, lev = z[,4], lev.color = c("black", "grey40", "grey60"))
+
+# Same example but with lowest score highlighted with red
+plotD3mirt(g, hide = TRUE, profiles = z, lev = z[,4], lev.color = c("red", "grey40", "grey60"))
+
+# The use of `rep()`makes it possible to create groups by number of colors in color vector
+# Can be useful on variables with a high amount of indicator levels
 # Subset data frame y conditioned on age <= 30 in column 10
-z <- subset(y, y[,1] >= 2 & y[,1] <= 30)
+z <- subset(y, y[,4] >= 2 & y[,4] <= 30)
 
-# Call plotD3mirt with profiles, hidden items, and 3 levels of sphere coloring (low to high)
-plotD3mirt(g, hide = TRUE, profiles = z, z = z[,4], lev.color = c("black", "grey40", "grey60"))
-
-# Check number of factor levles with `nlevels`
+# Check number of factor levles with `nlevels()`
 nlevels(as.factor(z[,4]))
 
-# Add colors to match the number of factors (e.g., 20)
-# The use of `rep()`makes it possible to create groups by number of colors in color vector
-# Assume we want to divide our 20 factors in our age variable into 4 color groups, ordered from young to old
-z2 <- z2[order(z2[,4]), decreasing = FALSE]
+# Repetition of colors can be used to create color groups based on the `factor()` output
+# Assume we want to divide 20 factors in the age variable into 4 color groups
+# Ordered from young to old
+z <- z[order(z[,4]), decreasing = FALSE]
 
 # Create color vector with 4 color groups, youngest will be colored red
 colvec <- c(rep("red", 5), rep("orange", 5), rep("violet", 5), rep("cyan", 5))
 
 # Call plotD3mirt with profiles on age and with hidden items
-plotD3mirt(g, hide = TRUE, profiles = z, z = z[,4], lev.color = colvec)
+plotD3mirt(g, hide = TRUE, profiles = z, lev = z[,4], lev.color = colvec)
 
 # Export RGL device to consol
 plotD3mirt(g, constructs = TRUE)
