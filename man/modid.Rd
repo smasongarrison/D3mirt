@@ -2,7 +2,7 @@
 % Please edit documentation in R/modid.R
 \name{modid}
 \alias{modid}
-\title{D3mirt Model Identification}
+\title{DMIRT Model Identification}
 \usage{
 modid(x, lower = 0.5, upper = 0.1, fac.order = NULL)
 }
@@ -25,27 +25,33 @@ S3 object of class \code{modid} with lists of items and absolute sum scores, sor
 \details{
 Before performing descriptive item response theory analysis it is necessary to identify the measurement model (Reckase, 2009), that will be used to specify the multidimensional graded response model with \code{\link[mirt:mirt]{mirt::mirt}} (Chalmers, 2012; see \link{D3mirt} documentation for more details on model specification).
 For a three-dimensional model, this entails that two items must be chosen.
-Of these items, the first item is constrained not to load on the second and third axes (y and z), while the second item is only constrained not to load on the third axis (z).
+If improper items are chosen the model will be hard to interpret in a meaningful way.
+The \code{modid} function maximize the former analytically by first order factors by sum of squares and then select the most optimal items.
+This help order the model so that the strongest loading items on the strongest factor always align with the x-axis.
+
+Of the two items that must be chosen for \code{D3mirt}analysis, the first item is constrained not to load on the second and third axes (y and z), while the second item is only constrained not to load on the third axis (z).
 This will create an orthogonal structure with the first item locked in parallel on the x-axis.
 The model identification process is briefly explained below.
 \subsection{Step 1: Explore Data Structure}{
 
 To begin the factor structure must be explored with exploratory factor analysis (EFA).
-Because \code{D3mirt} analysis is based on item response theory, it is recommended to use multidimensional item response theory EFA methods, such as the EFA option in \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012).
-However, it is also possible to use classical test theory EFA, such as \code{\link[psych:fa]{psych::fa()}} (Revelle, 2022).
-Regardless, the EFA method and rotation should be carefully chosen based on theory or otherwise statistically reasonable.
+Because \code{D3mirt} analysis is based on item response theory, it is recommended to use multidimensional item response theory EFA methods, such as the EFA option in \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012), for increased psychometric precision.
+However, it is also possible to try classical test theory EFA, such as \code{\link[psych:fa]{psych::fa()}} (Revelle, 2022).
+Regarding rotation method, EFA method and rotation should be carefully chosen based on theory or otherwise statistically reasonable.
+However, it is beneficial to try and compare several rotation options.
+For,ost, an EFA solution is in adequate if it cannot fit the orthogonal constraints described above.
 }
 
 \subsection{Step 2: Item Selection}{
 
-The \code{modid()} takes in the factor structure from the EFA, assigned to a data frame \emph{x}, and outputs lists (denoted \emph{items}) with suggestions of items to use for the model identification.
+The \code{modid()} takes in the factor solution from the EFA, assigned to a data frame \emph{x}, and outputs lists (denoted \emph{items}) with suggestions of items to use for the model identification.
 These lists contain one column for the loadings from each item on the factor of interest, and one column with absolute sum scores for each item calculated from the remaining factor loadings in the model.
 Each list is sorted with the lowest absolute sum score highest up.
 Accordingly, the top items in each list are the items that best meet the assumption of orthogonality in the analysis.
-Therefore, for a three-dimensional model, all else equal, the item highest up in the first list should be used to identify the x-axis, and the item highest up in the second list should be used to identify the y-axis.
+Therefore, for a three-dimensional model, all else equal, the item highest up in the first list should be used to identify the x-axis, and the item highest up in the second list should be used to identify the y-axis, and so on
 }
 
-\subsection{The Automatic Model Identification Procedure}{
+\subsection{The Model Identification Procedure}{
 
 The \code{modid()} function uses an iterating model identification procedure that can be user adjusted.
 In brief, in automatic mode, \code{modid()} starts by first calculating the ss loadings on all factors \emph{F} in the data frame x and then rearrange the columns in \emph{x}, in decreasing order following the level of strength of the ss loadings.
@@ -63,16 +69,15 @@ That is, iteration 1 use factor loadings from all factors \emph{F-f1}, iteration
 
 \subsection{Criteria}{
 
-Optimized model identification items should preferably (a) have an absolute sum score of <= .10 and (b) a notably strong factor loading on the factor of interest.
+Optimized model identification items should preferably (a) have an absolute sum score of <= .10 and (b) with maximized factor loading on the factor of interest.
 Of these two criteria, (a) should be given the strongest weight in the selection decision.
-If these conditions cannot be met, the user is advised to proceed with caution since the loading scores imply that an orthogonal structure may not be empirically attainable.
-If problems occur, try increase the lower bound up first hand. This will allow the function to include weaker loading items in the analysis.
-Changing rotation method could also be an option if the factor solution is ambiguous.
-The upper bound (set with argument \code{upper}) should only be increased > .1 if the assumption of orthogonality can be compromised.
+If these conditions cannot be met, the user is advised to proceed with caution since the loading scores imply that an adequate orthogonal structure may not be empirically attainable.
+If problems occur, try change the rotation method for the EFA first hand.
+If this does not help, proceed by increasing the lower bound since this will allow the function to include weaker loading items in the analysis.
+The upper bound (set with argument \code{upper}) should not be increased > .1, unless the assumption of orthogonality can be compromised.
 
 The user also has the option of overriding the automatic sorting of factor order according to ss loadings, with the argument \code{fac.order} (see examples section).
 This can, for instance, be useful in cases where the ss loadings are very similar in strength in the EFA model.
-Regardless, because empirical data is noisy it is always necessary to try several options and to compare the outcomes before a final decision is made.
 }
 
 \subsection{Limitations}{
@@ -81,7 +86,7 @@ The \code{modid()} function is not limited to three-dimensional analysis and can
 Although based on suggestions on model identification given by Reckase (2009) for this type of analysis, the function offers some expansions that introduce more precision.
 The latter foremost consist in incorporating sum of squares in the item selection process (unless the user has not specified otherwise).
 Experience tells that this is good practice that often leads to better results compared to other options.
-However, it is important to recognize that the automatic model identification procedure only gives suggestions, and there could be situations where the researcher should consider other methods.
+However, it is important to recognize that the model identification procedure only gives suggestions to the model specification, and there could be situations where the researcher should consider other methods.
 }
 }
 \examples{
@@ -89,7 +94,7 @@ However, it is important to recognize that the automatic model identification pr
 # Preparation: Fit a three-factor EFA model
 # With mirt package
 library(mirt)
-f <- mirt(x, 3)
+f <- mirt::mirt(x, 3)
 
 # Assign data frame with factor loadings with varimax rotation
 g <- summary(f, rotate= 'varimax')
@@ -97,7 +102,7 @@ h <- data.frame(g$rotF)
 
 # With psych package and oblimin rotation
 library(psych)
-f <- fa(x, nfactors = 3, rotate = "oblimin", residuals = FALSE, SMC = FALSE)
+f <- psych::fa(x, nfactors = 3, rotate = "oblimin", residuals = FALSE, SMC = FALSE)
 
 # Assign data frame with factor loadings
 g <- data.frame(f$loadings[,])
