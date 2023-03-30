@@ -5,7 +5,7 @@ Authors@R:
     c(person("Erik", "Forsberg", , email= "e_forsberg@psychology.su.se", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-5228-9729")),
     person("Anders", "Sjöberg", , email = "anders.sjoberg@psychology.su.se", role = c("ths", "ctb")))
-Description: Estimation and plotting of 3D dmirt objects.
+Description: Identification, estimation, and plotting of D3mirt S3 objects.
 License: MIT + file LICENSE
 URL: https://github.com/ForsbergPyschometrics/D3mirt
 BugReports: https://github.com/ForsbergPyschometrics/D3mirt/issues
