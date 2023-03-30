@@ -20,7 +20,7 @@
 #' The MDISC  \eqn{A_i} for item \eqn{i} represents the highest level of discrimination the item \eqn{i} can achieve located in a multidimensional theta space with \eqn{m} number of dimensions and \eqn{a_{ik}} item slope parameters.
 #'
 #' \deqn{MDISC=A_i=\sqrt{\sum_{k=1}^m a^2_{ik}}}{%
-#' MDISC=A_i=\sqrt{\sum_{k=1}^m a^2_{ik}}}
+#' MDISC = A_i =\sqrt(\sum_k=1^m a^2_ik)}
 #'
 #' Just as in unidimensional modeling, the  \eqn{A_i} indicates the direction, as seen from the origin of the model, to the point of maximum slope of the item response surface.
 #' The slope is, similarly to the unidimensional case, assessed as \eqn{A_i/4} (omitted in the equation above).
@@ -28,14 +28,14 @@
 #' The item angle orientation is set by taking the direction cosines, using linear algebra terms, of \eqn{a_{il}}, i.e., the slope values of item \eqn{i} on coordinate axis \eqn{l}.
 #'
 #' \deqn{a_{il}= cos^{-1}\left(\frac{a_{il}}{\sqrt{\sum_{k=1}^m a^2_{ik}}}\right)}{%
-#' a_{il}= cos^{-1}\left(\frac{a_{il}}{\sqrt{\sum_{k=1}^m a^2_{ik}}}\right)}
+#' a_il= cos^-1(a_il/(\sqrt(\sum_k=1^m a^2_ik))}
 #'
 #' The resulting direction vector is a characteristic of the item that describes the angular orientation of an item in a multidimensional theta space.
 #'
 #' The multidimensional version of the difficulty parameter, \eqn{B_i}, for item \eqn{i} is defined as the negative intercept \eqn{d_i} divided by the MDISC.
 #'
-#' \deqn{MDIFF=B_i= \frac{-d_i}{\sqrt{\sum_{k=1}^m a^2_{ik}}}}{%
-#' \frac{-d_i}{\sqrt{\sum_{k=1}^m a^2_{ik}}}}
+#' \deqn{MDIFF = B_i = \frac{-d_i}{\sqrt{\sum_{k=1}^m a^2_{ik}}}}{%
+#' -d_i/(\sqrt(\sum_k=1^m a^2_ik))}
 #'
 #' The MDIFF is interpreted similarly as the difficulty parameter in the unidimensional model.
 #' That is, higher values indicate that higher levels of theta for a probability of a correct response >.5 are necessary.
@@ -91,7 +91,7 @@
 #'           FIXED=(I_10,a3) '
 #'
 #'
-#' mod1 <- mirt(x, spec, itemtype = 'graded', SE = TRUE, method = 'QMCEM')
+#' mod1 <- mirt::mirt(x, spec, itemtype = 'graded', SE = TRUE, method = 'QMCEM')
 #'
 #' # Assign data frame with factor loadings (located in the first three columns)
 #' # And difficulty parameters (columns 4-7) from mod1 with mirt::coef and $'items'[,1:7]))
