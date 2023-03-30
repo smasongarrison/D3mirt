@@ -163,8 +163,8 @@ For graphing of objects of class \code{D3mirt} from the \code{\link[=D3mirt]{D3m
 }
 \details{
 The function is based on the \link{rgl} package for visualization with OpenGL. outputs a three-dimensional interactive RGL device containing the descriptive multidimensional item response theory model with orthogonal standardized axes centered at 0.
-The RGL device can be exported as an interactive html file or as a still shoot (see examples below).
-In the case of the latter, the model perspective in the still shoot can be adjusted by changing the \code{view} argument for the function.
+An open RGL device can be exported to the R console interactive html file or as a still shoots (see examples below).
+In the case of the latter, the model perspective in the still shoot can be manually adjusted or adjusted by changing the \code{view} argument for the function.
 }
 \section{Plotting options}{
 The function allows plotting of all items, a selection of items as well as plotting a single item (see examples section).
@@ -189,7 +189,7 @@ See examples section for more options on how to perform prfile analysis.
 A general advice is also to hiding vector arrows with \code{hide = TRUE} when analyzing respondent profiles to avoid visual cluttering.
 }
 
-\section{Guidelines for the Graphical Output}{
+\section{Guidelines for Interpretating the Graphical Output}{
 In general, vector arrows represent item response functions and the location, angle, and length of the arrows indicate item characteristics (Reckase, 2009).
 If polytomous items, such as Likert items, are used then each an item will have multiple item response functions that run successively long the same line.
 
@@ -277,13 +277,14 @@ colvec <- c(rep("red", 5), rep("orange", 5), rep("violet", 5), rep("cyan", 5))
 # Call plotD3mirt with profiles on age and with hidden items
 plotD3mirt(g, hide = TRUE, profiles = z, lev = z[,4], lev.color = colvec)
 
-# Export RGL device to consol
+# Export an open RGL device to consol and html
+s <- scene3d()
 plotD3mirt(g, constructs = TRUE)
-rglwidget(width = 1040, height = 1040)
+rgl::rglwidget(width = 1040, height = 1040)
 
-# Export RGL device to file
+# Export a snap shoot of an open RGL device to file
 plotD3mirt(g, constructs = TRUE)
-rgl.snapshot('RGLdevice.png', fmt = 'png')
+rgl::rgl.snapshot('RGLdevice.png', fmt = 'png')
 }
 }
 \references{
