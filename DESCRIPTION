@@ -2,7 +2,7 @@ Package: D3mirt
 Title: Descriptive 3D Multidimensional Item Response Theory
 Version: 0.0.0.9000
 Authors@R: 
-    c(person("Erik", "Forsberg", , email= "e_forsberg@psychology.su.se", role = c("aut", "cre", "cph"),
+    c(person("Erik", "Forsberg", , email= "forsbergpsychometrics@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-5228-9729")),
     person("Anders", "Sjöberg", , email = "anders.sjoberg@psychology.su.se", role = c("ths", "ctb")))
 Description: Identification, estimation, and plotting of D3mirt S3 objects.
