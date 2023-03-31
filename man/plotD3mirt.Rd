@@ -46,7 +46,7 @@ plotD3mirt(
   c.theta = 0.2,
   c.barblen = 0.03,
   profiles = NULL,
-  lev = NULL,
+  levels = NULL,
   sphere.col = c("black", "grey20", "grey40", "grey60", "grey80"),
   spheres.r = 0.05,
   ellipse = TRUE,
@@ -139,7 +139,7 @@ plotD3mirt(
 
 \item{profiles}{Data frame with coordinates for spheres representing respondent scores. Default is \code{profiles = NULL}.}
 
-\item{lev}{Optional. Column with values indicating levels for sphere colors from the \code{sphere.col} vector. Default is \code{lev = NULL}.}
+\item{levels}{Optional. Column with values indicating levels for sphere colors from the \code{sphere.col} vector. Default is \code{levels = NULL}.}
 
 \item{sphere.col}{Color vector for \code{spheres3d()}. Default is \code{sphere.col = c("black", "grey20", "grey40", "grey60", "grey80")}.}
 
@@ -180,7 +180,7 @@ This allows for a type of profile analysis of respondent groups in which respond
 This is done by first extracting respondent factor scores with \link[mirt:fscores]{mirt::fscores}(Chalmers, 2012) and then inducing some selection process that subset respondent rows.
 The resulting data frame is then imputed in the \code{profiles} argument.
 
-The user also has the option of imputing a grouping variable in the \code{lev} argument for the profile data that allows for varying the coloring of spheres based on a group variable indicator.
+The user also has the option of imputing a grouping variable in the \code{levels} argument for the profile data that allows for varying the coloring of spheres based on a group variable indicator.
 The most easy way to achieve this is to use a single Likert-item as the selection criteria.
 More specifically, if respondent factor scores from the \code{fscores}function are combined column wise with respondents Likert scores on the criteria item, then \code{plotD3mirt()} use the \code{as.factor()}function to coerce the different Likert score options to be factor variables.
 These factor variables indicate what color to use from the \code{sphere.col} argument, e.g., respondents who gave a response of 1 on the likert item will be colored by the first color in the color vector, respondents ho gave a response of 2 will be colored by the second color, and so on.
@@ -253,10 +253,10 @@ z <- subset(y, y[,4] >= 2 & y[,4] <= 4)
 
 # Call plotD3mirt with profiles, hidden items
 # And 3 levels of sphere coloring ("black" = 1 to "grey60" = 3)
-plotD3mirt(g, hide = TRUE, profiles = z, lev = z[,4], lev.color = c("black", "grey40", "grey60"))
+plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], lev.color = c("black", "grey40", "grey60"))
 
 # Same example but with lowest score highlighted with red
-plotD3mirt(g, hide = TRUE, profiles = z, lev = z[,4], lev.color = c("red", "grey40", "grey60"))
+plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], lev.color = c("red", "grey40", "grey60"))
 
 # The use of `rep()`makes it possible to create groups by number of colors in color vector
 # Can be useful on variables with a high amount of indicator levels
@@ -275,7 +275,7 @@ z <- z[order(z[,4]), decreasing = FALSE]
 colvec <- c(rep("red", 5), rep("orange", 5), rep("violet", 5), rep("cyan", 5))
 
 # Call plotD3mirt with profiles on age and with hidden items
-plotD3mirt(g, hide = TRUE, profiles = z, lev = z[,4], lev.color = colvec)
+plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], lev.color = colvec)
 
 # Export an open RGL device to consol and html
 s <- scene3d()
