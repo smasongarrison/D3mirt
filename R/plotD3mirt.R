@@ -42,7 +42,7 @@
 #' @param c.theta Opening angle of barbs for construct vector arrows from `arrow3d()`. Default is `c.theta = 0.2`.
 #' @param c.barblen The length of the barbs for construct vector arrows from `arrow3d()`. Default is `c.barblen = 0.03`.
 #' @param profiles Data frame with coordinates for spheres representing respondent scores. Default is `profiles = NULL`.
-#' @param lev Optional. Column with values indicating levels for sphere colors from the `sphere.col` vector. Default is `lev = NULL`.
+#' @param levels Optional. Column with values indicating levels for sphere colors from the `sphere.col` vector. Default is `levels = NULL`.
 #' @param spheres.r Radius of the spheres for `spheres3d()`. Default is `spheres.r = 0.05`.
 #' @param sphere.col Color vector for `spheres3d()`. Default is `sphere.col = c("black", "grey20", "grey40", "grey60", "grey80")`.
 #' @param ellipse Logical, if spheres should include an ellipsoid outlining a confidence region returned from the `ellipse3d()` function. Default is `ellipse = TRUE`.
@@ -73,7 +73,7 @@
 #' The resulting data frame is then imputed in the `profiles` argument.
 #'
 #'
-#' The user also has the option of imputing a grouping variable in the `lev` argument for the profile data that allows for varying the coloring of spheres based on a group variable indicator.
+#' The user also has the option of imputing a grouping variable in the `levels` argument for the profile data that allows for varying the coloring of spheres based on a group variable indicator.
 #' The most easy way to achieve this is to use a single Likert-item as the selection criteria.
 #' More specifically, if respondent factor scores from the `fscores`function are combined column wise with respondents Likert scores on the criteria item, then `plotD3mirt()` use the `as.factor()`function to coerce the different Likert score options to be factor variables.
 #' These factor variables indicate what color to use from the `sphere.col` argument, e.g., respondents who gave a response of 1 on the likert item will be colored by the first color in the color vector, respondents ho gave a response of 2 will be colored by the second color, and so on.
@@ -152,10 +152,10 @@
 #'
 #' # Call plotD3mirt with profiles, hidden items
 #' # And 3 levels of sphere coloring ("black" = 1 to "grey60" = 3)
-#' plotD3mirt(g, hide = TRUE, profiles = z, lev = z[,4], lev.color = c("black", "grey40", "grey60"))
+#' plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], lev.color = c("black", "grey40", "grey60"))
 #'
 #' # Same example but with lowest score highlighted with red
-#' plotD3mirt(g, hide = TRUE, profiles = z, lev = z[,4], lev.color = c("red", "grey40", "grey60"))
+#' plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], lev.color = c("red", "grey40", "grey60"))
 #'
 #' # The use of `rep()`makes it possible to create groups by number of colors in color vector
 #' # Can be useful on variables with a high amount of indicator levels
@@ -174,7 +174,7 @@
 #' colvec <- c(rep("red", 5), rep("orange", 5), rep("violet", 5), rep("cyan", 5))
 #'
 #' # Call plotD3mirt with profiles on age and with hidden items
-#' plotD3mirt(g, hide = TRUE, profiles = z, lev = z[,4], lev.color = colvec)
+#' plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], lev.color = colvec)
 #'
 #' # Export an open RGL device to consol and html
 #' s <- scene3d()
@@ -197,7 +197,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         c.scalars = c(1,1),
                         c.type = "rotation", c.col = "black", c.arrow.width = 0.6,
                         c.n = 20, c.theta = 0.2, c.barblen = 0.03,
-                        profiles = NULL, lev = NULL, sphere.col = c("black", "grey20", "grey40", "grey60", "grey80"), spheres.r = 0.05,
+                        profiles = NULL, levels = NULL, sphere.col = c("black", "grey20", "grey40", "grey60", "grey80"), spheres.r = 0.05,
                         ellipse = TRUE, CI.level = 0.95, ellipse.col = "grey80", ellipse.alpha = 0.20, ...){
   if (!isa(x, "D3mirt")) stop("Input object must be of class D3mirt")
   rgl::open3d()
@@ -264,11 +264,13 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
             })
           }
         } else {
+          if(ncol(vec) == 1) stop("The data only has one level of difficulty")
           m <- items*2-1
           sapply(m, function(x){
             rgl::arrow3d(vec[x,], vec[x+1,], type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
         }
       } else {
+        if(!is.null(ncol(vec))) stop("The data only has one level of difficulty")
         if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high")
         if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
         v <- vec[[diff.level]]
@@ -279,6 +281,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
       }
     }
     else if (!is.null(diff.level)) {
+      if(!is.null(ncol(vec))) stop("The data only has one level of difficulty")
       if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high")
       if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
       for (i in seq_along(diff.level)){
@@ -299,7 +302,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
           }
         }
       } else {
-        sapply(seq(from = 1, to = nrow(v), by=2), function(i){
+        sapply(seq(from = 1, to = nrow(vec), by=2), function(i){
           rgl::arrow3d(vec[i,], vec[i+1,], type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
       }
     }
@@ -405,6 +408,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
             rgl::arrow3d(vec[x,], vec[x+1,], type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
         }
       } else {
+        if(!is.null(ncol(vec))) stop("The data only has one level of difficulty")
         if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high")
         if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
         v <- vec[[diff.level]]
@@ -415,6 +419,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
       }
     }
     else if (!is.null(diff.level)) {
+      if(!is.null(ncol(vec))) stop("The data only has one level of difficulty")
       if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high")
       if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
       for (i in seq_along(diff.level)){
@@ -435,7 +440,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
           }
         }
       } else {
-        sapply(seq(from = 1, to = nrow(v), by=2), function(i){
+        sapply(seq(from = 1, to = nrow(vec), by=2), function(i){
           rgl::arrow3d(vec[i,], vec[i+1,], type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
       }
     }
@@ -544,15 +549,15 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
     x <- profiles[,1]
     y <- profiles[,2]
     z <- profiles[,3]
-    if (!is.null(lev)){
-      grad <- function (lev, sphere.col){
-      lev <- as.factor(lev)
-      if (nlevels(lev) > length(sphere.col)) stop ("There number of factor levels are more than the number of available sphere colors")
-      color <- sphere.col[as.numeric(lev)]
-      names(color) <- as.vector(lev)
+    if (!is.null(levels)){
+      grad <- function (levels, sphere.col){
+      levels <- as.factor(levels)
+      if (nlevels(levels) > length(sphere.col)) stop ("There number of factor levels are more than the number of available sphere colors")
+      color <- sphere.col[as.numeric(levels)]
+      names(color) <- as.vector(levels)
       color
       }
-      rgl::spheres3d(x,y,z, radius = spheres.r, color = grad(lev, sphere.col))
+      rgl::spheres3d(x,y,z, radius = spheres.r, color = grad(levels, sphere.col))
       if (ellipse == TRUE){
         ellipse <- rgl::ellipse3d(cov(cbind(x,y,z)),
                                   centre=c(mean(x), mean(y), mean(z)), level = CI.level)
