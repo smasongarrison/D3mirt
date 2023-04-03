@@ -10,6 +10,7 @@ License: MIT + file LICENSE
 URL: https://github.com/ForsbergPyschometrics/D3mirt
 BugReports: https://github.com/ForsbergPyschometrics/D3mirt/issues
 Depends:
+    mirt,
     R (>= 3.3.0),
     rgl (>= 1.0.1)
 Suggests: 
@@ -17,3 +18,4 @@ Suggests:
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+LazyData: true
