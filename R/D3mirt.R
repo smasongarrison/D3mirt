@@ -5,6 +5,8 @@
 #' @param x Data frame with rows for items and columns for model parameters. The number of columns must be ≥ 4, i.e., three columns for slope (\emph{a}) parameters and at least one column for difficulty (\emph{d}) parameters.
 #' @param constructs Optional. Nested lists with integer values indicating construct. Default is `constructs = NULL`.
 #'
+#' @importFrom mirt mirt
+#'
 #' @details The `D3mirt()` function takes in a data frame of factor slopes and difficulty parameters from a three-dimensional graded response model and returns an S3 object containing estimates that can be graphed as vector arrows with [D3mirt::plotD3mirt].
 #'
 #' # Model Identification
@@ -57,7 +59,8 @@
 #' The construct vector arrows can contribute to the analysis by visualizing the average direction for a subset set of items.
 #'
 #' ## Scaling of Item Vector Arrows
-#' Regarding plotting, the `D3mirt()` function returns vector coordinates estimated with and without the MDISC as a scalar for arrow length. If the MDISC is not used, all vector arrows are scaled to unit length.
+#' Regarding plotting, the `D3mirt()` function returns vector coordinates estimated with and without the MDISC as a scalar for arrow length.
+#' If the MDISC is not used, all vector arrows are scaled to one unit length.
 #' This can help reduce clutter in the graphical output when using `plotD3mirt()`.
 #'
 #' @return S3 object of class `D3mirt` with lists of \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines and degrees for vector angles, construct lists, and vector coordinates.
@@ -69,41 +72,43 @@
 #' @references Samejima, F. (1969). Estimation of latent ability using a response pattern of graded scores. \emph{Psychometrika 34}, 1–97. https://doi.org/10.1007/BF03372160
 #'
 #' @examples
-#' \dontrun{
-#' # Preparation: Fitting a three-dimensional graded response model with orthogonal factors
-#' # Example below uses a scale with 10 items, in total, named I_01...I_10
-#' # Item I_05 and item I_10 have been selected to identify the model
-#' # The DMIRT model specification implies that all items (1-10) load on all three factors (F1 to F3)
-#' # The START and FIXED commands are used to locate the orthogonal axis in the model
-#' library(mirt)
-#' spec <- ' F1 = 1-10
-#'           F2 = 1-10
-#'           F3 = 1-10
+#' # Load data
+#' data("anes08_09offwaves")
+#' x <- anes08_09offwaves
+#' x <- x[,3:22] # Remove columns for age and gender
 #'
-#'           START=(I_05,a2,0)
-#'           START=(I_05,a3,0)
+#' # Fit a three-dimensional graded response model with orthogonal factors
+#' # Example below use Likert items from the built in data set "anes08_09offwaves"
+#' # Item W7Q3 and item W7Q3 have been selected with `modid()`
+#' # The model specification below specify all items (1-20) to load on all three factors (F1-F3)
+#' # The START and FIXED commands are used to identify the orthogonal structure in the model
+#' spec <- ' F1 = 1-20
+#'           F2 = 1-20
+#'           F3 = 1-20
 #'
-#'           START=(I_10,a3,0)
+#'           START=(W7Q3,a2,0)
+#'           START=(W7Q3,a3,0)
 #'
-#'           FIXED=(I_05,a2)
-#'           FIXED=(I_05,a3)
+#'           START=(W7Q3,a3,0)
 #'
-#'           FIXED=(I_10,a3) '
+#'           FIXED=(W7Q3,a2)
+#'           FIXED=(W7Q3,a3)
+#'
+#'           FIXED=(W7Q20,a3) '
 #'
 #'
 #' mod1 <- mirt::mirt(x, spec, itemtype = 'graded', SE = TRUE, method = 'QMCEM')
 #'
-#' # Assign data frame with factor loadings (located in the first three columns)
-#' # And difficulty parameters (columns 4-7) from mod1 with mirt::coef and $'items'[,1:7]))
+#' # Assign data frame with factor loadings (located in the first three columns in mod1),
+#' # and difficulty parameters (columns 4-7 in mod1) with mirt::coef and $'items'[,1:7]))
 #' d <- data.frame(mirt::coef(mod1, simplify=TRUE)$'items'[,1:7])
 #'
 #' # Call to `D3mirt()`, including optional nested lists for two constructs
-#' c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
+#' # Item W7Q16 is not included in any construct because of model violations
+#' c <- list(list (1,2,3,4), list(5,7,8,9,10), list(11,12,13,14,15,15,16,17,18,19,20))
 #' g <- D3mirt(d, c)
-#' }
 #' @export
 D3mirt <- function(x, constructs = NULL){
-  # Warning for format
   if(ncol(x) < 4) stop("Data frame must have at least 4 columns")
   x <- as.matrix(x, drop = FALSE)
   a <- x[,1:3, drop = FALSE]
