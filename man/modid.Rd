@@ -14,7 +14,7 @@ modid(x, lower = 0.5, upper = 0.1, fac.order = NULL)
 \item{upper}{The upper bound for filtering of absolute sum scores less than or equal to the indicated value. Default is \code{upper = .10}}
 
 \item{fac.order}{Optional. Users can override the automatic sorting of factors by manually indicating factor order with integer values, e.g., \code{c(2,1,3)} to use the second factor (or column) in data frame x first, first factor (or column) in x second, and the third factor (or column) is left untouched.
-Default is \code{factor.order = NULL}.}
+Default is \code{fac.order = NULL}.}
 }
 \value{
 S3 object of class \code{modid} with lists of items and absolute sum scores, sorted by the latter, and sum of squared factor loadings and frame with raw factor loadings with columns ordered on explained variance (high to low) or according to user settings.
@@ -26,20 +26,23 @@ S3 object of class \code{modid} with lists of items and absolute sum scores, sor
 Before performing descriptive item response theory analysis it is necessary to identify the measurement model (Reckase, 2009), that will be used to specify the multidimensional graded response model with \code{\link[mirt:mirt]{mirt::mirt}} (Chalmers, 2012; see \link{D3mirt} documentation for more details on model specification).
 For a three-dimensional model, this entails that two items must be chosen.
 If improper items are chosen the model will be hard to interpret in a meaningful way.
-The \code{modid} function maximize the former analytically by first order factors by sum of squares and then select the most optimal items.
+The \code{modid} function was designed to maximize the former analytically by first order factors by sum of squares and then select the most optimal items.
 This help order the model so that the strongest loading items on the strongest factor always align with the x-axis.
 
-Of the two items that must be chosen for \code{D3mirt}analysis, the first item is constrained not to load on the second and third axes (y and z), while the second item is only constrained not to load on the third axis (z).
+Of the two items that must be chosen for \code{D3mirt}analysis, the first item is constrained not to load on the second and third axes (y and z),
+while the second item is only constrained not to load on the third axis (z).
 This will create an orthogonal structure with the first item locked in parallel on the x-axis.
 The model identification process is briefly explained below.
 \subsection{Step 1: Explore Data Structure}{
 
 To begin the factor structure must be explored with exploratory factor analysis (EFA).
-Because \code{D3mirt} analysis is based on item response theory, it is recommended to use multidimensional item response theory EFA methods, such as the EFA option in \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012), for increased psychometric precision.
-However, it is also possible to try classical test theory EFA, such as \code{\link[psych:fa]{psych::fa()}} (Revelle, 2022).
+However, because \code{D3mirt} analysis is based on item response theory, it is recommended to use multidimensional item response theory EFA methods,
+such as the EFA option in \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) with \code{ìtemtype = 'graded'}, so that the EFA is performed using the graded response model (Samejima, 1969) as the item model.
+This is highly beneficial because D3mirt analysis is based on the latter (see documentation in \link{D3mirt}).
+
 Regarding rotation method, EFA method and rotation should be carefully chosen based on theory or otherwise statistically reasonable.
-However, it is beneficial to try and compare several rotation options.
-For,ost, an EFA solution is in adequate if it cannot fit the orthogonal constraints described above.
+However, it is a good habit to test and compare several rotation options.
+Foremost, an EFA solution is inadequate if it cannot fit the orthogonal constraints described above.
 }
 
 \subsection{Step 2: Item Selection}{
@@ -90,39 +93,33 @@ However, it is important to recognize that the model identification procedure on
 }
 }
 \examples{
-\dontrun{
-# Preparation: Fit a three-factor EFA model
-# With mirt package
-library(mirt)
-f <- mirt::mirt(x, 3)
+# Load data
+data("anes08_09offwaves")
+x <- anes08_09offwaves
+x <- x[,3:22] # Remove columns for age and sex
 
-# Assign data frame with factor loadings with varimax rotation
-g <- summary(f, rotate= 'varimax')
+# Fit a three-factor EFA model with mirt package
+f <- mirt::mirt(x, 3, itemtype = 'graded')
+
+# Assign data frame with factor loadings with oblimin rotation
+g <- summary(f, rotate= 'oblimin')
 h <- data.frame(g$rotF)
-
-# With psych package and oblimin rotation
-library(psych)
-f <- psych::fa(x, nfactors = 3, rotate = "oblimin", residuals = FALSE, SMC = FALSE)
-
-# Assign data frame with factor loadings
-g <- data.frame(f$loadings[,])
 
 # Call to modid
 modid(h)
 
-# Call to modid with increased lower bound and decreased upper bound
-modid(h, lower = 1, upper = .08 )
+# Call to modid with increased lower and higher bound
+modid(h, lower = 1, upper = .12 )
 
 # Override factor order by reversing columns in the original data frame
- modid(g, fac.order = c(3,2,1))
-}
+ modid(h, fac.order = c(3,2,1))
 }
 \references{
 Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
 
 Reckase, M. D. (2009). \emph{Multidimensional Item Response Theory}. Springer.
 
-Revelle W (2022). \emph{psych: Procedures for Psychological, Psychometric, and Personality Research}. Northwestern University, Evanston, Illinois. R package version 2.2.9, https://CRAN.R-project.org/package=psych.
+Samejima, F. (1969). Estimation of latent ability using a response pattern of graded scores. \emph{Psychometrika 34}, 1–97. https://doi.org/10.1007/BF03372160
 }
 \author{
 Erik Forsberg
