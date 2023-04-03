@@ -30,7 +30,7 @@ plotD3mirt(
   width.rgl.y = 1040,
   view = c(15, 20, 0.7),
   show.plane = TRUE,
-  plane.color = "grey80",
+  plane.col = "grey80",
   background = "white",
   type = "rotation",
   col = c("black", "grey20", "grey40", "grey60", "grey80"),
@@ -49,7 +49,7 @@ plotD3mirt(
   levels = NULL,
   sphere.col = c("black", "grey20", "grey40", "grey60", "grey80"),
   spheres.r = 0.05,
-  ellipse = TRUE,
+  ellipse = FALSE,
   CI.level = 0.95,
   ellipse.col = "grey80",
   ellipse.alpha = 0.2,
@@ -107,7 +107,7 @@ plotD3mirt(
 
 \item{show.plane}{Logical, if xz-plane should be visible in the graphical device. Default is \code{show.plane = TRUE}.}
 
-\item{plane.color}{Color of the plane, default is \code{plane.color = "grey80"}.}
+\item{plane.col}{Color of the plane, default is \code{plane.col = "grey80"}.}
 
 \item{background}{Set background color for the graphical device, Default is \code{background = "white"}.}
 
@@ -145,7 +145,7 @@ plotD3mirt(
 
 \item{spheres.r}{Radius of the spheres for \code{spheres3d()}. Default is \code{spheres.r = 0.05}.}
 
-\item{ellipse}{Logical, if spheres should include an ellipsoid outlining a confidence region returned from the \code{ellipse3d()} function. Default is \code{ellipse = TRUE}.}
+\item{ellipse}{Logical, if spheres should include an ellipsoid outlining a confidence region returned from the \code{ellipse3d()} function. Default is \code{ellipse = FALSE}.}
 
 \item{CI.level}{Level of confidence for \code{ellipse3d()}, default is \code{CI.level = 0.95}.}
 
@@ -177,27 +177,14 @@ Item names are displayed by default, but the user has the option of imputing new
 \section{Visual Profile Analysis}{
 In addition, the plot function can also display respondent scores in the model space, represented as spheres located with the help of factors scores as coordinates in the model.
 This allows for a type of profile analysis of respondent groups in which respondents' are selected and displayed based on some external criteria (see examples section below).
-This is done by first extracting respondent factor scores with \link[mirt:fscores]{mirt::fscores}(Chalmers, 2012) and then inducing some selection process that subset respondent rows.
-The resulting data frame is then imputed in the \code{profiles} argument.
-
-The user also has the option of imputing a grouping variable in the \code{levels} argument for the profile data that allows for varying the coloring of spheres based on a group variable indicator.
-The most easy way to achieve this is to use a single Likert-item as the selection criteria.
-More specifically, if respondent factor scores from the \code{fscores}function are combined column wise with respondents Likert scores on the criteria item, then \code{plotD3mirt()} use the \code{as.factor()}function to coerce the different Likert score options to be factor variables.
-These factor variables indicate what color to use from the \code{sphere.col} argument, e.g., respondents who gave a response of 1 on the likert item will be colored by the first color in the color vector, respondents ho gave a response of 2 will be colored by the second color, and so on.
-If the there are more factors than there are different colors contained in the \code{sphere.col} vector, then the user most add more color alternatives to the color vector.
-See examples section for more options on how to perform prfile analysis.
+To do this, the user must first extract respondent factor scores with \link[mirt:fscores]{mirt::fscores}(Chalmers, 2012) and then use some selection process to subset respondent rows.
+The resulting data frame is imputed in the \code{profiles} argument.
 A general advice is also to hiding vector arrows with \code{hide = TRUE} when analyzing respondent profiles to avoid visual cluttering.
 }
 
-\section{Guidelines for Interpretating the Graphical Output}{
+\section{Guidelines for Interpreting the Graphical Output}{
 In general, vector arrows represent item response functions and the location, angle, and length of the arrows indicate item characteristics (Reckase, 2009).
 If polytomous items, such as Likert items, are used then each an item will have multiple item response functions that run successively long the same line.
-
-The distance of the lower end of the vector arrows away from the origin indicates the an items multidimensional difficulty (MDIFF).
-For Likert items that hold multiple item response functions, the MDIFF can, therefore, be said to show the multidimensional range of difficulty for an item.
-
-The length of the arrow indicates the item's level of multidimensional discrimination (MDISC).
-Longer arrows indicates high discrimination and shorter arrows indicates lower discrimination.
 
 The angle of the vector arrows, seen from the model axes, indicates the direction of maximal slope of discrimination for the particular item response function.
 In turn, this also indicates what singular traits, located along the orthogonal axes, an item can be said to describe.
@@ -205,24 +192,26 @@ For instance, an item located at 0° seen from x-axis, and 90° as seen from the
 Such an item is unidimensional because its direction vector of maximal discrimination slope lies parallel and on the x-axis.
 In contrast, an item located at 45° between all three axes in a three-dimensional model describes all three traits in the model equally well.
 Such an item is within-multidimensional because its direction vector lies parallel and on the 45° degree line.
+
+The distance of the lower end of the vector arrows away from the origin indicates the an items multidimensional difficulty (MDIFF).
+For Likert items that hold multiple item response functions, the MDIFF can, therefore, be said to show the multidimensional range of difficulty for an item.
+
+The length of the arrow indicates the item's level of multidimensional discrimination (MDISC).
+Longer arrows indicates high discrimination and shorter arrows indicates lower discrimination.
 }
 
 \section{Model Violations}{
-Since descriptive multidimensional item response theory is based on the multidimensional version of the graded response model (Samejima, 1969), all items must adequately meet the necessary statistical assumptions of this type of model.
-In other words, this implies that violations of the multidimensional graded response model can be observed visually in the \code{plotD3mirt()} graphical device.
-For instance, shorter vector arrows indicate weaker discrimination on level of ability.
-Moreover, if an item struggles or fail to describe any of the latent variables in the model it can be observed as an extreme stretch of the MDIFF range.
-This is comparable to observing horizontal trace lines in a unidimensional item response theory model turn horizontal.
+Since descriptive multidimensional item response theory is based on the multidimensional version of the graded response model(Samejima, 1969),
+all items must adequately meet the necessary statistical assumptions of this type of item model.
+In \code{D3mirt} analysis, this implies that violations of graded response model can be observed visually in the \code{plotD3mirt()} graphical device.
+For instance, shorter vector arrows indicate weaker discrimination and therefore also higher amounts of model violations in comparison.
+Moreover, if an item struggles or even fail to describe any of the latent variables in the model, it can be observed as an extreme stretch of the MDIFF range.
+This is comparable to observing trace lines turning horizontal in a unidimensional item response theory model.
 }
 
 \examples{
 \dontrun{
-# Create S3 object of class D3mirt
-g <- D3mirt(x)
-
-# Create nested lists for constructs
-c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
-g <- D3mirt(d, c)
+# Create S3 object of class D3mirt (see [D3mirt::D3mirt])
 
 # Plot RGL device
 plotD3mirt(g)
@@ -230,57 +219,61 @@ plotD3mirt(g)
 # Plot RGL device on one level of difficulty
 plotD3mirt(g, diff.level = 5)
 
-# Plot RGL device with constructs visible and scaled items
-plotD3mirt(g, scale = TRUE, constructs = TRUE)
+# Plot RGL device with scaled items and constructs visible and named
+plotD3mirt(g, scale = TRUE, constructs = TRUE,
+construct.lab = c("Fairness", "Conformity", "Compassion"))
 
-# Plot a selection of items from the model with named constructs
-plotD3mirt(g, constructs = TRUE, items = c(1,3,4,6,8), construct.lab = c("I_1", "I_2"))
+# A selection of items from the model plotted with constructs
+plotD3mirt(g, constructs = TRUE, items = c(5,7,8,9,10),
+construct.lab = c("Fairness", "Conformity", "Compassion"))
 
 # Profile analysis
+# Plot respondents scores separating on gender variable
 # Extract respondent factor scores from mod1 with `fscores()` function from [mirt::mirt]
-library(mirt)
-f <- data.frame(fscores(mod.32, method="EAP", full.scores = TRUE, full.scores.SE = F, QMC = T))
+f <- mirt::fscores(mod1, method="EAP", full.scores = TRUE, full.scores.SE = F, QMC = T)
 
-# Attach f to column 10 from data frame x containing empirical scores
-# Column bind fscores output first
-y <- data.frame(cbind(f, x[,10]))
+# Attach f to gender variable (column 2 from anes08_09offwaves data set; "W3XGENDER")
+# Use cbind with `fscores()` output first
+data("anes08_09offwaves")
+x <- anes08_09offwaves
+z <- data.frame(cbind(f, x[,2]))
 
-# Subset data frame y conditioned on values < 2 in column 4
-z <- subset(y, y[,4] < 2)
+# Plot profiles with item vector arrows hidden
+# Score levels: 1 = Blue ("male") and 2 = Red ("female")
+plotD3mirt(g, hide = TRUE, profiles = y, levels = y[,4], sphere.col = c("blue", "red"),
+x.lab = "Compassion", y.lab="Conformity", z.lab="Fairness")
 
-# Subset data frame y conditioned on values >= 2 and <= 4 in column 4
-z <- subset(y, y[,4] >= 2 & y[,4] <= 4)
+# The use of `rep()`makes it possible to create groups based on factor levels
+# This example compares respondents 30 years or younger against 70 years or older
+# Column bind `fscores()` with age variable ("W3Xage")
+y <- data.frame(cbind(f, x[,1]))
 
-# Call plotD3mirt with profiles, hidden items
-# And 3 levels of sphere coloring ("black" = 1 to "grey60" = 3)
-plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], lev.color = c("black", "grey40", "grey60"))
+# Subset data frame y conditioned on age <= 30
+z1 <- subset(y, y[,4] <= 30)
 
-# Same example but with lowest score highlighted with red
-plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], lev.color = c("red", "grey40", "grey60"))
+# Subset data frame y conditioned on age >= 70
+z2 <- subset(y, y[,4] >= 70)
 
-# The use of `rep()`makes it possible to create groups by number of colors in color vector
-# Can be useful on variables with a high amount of indicator levels
-# Subset data frame y conditioned on age <= 30 in column 10
-z <- subset(y, y[,4] >= 2 & y[,4] <= 30)
+Row bind z1 and z2
+z <- rbind(z1,z2)
 
-# Check number of factor levles with `nlevels()`
-nlevels(as.factor(z[,4]))
+# Check number of factor leveles with `nlevels()` for `rep()`
+nlevels(as.factor(z1[,4]))
+nlevels(as.factor(z2[,4]))
 
-# Repetition of colors can be used to create color groups based on the `factor()` output
-# Assume we want to divide 20 factors in the age variable into 4 color groups
-# Ordered from young to old
-z <- z[order(z[,4]), decreasing = FALSE]
+# Use `rep()`to create a color vector to color groups based on the `nlevels()` output
+# z1 has 14 factor levels and z2 has 16 factor levels
+# z1 respondents are colored green and z2 are colored violet
+colvec <- c(rep("green", 14), rep("violet", 16))
 
-# Create color vector with 4 color groups, youngest will be colored red
-colvec <- c(rep("red", 5), rep("orange", 5), rep("violet", 5), rep("cyan", 5))
+# Call plotD3mirt with profile data on age with item vector arrows hidden
+plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], sphere.col = colvec),
+x.lab = "Compassion", y.lab="Conformity", z.lab="Fairness")
 
-# Call plotD3mirt with profiles on age and with hidden items
-plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], lev.color = colvec)
-
-# Export an open RGL device to consol and html
-s <- scene3d()
+# Export an open RGL device to console and html
 plotD3mirt(g, constructs = TRUE)
-rgl::rglwidget(width = 1040, height = 1040)
+s <- scene3d()
+rgl::rglwidget(s, width = 1040, height = 1040)
 
 # Export a snap shoot of an open RGL device to file
 plotD3mirt(g, constructs = TRUE)
