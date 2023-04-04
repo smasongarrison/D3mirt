@@ -6,7 +6,7 @@ Authors@R:
            comment = c(ORCID = "0000-0002-5228-9729")),
     person("Anders", "Sjöberg", , email = "anders.sjoberg@psychology.su.se", role = c("ths", "ctb")))
 Description: Identification, estimation, and plotting of D3mirt S3 objects.
-License: MIT + file LICENSE
+License: GPL (>= 3) + file LICENSE
 URL: https://github.com/ForsbergPyschometrics/D3mirt
 BugReports: https://github.com/ForsbergPyschometrics/D3mirt/issues
 Depends:
@@ -14,8 +14,11 @@ Depends:
     R (>= 3.3.0),
     rgl (>= 1.0.1)
 Suggests: 
+    knitr,
+    rmarkdown,
     stats
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 LazyData: true
+VignetteBuilder: knitr
