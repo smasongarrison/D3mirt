@@ -1,0 +1,207 @@
+---
+title: "Introduction to D3mirt Analysis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to D3mirt Analysis}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(D3mirt)
+library(mirt)
+```
+
+# D3MIRT Modeling
+
+The D3mirt functions are based on descriptive multidimensional item response theory (DMIRT; Reckase, 2009, 1985, Reckase & McKinley, 1991).
+In DMIRT analysis, also called within multidimensional modeling, it is assumed that items in a multidimensional trait space can measure single or multiple latent abilities (Reckase, 2009, 1985, Reckase & McKinley, 1991).
+The DMIRT method is said to be descriptive because the estimates describes item characteristics when more than one latent dimension is used in the analysis.
+Under the assumption of within-dimensionality, the two-parameter graded response model is used to extract two-parameter multidimensional item characteristics.
+These include a single multidimensional discrimination ($MDISC$) parameter and a multidimensional difficulty ($MDIFF$) index for each item.
+
+The $MDISC$ $A_i$ for item $i$ represents the highest level of discrimination the item $i$ can achieve located in a multidimensional theta space, with $m$ number of dimensions and $a_{ik}$ item slope parameters.
+
+$$MDISC=A_i=\sqrt{\sum_{k=1}^m a^2_{ik}}$$
+
+Just as in unidimensional modeling, the $A_i$ indicates the direction, as seen from the origin of the model, to the point of maximum slope of the item response surface.
+The slope is, similarly to the unidimensional case, assessed as $\frac{A_i}{4}$ (omitted in the equation above).
+
+The items angle orientation is set by taking the direction cosines, in linear algebra terms, of $a_{il}$, i.e., the slope values of item $i$ on coordinate axis $l$.
+
+$${a_{il}= cos^{-1}\left(\frac{a_{il}}{\sqrt{\sum_{k=1}^m a^2_{ik}}}\right)}$$
+
+The resulting direction vector is a characteristic of the item that describes the angular orientation of an item in a multidimensional theta space.
+
+The multidimensional version of the difficulty parameter, $B_i$, for item $i$ is defined as the negative intercept $d_i$ divided by the $MDISC$.
+
+$$MDIFF=B_i=\frac{-d_i}{\sqrt{\sum_{k=1}^m a^2_{ik}}}$$
+
+The $MDIFF$ is interpreted similarly as the difficulty parameter in the unidimensional model.
+That is, higher values indicate that higher levels of ability for a probability of a correct response of more than .5 are necessary.
+Moreover, the $MDIF$, just as in the unidimensional model, sets the distance along the x-axis from the origin of the model to the point of maximum slope.
+However, in DMIRT analysis, the MDIFF functions as a multidimensional location parameter that indicate the distance from the origin to the point of maximum slope following the direction by the $a_{il}$ equation.
+
+The length of the vector arrows is set by taking the MDIFF times the $MDISC$ so that items with higher discrimination have longer vector arrows.
+
+# Limitations
+
+The `D3mirt` technique is based on the grade response item model (Samejima, 1969) extended to a multidimensional space.
+Consequently, the latter entails that `D3mirt` analysis is limited to items that fit the GRM.
+Moreover, for the `D3mirt`analysis the number of dimensions can be up to three.
+However, due to the nature of the model specification, the analysis can handle dimensions less than three.
+This since the third axis, the z-axis, is free while only two items must meet the model identification requirements to locate the first (x-axis) and second axis (y-axis).
+
+## Model Identification
+
+Model parameters from the multidimensional graded response model must be assessed prior to using the `D3mirt()` function.
+This implies that all items are set to load on all factors in the model by choosing and fixing two items from the scale or set (see examples section below).
+The `modid()` function can help with the latter by suggesting what items to use.
+For more information on model identification, see documentation regarding [D3mirt::modid].
+
+Before performing descriptive item response theory analysis it is necessary to identify the measurement model (Reckase, 2009), that will be used to specify the multidimensional graded response model with [`mirt::mirt`] (Chalmers, 2012; see [D3mirt::D3mirt] documentation for more details on model specification).
+For a three-dimensional model, this entails that two items must be chosen.
+If improper items are chosen the model will be hard to interpret in a meaningful way.
+The `modid` function was designed to maximize the former analytically by first order factors by sum of squares and then select the most optimal items.
+This help order the model so that the strongest loading items on the strongest factor always align with the x-axis.
+
+Of the two items that must be chosen for `D3mirt`analysis, the first item is constrained not to load on the second and third axes (y and z), while the second item is only constrained not to load on the third axis (z).
+This will create an orthogonal structure with the first item locked in parallel on the x-axis.
+The model identification process is briefly explained below.
+
+## Step 1: Explore Data Structure
+
+To begin the factor structure must be explored with exploratory factor analysis (EFA).
+However, because `D3mirt` analysis is based on item response theory, it is recommended to use multidimensional item response theory EFA methods, such as the EFA option in [mirt::mirt] (Chalmers, 2012) with `ìtemtype = 'graded'`, so that the EFA is performed using the graded response model (Samejima, 1969) as the item model.
+This is highly beneficial because D3mirt analysis is based on the latter (see documentation in [D3mirt::D3mirt]).
+
+Regarding rotation method, EFA method and rotation should be carefully chosen based on theory or otherwise statistically reasonable.
+However, it is a good habit to test and compare several rotation options.
+Foremost, an EFA solution is inadequate if it cannot fit the orthogonal constraints described above.
+
+## Step 2: Item Selection
+
+The `modid()` takes in the factor solution from the EFA, assigned to a data frame \emph{x}, and outputs lists (denoted \emph{items}) with suggestions of items to use for the model identification.
+These lists contain one column for the loadings from each item on the factor of interest, and one column with absolute sum scores for each item calculated from the remaining factor loadings in the model.
+Each list is sorted with the lowest absolute sum score highest up.
+Accordingly, the top items in each list are the items that best meet the assumption of orthogonality in the analysis.
+Therefore, for a three-dimensional model, all else equal, the item highest up in the first list should be used to identify the x-axis, and the item highest up in the second list should be used to identify the y-axis, and so on
+
+## The Model Identification Procedure
+
+The `modid()` function uses an iterating model identification procedure that can be user adjusted.
+In brief, in automatic mode, `modid()` starts by first calculating the ss loadings on all factors \emph{F} in the data frame x and then rearrange the columns in \emph{x}, in decreasing order following the level of strength of the ss loadings.
+Next, the function creates a list containing factor loadings on the first factor, \emph{f1}, and absolute sum scores of the factor loadings in the remaining factors, i.e., \emph{F-f1}, row-wise.
+The list is then rearrange in decreasing order based on factor loading strength on \emph{f1}.
+Items are selected by scaling f1, and using a standard deviation of 0.5 (can be adjusted with the `lower` argument.) as the lower bound criteria for inclusion.
+That is, starting form the top, rows with raw factor scores and absolut sum scores are extracted until the lower bound is reached.
+This allows the function to extract more rows in the case empirical factor loadings are similar in strength.
+The result is recorded as a nested list before the function starts over with the next factor, f2, and so on.
+
+For every iteration, the algorithm jumps to the next factor in the EFA model, rearrange rows and extract the strongest loading items.
+However the absolute sum score is always assessed on the number of factors less than the total number of factors following the order of iteration, That is, iteration 1 use factor loadings from all factors \emph{F-f1}, iteration 2 \emph{F-(f1+f2)}, iteration 3 \emph{F-(f1+f2+f3)}, and so on, when calculating the absolute sum scores.
+
+## Criteria
+
+Optimized model identification items should preferably (a) have an absolute sum score of \<= .10 and (b) with maximized factor loading on the factor of interest.
+Of these two criteria, (a) should be given the strongest weight in the selection decision.
+If these conditions cannot be met, the user is advised to proceed with caution since the loading scores imply that an adequate orthogonal structure may not be empirically attainable.
+If problems occur, try change the rotation method for the EFA first hand.
+If this does not help, proceed by increasing the lower bound since this will allow the function to include weaker loading items in the analysis.
+The upper bound (set with argument `upper`) should not be increased \> .1, unless the assumption of orthogonality can be compromised.
+
+The user also has the option of overriding the automatic sorting of factor order according to ss loadings, with the argument `fac.order` (see examples section).
+This can, for instance, be useful in cases where the ss loadings are very similar in strength in the EFA model.
+
+## Limitations
+
+The `modid()` function is not limited to three-dimensional analysis and can be used on any number of factors.
+Although based on suggestions on model identification given by Reckase (2009) for this type of analysis, the function offers some expansions that introduce more precision.
+The latter foremost consist in incorporating sum of squares in the item selection process (unless the user has not specified otherwise).
+Experience tells that this is good practice that often leads to better results compared to other options.
+However, it is important to recognize that the model identification procedure only gives suggestions to the model specification, and there could be situations where the researcher should consider other methods.
+
+# User Options
+
+## Constructs
+
+The user has the option of including constructs in the estimation, by creating one or more nested lists that indicate what items belong to what construct (see the examples section).
+From this, the `D3mirt()` function calculates direction cosines for the constructs by adding and normalizing the direction cosines for the items contained in each construct list.
+The construct vector arrows can contribute to the analysis by visualizing the average direction for a subset set of items.
+
+## Scaling of Item Vector Arrows
+
+Regarding plotting, the `D3mirt()` function returns vector coordinates estimated with and without the MDISC as a scalar for arrow length.
+If the object is plotted without the MDISC , all vector arrows are scaled to one unit length.
+This can help reduce clutter in the graphical output when using `plotD3mirt()`.
+
+```{r}
+#' # Load data
+data("anes08_09offwaves")
+x <- anes08_09offwaves
+x <- x[,3:22] # Remove columns for age and gender
+
+# Fit a three-dimensional graded response model with orthogonal factors
+# Example below use Likert items from the built in data set "anes08_09offwaves"
+# Item W7Q3 and item W7Q3 have been selected with `modid()`
+# The model specification below specify all items (1-20) to load on all three factors (F1-F3)
+# The START and FIXED commands are used to identify the orthogonal structure in the model
+ spec <- ' F1 = 1-20
+           F2 = 1-20
+           F3 = 1-20
+
+           START=(W7Q3,a2,0)
+           START=(W7Q3,a3,0)
+
+           START=(W7Q3,a3,0)
+
+           FIXED=(W7Q3,a2)
+           FIXED=(W7Q3,a3)
+
+           FIXED=(W7Q20,a3) '
+
+
+mod1 <- mirt::mirt(x, spec, itemtype = 'graded', SE = TRUE, method = 'QMCEM')
+
+# Assign data frame with factor loadings (located in the first three columns in mod1),
+# and difficulty parameters (columns 4-7 in mod1) with mirt::coef and $'items'[,1:7]))
+d <- data.frame(mirt::coef(mod1, simplify=TRUE)$'items'[,1:7])
+
+# Call to `D3mirt()`, including optional nested lists for two constructs
+# Item W7Q16 is not included in any construct because of model violations
+c <- list(list (1,2,3,4), list(5,7,8,9,10), list(11,12,13,14,15,15,16,17,18,19,20))
+g <- D3mirt(d, c)
+summary(g)
+```
+
+References 
+Chalmers, R., P. (2012).
+mirt: A Multidimensional Item Response Theory Package for the R Environment.
+\emph{Journal of Statistical Software, 48}(6), 1-29.
+Reckase, M. D.
+(2009).
+\emph{Multidimensional Item Response Theory}.
+Springer.
+Reckase, M. D.
+(1985).
+The Difficulty of Test Items That Measure More Than One Ability.
+\emph{Applied Psychological Measurement, 9}(4), 401-412--412.
+<https://doi-org.ezp.sub.su.se/10.1177/014662168500900409> Reckase, M. D., & McKinley, R. L.
+(1991).
+The Discriminating Power of Items That Measure More Than One Dimension.
+\emph{Applied Psychological Measurement, 15}(4), 361-373--373.
+<https://doi-org.ezp.sub.su.se/10.1177/014662169101500407> Samejima, F.
+(1969).
+Estimation of latent ability using a response pattern of graded scores.
+\emph{Psychometrika 34}, 1--97.
+<https://doi.org/10.1007/BF03372160>
