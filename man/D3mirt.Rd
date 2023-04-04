@@ -7,7 +7,7 @@
 D3mirt(x, constructs = NULL)
 }
 \arguments{
-\item{x}{Data frame with rows for items and columns for model parameters. The number of columns must be ≥ 4, i.e., three columns for slope (\emph{a}) parameters and at least one column for difficulty (\emph{d}) parameters.}
+\item{x}{Data frame with rows for items and columns for model parameters. The number of columns must be more than or equal to 4, i.e., three columns for slope (\emph{a}) parameters and at least one column for difficulty (\emph{d}) parameters.}
 
 \item{constructs}{Optional. Nested lists with integer values indicating construct. Default is \code{constructs = NULL}.}
 }
@@ -18,44 +18,52 @@ S3 object of class \code{D3mirt} with lists of \emph{a} and \emph{d} parameters,
 Descriptive multidimensional item response theory modeling (DMIRT; Reckase, 2009, 1985, Reckase & McKinley, 1991), for dichotomous and polytomous items in three dimensions.
 }
 \details{
-The \code{D3mirt()} function takes in a data frame of factor slopes and difficulty parameters from a three-dimensional graded response model and returns an S3 object containing estimates that can be graphed as vector arrows with \link{plotD3mirt}.
+The \code{D3mirt()} function takes in a data frame of factor slopes and difficulty parameters from a three-dimensional graded
+response model, fitted in accordance with descriptive item response theory model specifications described below,
+and returns an S3 object containing estimates that can be graphed as vector arrows with \link{plotD3mirt}.
 }
 \section{Model Identification}{
-Importantly, model parameters from the multidimensional graded response model must be assessed prior to using \code{D3mirt()} (for example with \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012); see examples section below).
-This includes that the multidimensional graded response model must follow the DMIRT model specification pattern; in brief, all items must be set to load on all factors in the multidimensional model.
-The \code{D3mirt}package contains the \code{modid()} function to help with the model identification process. For more information on model identification, see documentation regarding \link{modid}.
+Model parameters from the multidimensional graded response model must be assessed prior to using the \code{D3mirt()} function.
+This implies that all items are set to load on all factors in the model by choosing and fixing two items from the scale or set (see examples section below).
+The \code{modid()} function can help with the latter by suggesting what items to use.
+For more information on model identification, see documentation regarding \link{modid}.
 }
 
 \section{Within Multidimensional Modeling}{
-In DMIRT analysis, also called within multidimensional modeling, it is assumed that items in a multidimensional trait space can measure single or multiple latent abilities (Reckase, 2009, 1985, Reckase & McKinley, 1991).
-The method is said to be descriptive because the estimates describes item characteristics when more than one latent dimension is used in the analysis.
-Under the assumption of within-dimensionality, the two-parameter graded response model can be used to extract two-parameter multidimensional item characteristics.
+In DMIRT analysis, also called within multidimensional modeling, it is assumed that items in a multidimensional trait space
+can measure single or multiple latent abilities (Reckase, 2009, 1985, Reckase & McKinley, 1991).
+The DMIRT method is said to be descriptive because the estimates describes item characteristics when more than one latent dimension is used in the analysis.
+Under the assumption of within-dimensionality, the two-parameter graded response model is used to extract two-parameter multidimensional item characteristics.
 These include a single multidimensional discrimination (MDISC) parameter and a multidimensional difficulty (MDIFF) index for each item.
-The MDISC  \eqn{A_i} for item \eqn{i} represents the highest level of discrimination the item \eqn{i} can achieve located in a multidimensional theta space with \eqn{m} number of dimensions and \eqn{a_{ik}} item slope parameters.
+
+The MDISC  \eqn{A_i} for item \eqn{i} represents the highest level of discrimination the item \eqn{i} can achieve located
+in a multidimensional theta space, with \eqn{m} number of dimensions and \eqn{a_{ik}} item slope parameters.
 
 \deqn{MDISC=A_i=\sqrt{\sum_{k=1}^m a^2_{ik}}}{%
-MDISC = A_i =\sqrt(\sum_k=1^m a^2_ik)}
+MDISC=A_i=\sqrt(\sum_k=1^m a^2_ik)}
 
 Just as in unidimensional modeling, the  \eqn{A_i} indicates the direction, as seen from the origin of the model, to the point of maximum slope of the item response surface.
 The slope is, similarly to the unidimensional case, assessed as \eqn{A_i/4} (omitted in the equation above).
 
-The item angle orientation is set by taking the direction cosines, using linear algebra terms, of \eqn{a_{il}}, i.e., the slope values of item \eqn{i} on coordinate axis \eqn{l}.
+The items angle orientation is set by taking the direction cosines, in linear algebra terms, of \eqn{a_{il}}, i.e., the slope values of item \eqn{i} on coordinate axis \eqn{l}.
 
 \deqn{a_{il}= cos^{-1}\left(\frac{a_{il}}{\sqrt{\sum_{k=1}^m a^2_{ik}}}\right)}{%
-a_il= cos^-1(a_il/(\sqrt(\sum_k=1^m a^2_ik))}
+a_il=cos^-1(a_il/(\sqrt(\sum_k=1^m a^2_ik))}
 
 The resulting direction vector is a characteristic of the item that describes the angular orientation of an item in a multidimensional theta space.
 
 The multidimensional version of the difficulty parameter, \eqn{B_i}, for item \eqn{i} is defined as the negative intercept \eqn{d_i} divided by the MDISC.
 
-\deqn{MDIFF = B_i = \frac{-d_i}{\sqrt{\sum_{k=1}^m a^2_{ik}}}}{%
+\deqn{MDIFF=B_i=\frac{-d_i}{\sqrt{\sum_{k=1}^m a^2_{ik}}}}{%
 -d_i/(\sqrt(\sum_k=1^m a^2_ik))}
 
 The MDIFF is interpreted similarly as the difficulty parameter in the unidimensional model.
-That is, higher values indicate that higher levels of theta for a probability of a correct response >.5 are necessary.
-Likewise, the MDIFF sets the distance from the origin to the point of maximum slope.
-However, in DMIRT analysis, the MDIFF parameter values become scalars for the location of the direction vectors given by the \eqn{a_{il}} equation.
-The length of the vector is set by taking the MDIFF times the MDISC so that items with higher discrimination have longer vector arrows.
+That is, higher values indicate that higher levels of ability for a probability of a correct response of more than .5 are necessary.
+Moreover, the MDIFF, just as in the unidimensional model, sets the distance along the x-axis from the origin of the model to the point of maximum slope.
+However, in DMIRT analysis, the MDIFF functions as a multidimensional location parameter that indicate the distance from the origin to the point of maximum slope
+following the direction by the \eqn{a_{il}} equation.
+
+The length of the vector arrows is set by taking the MDIFF times the MDISC so that items with higher discrimination have longer vector arrows.
 }
 
 \section{Limitations}{
@@ -77,7 +85,7 @@ The construct vector arrows can contribute to the analysis by visualizing the av
 \subsection{Scaling of Item Vector Arrows}{
 
 Regarding plotting, the \code{D3mirt()} function returns vector coordinates estimated with and without the MDISC as a scalar for arrow length.
-If the MDISC is not used, all vector arrows are scaled to one unit length.
+If the object is plotted without the MDISC , all vector arrows are scaled to one unit length.
 This can help reduce clutter in the graphical output when using \code{plotD3mirt()}.
 }
 }
