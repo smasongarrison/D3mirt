@@ -157,17 +157,17 @@
 #' Row bind z1 and z2
 #' z <- rbind(z1,z2)
 #'
-#' # Check number of factor leveles with `nlevels()` for `rep()`
+#' # Check number of factor leveles with `nlevels()` and `as.factor()`
 #' nlevels(as.factor(z1[,4]))
 #' nlevels(as.factor(z2[,4]))
 #'
 #' # Use `rep()`to create a color vector to color groups based on the `nlevels()` output
 #' # z1 has 14 factor levels and z2 has 16 factor levels
-#' # z1 respondents are colored green and z2 are colored violet
-#' colvec <- c(rep("green", 14), rep("violet", 16))
+#' # z1 respondents are colored black and z2 are colored grey
+#' colvec <- c(rep("black", 14), rep("grey40", 16))
 #'
 #' # Call plotD3mirt with profile data on age with item vector arrows hidden
-#' plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], sphere.col = colvec),
+#' plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], sphere.col = colvec,
 #' x.lab = "Compassion", y.lab="Conformity", z.lab="Fairness")
 #'
 #' # Export an open RGL device to console and html
@@ -264,9 +264,9 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
             rgl::arrow3d(vec[x,], vec[x+1,], type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
         }
       } else {
+        if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
         if(!is.null(ncol(vec))) stop("The data only has one level of difficulty")
         if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high")
-        if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
         v <- vec[[diff.level]]
         m <- items*2-1
         sapply(m, function(i){
@@ -275,9 +275,9 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
       }
     }
     else if (!is.null(diff.level)) {
+      if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
       if(!is.null(ncol(vec))) stop("The data only has one level of difficulty")
       if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high")
-      if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
       for (i in seq_along(diff.level)){
         d <- diff.level[i]
         v <- as.data.frame(vec[d, drop = FALSE])
@@ -402,9 +402,9 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
             rgl::arrow3d(vec[x,], vec[x+1,], type = type, col = col[1], width = arrow.width, n = n, theta = theta, barblen = barblen)})
         }
       } else {
+        if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
         if(!is.null(ncol(vec))) stop("The data only has one level of difficulty")
         if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high")
-        if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
         v <- vec[[diff.level]]
         m <- items*2-1
         sapply(m, function(i){
@@ -413,9 +413,9 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
       }
     }
     else if (!is.null(diff.level)) {
+      if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
       if(!is.null(ncol(vec))) stop("The data only has one level of difficulty")
       if(diff.level > ncol(x$mdiff)) stop("The argument for difficulty level is too high")
-      if(!diff.level== round(diff.level)) stop("Difficulty level must be indicated with integer values")
       for (i in seq_along(diff.level)){
         d <- diff.level[i]
         v <- as.data.frame(vec[d, drop = FALSE])
