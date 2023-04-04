@@ -257,17 +257,17 @@ z2 <- subset(y, y[,4] >= 70)
 Row bind z1 and z2
 z <- rbind(z1,z2)
 
-# Check number of factor leveles with `nlevels()` for `rep()`
+# Check number of factor leveles with `nlevels()` and `as.factor()`
 nlevels(as.factor(z1[,4]))
 nlevels(as.factor(z2[,4]))
 
 # Use `rep()`to create a color vector to color groups based on the `nlevels()` output
 # z1 has 14 factor levels and z2 has 16 factor levels
-# z1 respondents are colored green and z2 are colored violet
-colvec <- c(rep("green", 14), rep("violet", 16))
+# z1 respondents are colored black and z2 are colored grey
+colvec <- c(rep("black", 14), rep("grey40", 16))
 
 # Call plotD3mirt with profile data on age with item vector arrows hidden
-plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], sphere.col = colvec),
+plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], sphere.col = colvec,
 x.lab = "Compassion", y.lab="Conformity", z.lab="Fairness")
 
 # Export an open RGL device to console and html
