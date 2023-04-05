@@ -96,7 +96,7 @@ However, because `D3mirt` analysis is based on item response theory, it is recom
 Note, the EFA is only used to find model identification items that meet the necessary DMIRT requirements.
 The model itself is discarded after this step in the procedure.
 
-```{r}
+```{r, message = FALSE, results = 'hide'}
 # Load data
 data("anes08_09offwaves")
 x <- anes08_09offwaves
@@ -198,7 +198,7 @@ To initiate the estimation process, the GRM must first be estimated.
 This is done with the `mirt::mirt`function.
 Please note and copy very carefully how the GRM model is specified in the example below.
 
-```{r}
+```{r, message = FALSE}
 # Load data
 data("anes08_09offwaves")
 x <- anes08_09offwaves
@@ -281,7 +281,7 @@ Graph in default mode by calling `plotd3mirt` using the returned object from the
 The RGL device will appear in an external window in the noraml case.
 In this illustration, however, all RGL devices are shown inline below.
 
-```{r, testg1, webgl=TRUE, echo=FALSE,  fig.align = 'center'}
+```{r, testg1, webgl = TRUE, echo=FALSE, out.width = "100%", out.height = "100%", fig.align = "center"}
 # Plot RGL device
 plotD3mirt(g)
 ```
@@ -290,7 +290,7 @@ The user has the option of plotting the model on one level of difficulty at at t
 Note, difficulty is the number of response options minus $1$.
 In this case, $6$ options were used which means that the model has $5$ levels of difficulty.
 
-```{r, testg2, webgl=TRUE, echo=FALSE, fig.align = 'center'}
+```{r, testg2, webgl = TRUE, echo=FALSE, out.width = "100%", out.height = "100%", fig.align = "center"}
 # Plot RGL device on one level of difficulty
 plotD3mirt(g, diff.level = 5)
 ```
@@ -298,7 +298,7 @@ plotD3mirt(g, diff.level = 5)
 To plot constructs, change the set `constructs = TRUE`.
 The constructs are named with strings as input to the `construct.lab` argument.
 
-```{r, testg3, webgl=TRUE, echo=FALSE,  fig.align = 'center'}
+```{r, testg3, webgl=TRUE, echo=FALSE,  out.width = "100%", out.height = "100%", fig.align = "center"}
 # Plot RGL device with constructs visible and named
 plotD3mirt(g, constructs = TRUE, construct.lab = c("Fairness", "Conformity", "Compassion"))
 ```
@@ -306,7 +306,7 @@ plotD3mirt(g, constructs = TRUE, construct.lab = c("Fairness", "Conformity", "Co
 A subset of items can be plotted for more thorough investigation.
 In the example below constructs are kept which can help with the visual interpretation of the model.
 
-```{r, testg4, webgl=TRUE, echo=FALSE,  fig.align = 'center'}
+```{r, testg4, webgl=TRUE, echo=FALSE,  out.width = "100%", out.height = "100%", fig.align = "center"}
 # A selection of conformity items from the model plotted with constructs
 plotD3mirt(g, constructs = TRUE, items = c(5,7,8,9,10), construct.lab = c("Fairness", "Conformity", "Compassion"))
 ```
@@ -318,7 +318,7 @@ When the MDISC is not used for the arrow length, all vector arrows are scaled to
 This allows the user to graph the vector arrows with `plotD3mirt()` set to equal length, or more specifically, scaled to one unit length.
 This can help reduce clutter in the graphical output when using `plotD3mirt()`.
 
-```{r, testg5, webgl=TRUE, echo=FALSE,  fig.align = 'center'}
+```{r, testg5, webgl=TRUE, echo=FALSE, fig.height=10, fig.align = "center"}
 # Plot RGL device with scaled items and constructs visible and named
 plotD3mirt(g, scale = TRUE, constructs = TRUE, construct.lab = c("Fairness", "Conformity", "Compassion"))
 ```
@@ -337,7 +337,7 @@ x <- anes08_09offwaves
 z <- data.frame(cbind(f, x[,2]))
 ```
 
-```{r, testg6, webgl=TRUE, echo=FALSE, fig.align = 'center'}
+```{r, testg6, webgl=TRUE, echo=FALSE,  out.width = "100%", out.height = "100%", fig.align = "center"}
 # Plot profiles with item vector arrows hidden
 # Score levels: 1 = Blue ("male") and 2 = Red ("female")
 plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], sphere.col = c("blue", "red"), x.lab = "Compassion", y.lab="Conformity", z.lab="Fairness")
@@ -368,7 +368,7 @@ nlevels(as.factor(z2[,4]))
 colvec <- c(rep("black", 14), rep("grey40", 16))
 ```
 
-```{r, testg7, webgl=TRUE, echo=FALSE, fig.align = 'center'}
+```{r, testg7, webgl=TRUE, echo=FALSE,  out.width = "100%", out.height = "100%", fig.align = "center"}
 # Call plotD3mirt with profile data on age with item vector arrows hidden
 plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], sphere.col = colvec, x.lab = "Compassion", y.lab="Conformity", z.lab="Fairness")
 ```
