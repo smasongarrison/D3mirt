@@ -108,7 +108,7 @@ spec <- ' F1 = 1-20
           START=(W7Q3,a2,0)
           START=(W7Q3,a3,0)
 
-          START=(W7Q3,a3,0)
+          START=(W7Q20,a3,0)
 
           FIXED=(W7Q3,a2)
           FIXED=(W7Q3,a3)
@@ -124,6 +124,7 @@ d <- data.frame(mirt::coef(mod1, simplify=TRUE)$'items'[,1:7])
 
 # Call to `D3mirt()`, including optional nested lists for two constructs
 # Item W7Q16 is not included in any construct because of model violations
+# The model violations will be possible to see when graphing the model
 c <- list(list (1,2,3,4), list(5,7,8,9,10), list(11,12,13,14,15,15,16,17,18,19,20))
 g <- D3mirt(d, c)
 }
