@@ -119,7 +119,11 @@
 #' # Plot RGL device on one level of difficulty
 #' plotD3mirt(g, diff.level = 5)
 #'
-#' # Plot RGL device with scaled items and constructs visible and named
+#' # Plot RGL device with constructs visible and named
+#' plotD3mirt(g, constructs = TRUE,
+#' construct.lab = c("Fairness", "Conformity", "Compassion"))
+#'
+#' # Plot RGL device with scaled items and constructs
 #' plotD3mirt(g, scale = TRUE, constructs = TRUE,
 #' construct.lab = c("Fairness", "Conformity", "Compassion"))
 #'
