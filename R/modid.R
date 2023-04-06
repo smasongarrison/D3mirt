@@ -1,6 +1,6 @@
-#' DMIRT Model Identification
+#' D3mirt Model Identification
 #'
-#' @description `modid()` assists with the model identification of the D3mirt object by indicating what items, from a set or scale, to use for identifying the model to use in the D3mirt analysis.
+#' @description `modid()` performs model identification for within-dimensional modeling by indicating what items, from a set or scale, that maximize interpretation of the DMIRT model, such as the models given by `D3mirt()`.
 #'
 #' @param x A data frame with factor loadings
 #' @param lower The lower bound for item inclusion based on item factor loadings. Default is `lower = 0.5`.
@@ -27,7 +27,6 @@
 #' such as the EFA option in [mirt::mirt] (Chalmers, 2012) with `ìtemtype = 'graded'`, so that the EFA is performed using the graded response model (Samejima, 1969) as the item model.
 #' This is highly beneficial because D3mirt analysis is based on the latter (see documentation in [D3mirt::D3mirt]).
 #'
-#'
 #' Regarding rotation method, EFA method and rotation should be carefully chosen based on theory or otherwise statistically reasonable.
 #' However, it is a good habit to test and compare several rotation options.
 #' Foremost, an EFA solution is inadequate if it cannot fit the orthogonal constraints described above.
@@ -39,34 +38,17 @@
 #' Accordingly, the top items in each list are the items that best meet the assumption of orthogonality in the analysis.
 #' Therefore, for a three-dimensional model, all else equal, the item highest up in the first list should be used to identify the x-axis, and the item highest up in the second list should be used to identify the y-axis, and so on
 #'
-#'
-#' ## The Model Identification Procedure
-#' The `modid()` function uses an iterating model identification procedure that can be user adjusted.
-#' In brief, in automatic mode, `modid()` starts by first calculating the ss loadings on all factors \emph{F} in the data frame x and then rearrange the columns in \emph{x}, in decreasing order following the level of strength of the ss loadings.
-#' Next, the function creates a list containing factor loadings on the first factor, \emph{f1}, and absolute sum scores of the factor loadings in the remaining factors, i.e., \emph{F-f1}, row-wise.
-#' The list is then rearrange in decreasing order based on factor loading strength on \emph{f1}.
-#' Items are selected by scaling f1, and using a standard deviation of 0.5 (can be adjusted with the `lower` argument.) as the lower bound criteria for inclusion.
-#' That is, starting form the top, rows with raw factor scores and absolut sum scores are extracted until the lower bound is reached.
-#' This allows the function to extract more rows in the case empirical factor loadings are similar in strength.
-#' The result is recorded as a nested list before the function starts over with the next factor, f2, and so on.
-#'
-#' For every iteration, the algorithm jumps to the next factor in the EFA model, rearrange rows and extract the strongest loading items.
-#' However the absolute sum score is always assessed on the number of factors less than the total number of factors following the order of iteration,
-#' That is, iteration 1 use factor loadings from all factors \emph{F-f1}, iteration 2 \emph{F-(f1+f2)}, iteration 3 \emph{F-(f1+f2+f3)}, and so on, when calculating the absolute sum scores.
-#'
-#'
 #' ## Criteria
 #' Optimized model identification items should preferably (a) have an absolute sum score of <= .10 and (b) with maximized factor loading on the factor of interest.
 #' Of these two criteria, (a) should be given the strongest weight in the selection decision.
 #' If these conditions cannot be met, the user is advised to proceed with caution since the loading scores imply that an adequate orthogonal structure may not be empirically attainable.
 #' If problems occur, try change the rotation method for the EFA first hand.
-#' If this does not help, proceed by increasing the lower bound since this will allow the function to include weaker loading items in the analysis.
+#' If this does not help, proceed by increasing the lower bound since this will allow the function to include weaker loading items in the item pool.
 #' The upper bound (set with argument `upper`) should not be increased > .1, unless the assumption of orthogonality can be compromised.
 #'
-#' The user also has the option of overriding the automatic sorting of factor order according to ss loadings, with the argument `fac.order` (see examples section).
-#' This can, for instance, be useful in cases where the ss loadings are very similar in strength in the EFA model.
+#' The user also has the option of overriding the automatic sorting of factor order according to sum of squares loadings, with the argument `fac.order` (see examples section).
+#' This can, for instance, be useful in cases where the sum of sqaured loadings are very similar in strength in the EFA model.
 #'
-#' ## Limitations
 #' The `modid()` function is not limited to three-dimensional analysis and can be used on any number of factors.
 #' Although based on suggestions on model identification given by Reckase (2009) for this type of analysis, the function offers some expansions that introduce more precision.
 #' The latter foremost consist in incorporating sum of squares in the item selection process (unless the user has not specified otherwise).
