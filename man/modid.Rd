@@ -2,7 +2,7 @@
 % Please edit documentation in R/modid.R
 \name{modid}
 \alias{modid}
-\title{DMIRT Model Identification}
+\title{D3mirt Model Identification}
 \usage{
 modid(x, lower = 0.5, upper = 0.1, fac.order = NULL)
 }
@@ -20,7 +20,7 @@ Default is \code{fac.order = NULL}.}
 S3 object of class \code{modid} with lists of items and absolute sum scores, sorted by the latter, and sum of squared factor loadings and frame with raw factor loadings with columns ordered on explained variance (high to low) or according to user settings.
 }
 \description{
-\code{modid()} assists with the model identification of the D3mirt object by indicating what items, from a set or scale, to use for identifying the model to use in the D3mirt analysis.
+\code{modid()} performs model identification for within-dimensional modeling by indicating what items, from a set or scale, that maximize interpretation of the DMIRT model, such as the models given by \code{D3mirt()}.
 }
 \details{
 Before performing descriptive item response theory analysis it is necessary to identify the measurement model (Reckase, 2009), that will be used to specify the multidimensional graded response model with \code{\link[mirt:mirt]{mirt::mirt}} (Chalmers, 2012; see \link{D3mirt} documentation for more details on model specification).
@@ -54,36 +54,17 @@ Accordingly, the top items in each list are the items that best meet the assumpt
 Therefore, for a three-dimensional model, all else equal, the item highest up in the first list should be used to identify the x-axis, and the item highest up in the second list should be used to identify the y-axis, and so on
 }
 
-\subsection{The Model Identification Procedure}{
-
-The \code{modid()} function uses an iterating model identification procedure that can be user adjusted.
-In brief, in automatic mode, \code{modid()} starts by first calculating the ss loadings on all factors \emph{F} in the data frame x and then rearrange the columns in \emph{x}, in decreasing order following the level of strength of the ss loadings.
-Next, the function creates a list containing factor loadings on the first factor, \emph{f1}, and absolute sum scores of the factor loadings in the remaining factors, i.e., \emph{F-f1}, row-wise.
-The list is then rearrange in decreasing order based on factor loading strength on \emph{f1}.
-Items are selected by scaling f1, and using a standard deviation of 0.5 (can be adjusted with the \code{lower} argument.) as the lower bound criteria for inclusion.
-That is, starting form the top, rows with raw factor scores and absolut sum scores are extracted until the lower bound is reached.
-This allows the function to extract more rows in the case empirical factor loadings are similar in strength.
-The result is recorded as a nested list before the function starts over with the next factor, f2, and so on.
-
-For every iteration, the algorithm jumps to the next factor in the EFA model, rearrange rows and extract the strongest loading items.
-However the absolute sum score is always assessed on the number of factors less than the total number of factors following the order of iteration,
-That is, iteration 1 use factor loadings from all factors \emph{F-f1}, iteration 2 \emph{F-(f1+f2)}, iteration 3 \emph{F-(f1+f2+f3)}, and so on, when calculating the absolute sum scores.
-}
-
 \subsection{Criteria}{
 
 Optimized model identification items should preferably (a) have an absolute sum score of <= .10 and (b) with maximized factor loading on the factor of interest.
 Of these two criteria, (a) should be given the strongest weight in the selection decision.
 If these conditions cannot be met, the user is advised to proceed with caution since the loading scores imply that an adequate orthogonal structure may not be empirically attainable.
 If problems occur, try change the rotation method for the EFA first hand.
-If this does not help, proceed by increasing the lower bound since this will allow the function to include weaker loading items in the analysis.
+If this does not help, proceed by increasing the lower bound since this will allow the function to include weaker loading items in the item pool.
 The upper bound (set with argument \code{upper}) should not be increased > .1, unless the assumption of orthogonality can be compromised.
 
-The user also has the option of overriding the automatic sorting of factor order according to ss loadings, with the argument \code{fac.order} (see examples section).
-This can, for instance, be useful in cases where the ss loadings are very similar in strength in the EFA model.
-}
-
-\subsection{Limitations}{
+The user also has the option of overriding the automatic sorting of factor order according to sum of squares loadings, with the argument \code{fac.order} (see examples section).
+This can, for instance, be useful in cases where the sum of sqaured loadings are very similar in strength in the EFA model.
 
 The \code{modid()} function is not limited to three-dimensional analysis and can be used on any number of factors.
 Although based on suggestions on model identification given by Reckase (2009) for this type of analysis, the function offers some expansions that introduce more precision.
