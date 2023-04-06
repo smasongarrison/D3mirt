@@ -28,7 +28,7 @@ plotD3mirt(
   nticks = c(4, 4, 4),
   width.rgl.x = 1040,
   width.rgl.y = 1040,
-  view = c(15, 20, 0.7),
+  view = c(15, 20, 0.6),
   show.plane = TRUE,
   plane.col = "grey80",
   background = "white",
@@ -103,7 +103,7 @@ plotD3mirt(
 
 \item{width.rgl.y}{Width in the y direction for \code{par3d()}. Default is \code{width.rgl.y = 1040}.}
 
-\item{view}{Vector with polar coordinates and zoom factor for the \code{view3d} function. Default is \code{view = c(15,20, 0.7)}.}
+\item{view}{Vector with polar coordinates and zoom factor for the \code{view3d} function. Default is \code{view = c(15,20, 1)}.}
 
 \item{show.plane}{Logical, if xz-plane should be visible in the graphical device. Default is \code{show.plane = TRUE}.}
 
@@ -159,54 +159,29 @@ plotD3mirt(
 A RGL graphical device.
 }
 \description{
-For graphing of objects of class \code{D3mirt} from the \code{\link[=D3mirt]{D3mirt()}} function.
+For graphing of objects of class \code{D3mirt} from the \code{\link[=D3mirt]{D3mirt()}} function with the rgl 3D visualization device system (Adler & Murdoch, 2022).
 }
 \details{
-The function is based on the \link{rgl} package for visualization with OpenGL. outputs a three-dimensional interactive RGL device containing the descriptive multidimensional item response theory model with orthogonal standardized axes centered at 0.
-An open RGL device can be exported to the R console interactive html file or as a still shoots (see examples below).
+The function is based on the \link{rgl} package (Adler & Murdoch, 2022) for three-dimensional visualization with OpenGL.
+The returned RGL device can be exported to the R console and saved as an interactive html file or as a still shoots (see examples below).
 In the case of the latter, the model perspective in the still shoot can be manually adjusted or adjusted by changing the \code{view} argument for the function.
 }
 \section{Plotting options}{
-The function allows plotting of all items, a selection of items as well as plotting a single item (see examples section).
-Items can also be plotted with unit length by setting \code{scale = TRUE}.
+The function allows plotting of all items, a selection of items as well as plotting a single item.
+Length of the vector arrows can uniform across all arrows by setting \code{scale = TRUE}.
+This removes the visualization of MDISC parameter that affect the vector arrow lengths.
+
 In addition, the user also has the option of adding constructs to the graphical output with \code{constructs = TRUE} (see the documentation for \link{D3mirt} regarding constructs).
-Plotting can be limited to showing one level of difficulty with the \code{diff.level} argument at a time if multiple levels of difficulty are used in the model.
-Item names are displayed by default, but the user has the option of imputing new names for the items (with \code{item.lab}) and adding names for the constructs (with \code{construct.lab}).
+Other options include to plot one level of difficulty at a time with the \code{diff.level} argument, if multiple levels of difficulty are used in the model.
+Item row names are displayed by default, but the user has the option of adding new names for the items (with \code{item.lab}), as well as nming constructs (with \code{construct.lab}).
 }
 
 \section{Visual Profile Analysis}{
-In addition, the plot function can also display respondent scores in the model space, represented as spheres located with the help of factors scores as coordinates in the model.
-This allows for a type of profile analysis of respondent groups in which respondents' are selected and displayed based on some external criteria (see examples section below).
-To do this, the user must first extract respondent factor scores with \link[mirt:fscores]{mirt::fscores}(Chalmers, 2012) and then use some selection process to subset respondent rows.
+The plot function can also display respondent scores in the three-dimensional model space, represented as spheres located with the help of factors scores used as coordinates.
+This allows for a profile analysis in which respondent rows are selected conditioned on some external criteria.
+To do this, the user must first extract respondent factor scores with \link[mirt:fscores]{mirt::fscores}(Chalmers, 2012) and then use a selection process that subset respondent rows.
 The resulting data frame is imputed in the \code{profiles} argument.
-A general advice is also to hiding vector arrows with \code{hide = TRUE} when analyzing respondent profiles to avoid visual cluttering.
-}
-
-\section{Guidelines for Interpreting the Graphical Output}{
-In general, vector arrows represent item response functions and the location, angle, and length of the arrows indicate item characteristics (Reckase, 2009).
-If polytomous items, such as Likert items, are used then each an item will have multiple item response functions that run successively long the same line.
-
-The angle of the vector arrows, seen from the model axes, indicates the direction of maximal slope of discrimination for the particular item response function.
-In turn, this also indicates what singular traits, located along the orthogonal axes, an item can be said to describe.
-For instance, an item located at 0° seen from x-axis, and 90° as seen from the y and z-axis, only describes trait x.
-Such an item is unidimensional because its direction vector of maximal discrimination slope lies parallel and on the x-axis.
-In contrast, an item located at 45° between all three axes in a three-dimensional model describes all three traits in the model equally well.
-Such an item is within-multidimensional because its direction vector lies parallel and on the 45° degree line.
-
-The distance of the lower end of the vector arrows away from the origin indicates the an items multidimensional difficulty (MDIFF).
-For Likert items that hold multiple item response functions, the MDIFF can, therefore, be said to show the multidimensional range of difficulty for an item.
-
-The length of the arrow indicates the item's level of multidimensional discrimination (MDISC).
-Longer arrows indicates high discrimination and shorter arrows indicates lower discrimination.
-}
-
-\section{Model Violations}{
-Since descriptive multidimensional item response theory is based on the multidimensional version of the graded response model(Samejima, 1969),
-all items must adequately meet the necessary statistical assumptions of this type of item model.
-In \code{D3mirt} analysis, this implies that violations of graded response model can be observed visually in the \code{plotD3mirt()} graphical device.
-For instance, shorter vector arrows indicate weaker discrimination and therefore also higher amounts of model violations in comparison.
-Moreover, if an item struggles or even fail to describe any of the latent variables in the model, it can be observed as an extreme stretch of the MDIFF range.
-This is comparable to observing trace lines turning horizontal in a unidimensional item response theory model.
+A general advice is also to hide vector arrows with \code{hide = TRUE} when analyzing respondent profiles to avoid visual cluttering.
 }
 
 \examples{
@@ -285,11 +260,9 @@ rgl::rgl.snapshot('RGLdevice.png', fmt = 'png')
 }
 }
 \references{
+Adler, D., & Murdoch, D. (2022). \emph{Rgl: 3d Visualization Using OpenGL}.
+
 Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
-
-Reckase, M. D. (2009). \emph{Multidimensional Item Response Theory}. Springer.
-
-Samejima, F. (1969). Estimation of latent ability using a response pattern of graded scores. \emph{Psychometrika 34}, 1–97. https://doi.org/10.1007/BF03372160
 }
 \author{
 Erik Forsberg
