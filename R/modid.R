@@ -111,7 +111,7 @@ modid <- function(x, lower = 0.5, upper = .10, fac.order = NULL){
       k <- k + 1
     }
     b <- b[(b[,2]) <= upper ,]
-    if (nrow(b)==0) stop ("Model identification failed, try adjusting lower or upper bound")
+    if (nrow(b)==0) stop ("Model identification failed, try changing factor rotation method or adjusting lower or upper bound")
     b <- b[order(b[,2]),]
     f[[i]] <- b
   }
