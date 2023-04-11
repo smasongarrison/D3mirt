@@ -77,7 +77,7 @@ However, it is important to recognize that the model identification procedure on
 # Load data
 data("anes08_09offwaves")
 x <- anes08_09offwaves
-x <- x[,3:22] # Remove columns for age and sex
+x <- x[,3:22] # Remove columns for age and gender
 
 # Fit a three-factor EFA model with mirt package
 f <- mirt::mirt(x, 3, itemtype = 'graded')
@@ -86,14 +86,14 @@ f <- mirt::mirt(x, 3, itemtype = 'graded')
 g <- summary(f, rotate= 'oblimin')
 h <- data.frame(g$rotF)
 
-# Call to modid
+# Call to modid()
 modid(h)
 
 # Call to modid with increased lower and higher bound
 modid(h, lower = 1, upper = .12 )
 
 # Override factor order by reversing columns in the original data frame
- modid(h, fac.order = c(3,2,1))
+modid(h, fac.order = c(3,2,1))
 }
 \references{
 Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
