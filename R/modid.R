@@ -65,7 +65,7 @@
 #' # Load data
 #' data("anes08_09offwaves")
 #' x <- anes08_09offwaves
-#' x <- x[,3:22] # Remove columns for age and sex
+#' x <- x[,3:22] # Remove columns for age and gender
 #'
 #' # Fit a three-factor EFA model with mirt package
 #' f <- mirt::mirt(x, 3, itemtype = 'graded')
@@ -74,14 +74,14 @@
 #' g <- summary(f, rotate= 'oblimin')
 #' h <- data.frame(g$rotF)
 #'
-#' # Call to modid
+#' # Call to modid()
 #' modid(h)
 #'
 #' # Call to modid with increased lower and higher bound
 #' modid(h, lower = 1, upper = .12 )
 #'
 #' # Override factor order by reversing columns in the original data frame
-#'  modid(h, fac.order = c(3,2,1))
+#' modid(h, fac.order = c(3,2,1))
 #' @export
 modid <- function(x, lower = 0.5, upper = .10, fac.order = NULL){
   if (is.null(fac.order)){
