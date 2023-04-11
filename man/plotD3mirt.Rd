@@ -20,7 +20,8 @@ plotD3mirt(
   z.lab = "Z",
   title = "",
   line = -5,
-  axis.scalar = c(1.1, 1.1, 1.1),
+  axis.scalars = c(1.1, 1.1, 1.1),
+  axis.length = NULL,
   axis.col = "black",
   axis.points = "black",
   points = TRUE,
@@ -59,7 +60,7 @@ plotD3mirt(
 \arguments{
 \item{x}{S3 object of class \code{D3mirt}.}
 
-\item{scale}{Logical, if item vector arrow length should visualize the MDISC estimates. If set to FALSE, the vector arrow length will be one unit length. Default is \code{scale = FALSE}.}
+\item{scale}{Logical, if item vector arrow length should visualize the MDISC estimates. If set to FALSE, the vector arrow length will be of one unit length. Default is \code{scale = FALSE}.}
 
 \item{hide}{Logical, if items should be plotted. Default is \code{hide = FALSE}.}
 
@@ -91,7 +92,13 @@ In this case, the item label 1 will be printed on item 24, item label 2 on item 
 
 \item{line}{Title placement for \code{title3d()}. Default is \code{line = -5}.}
 
-\item{axis.scalar}{Scalar factors to adjusts the length of the axes (x, y, z) in the 3D model. Default is \code{axis.scalar = c(1.1,1.1,1.1)}}
+\item{axis.scalars}{Scalar multiples for adjusting the length of the axes (x, y, z) in the 3D model.
+Note, the function sets the length of the axis by extracting the highest coordinate value for the item vectors calculated with the MDISC as the scalar multiple for arrow length.
+The values in the \code{axis.scalars} argument are then used to adjust the length of the axis proportionally.
+Note, when scaling items with \code{scale = TRUE}, the function does not recalculate the length of the model axis.
+Default is \code{axis.scalar = c(1.1,1.1,1.1)}.}
+
+\item{axis.length}{Adjust the length of the axis manually. For instance, c(3,2,4,3,3,2)values indicate x = 3, -x = 3, y = 4, -y = 3, z = 3, -z = 2. Default is \code{axis.length = NULL}.}
 
 \item{axis.col}{Color of axis for the \code{segment3D()}function, default is \code{axis.col = "Black"}.}
 
@@ -171,6 +178,7 @@ The function is used for graphing \code{D3mirt}objects in three dimensions using
 The function allows plotting of all items, a selection of items as well as plotting a single item.
 Length of the vector arrows can be set to one unit length across all arrows by setting \code{scale = TRUE}.
 This removes the visualization of MDISC parameter that affect the vector arrow lengths.
+Note, however, that using the scale option can entail that the axis of the model needs to be adjusted with the \code{axis.length} argument.
 
 In addition, the user also has the option of adding constructs to the graphical output with \code{constructs = TRUE} (see the documentation for \link{D3mirt} regarding constructs).
 Other options include plotting one level of difficulty at a time with the \code{diff.level} argument, if multiple levels of difficulty are used in the model.
