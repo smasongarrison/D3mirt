@@ -7,7 +7,11 @@
 #' @param diff.level Optional. Plotting of a single level of difficulty indicated by an integer.
 #' @param items Optional. The user can input a list of integers indicating what item vector arrows will be visible while the remaining items are hidden.
 #' @param item.names Logical, if item labels should be plotted. Default is `item.names = TRUE`.
-#' @param item.lab Optional. String vector of item names that will override row names extracted from the data frame.
+#' @param item.lab Optional. String vector of item names that will override row names extracted from the data frame. Note, row names are not over written.
+#' Instead, the string vector in `ìtem.lab` displays item labels on the item vector currently displayed following the order of plotting.
+#' For example, when plotting in default mode (all item vectors) the labels will follow the order of the items in data frame, left-right or top-down.
+#' If a selection of items are plotted with `items`, e.g., `ìtems = c(24,34,25)`, then the item labels will be displayed following the order of the integer vector in `items` left to right.
+#' In this case, the item label 1 will be printed on item 24, item label 2 on item 34, and item label 3 on item 25, and so on.
 #' @param constructs Logical, if construct vector arrows should be plotted. Default set to FALSE
 #' @param construct.lab Optional. String vector of names for constructs.
 #' @param adjust.lab Vector of parameters for the position of item and construct labels for the `text3d` function. The first value is for horizontal adjustment and the second is for vertical adjustment. Default is `adjust.lab = c(0.5, -0.8)`.
@@ -56,105 +60,115 @@
 #' @importFrom stats cov
 #' @importFrom mirt fscores
 #'
-#' @details The function is based on the [rgl] package (Adler & Murdoch, 2022) for three-dimensional visualization with OpenGL.
-#' The returned RGL device can be exported to the R console and saved as an interactive html file or as a still shoots (see examples below).
-#' In the case of the latter, the model perspective in the still shoot can be manually adjusted or adjusted by changing the `view` argument for the function.
+#' @details The function is used for graphing `D3mirt`objects in three dimensions using the [rgl] package (Adler & Murdoch, 2022) for visualization with OpenGL.
 #'
-#' # Plotting options
 #' The function allows plotting of all items, a selection of items as well as plotting a single item.
-#' Length of the vector arrows can uniform across all arrows by setting `scale = TRUE`.
+#' Length of the vector arrows can be set to one unit length across all arrows by setting `scale = TRUE`.
 #' This removes the visualization of MDISC parameter that affect the vector arrow lengths.
 #'
 #' In addition, the user also has the option of adding constructs to the graphical output with `constructs = TRUE` (see the documentation for [D3mirt::D3mirt] regarding constructs).
-#' Other options include to plot one level of difficulty at a time with the `diff.level` argument, if multiple levels of difficulty are used in the model.
-#' Item row names are displayed by default, but the user has the option of adding new names for the items (with `item.lab`), as well as nming constructs (with `construct.lab`).
+#' Other options include plotting one level of difficulty at a time with the `diff.level` argument, if multiple levels of difficulty are used in the model.
+#' Item row names are displayed by default, but the user has the option of adding new item labels for the items (with `item.lab`), as well as labeling constructs (with `construct.lab`).
 #'
-#' # Visual Profile Analysis
-#' The plot function can also display respondent scores in the three-dimensional model space, represented as spheres located with the help of factors scores used as coordinates.
+#' The plot function can display respondent scores in the three-dimensional model space, represented as spheres located with the help of factors scores used as coordinates.
 #' This allows for a profile analysis in which respondent rows are selected conditioned on some external criteria.
 #' To do this, the user must first extract respondent factor scores with [mirt::fscores](Chalmers, 2012) and then use a selection process that subset respondent rows.
 #' The resulting data frame is imputed in the `profiles` argument.
 #' A general advice is also to hide vector arrows with `hide = TRUE` when analyzing respondent profiles to avoid visual cluttering.
 #'
-
+#' The returned RGL device can, for example, be exported to the R console and saved as an interactive html file or as a still shoots (see examples below).
+#' In the case of the latter, the model perspective in the still shoot can be manually adjusted or adjusted by changing the `view` argument for the function.
+#'
+#' Please see the vignette included in the package documentation for more details on the options and for examples on how to interpret results.
+#'
 #' @return A RGL graphical device.
 #' @author Erik Forsberg
-#' @references Adler, D., & Murdoch, D. (2022). \emph{Rgl: 3d Visualization Using OpenGL}.
+#' @references Adler, D., & Murdoch, D. (2022). \emph{Rgl: 3d Visualization Using OpenGL} Computer software.
 #' @references Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
 #'
 #' @examples
 #' \dontrun{
-#' # Create S3 object of class D3mirt (see [D3mirt::D3mirt])
-#'
-#' # Plot RGL device
-#' plotD3mirt(g)
-#'
-#' # Plot RGL device on one level of difficulty
-#' plotD3mirt(g, diff.level = 5)
+#' g is an S3 object of class "D3mirt" prepared with the D3mirt() function
+#' plotD3mirt(g, view = c(15, 20, 0.6))
 #'
 #' # Plot RGL device with constructs visible and named
-#' plotD3mirt(g, constructs = TRUE,
-#' construct.lab = c("Fairness", "Conformity", "Compassion"))
+#' plotD3mirt(g,
+#'            constructs = TRUE,
+#'            construct.lab = c("Fairness", "Conformity", "Compassion"),
+#'            view = c(15, 20, 0.6))
 #'
-#' # Plot RGL device with scaled items and constructs
-#' plotD3mirt(g, scale = TRUE, constructs = TRUE,
-#' construct.lab = c("Fairness", "Conformity", "Compassion"))
+#' # Item W7Q16 has location 6 in the data set (gender and age excluded)
+#' # The item is plotted together with construct to aid the visual interpretation
+#' plotD3mirt(g,
+#'            constructs = TRUE,
+#'            items = 6,
+#'            construct.lab = c("Fairness", "Conformity", "Compassion"),
+#'            view = c(15, 20, 0.6))
 #'
-#' # A selection of items from the model plotted with constructs
-#' plotD3mirt(g, constructs = TRUE, items = c(5,7,8,9,10),
-#' construct.lab = c("Fairness", "Conformity", "Compassion"))
+#' # Plot RGL device on one level of difficulty
+#' plotD3mirt(g,
+#'            diff.level = 5,
+#'            view = c(15, 20, 0.6))
 #'
-#' # Profile analysis
-#' # Plot respondents scores separating on gender variable
-#' # Extract respondent factor scores from mod1 with `fscores()` function from [mirt::mirt]
-#' f <- mirt::fscores(mod1, method="EAP", full.scores = TRUE, full.scores.SE = F, QMC = T)
+#' # A selection of Conformity items from the model plotted with constructs
+#' plotD3mirt(g,
+#'            constructs = TRUE,
+#'            items = c(5,7,8,9,10),
+#'            construct.lab = c("Fairness", "Conformity", "Compassion"),
+#'            view = c(15, 20, 0.6))
 #'
-#' # Attach f to gender variable (column 2 from anes08_09offwaves data set; "W3XGENDER")
-#' # Use cbind with `fscores()` output first
-#' data("anes08_09offwaves")
-#' x <- anes08_09offwaves
-#' z <- data.frame(cbind(f, x[,2]))
 #'
+#' # Plot RGL device with scaled items and constructs visible and named
+#' plotD3mirt(g,
+#'            scale = TRUE,
+#'            constructs = TRUE,
+#'            construct.lab = c("Fairness", "Conformity", "Compassion"),
+#'            view = c(15, 20, 0.6))
+#'
+#' # For more on profile analysis (e.g., options and how to prepare the data) see the package vignette
 #' # Plot profiles with item vector arrows hidden
 #' # Score levels: 1 = Blue ("male") and 2 = Red ("female")
-#' plotD3mirt(g, hide = TRUE, profiles = y, levels = y[,4], sphere.col = c("blue", "red"),
-#' x.lab = "Compassion", y.lab="Conformity", z.lab="Fairness")
+#' plotD3mirt(g, hide = TRUE,
+#'            profiles = z,
+#'            levels = z[,4],
+#'            sphere.col = c("blue", "red"),
+#'            x.lab = "Compassion",
+#'            y.lab="Conformity",
+#'            z.lab="Fairness",
+#'            view = c(15, 20, 0.6))
 #'
-#' # The use of `rep()`makes it possible to create groups based on factor levels
-#' # This example compares respondents 30 years or younger against 70 years or older
-#' # Column bind `fscores()` with age variable ("W3Xage")
-#' y <- data.frame(cbind(f, x[,1]))
+#' # Call plotD3mirt with profile data, item vector arrows hidden, and with a 95% CI
+#' plotD3mirt(g, hide = TRUE,
+#'            profiles = z1,
+#'            levels = z1[,4],
+#'            sphere.col = colvec,
+#'            x.lab = "Compassion",
+#'            y.lab="Conformity",
+#'            z.lab="Fairness",
+#'            ellipse = TRUE,
+#'            CI.level = 0.95,
+#'            ellipse.col = "orange",
+#'            view = c(15, 20, 0.6))
 #'
-#' # Subset data frame y conditioned on age <= 30
-#' z1 <- subset(y, y[,4] <= 30)
-#'
-#' # Subset data frame y conditioned on age >= 70
-#' z2 <- subset(y, y[,4] >= 70)
-#'
-#' Row bind z1 and z2
-#' z <- rbind(z1,z2)
-#'
-#' # Check number of factor leveles with `nlevels()` and `as.factor()`
-#' nlevels(as.factor(z1[,4]))
-#' nlevels(as.factor(z2[,4]))
-#'
-#' # Use `rep()`to create a color vector to color groups based on the `nlevels()` output
-#' # z1 has 14 factor levels and z2 has 16 factor levels
-#' # z1 respondents are colored black and z2 are colored grey
-#' colvec <- c(rep("black", 14), rep("grey40", 16))
-#'
-#' # Call plotD3mirt with profile data on age with item vector arrows hidden
-#' plotD3mirt(g, hide = TRUE, profiles = z, levels = z[,4], sphere.col = colvec,
-#' x.lab = "Compassion", y.lab="Conformity", z.lab="Fairness")
-#'
-#' # Export an open RGL device to console and html
-#' plotD3mirt(g, constructs = TRUE)
+#' # Export an open RGL device to the console to be saved as html or image file
+#' plotD3mirt(g,
+#'            constructs = TRUE)
 #' s <- scene3d()
-#' rgl::rglwidget(s, width = 1040, height = 1040)
+#' rgl::rglwidget(s,
+#'                width = 1040,
+#'                height = 1040)
 #'
-#' # Export a snap shoot of an open RGL device to file
-#' plotD3mirt(g, constructs = TRUE)
-#' rgl::rgl.snapshot('RGLdevice.png', fmt = 'png')
+#' # Store widget directly to file
+#' htmlwidgets::saveWidget(rglwidget(width = 1040, height = 1040),
+#'                         file = "anes08_09offwavest.html",
+#'                         libdir = "libs",
+#'                         selfcontained = FALSE)
+#'
+#' # Export a snap shoot of an open RGL device directly to file
+#' plotD3mirt(g,
+#'            constructs = TRUE)
+#' rgl::rgl.snapshot3d('RGLdevice.png',
+#'                     fmt = 'png')
 #' }
 #' @export
 plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items = NULL, item.names = TRUE,  item.lab = NULL,
@@ -293,7 +307,6 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
         } else {
           if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
           if(length(item.lab) < nrow(x$loadings)) warning("There are too few item labels")
-          inames <- rownames(x$loadings)
           if (is.null(ncol(vec))){
             max <-  x$dir.vec[[ncol(x$mdiff)]]
           } else {
@@ -430,8 +443,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
           })
         } else {
           if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
-          if(length(item.lab) < nrow(x$loadings)) warning("There are too few item labels")
-          inames <- rownames(x$loadings)
+          if(length(item.lab) < nrow(x$loadings)) warning("There are too few item labels") #
           if (is.null(ncol(vec))){
             max <-  x$scal.vec[[ncol(x$mdiff)]]
           } else {
