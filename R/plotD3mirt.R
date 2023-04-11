@@ -2,7 +2,7 @@
 #'
 #' @description For graphing of objects of class `D3mirt` from the [D3mirt::D3mirt()] function with the rgl 3D visualization device system (Adler & Murdoch, 2022).
 #' @param x S3 object of class `D3mirt`.
-#' @param scale Logical, if item vector arrow length should visualize the MDISC estimates. If set to FALSE, the vector arrow length will be one unit length. Default is `scale = FALSE`.
+#' @param scale Logical, if item vector arrow length should visualize the MDISC estimates. If set to FALSE, the vector arrow length will be of one unit length. Default is `scale = FALSE`.
 #' @param hide Logical, if items should be plotted. Default is `hide = FALSE`.
 #' @param diff.level Optional. Plotting of a single level of difficulty indicated by an integer.
 #' @param items Optional. The user can input a list of integers indicating what item vector arrows will be visible while the remaining items are hidden.
@@ -20,7 +20,12 @@
 #' @param z.lab Labels for y-axis, Default is `z.lab = "Z"`.
 #' @param title The main title for the graphical device, plotted with the `title3d()` function.
 #' @param line  Title placement for `title3d()`. Default is `line = -5`.
-#' @param axis.scalar Scalar factors to adjusts the length of the axes (x, y, z) in the 3D model. Default is `axis.scalar = c(1.1,1.1,1.1)`
+#' @param axis.scalars Scalar multiples for adjusting the length of the axes (x, y, z) in the 3D model.
+#' Note, the function sets the length of the axis by extracting the highest coordinate value for the item vectors calculated with the MDISC as the scalar multiple for arrow length.
+#' The values in the `axis.scalars` argument are then used to adjust the length of the axis proportionally.
+#' Note, when scaling items with `scale = TRUE`, the function does not recalculate the length of the model axis.
+#' Default is `axis.scalar = c(1.1,1.1,1.1)`.
+#' @param axis.length Adjust the length of the axis manually. For instance, c(3,2,4,3,3,2)values indicate x = 3, -x = 3, y = 4, -y = 3, z = 3, -z = 2. Default is `axis.length = NULL`.
 #' @param axis.col Color of axis for the `segment3D()`function, default is `axis.col = "Black"`.
 #' @param axis.points Color of axis points for the `points3d()` function. Default is `axis.points = "black"`.
 #' @param points Logical, if axis from `points3d()` have end points. Default is `points = TRUE`.
@@ -65,6 +70,7 @@
 #' The function allows plotting of all items, a selection of items as well as plotting a single item.
 #' Length of the vector arrows can be set to one unit length across all arrows by setting `scale = TRUE`.
 #' This removes the visualization of MDISC parameter that affect the vector arrow lengths.
+#' Note, however, that using the scale option can entail that the axis of the model needs to be adjusted with the `axis.length` argument.
 #'
 #' In addition, the user also has the option of adding constructs to the graphical output with `constructs = TRUE` (see the documentation for [D3mirt::D3mirt] regarding constructs).
 #' Other options include plotting one level of difficulty at a time with the `diff.level` argument, if multiple levels of difficulty are used in the model.
@@ -174,7 +180,7 @@
 plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items = NULL, item.names = TRUE,  item.lab = NULL,
                         constructs = FALSE, construct.lab = NULL, adjust.lab = c(0.5, -0.8),
                         x.lab = "X", y.lab="Y", z.lab="Z", title="", line = -5,
-                        axis.scalar = c(1.1,1.1,1.1), axis.col = "black", axis.points = "black",
+                        axis.scalars = c(1.1,1.1,1.1), axis.length = NULL, axis.col = "black", axis.points = "black",
                         points = TRUE, axis.ticks = TRUE, nticks = c(4,4,4),  width.rgl.x = 1040, width.rgl.y= 1040, view = c(15, 20, 0.6),
                         show.plane = TRUE, plane.col = "grey80", background = "white",
                         type = "rotation", col = c("black", "grey20", "grey40", "grey60", "grey80"),
@@ -189,24 +195,33 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
   rgl::par3d(windowRect = 50 + c( 0, 0, width.rgl.x, width.rgl.y))
   rgl::bg3d(color = background)
   rgl::view3d(theta = view[1], phi = view[2], zoom = view[3])
-  if (is.null(ncol(x$dir.vec))){
+  if (is.null(axis.length)){
+   if (is.null(ncol(x$dir.vec))){
     ax <- x$dir.vec
     low <- as.data.frame(ax[1], drop = FALSE)
     hig <- as.data.frame(ax[length(ax)], drop = FALSE)
-    xaxis.min <- min(low[,1])*axis.scalar[1]
-    xaxis.max <- max(hig[,1])*axis.scalar[1]
-    yaxis.min <- min(low[,2])*axis.scalar[2]
-    yaxis.max <- max(hig[,2])*axis.scalar[2]
-    zaxis.min <- min(low[,3])*axis.scalar[3]
-    zaxis.max <- max(hig[,3])*axis.scalar[3]
+    xaxis.min <- min(low[,1])*axis.scalars[1]
+    xaxis.max <- max(hig[,1])*axis.scalars[1]
+    yaxis.min <- min(low[,2])*axis.scalars[2]
+    yaxis.max <- max(hig[,2])*axis.scalars[2]
+    zaxis.min <- min(low[,3])*axis.scalars[3]
+    zaxis.max <- max(hig[,3])*axis.scalars[3]
   } else {
     ax <- x$dir.vec
-    xaxis.min <- min(ax[,1])*axis.scalar[1]
-    xaxis.max <- max(ax[,1])*axis.scalar[1]
-    yaxis.min <- min(ax[,2])*axis.scalar[2]
-    yaxis.max <- max(ax[,2])*axis.scalar[2]
-    zaxis.min <- min(ax[,3])*axis.scalar[3]
-    zaxis.max <- max(ax[,3])*axis.scalar[3]
+    xaxis.min <- min(ax[,1])*axis.scalars[1]
+    xaxis.max <- max(ax[,1])*axis.scalars[1]
+    yaxis.min <- min(ax[,2])*axis.scalars[2]
+    yaxis.max <- max(ax[,2])*axis.scalars[2]
+    zaxis.min <- min(ax[,3])*axis.scalars[3]
+    zaxis.max <- max(ax[,3])*axis.scalars[3]
+  }
+  } else {
+    xaxis.max <- axis.length[1]
+    xaxis.min <- axis.length[2]
+    yaxis.max <- axis.length[3]
+    yaxis.min <- axis.length[4]
+    zaxis.max <- axis.length[5]
+    zaxis.min <- axis.length[6]
   }
   xaxis <- c(-abs(xaxis.min), abs(xaxis.max))
   yaxis <- c(-abs(yaxis.min), abs(yaxis.max))
@@ -318,14 +333,24 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
           } )
         }
       } else {
+        if (is.null(item.lab)){
         inames <- rownames(x$loadings)
         dl <-  x$dir.vec[[diff.level]]
         sapply(seq(nrow(x$mdisc)), function(i){
           rgl::text3d(dl[(i*2),1],dl[(i*2),2], dl[(i*2),3], text = c(inames[i]), color = axis.col,
                       adj = adjust.lab, size = 2)
         })
+        } else {
+          if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
+          if(length(item.lab) < nrow(x$loadings)) warning("There are too few item labels")
+          max <-  x$dir.vec[[diff.level]]
+          sapply(seq(nrow(x$mdisc)), function(i){
+            rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.lab[i]), color = axis.col,
+                        adj = adjust.lab, size = 2)
+          } )
+        }
+        }
       }
-    }
     if (item.names == TRUE && !is.null(items)){
       if(any(!items <= nrow(x$loadings))) stop("The items list contains one or more item indicators that are higher than the total number of items")
       if (is.null(diff.level)){
