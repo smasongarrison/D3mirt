@@ -216,6 +216,10 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
     zaxis.max <- max(ax[,3])*axis.scalars[3]
   }
   } else {
+    if (length(axis.length) < 6){
+      a <-  rep(axis.length[length(axis.length)], (6-length(axis.length)))
+      axis.length <- append(axis.length, a)
+    }
     xaxis.max <- axis.length[1]
     xaxis.min <- axis.length[2]
     yaxis.max <- axis.length[3]
