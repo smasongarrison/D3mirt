@@ -20,7 +20,7 @@ Descriptive multidimensional item response theory modeling (DMIRT; Reckase, 2009
 \details{
 The \code{D3mirt()}function takes in a data frame of factor slopes and difficulty parameters from a three-dimensional graded
 response model (GRM; Samejima, 1969), fitted in accordance with descriptive item response theory model specifications described below,
-and returns an S3 object containing estimates that can be graphed as vector arrows with \link{plotD3mirt}.
+and returns an S3 object containing estimates that can be graphed as vector arrows in a three dimensional space with \link{plotD3mirt}.
 
 Note, model parameters from the multidimensional GRM must be assessed prior to using the \code{D3mirt()} function (see examples section or the vignette included in this package).
 This means that the model must first be identified correctly.
@@ -35,23 +35,14 @@ Under the assumption of within-dimensionality, the two-parameter graded response
 These include a single multidimensional discrimination (MDISC) parameter and a multidimensional difficulty (MDIFF) index for each item.
 
 Note, \code{D3mirt} analysis is limited to items that fit the GRM and the number of dimensions can be up to three.
-However, due to the nature of the model specification, the analysis can handle dimensions less than three.
-This since the third axis, the z-axis, is free while only two items must meet the model identification requirements to locate the first (x-axis) and second axis (y-axis).
-}
-
-\section{User Options}{
+However, due to the nature of the model specification, the analysis can handle data with containing less that three dimensions.
+This since the third axis, the z-axis, is free while only two items must meet the model identification requirements so that the first (x-axis) and the second axis (y-axis) can be located.
 \subsection{Constructs}{
 
 The user has the option of including constructs in the estimation, by creating one or more nested lists that indicate what items belong to what construct (see the examples section).
 From this, the \code{D3mirt()} function calculates direction cosines for the constructs by adding and normalizing the direction cosines for the items contained in each construct list.
-The construct vector arrows can contribute to the analysis by visualizing the average direction for a subset set of items.
-}
-
-\subsection{Scaling of Item Vector Arrows}{
-
-Regarding plotting, the \code{D3mirt()} function returns vector coordinates estimated with and without the MDISC as a scalar for arrow length.
-If the object is plotted without the MDISC , all vector arrows are scaled to one unit length.
-This can help reduce clutter in the graphical output when using \code{plotD3mirt()}.
+The construct vector arrows can contribute to the analysis by visualizing and assesing the the average direction for a subset set of items.
+Note, the length of the construct vector arrows is arbitrary.
 }
 }
 
@@ -63,35 +54,46 @@ x <- x[,3:22] # Remove columns for age and gender
 
 # Fit a three-dimensional graded response model with orthogonal factors
 # Example below use Likert items from the built in data set "anes08_09offwaves"
-# Item W7Q3 and item W7Q3 have been selected with `modid()`
-# The model specification below specify all items (1-20) to load on all three factors (F1-F3)
-# The START and FIXED commands are used to identify the orthogonal structure in the model
+# Item W7Q3 and item W7Q20 was selected with `modid()`
+# The model specification specify all items in the data set (1-20)
+# to load on all three factors (F1-F3)
+# The START and FIXED commands are used on the two items to identify the DMIRT model
 spec <- ' F1 = 1-20
-          F2 = 1-20
-          F3 = 1-20
+           F2 = 1-20
+           F3 = 1-20
 
-          START=(W7Q3,a2,0)
-          START=(W7Q3,a3,0)
+           START=(W7Q3,a2,0)
+           START=(W7Q3,a3,0)
 
-          START=(W7Q20,a3,0)
+           START=(W7Q20,a3,0)
 
-          FIXED=(W7Q3,a2)
-          FIXED=(W7Q3,a3)
+           FIXED=(W7Q3,a2)
+           FIXED=(W7Q3,a3)
 
-          FIXED=(W7Q20,a3) '
+           FIXED=(W7Q20,a3) '
 
 
-mod1 <- mirt::mirt(x, spec, itemtype = 'graded', SE = TRUE, method = 'QMCEM')
+mod1 <- mirt::mirt(x,
+                   spec,
+                   itemtype = 'graded',
+                   SE = TRUE,
+                   method = 'QMCEM')
 
-# Assign data frame with factor loadings (located in the first three columns in mod1),
-# and difficulty parameters (columns 4-7 in mod1) with mirt::coef and $'items'[,1:7]))
-d <- data.frame(mirt::coef(mod1, simplify=TRUE)$'items'[,1:7])
+# Assign a data frame with factor loadings (located in the first three columns in mod1),
+# and difficulty parameters (columns 4-8 in mod1) with mirt::coef and $'items'[,1:8]))
+d <- data.frame(mirt::coef(mod1,
+                           simplify=TRUE)$'items'[,1:8])
 
-# Call to `D3mirt()`, including optional nested lists for two constructs
-# Item W7Q16 is not included in any construct because of model violations
-# The model violations will be possible to see when graphing the model
-c <- list(list (1,2,3,4), list(5,7,8,9,10), list(11,12,13,14,15,15,16,17,18,19,20))
+
+# Call D3mirt() with data frame d
+g <- D3mirt(d)
+summary(g) # Show summary of results
+
+c <- list(list (1,2,3,4),
+          list(5,7,8,9,10),
+          list(11,12,13,14,15,15,16,17,18,19,20))
 g <- D3mirt(d, c)
+summary(g)
 }
 \references{
 Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
