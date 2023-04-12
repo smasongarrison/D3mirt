@@ -22,7 +22,7 @@ The `D3mirt` analysis is based on descriptive multidimensional item response the
 
 The DMIRT analysis use the two-parameter graded response model (GRM; Samejima, 1969) to extract multidimensional equivalents to the discrimination $a$ and difficulty parameters $d$. The former becomes the multidimensional discrimination ($MDISC$) parameter and the latter the multidimensional difficulty ($MDIFF$) parameter.
 
-The $MDIFF$ is interpreted similarly as the difficulty parameter in the unidimensional model, i.e., it describes a multidimensional distance from the origin to the item response function and shows the level of ability that is required for a higher response. Likewise, the $MDISC$ represents the highest level of discrimination an item can achieve, but when located in a multidimensional latent trait space. In addition,  in`D3mirt` the $MDISC$ score is visualized by scaling the length of the vector arrows representing the item response functions. Note, if polytomous items are used, such as Likert items,  the items in question will be represented by multiple vector arrows (one for each response function) and the $MDIFF$ will, therefore, show the multidimensional range of difficulty for an item as located in a multidimensional latent trait space.
+The $MDIFF$ is interpreted similarly as the difficulty parameter in the unidimensional model, i.e., it describes a multidimensional distance from the origin to the item response function and shows the level of ability that is required for a higher response. Likewise, the $MDISC$ represents the highest level of discrimination an item can achieve, but when located in a multidimensional latent trait space. In addition, in`D3mirt` the $MDISC$ score is visualized by scaling the length of the vector arrows representing the item response functions. Note, if polytomous items are used, such as Likert items, the items in question will be represented by multiple vector arrows (one for each response function) and the $MDIFF$ will, therefore, show the multidimensional range of difficulty for an item as located in a multidimensional latent trait space.
 
 # Overview
 
@@ -42,9 +42,17 @@ You can install the development version of D3mirt from [GitHub](https://github.c
 devtools::install_github("ForsbergPyschometrics/D3mirt")
 ```
 
-In what follows, the `D3mirt` procedure will be described very briefly using the built-in data set "anes08_09offwaves". The data set ($N = 1046, M_{age} = 51.33, SD = 14.56, 57\%$ Female) is a subset from the American National Election Survey (ANES) from the 2008-2009 Panel Study Off Wave Questionnaires, December 2009 (DeBell, et al, 2010; <https://electionstudies.org/data-center/2008-2009-panel-study/>). All items measure moral preferences and are positively scored of Likert type, ranging from 1 = *Strongly Disagree* to 6 = *Strongly Agree*. Demographic variables include age and gender (male/female). For more details on the `D3mirt` approach, see the vignette included in the package documentation.
+In what follows, the `D3mirt` procedure will be described very briefly using the built-in data set "anes08_09offwaves". The data set ($N = 1046, M_{age} = 51.33, SD = 14.56, 57\%$ Female) is a subset from the American National Election Survey (ANES) from the 2008-2009 Panel Study Off Wave Questionnaires, December 2009 (DeBell, et al, 2010; <https://electionstudies.org/data-center/2008-2009-panel-study/>). All items measure moral preferences and are positively scored of Likert type, ranging from 1 = *Strongly Disagree* to 6 = *Strongly Agree*. Demographic variables include age and gender (male/female).
 
-# Model Identification
+The D3mirt approach largely consists of the following three steps:
+
+1.  Model Identification
+2.  D3mirt model estimation
+3.  Plotting
+
+For more details on the `D3mirt` package, including examples of analysis and functions, see the vignette included in the package documentation.
+
+# 1. Model Identification
 
 As a first step in the analysis, the three-dimensional GRM must be identified (Reckase, 2009). In the three-dimensional case, this implies locating the x and y-axis.
 
@@ -71,9 +79,9 @@ The item lists have one column for the loadings from each item on the factor of 
 modid(h)
 ```
 
-The top items in each list should be used to identify the model. The first item, the top item in `item.1` located in list, will be used set the x-axis. In this case, the best item for the x-axis is "W7Q3". The second item, the top item in `Item.2` in  `items[[1]]` will be used to identify the y-axis. In this case, the best item for the y-axis is "W7Q20".
+The top items in each list should be used to identify the model. The first item, the top item in `item.1` located in list, will be used set the x-axis. In this case, the best item for the x-axis is "W7Q3". The second item, the top item in `Item.2` in `items[[1]]` will be used to identify the y-axis. In this case, the best item for the y-axis is "W7Q20".
 
-# The `D3mirt()` Function
+# 2. D3mirt Model Estimation
 
 The `D3mirt()` function takes in a data frame with model parameters from a three-dimensional GRM model, specified with orthogonal factors, and set so that all items load on all factors (see examples below). The three-dimensional GRM estimation is preferably done with the `mirt::mirt` (Chalmers, 2012) function. Please note very carefully how the GRM model is specified in the example below.
 
@@ -132,7 +140,9 @@ summary(g)
 
 The function then returns an $S3$ object of class `D3mirt` with lists of $a$ and $d$ parameters from the GRM, as well as $MDISC$, $MDIFF$, direction cosines, and degrees for vector angles, construct lists, and vector coordinates assessed by `D3mirt()`.
 
-# The `plotD3mirt` Function
+# 3. Plotting
+
+## The `plotD3mirt` Function
 
 The `plotD3mirt` function is based on the `rgl` package (Adler & Murdoch, 2023) for visualization with OpenGL. Graphing in default mode by calling `plotd3mirt` will return an RGL device that will appear in an external window as a three-dimensional object that can be rotated. In this illustration, however, all RGL devices are shown inline as interactive objects.
 
@@ -167,9 +177,9 @@ plotD3mirt(g,
 
 An example of how the output can be described could be as follows.
 
-> Figure $X$ shows that item W7Q16 is located at $x° = 35.89, y° = 57.47, z° = 76.49$ which indicates that it is within-multidimensional with respect to the x and y-axis and can also be seen to be oriented between the constructs Compassion and Conformity. The discrimination score ($MDISC = .7699,  MDIFF_{range} = [3.72, -1.81]$) is the lowest of all discrimination scores for the items in the model. This implies that the item in question does not seem to fit the three-dimensional GRM used in this particular analysis. We should also note that item W7Q15 ($x° = 60.47, y° = 31.52, z° = 100.02, MDISC = .9232,MDIFF_{range} = [4.32, -.97]$) has the second lowest discrimination score. However, the latter item do seem to belong to the Conformity construct when comparing angle orientation in the model.
+> Figure $X$ shows that item W7Q16 is located at $x° = 35.89, y° = 57.47, z° = 76.49$ which indicates that it is within-multidimensional with respect to the x and y-axis and can also be seen to be oriented between the constructs Compassion and Conformity. The discrimination score ($MDISC = .7699, MDIFF_{range} = [3.72, -1.81]$) is the lowest of all discrimination scores for the items in the model. This implies that the item in question does not seem to fit the three-dimensional GRM used in this particular analysis. We should also note that item W7Q15 ($x° = 60.47, y° = 31.52, z° = 100.02, MDISC = .9232,MDIFF_{range} = [4.32, -.97]$) has the second lowest discrimination score. However, the latter item do seem to belong to the Conformity construct when comparing angle orientation in the model.
 
-# `D3mirt` Profile Analysis
+## `D3mirt` Profile Analysis
 
 The `plotD3mirt()` function can also display respondent scores in the three-dimensional model represented as spheres located with the help of factors scores used as coordinates. This allows for a profile analysis in which respondent rows are selected conditioned on some external criteria and then plotted. The resulting output shows where the respondent are located in the model.
 

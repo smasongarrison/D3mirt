@@ -20,11 +20,7 @@
 #' @param z.lab Labels for y-axis, Default is `z.lab = "Z"`.
 #' @param title The main title for the graphical device, plotted with the `title3d()` function.
 #' @param line  Title placement for `title3d()`. Default is `line = -5`.
-#' @param axis.scalars Scalar multiples for adjusting the length of the axes (x, y, z) in the 3D model.
-#' Note, the function sets the length of the axis by extracting the highest coordinate value for the item vectors calculated with the MDISC as the scalar multiple for arrow length.
-#' The values in the `axis.scalars` argument are then used to adjust the length of the axis proportionally.
-#' Note, when scaling items with `scale = TRUE`, the function does not recalculate the length of the model axis.
-#' Default is `axis.scalar = c(1.1,1.1,1.1)`.
+#' @param axis.scalar Scalar multiple for adjusting the length of the axes (x, y, z) in the 3D model proportionally. Default is `axis.scalar = c(1.1)`.
 #' @param axis.length Optional. For adjusting the length of the axis manually by entering a numeric vector.
 #' For instance, c(3,2,4,3,3,2) indicate x = 3, -x = 3, y = 4, -y = 3, z = 3, -z = 2.
 #' Note, a symmetric model can be created easily by adding one numeric in the `axis.length` argument (e.g., `axis.length = 4`) since the function repeats the last value in the vector to cover all axis points.
@@ -73,7 +69,8 @@
 #' The function allows plotting of all items, a selection of items as well as plotting a single item.
 #' Length of the vector arrows can be set to one unit length across all arrows by setting `scale = TRUE`.
 #' This removes the visualization of MDISC parameter that affect the vector arrow lengths.
-#' Note, however, that using the scale option can entail that the axis of the model needs to be adjusted with the `axis.length` argument.
+#' Note, when scaling items with `scale = TRUE`, the `plotD3mirt` function does not recalculate the length of the model axis.
+#' This often means that the axes of the model needs to be adjusted manually with the `axis.length` argument.
 #'
 #' In addition, the user also has the option of adding constructs to the graphical output with `constructs = TRUE` (see the documentation for [D3mirt::D3mirt] regarding constructs).
 #' Other options include plotting one level of difficulty at a time with the `diff.level` argument, if multiple levels of difficulty are used in the model.
@@ -183,7 +180,7 @@
 plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items = NULL, item.names = TRUE,  item.lab = NULL,
                         constructs = FALSE, construct.lab = NULL, adjust.lab = c(0.5, -0.8),
                         x.lab = "X", y.lab="Y", z.lab="Z", title="", line = -5,
-                        axis.scalars = c(1.1,1.1,1.1), axis.length = NULL, axis.col = "black", axis.points = "black",
+                        axis.scalar = 1.1, axis.length = NULL, axis.col = "black", axis.points = "black",
                         points = TRUE, axis.ticks = TRUE, nticks = c(4,4,4),  width.rgl.x = 1040, width.rgl.y= 1040, view = c(15, 20, 0.6),
                         show.plane = TRUE, plane.col = "grey80", background = "white",
                         type = "rotation", col = c("black", "grey20", "grey40", "grey60", "grey80"),
@@ -203,20 +200,20 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
     ax <- x$dir.vec
     low <- as.data.frame(ax[1], drop = FALSE)
     hig <- as.data.frame(ax[length(ax)], drop = FALSE)
-    xaxis.min <- min(low[,1])*axis.scalars[1]
-    xaxis.max <- max(hig[,1])*axis.scalars[1]
-    yaxis.min <- min(low[,2])*axis.scalars[2]
-    yaxis.max <- max(hig[,2])*axis.scalars[2]
-    zaxis.min <- min(low[,3])*axis.scalars[3]
-    zaxis.max <- max(hig[,3])*axis.scalars[3]
+    xaxis.min <- min(low[,1])*axis.scalar
+    xaxis.max <- max(hig[,1])*axis.scalar
+    yaxis.min <- min(low[,2])*axis.scalar
+    yaxis.max <- max(hig[,2])*axis.scalar
+    zaxis.min <- min(low[,3])*axis.scalar
+    zaxis.max <- max(hig[,3])*axis.scalar
   } else {
     ax <- x$dir.vec
-    xaxis.min <- min(ax[,1])*axis.scalars[1]
-    xaxis.max <- max(ax[,1])*axis.scalars[1]
-    yaxis.min <- min(ax[,2])*axis.scalars[2]
-    yaxis.max <- max(ax[,2])*axis.scalars[2]
-    zaxis.min <- min(ax[,3])*axis.scalars[3]
-    zaxis.max <- max(ax[,3])*axis.scalars[3]
+    xaxis.min <- min(ax[,1])*axis.scalar
+    xaxis.max <- max(ax[,1])*axis.scalar
+    yaxis.min <- min(ax[,2])*axis.scalar
+    yaxis.max <- max(ax[,2])*axis.scalar
+    zaxis.min <- min(ax[,3])*axis.scalar
+    zaxis.max <- max(ax[,3])*axis.scalar
   }
   } else {
     if (!is.numeric(axis.length)) stop("Elements in axis.length are not numeric")

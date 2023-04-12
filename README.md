@@ -61,11 +61,18 @@ Study Off Wave Questionnaires, December 2009 (DeBell, et al, 2010;
 <https://electionstudies.org/data-center/2008-2009-panel-study/>). All
 items measure moral preferences and are positively scored of Likert
 type, ranging from 1 = *Strongly Disagree* to 6 = *Strongly Agree*.
-Demographic variables include age and gender (male/female). For more
-details on the `D3mirt` approach, see the vignette included in the
-package documentation.
+Demographic variables include age and gender (male/female).
 
-# Model Identification
+The D3mirt approach largely consists of the following three steps:
+
+1.  Model Identification
+2.  D3mirt model estimation
+3.  Plotting
+
+For more details on the `D3mirt` package, including examples of analysis
+and functions, see the vignette included in the package documentation.
+
+# 1. Model Identification
 
 As a first step in the analysis, the three-dimensional GRM must be
 identified (Reckase, 2009). In the three-dimensional case, this implies
@@ -151,7 +158,7 @@ second item, the top item in `Item.2` in `items[[1]]` will be used to
 identify the y-axis. In this case, the best item for the y-axis is
 “W7Q20”.
 
-# The `D3mirt()` Function
+# 2. D3mirt Model Estimation
 
 The `D3mirt()` function takes in a data frame with model parameters from
 a three-dimensional GRM model, specified with orthogonal factors, and
@@ -286,7 +293,9 @@ $a$ and $d$ parameters from the GRM, as well as $MDISC$, $MDIFF$,
 direction cosines, and degrees for vector angles, construct lists, and
 vector coordinates assessed by `D3mirt()`.
 
-# The `plotD3mirt` Function
+# 3. Plotting
+
+## The `plotD3mirt` Function
 
 The `plotD3mirt` function is based on the `rgl` package (Adler &
 Murdoch, 2023) for visualization with OpenGL. Graphing in default mode
@@ -361,7 +370,7 @@ An example of how the output can be described could be as follows.
 > do seem to belong to the Conformity construct when comparing angle
 > orientation in the model.
 
-# `D3mirt` Profile Analysis
+## `D3mirt` Profile Analysis
 
 The `plotD3mirt()` function can also display respondent scores in the
 three-dimensional model represented as spheres located with the help of
