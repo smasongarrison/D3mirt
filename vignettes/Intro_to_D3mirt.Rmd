@@ -130,9 +130,9 @@ Therefore, for a three-dimensional model, all else equal, the item highest up in
 modid(h)
 ```
 
-As can be seen, the first item, that will be used set the x-axis, is found in the first list, `list 1` and `item.1`.
+As can be seen, the first item, that will be used set the x-axis, is found in the first list, `items[[1]]` and `item.1`.
 In this case the best item for the x-axis is "W7Q3".
-The item that identifies the y-axis is found in the next list, `list 2` and `Item.2`.
+The item that identifies the y-axis is found in the next list, `items[[2]]` and `Item.2`.
 In this case, the best item for the y-axis is "W7Q20".
 
 Sometimes, however, the model is harder to identify.
@@ -312,6 +312,10 @@ This was only done for optimizing the size of the RGL device (default `view = c(
 plotD3mirt(g, view = c(15, 20, 0.6))
 ```
 
+An example of how the output can be described could be the following.
+
+> "As can be seen, Figure X indicates the presence of foremost two latent dimensions, one aligned with the x-axis and one approaching the y-axis. The two dimensions, however, have some within-multidimensional tendencies since they are not completely orthogonal. This tendency is much more prominent for the items W7Q11, W7Q12, W7Q13, and W7Q14, being located at around the $45°$ angle or higher between the x and z-axis.
+
 The graphical device indicates the presence of foremost two latent dimensions, one aligned with the x-axis and one approaching the y-axis.
 The two dimensions, however, have some within-multidimensional tendencies since they are not completely orthogonal.
 This tendency, however, is much more prominent for the items W7Q11, W7Q12, W7Q13, and W7Q14 since they are located at around the $45°$ angle or higher between the x and z-axis.
@@ -333,7 +337,10 @@ plotD3mirt(g,
            view = c(15, 20, 0.6))
 ```
 
-The output visualizes the average direction of the item vectors.
+An example of how the output can be described could be as follows.
+
+> The output in Figure $X$ visualizes the average direction of the item vectors. Moreover, the angles of the construct vectors inform us of how these groups of items are associated. In this example, we find Compassion ($x° = 3.91, y° = 86.49, z° = 88.29$) and Conformity ($x° = 61.84, y° = 28.19, z° = 91.19$) with some within-multidimensional tendencies. However, they are both more or less orthogonal to the z-axis. Next, we find Fairness ($x° = 50.13, y° = 78.31, z° = 42.25$) with clear within-multidimensional tendencies with respect to the x and z-axis. Thus, Fairness, in this model, does not seem to be an independent construct.
+
 Moreover, the angles of the construct vectors inform us of how these groups of items are associated.
 In this example, we find Compassion ($x° = 3.91, y° = 86.49, z° = 88.29$) and Conformity ($x° = 61.84, y° = 28.19, z° = 91.19$) with some within-multidimensional tendencies.
 However, they are both more or less orthogonal to the z-axis.
@@ -356,11 +363,13 @@ plotD3mirt(g,
            view = c(15, 20, 0.6))
 ```
 
-The item is located at $x° = 35.89, \, y° = 57.47, \, z° = 76.49$ which indicates that it is within-multidimensional with respect to the x and y-axis and can also be seen to be oriented between the constructs Compassion and Conformity.
-The discrimination score ($MDISC = .7699, \, MDIFF_{range} = [3.72, -1.81]$) is the lowest of all discrimination scores for the items in the model.
-This implies that the item in question does not seem to fit the three-dimensional GRM used in this particular analysis.
-We should also note that item W7Q15 ($x° = 60.47, \, y° = 31.52, \, z° = 100.02, \, MDISC = .9232,\, MDIFF_{range} = [4.32, -.97]$) suffer from a low discrimination score.
-However, the latter item do seem to belong to the Conformity construct when comparing angle location in the model.
+An example of how the output can be described could be as follows.
+
+> Figure $X$ shows that the item is located at $x° = 35.89, \, y° = 57.47, \, z° = 76.49$ which indicates that it is within-multidimensional with respect to the x and y-axis and can also be seen to be oriented between the constructs Compassion and Conformity.
+> The discrimination score ($MDISC = .7699, \, MDIFF_{range} = [3.72, -1.81]$) is the lowest of all discrimination scores for the items in the model.
+> This implies that the item in question does not seem to fit the three-dimensional GRM used in this particular analysis.
+> We should also note that item W7Q15 ($x° = 60.47, \, y° = 31.52, \, z° = 100.02, \, MDISC = .9232,\, MDIFF_{range} = [4.32, -.97]$) has the second lowest discrimination score.
+> However, the latter item do seem to belong to the Conformity construct when comparing angle location in the model.
 
 ## Other Graphical Options
 
@@ -459,8 +468,10 @@ plotD3mirt(g, hide = TRUE,
            view = c(15, 20, 0.6))
 ```
 
-In the graphical output, it can be observed a simple profile on gender in which more women tend to have higher levels of trait on compassion ($O_{1, 2, 5, 6}$).
-There seems not to be any observable gender difference related to Conformity or Fairness.
+An example of how the output can be described could be as follows.
+
+> In the graphical output, it can be observed a simple profile on gender in which more women tend to have higher levels of trait on compassion ($O_{1, 2, 5, 6}$).
+> There seems not to be any observable gender difference related to Conformity or Fairness.
 
 The use of `rep()` function makes it possible to create groups based on factor levels.
 This can be useful when a criterion variable has a wide data range, such as an age variable.
@@ -505,10 +516,12 @@ plotD3mirt(g, hide = TRUE,
            view = c(15, 20, 0.6))
 ```
 
-The resulting graphical device indicates an age effect in which older individuals have higher levels of trait on Conformity.
-Rotating the model to the left also shows that older individuals may have slightly higher levels of Fairness, even if the effect is less clear.
-There does not seem to be any difference in Compassion, however.
-To sum, we can say, therefore, that the analysis indicates a possibility that older individuals may have a moral profile consisting of high Conformity and high Fairness (\$O\_{1, 4}).
+An example of how the output can be described could be as follows.
+
+> As can be seen, Figure $X$ indicates an age effect in which older individuals have higher levels of trait on Conformity.
+> Rotating the model to the left also shows that older individuals may have slightly higher levels of Fairness, even if the effect is less clear.
+> There does not seem to be any difference in Compassion, however.
+> To sum, we can say, therefore, that the analysis indicates a possibility that older individuals may have a moral profile consisting of high Conformity and high Fairness ($O_{1, 4}$).
 
 It is also possible to plot a confidence interval in the shape of an ellipse surrounding the individual scores.
 In the example below, the younger individuals ($≤30$) are plotted together with a $95\%$ *CI*.
@@ -561,8 +574,9 @@ rgl::rglwidget(s,
                height = 1040)
 
 # Store widget directly to file
-htmlwidgets::saveWidget(rglwidget(width = 1040, height = 1040), 
-                        file = "anes08_09offwavest.html", 
+htmlwidgets::saveWidget(rglwidget(s, 
+                        width = 1040, height = 1040), 
+                        file = "anes08_09offwaves.html", 
                         libdir = "libs", 
                         selfcontained = FALSE)
 ```
@@ -571,7 +585,7 @@ htmlwidgets::saveWidget(rglwidget(width = 1040, height = 1040),
 # Export a snap shoot of an open RGL device directly to file
 plotD3mirt(g, 
            constructs = TRUE)
-rgl::rgl.snapshot3d('RGLdevice.png', 
+rgl::snapshot3d('RGLdevice.png', 
                     fmt = 'png')
 ```
 
