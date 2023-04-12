@@ -4,3 +4,6 @@
 ^data-raw$
 ^revdep$
 ^README\.Rmd$
+^anesdata.png
+^item.png
+^profile.png
