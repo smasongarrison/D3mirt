@@ -1,4 +1,4 @@
-#' Graphical Output for D3mirt
+#' Graphical Output for D3mirt()
 #'
 #' @description For graphing of objects of class `D3mirt` from the [D3mirt::D3mirt()] function with the rgl 3D visualization device system (Adler & Murdoch, 2022).
 #' @param x S3 object of class `D3mirt`.
@@ -25,7 +25,10 @@
 #' The values in the `axis.scalars` argument are then used to adjust the length of the axis proportionally.
 #' Note, when scaling items with `scale = TRUE`, the function does not recalculate the length of the model axis.
 #' Default is `axis.scalar = c(1.1,1.1,1.1)`.
-#' @param axis.length Adjust the length of the axis manually. For instance, c(3,2,4,3,3,2)values indicate x = 3, -x = 3, y = 4, -y = 3, z = 3, -z = 2. Default is `axis.length = NULL`.
+#' @param axis.length Optional. For adjusting the length of the axis manually by entering a numeric vector.
+#' For instance, c(3,2,4,3,3,2) indicate x = 3, -x = 3, y = 4, -y = 3, z = 3, -z = 2.
+#' Note, a symmetric model can be created easily by adding one numeric in the `axis.length` argument (e.g., `axis.length = 4`) since the function repeats the last value in the vector to cover all axis points.
+#' Default is `axis.length = NULL`.
 #' @param axis.col Color of axis for the `segment3D()`function, default is `axis.col = "Black"`.
 #' @param axis.points Color of axis points for the `points3d()` function. Default is `axis.points = "black"`.
 #' @param points Logical, if axis from `points3d()` have end points. Default is `points = TRUE`.
@@ -165,15 +168,15 @@
 #'                height = 1040)
 #'
 #' # Store widget directly to file
-#' htmlwidgets::saveWidget(rglwidget(width = 1040, height = 1040),
-#'                         file = "anes08_09offwavest.html",
+#' htmlwidgets::saveWidget(rglwidget(s, width = 1040, height = 1040),
+#'                         file = "anes08_09offwaves.html",
 #'                         libdir = "libs",
 #'                         selfcontained = FALSE)
 #'
 #' # Export a snap shoot of an open RGL device directly to file
 #' plotD3mirt(g,
 #'            constructs = TRUE)
-#' rgl::rgl.snapshot3d('RGLdevice.png',
+#' rgl::snapshot3d('RGLdevice.png',
 #'                     fmt = 'png')
 #' }
 #' @export
@@ -216,7 +219,8 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
     zaxis.max <- max(ax[,3])*axis.scalars[3]
   }
   } else {
-    if (length(axis.length) > 6) warning("The axis.length argument contains to many indicators")
+    if (!is.numeric(axis.length)) stop("Elements in axis.length are not numeric")
+    if (length(axis.length) > 6) warning("The axis.length argument contains too many indicators")
     if (length(axis.length) < 6){
       a <-  rep(axis.length[length(axis.length)], (6-length(axis.length)))
       axis.length <- append(axis.length, a)
