@@ -14,20 +14,20 @@ analysis. The strength of the method is the possibility to represent
 item response functions visually with vector arrows located in a
 three-dimensional space.
 
-The methodology is based on the two-parameter graded response model
-(GRM; Samejima, 1969) that is used to estimate multidimensional
-equivalents to the discrimination and difficulty parameters. The former
-becomes the multidimensional discrimination ($MDISC$) parameter and the
-latter the multidimensional difficulty ($MDIFF$) parameter.
+The DMIRT analysis use the two-parameter graded response model (GRM;
+Samejima, 1969) to extract multidimensional equivalents to the
+discrimination $a$ and difficulty parameters $d$. The former becomes the
+multidimensional discrimination ($MDISC$) parameter and the latter the
+multidimensional difficulty ($MDIFF$) parameter.
 
 The $MDIFF$ is interpreted similarly as the difficulty parameter in the
 unidimensional model, i.e., it describes a multidimensional distance
 from the origin to the item response function and shows the level of
 ability that is required for a higher response. Likewise, the $MDISC$
-represents the highest level of discrimination an item can achieve when
-located in a multidimensional latent trait space. In addition, `D3mirt`,
-the $MDISC$ score is visualized by scaling the length of the vector
-arrows representing the item response functions.
+represents the highest level of discrimination an item can achieve, but
+when located in a multidimensional latent trait space. In addition,
+in`D3mirt` the $MDISC$ score is visualized by scaling the length of the
+vector arrows representing the item response functions.
 
 # Overview
 
@@ -343,19 +343,18 @@ plotD3mirt(g,
 An example of how the output can be described could be as follows.
 
 > Figure $X$ shows that item W7Q16 is located at
-> $x° = 35.89, \, y° = 57.47, \, z° = 76.49$ which indicates that it is
+> $x° = 35.89, y° = 57.47, z° = 76.49$ which indicates that it is
 > within-multidimensional with respect to the x and y-axis and can also
 > be seen to be oriented between the constructs Compassion and
 > Conformity. The discrimination score
-> ($MDISC = .7699, \, MDIFF_{range} = [3.72, -1.81]$) is the lowest of
-> all discrimination scores for the items in the model. This implies
-> that the item in question does not seem to fit the three-dimensional
-> GRM used in this particular analysis. We should also note that item
-> W7Q15
-> ($x° = 60.47, \, y° = 31.52, \, z° = 100.02, \, MDISC = .9232,\, MDIFF_{range} = [4.32, -.97]$)
+> ($MDISC = .7699, MDIFF_{range} = [3.72, -1.81]$) is the lowest of all
+> discrimination scores for the items in the model. This implies that
+> the item in question does not seem to fit the three-dimensional GRM
+> used in this particular analysis. We should also note that item W7Q15
+> ($x° = 60.47, y° = 31.52, z° = 100.02, MDISC = .9232,MDIFF_{range} = [4.32, -.97]$)
 > has the second lowest discrimination score. However, the latter item
 > do seem to belong to the Conformity construct when comparing angle
-> location in the model.
+> orientation in the model.
 
 # `D3mirt` Profile Analysis
 

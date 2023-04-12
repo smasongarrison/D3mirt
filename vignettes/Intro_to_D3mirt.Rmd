@@ -339,7 +339,12 @@ plotD3mirt(g,
 
 An example of how the output can be described could be as follows.
 
-> The output in Figure $X$ visualizes the average direction of the item vectors. Moreover, the angles of the construct vectors inform us of how these groups of items are associated. In this example, we find Compassion ($x° = 3.91, y° = 86.49, z° = 88.29$) and Conformity ($x° = 61.84, y° = 28.19, z° = 91.19$) with some within-multidimensional tendencies. However, they are both more or less orthogonal to the z-axis. Next, we find Fairness ($x° = 50.13, y° = 78.31, z° = 42.25$) with clear within-multidimensional tendencies with respect to the x and z-axis. Thus, Fairness, in this model, does not seem to be an independent construct.
+> The output in Figure $X$ visualizes the average direction of the item vectors.
+> Moreover, the angles of the construct vectors inform us of how these groups of items are associated.
+> In this example, we find Compassion ($x° = 3.91, y° = 86.49, z° = 88.29$) and Conformity ($x° = 61.84, y° = 28.19, z° = 91.19$) with some within-multidimensional tendencies.
+> However, they are both more or less orthogonal to the z-axis.
+> Next, we find Fairness ($x° = 50.13, y° = 78.31, z° = 42.25$) with clear within-multidimensional tendencies with respect to the x and z-axis.
+> Thus, Fairness, in this model, does not seem to be an independent construct.
 
 Moreover, the angles of the construct vectors inform us of how these groups of items are associated.
 In this example, we find Compassion ($x° = 3.91, y° = 86.49, z° = 88.29$) and Conformity ($x° = 61.84, y° = 28.19, z° = 91.19$) with some within-multidimensional tendencies.
@@ -369,7 +374,7 @@ An example of how the output can be described could be as follows.
 > The discrimination score ($MDISC = .7699, \, MDIFF_{range} = [3.72, -1.81]$) is the lowest of all discrimination scores for the items in the model.
 > This implies that the item in question does not seem to fit the three-dimensional GRM used in this particular analysis.
 > We should also note that item W7Q15 ($x° = 60.47, \, y° = 31.52, \, z° = 100.02, \, MDISC = .9232,\, MDIFF_{range} = [4.32, -.97]$) has the second lowest discrimination score.
-> However, the latter item do seem to belong to the Conformity construct when comparing angle location in the model.
+> However, the latter item do seem to belong to the Conformity construct when comparing angle orientation in the model.
 
 ## Other Graphical Options
 
