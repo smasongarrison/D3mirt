@@ -27,7 +27,12 @@ ability that is required for a higher response. Likewise, the $MDISC$
 represents the highest level of discrimination an item can achieve, but
 when located in a multidimensional latent trait space. In addition,
 in`D3mirt` the $MDISC$ score is visualized by scaling the length of the
-vector arrows representing the item response functions.
+vector arrows representing the item response functions. Note, if
+polytomous items are used, such as Likert items, the items in question
+will be represented by multiple vector arrows (one for each response
+function) and the $MDIFF$ will, therefore, show the multidimensional
+range of difficulty for an item as located in a multidimensional latent
+trait space.
 
 # Overview
 
