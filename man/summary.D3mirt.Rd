@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary.R
 \name{summary.D3mirt}
 \alias{summary.D3mirt}
-\title{D3mirt Summary Function}
+\title{Summary Function for \code{D3mirt()}}
 \usage{
 \method{summary}{D3mirt}(object, ..., digits = 4)
 }
