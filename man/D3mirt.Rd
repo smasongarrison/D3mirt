@@ -2,7 +2,7 @@
 % Please edit documentation in R/D3mirt.R
 \name{D3mirt}
 \alias{D3mirt}
-\title{3D DMIRT Modeling}
+\title{3D DMIRT Model Estimation}
 \usage{
 D3mirt(x, constructs = NULL)
 }
