@@ -216,6 +216,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
     zaxis.max <- max(ax[,3])*axis.scalars[3]
   }
   } else {
+    if (length(axis.length) > 6) warning("The axis.length argument contains to many indicators")
     if (length(axis.length) < 6){
       a <-  rep(axis.length[length(axis.length)], (6-length(axis.length)))
       axis.length <- append(axis.length, a)
@@ -371,7 +372,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         adj = adjust.lab, size = 2)
           })
         } else {
-          if(!length(item.lab) <= length(items)) warning("There are more item labels than items in list")
+          if(!length(item.lab) <= length(items)) warning("There are more item labels than items in the items list")
           if(length(item.lab) < length(items)) warning("There are too few item labels")
           if (is.null(ncol(vec))){
             max <-  x$dir.vec[[ncol(x$mdiff)]]
@@ -472,7 +473,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
           })
         } else {
           if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
-          if(length(item.lab) < nrow(x$loadings)) warning("There are too few item labels") #
+          if(length(item.lab) < nrow(x$loadings)) warning("There are too few item labels")
           if (is.null(ncol(vec))){
             max <-  x$scal.vec[[ncol(x$mdiff)]]
           } else {
@@ -508,7 +509,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         adj = adjust.lab, size = 2)
           })
         } else {
-          if(!length(item.lab) <= length(items)) warning("There are more item labels than items in list")
+          if(!length(item.lab) <= length(items)) warning("There are more item labels than items in the items list")
           if(length(item.lab) < length(items)) warning("There are too few item labels")
           if (is.null(ncol(vec))){
             max <-  x$scal.vec[[ncol(x$mdiff)]]
