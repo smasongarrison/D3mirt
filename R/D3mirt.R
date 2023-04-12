@@ -48,9 +48,9 @@
 #' x <- x[,3:22] # Remove columns for age and gender
 #'
 #' # Fit a three-dimensional graded response model with orthogonal factors
-#' # Example below use Likert items from the built in data set "anes08_09offwaves"
+#' # Example below uses Likert items from the built-in data set "anes08_09offwaves"
 #' # Item W7Q3 and item W7Q20 was selected with `modid()`
-#' # The model specification specify all items in the data set (1-20)
+#' # The model specification set all items in the data set (1-20)
 #' # to load on all three factors (F1-F3)
 #' # The START and FIXED commands are used on the two items to identify the DMIRT model
 #' spec <- ' F1 = 1-20
