@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotD3mirt.R
 \name{plotD3mirt}
 \alias{plotD3mirt}
-\title{Graphical Output for D3mirt}
+\title{Graphical Output for D3mirt()}
 \usage{
 plotD3mirt(
   x,
@@ -98,7 +98,10 @@ The values in the \code{axis.scalars} argument are then used to adjust the lengt
 Note, when scaling items with \code{scale = TRUE}, the function does not recalculate the length of the model axis.
 Default is \code{axis.scalar = c(1.1,1.1,1.1)}.}
 
-\item{axis.length}{Adjust the length of the axis manually. For instance, c(3,2,4,3,3,2)values indicate x = 3, -x = 3, y = 4, -y = 3, z = 3, -z = 2. Default is \code{axis.length = NULL}.}
+\item{axis.length}{Optional. For adjusting the length of the axis manually by entering a numeric vector.
+For instance, c(3,2,4,3,3,2) indicate x = 3, -x = 3, y = 4, -y = 3, z = 3, -z = 2.
+Note, a symmetric model can be created easily by adding one numeric in the \code{axis.length} argument (e.g., \code{axis.length = 4}) since the function repeats the last value in the vector to cover all axis points.
+Default is \code{axis.length = NULL}.}
 
 \item{axis.col}{Color of axis for the \code{segment3D()}function, default is \code{axis.col = "Black"}.}
 
@@ -268,15 +271,15 @@ rgl::rglwidget(s,
                height = 1040)
 
 # Store widget directly to file
-htmlwidgets::saveWidget(rglwidget(width = 1040, height = 1040),
-                        file = "anes08_09offwavest.html",
+htmlwidgets::saveWidget(rglwidget(s, width = 1040, height = 1040),
+                        file = "anes08_09offwaves.html",
                         libdir = "libs",
                         selfcontained = FALSE)
 
 # Export a snap shoot of an open RGL device directly to file
 plotD3mirt(g,
            constructs = TRUE)
-rgl::rgl.snapshot3d('RGLdevice.png',
+rgl::snapshot3d('RGLdevice.png',
                     fmt = 'png')
 }
 }
