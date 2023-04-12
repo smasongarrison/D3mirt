@@ -14,7 +14,6 @@ knitr::opts_chunk$set(
 ```{r setup, message = FALSE, include = FALSE}
 library(D3mirt)
 library(mirt)
-knitr::knit_hooks$set(webgl = hook_webgl)
 ```
 
 # `D3MIRT` Modeling
@@ -30,9 +29,9 @@ The $MDIFF$ is interpreted similarly as the difficulty parameter in the unidimen
 The package includes the following functions.
 
 -   `modid()`: D3mirt Model Identification.
--   `D3mirt()`: 3D DMIRT Modeling.
--   `summary()`: summary for `D3mirt().`
--   `plotD3mirt`: Graphical Output for D3mirt.
+-   `D3mirt()`: 3D DMIRT Model Estimation.
+-   `summary()`: Summary Function for `D3mirt()`.
+-   `plotD3mirt`: Graphical Output for `D3mirt()`.
 
 ## Installation
 
@@ -72,7 +71,7 @@ The item lists have one column for the loadings from each item on the factor of 
 modid(h)
 ```
 
-The top items in each list should be used to identify the model. The first item, the top item in `item.1` located in `list 1`, will be used set the x-axis. In this case, the best item for the x-axis is "W7Q3". The second item, the top item in `Item.2` in `list 2` will be used to identify the y-axis. In this case, the best item for the y-axis is "W7Q20".
+The top items in each list should be used to identify the model. The first item, the top item in `item.1` located in list, will be used set the x-axis. In this case, the best item for the x-axis is "W7Q3". The second item, the top item in `Item.2` in  `items[[1]]` will be used to identify the y-axis. In this case, the best item for the y-axis is "W7Q20".
 
 # The `D3mirt()` Function
 
@@ -137,20 +136,15 @@ The function then returns an $S3$ object of class `D3mirt` with lists of $a$ and
 
 The `plotD3mirt` function is based on the `rgl` package (Adler & Murdoch, 2023) for visualization with OpenGL. Graphing in default mode by calling `plotd3mirt` will return an RGL device that will appear in an external window as a three-dimensional object that can be rotated. In this illustration, however, all RGL devices are shown inline as interactive objects.
 
-```{r, testg1, webgl = TRUE, fig.width = 7, fig.height = 7, eval = FALSE}
+```{r, eval = FALSE}
 # Plot RGL device with constructs visible and named
 plotD3mirt(g, 
            constructs = TRUE, 
            construct.lab = c("Fairness", "Conformity", "Compassion"))
 ```
 
-```{=html}
-<img
-  src="/Users/roadcastermusic/R Projects/anes08_09offwavest.html"
-  alt="The anes08_09offwaves data set"
-  title="The anes08_09offwaves data set"
-  style="display: inline-block; margin: 0 auto; max-width: 300px">
-```
+![anesdata08_09offwaves](anesdata.png)
+
 An example of how the output can be described could be as follows.
 
 > Figure $X$ indicates the presence of foremost two latent dimensions, one aligned with the x-axis and one approaching the y-axis. The two dimensions, however, have some within-multidimensional tendencies since they are not completely orthogonal. This tendency, is much more prominent for the items W7Q11, W7Q12, W7Q13, and W7Q14, being located at around the $45°$ angle or higher between the x and z-axis. Moreover, the angles of the construct vectors inform us of how these groups of items are associated. In this example, we find Compassion ($x° = 3.91, y° = 86.49, z° = 88.29$) and Conformity ($x° = 61.84, y° = 28.19, z° = 91.19$) with some within-multidimensional tendencies. However, they are both more or less orthogonal to the z-axis. Next, we find Fairness ($x° = 50.13, y° = 78.31, z° = 42.25$) with clear within-multidimensional tendencies with respect to the x and z-axis. Thus, Fairness, in this model, does not seem to be an independent construct.
@@ -159,7 +153,7 @@ In this model, item W7Q16 had the most measurement problems of all items in the 
 
 The `plotD3mirt` allows us to plot the item alone using argument `items` and entering the number indicating where the item appears in the data set (see `?anes08_09offwaves`).
 
-```{r, testg4, webgl=TRUE, fig.width = 7, fig.height = 7}
+```{r, eval = FALSE}
 # Item W7Q16 has location 6 in the data set (gender and age excluded)
 # The item is plotted together with construct to aid the visual interpretation
 plotD3mirt(g, 
@@ -169,13 +163,7 @@ plotD3mirt(g,
            view = c(15, 20, 0.6))
 ```
 
-```{=html}
-<img
-  src="/Users/roadcastermusic/R Projects/item.html"
-  alt="Item W7Q16"
-  title="Item W7Q16"
-  style="display: inline-block; margin: 0 auto; max-width: 300px">
-```
+![Item W7Q16](item.png)
 
 An example of how the output can be described could be as follows.
 
@@ -203,7 +191,7 @@ z <- data.frame(cbind(f, x[,2]))
 
 The `plotD3mirt`function uses `as.factor()` to count the number of factor levels in the data imputed in the `levels` argument. This means that raw data can be used but the number of colors in the color vectors argument (`sphere.col`) may need to be adapted. In the example below, the criteria variable for gender only hold two factor levels. Therefore only two colors in the color vector are needed. The three axes have also been named in the function call.
 
-```{r, testg2, webgl=TRUE, fig.width = 7, fig.height = 7, eval = FALSE}
+```{r, eval = FALSE}
 # Plot profiles with item vector arrows hidden with hide = TRUE
 # Score levels: 1 = Blue ("male") and 2 = Red ("female")
 plotD3mirt(g, hide = TRUE, 
@@ -215,13 +203,7 @@ plotD3mirt(g, hide = TRUE,
            z.lab="Fairness")
 ```
 
-```{=html}
-<img
-  src="/Users/roadcastermusic/R Projects/profile.html"
-  alt="Profile Ananlysis of Gender Variable"
-  title="Profile Ananlysis of Gender Variable"
-  style="display: inline-block; margin: 0 auto; max-width: 300px">
-```
+![Gender Profile](profile.png)
 
 An example of how the output can be described could be as follows.
 
@@ -243,7 +225,7 @@ rgl::rglwidget(s,
 # Export a snap shoot of an open RGL device directly to file
 plotD3mirt(g, 
            constructs = TRUE)
-rgl::rgl.snapshot3d('RGLdevice.png', 
+rgl::snapshot3d('RGLdevice.png', 
                     fmt = 'png')
 ```
 
@@ -259,7 +241,7 @@ Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package f
 
 DeBell, M., Krosnick, J. A., & Lupia, A.(2010). *Methodology Report and User's Guide for the 2008--2009 ANES Panel Study*. Palo Alto, CA, and Ann Arbor, MI: Stanford University and the University of Michigan.
 
-Reckase, M. D.(2009).*Multidimensional Item Response Theory*.Springer.
+Reckase, M. D.(2009).*Multidimensional Item Response Theory*. Springer.
 
 Reckase, M. D.(1985). The Difficulty of Test Items That Measure More Than One Ability. *Applied Psychological Measurement, 9*(4),401-412.<https://doi-org.ezp.sub.su.se/10.1177/014662168500900409>
 

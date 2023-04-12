@@ -34,9 +34,9 @@ arrows representing the item response functions.
 The package includes the following functions.
 
 - `modid()`: D3mirt Model Identification.
-- `D3mirt()`: 3D DMIRT Modeling.
-- `summary()`: summary for `D3mirt().`
-- `plotD3mirt`: Graphical Output for D3mirt.
+- `D3mirt()`: 3D DMIRT Model Estimation.
+- `summary()`: Summary Function for `D3mirt()`.
+- `plotD3mirt`: Graphical Output for `D3mirt()`.
 
 ## Installation
 
@@ -140,9 +140,9 @@ modid(h)
 ```
 
 The top items in each list should be used to identify the model. The
-first item, the top item in `item.1` located in `list 1`, will be used
-set the x-axis. In this case, the best item for the x-axis is “W7Q3”.
-The second item, the top item in `Item.2` in `list 2` will be used to
+first item, the top item in `item.1` located in list, will be used set
+the x-axis. In this case, the best item for the x-axis is “W7Q3”. The
+second item, the top item in `Item.2` in `items[[1]]` will be used to
 identify the y-axis. In this case, the best item for the y-axis is
 “W7Q20”.
 
@@ -297,11 +297,7 @@ plotD3mirt(g,
            construct.lab = c("Fairness", "Conformity", "Compassion"))
 ```
 
-<img
-  src="/Users/roadcastermusic/R Projects/anes08_09offwavest.html"
-  alt="The anes08_09offwaves data set"
-  title="The anes08_09offwaves data set"
-  style="display: inline-block; margin: 0 auto; max-width: 300px">
+![anesdata08_09offwaves](anesdata.png)
 
 An example of how the output can be described could be as follows.
 
@@ -342,13 +338,7 @@ plotD3mirt(g,
            view = c(15, 20, 0.6))
 ```
 
-../../../../private/var/folders/kq/3nr_hgv12_s9tsqt9ttw6x4m0000gn/T/Rtmp1Gljri/file12266018312d.png
-
-<img
-  src="/Users/roadcastermusic/R Projects/item.html"
-  alt="Item W7Q16"
-  title="Item W7Q16"
-  style="display: inline-block; margin: 0 auto; max-width: 300px">
+![Item W7Q16](item.png)
 
 An example of how the output can be described could be as follows.
 
@@ -415,13 +405,7 @@ plotD3mirt(g, hide = TRUE,
            z.lab="Fairness")
 ```
 
-../../../../private/var/folders/kq/3nr_hgv12_s9tsqt9ttw6x4m0000gn/T/Rtmp1Gljri/file12262459f43a.png
-
-<img
-  src="/Users/roadcastermusic/R Projects/profile.html"
-  alt="Profile Ananlysis of Gender Variable"
-  title="Profile Ananlysis of Gender Variable"
-  style="display: inline-block; margin: 0 auto; max-width: 300px">
+![Gender Profile](profile.png)
 
 An example of how the output can be described could be as follows.
 
@@ -449,7 +433,7 @@ rgl::rglwidget(s,
 # Export a snap shoot of an open RGL device directly to file
 plotD3mirt(g, 
            constructs = TRUE)
-rgl::rgl.snapshot3d('RGLdevice.png', 
+rgl::snapshot3d('RGLdevice.png', 
                     fmt = 'png')
 ```
 
@@ -473,7 +457,7 @@ DeBell, M., Krosnick, J. A., & Lupia, A.(2010). *Methodology Report and
 User’s Guide for the 2008–2009 ANES Panel Study*. Palo Alto, CA, and Ann
 Arbor, MI: Stanford University and the University of Michigan.
 
-Reckase, M. D.(2009).*Multidimensional Item Response Theory*.Springer.
+Reckase, M. D.(2009).*Multidimensional Item Response Theory*. Springer.
 
 Reckase, M. D.(1985). The Difficulty of Test Items That Measure More
 Than One Ability. *Applied Psychological Measurement,
