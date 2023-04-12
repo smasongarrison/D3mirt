@@ -1,4 +1,4 @@
-#' D3mirt Summary Function
+#' Summary Function for `D3mirt()`
 #'
 #' @description The `summary.D3mirt()` function presents a compressed output from the [D3mirt::D3mirt()] S3 object.
 #' @param object S3 object of class `D3mirt`.
