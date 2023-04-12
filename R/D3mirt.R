@@ -1,4 +1,4 @@
-#' 3D DMIRT Modeling
+#' 3D DMIRT Model Estimation
 #'
 #' @description Descriptive multidimensional item response theory modeling (DMIRT; Reckase, 2009, 1985, Reckase & McKinley, 1991), for dichotomous and polytomous items restricted to three dimensions.
 #'
