@@ -30,8 +30,11 @@ The `D3mirt` analysis is based on descriptive multidimensional item response the
 In DMIRT analysis, also called within multidimensional modeling, it is assumed that items in a multidimensional ability space can measure single or multiple latent traits (Reckase, 2009, 1985; Reckase & McKinley, 1991).
 The method is said to be descriptive because the estimates describe item characteristics when more than one latent dimension is used in the analysis.
 
-Under the assumption of within-dimensionality, the two-parameter graded response model (GRM; Samejima, 1969) is used to extract two-parameter multidimensional item characteristics prior to the DMIRT analysis.
-For `D3mirt`, this implies that a three-dimensional GRM must be fitted so that discrimination and difficulty parameters for a three-dimensional latent trait model can be extracted.
+The DMIRT approach use two types of item models, dependent on item type.
+If dichotomous items are used, the analysis is based on the two-parameter logistic model (2-PL).
+If polytmous items are used, the analysis is based on the two-parameter graded response model (GRM; Samejima, 1969).
+In both cases, the estimation process consists of extracting two-parameter multidimensional equivalents to the unidimensional case.
+For `D3mirt`, this implies that a three-dimensional 2-PL or GRM must be fitted so that discrimination and difficulty parameters for a three-dimensional latent trait model can be extracted.
 Next, using these parameters the DMIRT approach makes it possible to visualize the item response functions from the GRM as vector arrows in a multidimensional space.
 The `D3mirt()`function calculates all necessary estimates for this purpose, albeit limited to three dimensions.
 The most central estimates, briefly explained below, in DMIRT analysis are the single multidimensional discrimination ($MDISC$) parameter and the multidimensional difficulty ($MDIFF$) index for each item.
@@ -53,10 +56,10 @@ $$
 
 The resulting direction vector is a characteristic of the item that describes the angular orientation of an item in a multidimensional latent trait space.
 
-The multidimensional version of the difficulty parameter, $B_i$, for item $i$, is defined as the negative intercept $d_i$ divided by the $MDISC$ (Reckase, 2009).
+The multidimensional version of the difficulty parameter, $D_i$, for item $i$, is defined as the negative intercept $d_i$ divided by the $MDISC$ (Reckase, 2009).
 
 $$
-MDIFF=B_i=\frac{-d_i}{\sqrt{\sum_{k=1}^m a^2_{ik}}}
+MDIFF=D_i=\frac{-d_i}{\sqrt{\sum_{k=1}^m a^2_{ik}}}
 $$
 
 The $MDIFF$ is interpreted similarly as the difficulty parameter in the unidimensional model.
@@ -370,11 +373,14 @@ plotD3mirt(g,
 
 An example of how the output can be described could be as follows.
 
-> Figure $X$ shows that the item is located at $x° = 35.89, \, y° = 57.47, \, z° = 76.49$ which indicates that it is within-multidimensional with respect to the x and y-axis and can also be seen to be oriented between the constructs Compassion and Conformity.
-> The discrimination score ($MDISC = .7699, \, MDIFF_{range} = [3.72, -1.81]$) is the lowest of all discrimination scores for the items in the model.
-> This implies that the item in question does not seem to fit the three-dimensional GRM used in this particular analysis.
-> We should also note that item W7Q15 ($x° = 60.47, \, y° = 31.52, \, z° = 100.02, \, MDISC = .9232,\, MDIFF_{range} = [4.32, -.97]$) has the second lowest discrimination score.
-> However, the latter item do seem to belong to the Conformity construct when comparing angle orientation in the model.
+> Figure $X$ indicates the presence of foremost two latent dimensions, one aligned with the x-axis and one approaching the y-axis.
+> The two dimensions, however, have some within-multidimensional tendencies since they are not completely orthogonal.
+> This tendency, is much more prominent for the items W7Q11, W7Q12, W7Q13, and W7Q14, being located at around the $45°$ angle or higher between the x and z-axis.
+> Moreover, the angles of the construct vectors inform us of how these groups of items are associated.
+> In this example, we find Compassion ($x° = 3.908, y° = 86.486, z° = 88.293$) and Conformity ($x° = 61.838, y° = 28.192, z° = 91.190$) with some within-multidimensional tendencies.
+> However, both more or less orthogonal to the z-axis.
+> Next, we find Fairness ($x° = 50.128, y° = 78.308, z° = 42.248$) with clear within-multidimensional tendencies with respect to the x and z-axis.
+> Thus, Fairness, in this model, does not seem to be an independent construct.
 
 ## Other Graphical Options
 

@@ -92,11 +92,11 @@ In this case, the item label 1 will be printed on item 24, item label 2 on item 
 
 \item{line}{Title placement for \code{title3d()}. Default is \code{line = -5}.}
 
-\item{axis.scalar}{Scalar multiple for adjusting the length of the axes (x, y, z) in the 3D model proportionally. Default is \code{axis.scalar = c(1.1)}.}
+\item{axis.scalar}{Scalar multiple for adjusting the length all axes (x, y, z) in the 3D model proportionally. Default is \code{axis.scalar = 1.1}.}
 
-\item{axis.length}{Optional. For adjusting the length of the axis manually by entering a numeric vector.
-For instance, c(3,2,4,3,3,2) indicate x = 3, -x = 3, y = 4, -y = 3, z = 3, -z = 2.
-Note, a symmetric model can be created easily by adding one numeric in the \code{axis.length} argument (e.g., \code{axis.length = 4}) since the function repeats the last value in the vector to cover all axis points.
+\item{axis.length}{Optional. For adjusting the length of the axis manually by entering a numeric or a numeric vector.
+For instance, c(3,2,4,3,3,2) indicate axis coordinates x = 3, -x = 3, y = 4, -y = 3, z = 3, -z = 2.
+Note, a symmetric model can be created easily by adding a single numeric in the \code{axis.length} argument (e.g., \code{axis.length = 4}) because the function repeats the last value in the vector to cover all axis points.
 Default is \code{axis.length = NULL}.}
 
 \item{axis.col}{Color of axis for the \code{segment3D()}function, default is \code{axis.col = "Black"}.}

@@ -14,8 +14,12 @@ analysis. The strength of the method is the possibility to represent
 item response functions visually with vector arrows located in a
 three-dimensional space.
 
-The DMIRT analysis use the two-parameter graded response model (GRM;
-Samejima, 1969) to extract multidimensional equivalents to the
+The DMIRT approach use two types of item models, dependent on item type.
+If dichotomous items are used, the analysis is based on the
+two-parameter logistic model (2-PL). If polytmous items are used, the
+analysis is based on the two-parameter graded response model (GRM;
+Samejima, 1969). In both cases, the estimation process consists of
+extracting two-parameter multidimensional equivalents to the to the
 discrimination $a$ and difficulty parameters $d$. The former becomes the
 multidimensional discrimination ($MDISC$) parameter and the latter the
 multidimensional difficulty ($MDIFF$) parameter.
@@ -235,28 +239,51 @@ summary(g)
 #> Construct vector 2 contains items 5, 7, 8, 9, 10 
 #> 
 #> Construct vector 3 contains items 11, 12, 13, 14, 15, 15, 16, 17, 18, 19, 20
+#> $model.est
+#>           a1      a2      a3      d1     d2     d3      d4      d5
+#> W7Q11 1.4237  0.4675  1.0439  6.2189 4.6926 3.5435  1.1920 -1.8576
+#> W7Q12 0.7604  0.0410  0.9367  4.1360 2.8771 2.3419  1.1790 -0.4240
+#> W7Q13 1.1278  0.2911  1.6930  5.8892 4.3988 3.4413  1.8946 -0.6008
+#> W7Q14 0.7447  0.4829  0.9785  5.3891 3.9333 3.0258  0.8143 -1.5868
+#> W7Q15 0.4551  0.7870 -0.1606  4.3207 3.0545 2.3969  0.9187 -0.9705
+#> W7Q16 0.6237  0.4140  0.1798  3.7249 2.0305 1.1658 -0.0612 -1.8085
+#> W7Q17 1.1892  1.3412  0.0563  6.9013 5.8023 4.9345  2.7916 -0.0041
+#> W7Q18 0.4106  1.3542 -0.1369  3.7837 2.0985 1.4183  0.1828 -1.9855
+#> W7Q19 0.8580  1.4099  0.2279  4.4978 2.6483 1.6730  0.3741 -1.9966
+#> W7Q20 0.7357  1.9067  0.0000  4.6378 2.3633 1.2791 -0.3431 -2.9190
+#> W7Q1  2.0298  0.1643 -0.1231  8.0865 7.0640 5.9876  3.2015 -0.4835
+#> W7Q2  2.6215 -0.0027 -0.2582  9.2885 6.6187 4.5102  1.6649 -2.4439
+#> W7Q3  2.7923  0.0000  0.0000 10.4894 7.5887 5.6776  2.7172 -1.1789
+#> W7Q4  1.9045  0.1875  0.1495  7.3750 6.0465 4.9813  2.4830 -1.1145
+#> W7Q5  2.2425 -0.0287 -0.0839  8.4279 6.6712 4.9049  1.8253 -1.8316
+#> W7Q6  2.0021  0.2390  0.1571  8.0684 6.3577 4.9520  2.3300 -1.0189
+#> W7Q7  1.6286  0.1034  0.3595  6.0178 4.8974 3.6908  1.6326 -1.3484
+#> W7Q8  1.7774  0.2252  0.3531  6.9171 5.1822 3.7661  1.4844 -1.8332
+#> W7Q9  1.7198  0.2494  0.1281  7.5586 4.9755 3.3648  0.9343 -2.2094
+#> W7Q10 1.7696  0.1272 -0.1406  8.3638 5.7397 4.2863  1.9647 -0.6642
+#> 
 #> $dmirt.est
-#>           a1      a2      a3      d1     d2     d3      d4      d5  MDISC
-#> W7Q11 1.4237  0.4675  1.0439  6.2189 4.6926 3.5435  1.1920 -1.8576 1.8263
-#> W7Q12 0.7604  0.0410  0.9367  4.1360 2.8771 2.3419  1.1790 -0.4240 1.2072
-#> W7Q13 1.1278  0.2911  1.6930  5.8892 4.3988 3.4413  1.8946 -0.6008 2.0550
-#> W7Q14 0.7447  0.4829  0.9785  5.3891 3.9333 3.0258  0.8143 -1.5868 1.3211
-#> W7Q15 0.4551  0.7870 -0.1606  4.3207 3.0545 2.3969  0.9187 -0.9705 0.9232
-#> W7Q16 0.6237  0.4140  0.1798  3.7249 2.0305 1.1658 -0.0612 -1.8085 0.7699
-#> W7Q17 1.1892  1.3412  0.0563  6.9013 5.8023 4.9345  2.7916 -0.0041 1.7934
-#> W7Q18 0.4106  1.3542 -0.1369  3.7837 2.0985 1.4183  0.1828 -1.9855 1.4217
-#> W7Q19 0.8580  1.4099  0.2279  4.4978 2.6483 1.6730  0.3741 -1.9966 1.6661
-#> W7Q20 0.7357  1.9067  0.0000  4.6378 2.3633 1.2791 -0.3431 -2.9190 2.0437
-#> W7Q1  2.0298  0.1643 -0.1231  8.0865 7.0640 5.9876  3.2015 -0.4835 2.0402
-#> W7Q2  2.6215 -0.0027 -0.2582  9.2885 6.6187 4.5102  1.6649 -2.4439 2.6342
-#> W7Q3  2.7923  0.0000  0.0000 10.4894 7.5887 5.6776  2.7172 -1.1789 2.7923
-#> W7Q4  1.9045  0.1875  0.1495  7.3750 6.0465 4.9813  2.4830 -1.1145 1.9195
-#> W7Q5  2.2425 -0.0287 -0.0839  8.4279 6.6712 4.9049  1.8253 -1.8316 2.2442
-#> W7Q6  2.0021  0.2390  0.1571  8.0684 6.3577 4.9520  2.3300 -1.0189 2.0225
-#> W7Q7  1.6286  0.1034  0.3595  6.0178 4.8974 3.6908  1.6326 -1.3484 1.6710
-#> W7Q8  1.7774  0.2252  0.3531  6.9171 5.1822 3.7661  1.4844 -1.8332 1.8261
-#> W7Q9  1.7198  0.2494  0.1281  7.5586 4.9755 3.3648  0.9343 -2.2094 1.7425
-#> W7Q10 1.7696  0.1272 -0.1406  8.3638 5.7397 4.2863  1.9647 -0.6642 1.7798
+#>        MDISC      D1      D2      D3      D4     D5
+#> W7Q11 1.8263 -3.4052 -2.5695 -1.9403 -0.6527 1.0171
+#> W7Q12 1.2072 -3.4262 -2.3833 -1.9400 -0.9767 0.3512
+#> W7Q13 2.0550 -2.8658 -2.1405 -1.6746 -0.9220 0.2923
+#> W7Q14 1.3211 -4.0793 -2.9773 -2.2904 -0.6164 1.2011
+#> W7Q15 0.9232 -4.6801 -3.3085 -2.5963 -0.9951 1.0512
+#> W7Q16 0.7699 -4.8382 -2.6374 -1.5142  0.0795 2.3490
+#> W7Q17 1.7934 -3.8481 -3.2353 -2.7514 -1.5566 0.0023
+#> W7Q18 1.4217 -2.6613 -1.4760 -0.9976 -0.1286 1.3966
+#> W7Q19 1.6661 -2.6996 -1.5896 -1.0042 -0.2245 1.1984
+#> W7Q20 2.0437 -2.2693 -1.1564 -0.6259  0.1679 1.4283
+#> W7Q1  2.0402 -3.9637 -3.4625 -2.9348 -1.5692 0.2370
+#> W7Q2  2.6342 -3.5261 -2.5126 -1.7122 -0.6320 0.9278
+#> W7Q3  2.7923 -3.7565 -2.7177 -2.0333 -0.9731 0.4222
+#> W7Q4  1.9195 -3.8421 -3.1500 -2.5950 -1.2935 0.5806
+#> W7Q5  2.2442 -3.7554 -2.9726 -2.1856 -0.8133 0.8161
+#> W7Q6  2.0225 -3.9894 -3.1436 -2.4485 -1.1521 0.5038
+#> W7Q7  1.6710 -3.6013 -2.9308 -2.2087 -0.9770 0.8069
+#> W7Q8  1.8261 -3.7880 -2.8379 -2.0624 -0.8129 1.0039
+#> W7Q9  1.7425 -4.3377 -2.8553 -1.9310 -0.5362 1.2679
+#> W7Q10 1.7798 -4.6994 -3.2250 -2.4083 -1.1039 0.3732
 #> 
 #> $dmirt.angles
 #>       D.Cos X D.Cos Y D.Cos Z   Deg.X   Deg.Y    Deg.Z
@@ -323,11 +350,11 @@ An example of how the output can be described could be as follows.
 > at around the $45°$ angle or higher between the x and z-axis.
 > Moreover, the angles of the construct vectors inform us of how these
 > groups of items are associated. In this example, we find Compassion
-> ($x° = 3.91, y° = 86.49, z° = 88.29$) and Conformity
-> ($x° = 61.84, y° = 28.19, z° = 91.19$) with some
-> within-multidimensional tendencies. However, they are both more or
-> less orthogonal to the z-axis. Next, we find Fairness
-> ($x° = 50.13, y° = 78.31, z° = 42.25$) with clear
+> ($x° = 3.908, y° = 86.486, z° = 88.293$) and Conformity
+> ($x° = 61.838, y° = 28.192, z° = 91.190$) with some
+> within-multidimensional tendencies. However, both more or less
+> orthogonal to the z-axis. Next, we find Fairness
+> ($x° = 50.128, y° = 78.308, z° = 42.248$) with clear
 > within-multidimensional tendencies with respect to the x and z-axis.
 > Thus, Fairness, in this model, does not seem to be an independent
 > construct.
@@ -352,20 +379,20 @@ plotD3mirt(g,
            view = c(15, 20, 0.6))
 ```
 
-![Item W7Q16](item.png)
+![anesdata08_09offwaves](item.png)
 
 An example of how the output can be described could be as follows.
 
 > Figure $X$ shows that item W7Q16 is located at
-> $x° = 35.89, y° = 57.47, z° = 76.49$ which indicates that it is
+> $x° = 35.891, y° = 57.473, z° = 76.493$ which indicates that it is
 > within-multidimensional with respect to the x and y-axis and can also
 > be seen to be oriented between the constructs Compassion and
 > Conformity. The discrimination score
-> ($MDISC = .7699, MDIFF_{range} = [3.72, -1.81]$) is the lowest of all
+> ($MDISC = .770, MDIFF_{range} = [-4.838, 2.349]$) is the lowest of all
 > discrimination scores for the items in the model. This implies that
 > the item in question does not seem to fit the three-dimensional GRM
 > used in this particular analysis. We should also note that item W7Q15
-> ($x° = 60.47, y° = 31.52, z° = 100.02, MDISC = .9232,MDIFF_{range} = [4.32, -.97]$)
+> ($x° = 60.466, y° = 31.516, z° = 100.017, MDISC = .923, MDIFF_{range} = [-4.680, 1.051]$)
 > has the second lowest discrimination score. However, the latter item
 > do seem to belong to the Conformity construct when comparing angle
 > orientation in the model.
@@ -418,7 +445,7 @@ plotD3mirt(g, hide = TRUE,
            z.lab="Fairness")
 ```
 
-![Gender Profile](profile.png)
+![anesdata08_09offwaves](profile.png)
 
 An example of how the output can be described could be as follows.
 

@@ -20,10 +20,10 @@
 #' @param z.lab Labels for y-axis, Default is `z.lab = "Z"`.
 #' @param title The main title for the graphical device, plotted with the `title3d()` function.
 #' @param line  Title placement for `title3d()`. Default is `line = -5`.
-#' @param axis.scalar Scalar multiple for adjusting the length of the axes (x, y, z) in the 3D model proportionally. Default is `axis.scalar = c(1.1)`.
-#' @param axis.length Optional. For adjusting the length of the axis manually by entering a numeric vector.
-#' For instance, c(3,2,4,3,3,2) indicate x = 3, -x = 3, y = 4, -y = 3, z = 3, -z = 2.
-#' Note, a symmetric model can be created easily by adding one numeric in the `axis.length` argument (e.g., `axis.length = 4`) since the function repeats the last value in the vector to cover all axis points.
+#' @param axis.scalar Scalar multiple for adjusting the length all axes (x, y, z) in the 3D model proportionally. Default is `axis.scalar = 1.1`.
+#' @param axis.length Optional. For adjusting the length of the axis manually by entering a numeric or a numeric vector.
+#' For instance, c(3,2,4,3,3,2) indicate axis coordinates x = 3, -x = 3, y = 4, -y = 3, z = 3, -z = 2.
+#' Note, a symmetric model can be created easily by adding a single numeric in the `axis.length` argument (e.g., `axis.length = 4`) because the function repeats the last value in the vector to cover all axis points.
 #' Default is `axis.length = NULL`.
 #' @param axis.col Color of axis for the `segment3D()`function, default is `axis.col = "Black"`.
 #' @param axis.points Color of axis points for the `points3d()` function. Default is `axis.points = "black"`.
@@ -198,8 +198,8 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
   if (is.null(axis.length)){
    if (is.null(ncol(x$dir.vec))){
     ax <- x$dir.vec
-    low <- as.data.frame(ax[1], drop = FALSE)
-    hig <- as.data.frame(ax[length(ax)], drop = FALSE)
+    low <- as.data.frame(ax[1])
+    hig <- as.data.frame(ax[length(ax)])
     xaxis.min <- min(low[,1])*axis.scalar
     xaxis.max <- max(hig[,1])*axis.scalar
     yaxis.min <- min(low[,2])*axis.scalar
@@ -396,7 +396,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         adj = adjust.lab, size = 2)
           })
         } else {
-          dl <-  as.data.frame(x$dir.vec[diff.level], drop = FALSE)
+          dl <-  as.data.frame(x$dir.vec[diff.level, drop = FALSE])
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(item.lab[i]), color = axis.col,
@@ -533,7 +533,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         adj = adjust.lab, size = 2)
           })
         } else {
-          dl <-  as.data.frame(x$scal.vec[diff.level], drop = FALSE)
+          dl <-  as.data.frame(x$scal.vec[diff.level, drop = FALS])
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(item.lab[i]), color = axis.col,
