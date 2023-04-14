@@ -29,7 +29,10 @@
 #' @param axis.points Color of axis points for the `points3d()` function. Default is `axis.points = "black"`.
 #' @param points Logical, if axis from `points3d()` have end points. Default is `points = TRUE`.
 #' @param axis.ticks Logical, if axis ticks from the `axis3d()` function should be plotted. Default is `axis.ticks = TRUE'.
-#' @param nticks Number of ticks for `axis3d()` indicated with integers for the x, y, and z axes. Default is `nticks = c(10,10,10)`.
+#' @param nticks Number of ticks for `axis3d()`.
+#' The function repeats the last numeric value in the vector to cover all axis.
+#' The user can, therefore, adjust the number of ticks with one numeric value (e.g., `nticks = 6`) or up to three (e.g., `nticks = c(6,4,8)`corresponding to the for the x, y, and z axes respectively.
+#' Default is `nticks = 4`.
 #' @param width.rgl.x Width in the x direction for `par3d()`. Default is `width.rgl.x = 1040`.
 #' @param width.rgl.y Width in the y direction for `par3d()`. Default is `width.rgl.y = 1040`.
 #' @param view Vector with polar coordinates and zoom factor for the `view3d` function. Default is `view = c(15,20, 1)`.
@@ -181,7 +184,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         constructs = FALSE, construct.lab = NULL, adjust.lab = c(0.5, -0.8),
                         x.lab = "X", y.lab="Y", z.lab="Z", title="", line = -5,
                         axis.scalar = 1.1, axis.length = NULL, axis.col = "black", axis.points = "black",
-                        points = TRUE, axis.ticks = TRUE, nticks = c(4,4,4),  width.rgl.x = 1040, width.rgl.y= 1040, view = c(15, 20, 0.6),
+                        points = TRUE, axis.ticks = TRUE, nticks = 4,  width.rgl.x = 1040, width.rgl.y= 1040, view = c(15, 20, 0.6),
                         show.plane = TRUE, plane.col = "grey80", background = "white",
                         type = "rotation", col = c("black", "grey20", "grey40", "grey60", "grey80"),
                         arrow.width = 0.6, n = 20, theta = 0.2, barblen = 0.03,
@@ -236,7 +239,12 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
   rgl::segments3d(c(0, 0), yaxis, c(0, 0), color = axis.col)
   rgl::segments3d(c(0, 0), c(0, 0), zaxis, color = axis.col)
   if (axis.ticks == TRUE){
-    if(!length(nticks) == 3) stop("The nticks argument must be indicated with three values")
+    if (!is.numeric(nticks)) stop("Elements in nticks are not numeric")
+    if (length(nticks) > 3) warning("The nticks argument contains too many indicators")
+    if (length(nticks) < 3){
+      a <-  rep(nticks[length(nticks)], (3-length(nticks)))
+      nticks <- append(nticks, a)
+      }
     rgl::axis3d('x', pos = c(0, 0, 0), ticks = TRUE, nticks=nticks[1])
     rgl::axis3d('y', pos = c(0, 0, 0), ticks = TRUE, nticks=nticks[2])
     rgl::axis3d('z',pos = c(0, 0, 0), ticks = TRUE, nticks=nticks[3])
