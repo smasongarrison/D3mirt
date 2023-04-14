@@ -26,7 +26,7 @@ plotD3mirt(
   axis.points = "black",
   points = TRUE,
   axis.ticks = TRUE,
-  nticks = c(4, 4, 4),
+  nticks = 4,
   width.rgl.x = 1040,
   width.rgl.y = 1040,
   view = c(15, 20, 0.6),
@@ -107,7 +107,10 @@ Default is \code{axis.length = NULL}.}
 
 \item{axis.ticks}{Logical, if axis ticks from the \code{axis3d()} function should be plotted. Default is `axis.ticks = TRUE'.}
 
-\item{nticks}{Number of ticks for \code{axis3d()} indicated with integers for the x, y, and z axes. Default is \code{nticks = c(10,10,10)}.}
+\item{nticks}{Number of ticks for \code{axis3d()}.
+The function repeats the last numeric value in the vector to cover all axis.
+The user can, therefore, adjust the number of ticks with one numeric value (e.g., \code{nticks = 6}) or up to three (e.g., \code{nticks = c(6,4,8)}corresponding to the for the x, y, and z axes respectively.
+Default is \code{nticks = 4}.}
 
 \item{width.rgl.x}{Width in the x direction for \code{par3d()}. Default is \code{width.rgl.x = 1040}.}
 
