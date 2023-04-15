@@ -309,10 +309,33 @@ summary(g)
 #> W7Q10  0.9943  0.0715 -0.0790  6.1172 85.9000  94.5321
 #> 
 #> $construct.angles
-#>   D.Cos X D.Cos Y D.Cos Z   Deg.X   Deg.Y   Deg.Z
+#>   C.Cos X C.Cos Y C.Cos Z C.Deg.X C.Deg.Y C.Deg.Z
 #> 1  0.6411  0.2026  0.7402 50.1281 78.3081 42.2479
 #> 2  0.4720  0.8814 -0.0208 61.8375 28.1921 91.1898
 #> 3  0.9977  0.0613  0.0298  3.9077 86.4857 88.2934
+#> 
+#> $ddisc
+#>       DDISC1 DDISC2 DDISC3
+#> W7Q11 1.7802 1.0624 1.4802
+#> W7Q12 1.1892 0.3756 0.7890
+#> W7Q13 2.0353 0.7537 1.1935
+#> W7Q14 1.2996 0.7568 0.8017
+#> W7Q15 0.3324 0.9118 0.4975
+#> W7Q16 0.6169 0.6555 0.6530
+#> W7Q17 1.0759 1.7422 1.2704
+#> W7Q18 0.4364 1.3902 0.4886
+#> W7Q19 1.0044 1.6428 0.9492
+#> W7Q20 0.8580 2.0277 0.8509
+#> W7Q1  1.2434 1.1054 2.0315
+#> W7Q2  1.4889 1.2403 2.6076
+#> W7Q3  1.7901 1.3179 2.7858
+#> W7Q4  1.3696 1.0610 1.9160
+#> W7Q5  1.3697 1.0349 2.2330
+#> W7Q6  1.4482 1.1524 2.0168
+#> W7Q7  1.3311 0.8523 1.6418
+#> W7Q8  1.4464 1.0301 1.7976
+#> W7Q9  1.2479 1.0288 1.7349
+#> W7Q10 1.0561 0.9503 1.7691
 ```
 
 The function then returns an $S3$ object of class `D3mirt` with lists of
@@ -385,17 +408,20 @@ An example of how the output can be described could be as follows.
 
 > Figure $X$ shows that item W7Q16 is located at
 > $x° = 35.891, y° = 57.473, z° = 76.493$ which indicates that it is
-> within-multidimensional with respect to the x and y-axis and can also
-> be seen to be oriented between the constructs Compassion and
-> Conformity. The discrimination score
-> ($MDISC = .770, MDIFF_{range} = [-4.838, 2.349]$) is the lowest of all
-> discrimination scores for the items in the model. This implies that
-> the item in question does not seem to fit the three-dimensional GRM
-> used in this particular analysis. We should also note that item W7Q15
-> ($x° = 60.466, y° = 31.516, z° = 100.017, MDISC = .923, MDIFF_{range} = [-4.680, 1.051]$)
-> has the second lowest discrimination score. However, the latter item
-> do seem to belong to the Conformity construct when comparing angle
-> orientation in the model.
+> within-multidimensional with respect to the x and y-axis but
+> approaching orthogonal tendencies with respect to the z-axis. In
+> addition, the directional discrimination further under scores that the
+> item does not seem to measure any particular construct
+> ($DDISC_1 = .656, DDISC_2 = .656, DDISC_3 = .617$). The global
+> discrimination score ($MDISC = .770, MDIFF_{range} = [-4.838, 2.349]$)
+> is also the lowest of all discrimination scores in the model. This,
+> combined, implies that the item in question does not seem to fit the
+> three-dimensional GRM used in this analysis. We should also note that
+> item W7Q15 ($MDISC = .923, MDIFF_{range} = [-4.680, 1.051]$) has the
+> second lowest discrimination score. However, the latter item do seem
+> to belong to the Conformity construct when comparing angle orientation
+> in the model
+> ($x° = 60.466, y° = 31.516, z° = 100.017, MDISC = .923, DDISC_1 = .332, DDISC_2 = .912, DDISC_3 = .497$).
 
 ## `D3mirt` Profile Analysis
 

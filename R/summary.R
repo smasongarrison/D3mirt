@@ -27,6 +27,7 @@ summary.D3mirt <- function(object, ..., digits = 4){
   tab5 <- as.data.frame(cbind(object$dir.cos, object$degrees))
   if (!is.null(object$c.dir.cos)){
     tab6 <- as.data.frame(cbind(object$c.dir.cos, object$c.degrees))
+    tab7 <- as.data.frame(cbind(object$ddisc))
     c <- object$c
     items <- NULL
     for (i in seq_along(c)){
@@ -40,7 +41,7 @@ summary.D3mirt <- function(object, ..., digits = 4){
     }
   }
   if (!is.null(object$c.dir.cos)){
-    sum <- list(model.est = round(tab1,digits), dmirt.est = round(tab4,digits), dmirt.angles = round(tab5, digits), construct.angles = round(tab6, digits))
+    sum <- list(model.est = round(tab1,digits), dmirt.est = round(tab4,digits), dmirt.angles = round(tab5, digits), construct.angles = round(tab6, digits), ddisc = round(tab7, digits))
   } else{
     sum <- list(model.est = round(tab1,digits), dmirt.est = round(tab4,digits), dmirt.angles = round(tab5, digits))
   }

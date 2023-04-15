@@ -92,7 +92,7 @@
 #' @export
 D3mirt <- function(x, constructs = NULL){
   if(ncol(x) < 4) stop("Data frame must have at least 4 columns")
-  x <- as.matrix(x, drop = FALSE)
+  x <- as.matrix(x)
   a <- x[,1:3, drop = FALSE]
   ndiff <- ncol(x)-3
   if (ndiff == 1){
@@ -117,14 +117,15 @@ D3mirt <- function(x, constructs = NULL){
     vec2 <- do.call(rbind,list(xyz,uvw2))[order(sequence(sapply(list(xyz,uvw2),nrow))),]
     vector1 <- as.matrix(rbind(vector1,vec1), ncol = 3)
     vector2 <- as.matrix(rbind(vector2,vec2), ncol = 3)
-    mdiff <- as.matrix(cbind(mdiff, dist), ncol=1)
+    mdiff <- as.matrix(cbind(mdiff, dist), ncol = 1)
   }
   if (!is.null(constructs)){
-    if(!is.list(constructs)) stop("Construct object must be of type list")
-    if(!any(sapply(constructs, class) == "list")) stop("The constructs must be nested lists")
+    if(!is.list(constructs)) stop("The constructs must be of type list")
+    if(!any(sapply(constructs, class) == "list")) stop("The constructs argument requires nested lists")
     con <- NULL
     cdeg <- NULL
     ncos <- NULL
+    ddisc <- NULL
     for (i in seq_along(constructs)){
       l <- unlist(constructs[i])
       cos <- NULL
@@ -141,6 +142,8 @@ D3mirt <- function(x, constructs = NULL){
       con <- as.matrix(rbind(con,rbind(minnorm, maxnorm)), ncol = 3)
       ncos <- as.matrix(rbind(ncos,cdcos), ncol = 3)
       cdeg <- as.matrix(rbind(cdeg,(acos(cdcos)*(180/pi))), ncol = 3)
+      disc <-  apply(a, 1, function(x) x %*% t(cdcos))
+      ddisc <- as.matrix(cbind(ddisc, disc), ncol = 1)
     }
   }
   a <- as.data.frame(a)
@@ -159,7 +162,7 @@ D3mirt <- function(x, constructs = NULL){
   colnames(mdisc) <- c("MDISC")
   dcos <- as.data.frame(dcos)
   colnames(dcos) <- c("D.Cos X", "D.Cos Y", "D.Cos Z")
-  deg <- as.data.frame(deg, drop = FALSE)
+  deg <- as.data.frame(deg)
   colnames(deg) <- c("Deg.X", "Deg.Y", "Deg.Z")
   if (ndiff == 1){
     dir.vec <- vector1
@@ -170,11 +173,15 @@ D3mirt <- function(x, constructs = NULL){
   }
   if (!is.null(constructs)){
     ncos <- as.data.frame(ncos)
-    colnames(ncos) <- c("D.Cos X","D.Cos Y", "D.Cos Z")
+    colnames(ncos) <- c("C.Cos X","C.Cos Y", "C.Cos Z")
     cdeg <- as.data.frame(cdeg)
-    colnames(cdeg) <- c("Deg.X", "Deg.Y", "Deg.Z")
-    D3mirt <- list(loadings = a, diff = diff, mdisc = mdisc, mdiff = mdiff, dir.cos = dcos, degrees = deg,
-                  dir.vec = dir.vec, scal.vec = scal.vec, c = constructs, c.dir.cos = ncos ,c.degrees = cdeg, c.vec = con)
+    colnames(cdeg) <- c("C.Deg.X", "C.Deg.Y", "C.Deg.Z")
+    dddisc <- as.data.frame(ddisc)
+    for (i in ncol(ddisc)){
+      colnames(ddisc) <- paste("DDISC", 1:i, sep = "")
+    }
+    D3mirt <- list(loadings = a, diff = diff, mdisc = mdisc, mdiff = mdiff, dir.cos = dcos, degrees = deg, c.dir.cos = ncos , c.degrees = cdeg, ddisc = ddisc,
+                  dir.vec = dir.vec, scal.vec = scal.vec, c = constructs,  c.vec = con)
   } else {
     D3mirt <- list(loadings = a, diff = diff, mdisc = mdisc, mdiff = mdiff, dir.cos = dcos, degrees = deg, diff = diff,
                   dir.vec = dir.vec, scal.vec = scal.vec)
