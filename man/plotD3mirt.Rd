@@ -175,67 +175,81 @@ A RGL graphical device.
 For graphing of objects of class \code{D3mirt} from the \code{\link[=D3mirt]{D3mirt()}} function with the rgl 3D visualization device system (Adler & Murdoch, 2022).
 }
 \details{
-The function is used for graphing \code{D3mirt}objects in three dimensions using the \link{rgl} package (Adler & Murdoch, 2022) for visualization with OpenGL.
+The function is used for graphing class \code{D3mirt} S3 objects in three dimensions using the \link{rgl} package for visualization with OpenGL (Adler & Murdoch, 2022).
+}
+\section{Unidimensionality vs. Within-Dimensionality}{
+In DMIRT, the angle of the vector arrows indicates what traits, located along the orthogonal axes, an item can be said to describe (Reckase, 2009, 1985, Reckase & McKinley, 1991).
+For instance, an item located at 0° seen from the x-axis, and 90° as seen from the y and z-axis, only describes trait x.
+Such an item is unidimensional because its direction vector of maximal discrimination slope lies parallel and on the x-axis.
+In contrast, an item located at 45° between all three axes in a three-dimensional model describes all three traits in the model equally well.
+Such an item is within-multidimensional with respect to all three latent traits used in the analysis because its direction vector points in the 45° direction in the model.
+}
 
+\section{Model Violations}{
+When plotting the \code{D3mirt} model with \code{plotD3mirt()}, it is possible to visually observe statistical violations in the graphical output returned.
+For instance, shorter vector arrows indicate weaker discrimination and therefore also higher amounts of model violations.
+As another example, if an item struggles or even fail to describe any of the latent variables in the model, it can often lead to an extreme stretch of the $MDIFF$ range.
+This is comparable to trace lines turning horizontal in a unidimensional item response theory model.
+}
+
+\section{Some Plotting Options}{
 The function allows plotting of all items, a selection of items as well as plotting a single item.
 Length of the vector arrows can be set to one unit length across all arrows by setting \code{scale = TRUE}.
 This removes the visualization of MDISC parameter that affect the vector arrow lengths.
-Note, when scaling items with \code{scale = TRUE}, the \code{plotD3mirt} function does not recalculate the length of the model axis.
-This often means that the axes of the model needs to be adjusted manually with the \code{axis.length} argument.
+Note, when scaling items with \code{scale = TRUE}, the \code{plotD3mirt()} function does not recalculate the length of the model axis.
+This often means that the axes of the model needs to be adjusted, which can be achieved with proportionally with \code{axis.scalar} or manually with \code{axis.length}.
 
-In addition, the user also has the option of adding constructs to the graphical output with \code{constructs = TRUE} (see the documentation for \link{D3mirt} regarding constructs).
+The user also has the option of adding constructs to the graphical output with \code{constructs = TRUE} (see the documentation for \link{D3mirt} or package vignette regarding constructs).
 Other options include plotting one level of difficulty at a time with the \code{diff.level} argument, if multiple levels of difficulty are used in the model.
 Item row names are displayed by default, but the user has the option of adding new item labels for the items (with \code{item.lab}), as well as labeling constructs (with \code{construct.lab}).
+}
 
-The plot function can display respondent scores in the three-dimensional model space, represented as spheres located with the help of factors scores used as coordinates.
-This allows for a profile analysis in which respondent rows are selected conditioned on some external criteria.
-To do this, the user must first extract respondent factor scores with \link[mirt:fscores]{mirt::fscores}(Chalmers, 2012) and then use a selection process that subset respondent rows.
-The resulting data frame is imputed in the \code{profiles} argument.
+\section{Profile Analysis}{
+The plot function can display respondent scores in the three-dimensional model space, represented as spheres located with factors scores used as coordinates.
+This allows for a profile analysis in which respondent rows are selected conditioned on one or more external criteria.
+To do this, the user must first extract respondent factor scores with \link[mirt:fscores]{mirt::fscores}(Chalmers, 2012) and then use some selection process to subset respondent rows.
+The resulting data frame is used in the \code{profiles} argument.
 A general advice is also to hide vector arrows with \code{hide = TRUE} when analyzing respondent profiles to avoid visual cluttering.
+For more on profile analysis (e.g., preparation and examples), see package vignette.
+}
 
+\section{Exporting The RGL Device}{
 The returned RGL device can, for example, be exported to the R console and saved as an interactive html file or as a still shoots (see examples below).
 In the case of the latter, the model perspective in the still shoot can be manually adjusted or adjusted by changing the \code{view} argument for the function.
-
-Please see the vignette included in the package documentation for more details on the options and for examples on how to interpret results.
 }
+
 \examples{
 \dontrun{
-g is an S3 object of class "D3mirt" prepared with the D3mirt() function
-plotD3mirt(g, view = c(15, 20, 0.6))
+# g is an S3 object of class "D3mirt" prepared with the D3mirt() function
+plotD3mirt(g)
 
 # Plot RGL device with constructs visible and named
 plotD3mirt(g,
            constructs = TRUE,
-           construct.lab = c("Fairness", "Conformity", "Compassion"),
-           view = c(15, 20, 0.6))
+           construct.lab = c("Fairness", "Conformity", "Compassion"))
 
 # Item W7Q16 has location 6 in the data set (gender and age excluded)
 # The item is plotted together with construct to aid the visual interpretation
 plotD3mirt(g,
            constructs = TRUE,
            items = 6,
-           construct.lab = c("Fairness", "Conformity", "Compassion"),
-           view = c(15, 20, 0.6))
+           construct.lab = c("Fairness", "Conformity", "Compassion"))
 
-# Plot RGL device on one level of difficulty
+# Plot RGL device on difficulty level 5
 plotD3mirt(g,
-           diff.level = 5,
-           view = c(15, 20, 0.6))
+           diff.level = 5)
 
 # A selection of Conformity items from the model plotted with constructs
 plotD3mirt(g,
            constructs = TRUE,
            items = c(5,7,8,9,10),
-           construct.lab = c("Fairness", "Conformity", "Compassion"),
-           view = c(15, 20, 0.6))
-
+           construct.lab = c("Fairness", "Conformity", "Compassion"))
 
 # Plot RGL device with scaled items and constructs visible and named
 plotD3mirt(g,
            scale = TRUE,
            constructs = TRUE,
-           construct.lab = c("Fairness", "Conformity", "Compassion"),
-           view = c(15, 20, 0.6))
+           construct.lab = c("Fairness", "Conformity", "Compassion"))
 
 # For more on profile analysis (e.g., options and how to prepare the data) see the package vignette
 # Plot profiles with item vector arrows hidden
@@ -246,8 +260,7 @@ plotD3mirt(g, hide = TRUE,
            sphere.col = c("blue", "red"),
            x.lab = "Compassion",
            y.lab="Conformity",
-           z.lab="Fairness",
-           view = c(15, 20, 0.6))
+           z.lab="Fairness")
 
 # Call plotD3mirt with profile data, item vector arrows hidden, and with a 95\% CI
 plotD3mirt(g, hide = TRUE,
@@ -259,8 +272,7 @@ plotD3mirt(g, hide = TRUE,
            z.lab="Fairness",
            ellipse = TRUE,
            CI.level = 0.95,
-           ellipse.col = "orange",
-           view = c(15, 20, 0.6))
+           ellipse.col = "orange")
 
 # Export an open RGL device to the console to be saved as html or image file
 plotD3mirt(g,
@@ -271,7 +283,11 @@ rgl::rglwidget(s,
                height = 1040)
 
 # Store widget directly to file
-htmlwidgets::saveWidget(rglwidget(s, width = 1040, height = 1040),
+plotD3mirt(g,
+           constructs = TRUE)
+s <- scene3d()
+htmlwidgets::saveWidget(rglwidget(s,
+                         width = 1040, height = 1040),
                         file = "anes08_09offwaves.html",
                         libdir = "libs",
                         selfcontained = FALSE)
