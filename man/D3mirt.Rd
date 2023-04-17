@@ -41,7 +41,7 @@ The direction, in turn, shows what latent trait the item can be said to measure 
 The output can be visualized as vector arrows representing item response functions located in a multidimensional space pointing in the direction of the maximum slope.
 The \code{D3mirt} can be used to calculate all necessary estimates for this purpose, as well as to plot the results (albeit limited to three dimensions).
 
-The most central estimates, in DMIRT analysis are the single multidimensional discrimination (MDISC) parameter, the multidimensional difficulty (MDIFF) parameters, and the directional discrimination ($DDISC$) parameters (Reckase2009, 1985; Reckase & McKinley, 1991).
+The most central estimates, in DMIRT analysis are the single multidimensional discrimination (MDISC) parameter, the multidimensional difficulty (MDIFF) parameters, and the directional discrimination (DDISC) parameters (Reckase2009, 1985; Reckase & McKinley, 1991).
 In addition, if constructs are used in the function call the output will also contain the directional discrimination (DDISC) parameters for the items on each construct vector orientation.
 This makes it possible to compare item discrimination under the assumption that they measure in the same direction as each constructs.
 }
