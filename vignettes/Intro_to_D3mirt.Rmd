@@ -189,7 +189,7 @@ h <- data.frame(g$rotF)
 ### Step 2: Item Selection
 
 The `modid()` takes in the factor solution from the EFA, assigned to a data frame $x$, and outputs an $S3$ object of class `modid` containing lists with data frames of estimates.
-The most important is the item lists, (denoted `$items`), containing data frames that present suggestions on what items (`item.1`...`item.n`) to use for the model identification.
+The most important is the item lists, (denoted `$id`), containing data frames that present suggestions on what items (`item.1`...`item.n`) to use for the model identification.
 The data frames have one column for the loadings from each item on the factor of interest, and one column with absolute sum scores (denoted `ABS`) for each item calculated from the remaining factor loadings in the model.
 Each item list is sorted with the lowest absolute sum score highest up.
 Consequently, the top items in each list are the items that best meet the necessary statistical requirements for model identification.
@@ -200,7 +200,7 @@ Therefore, for a three-dimensional model, all else equal, the item highest up in
 modid(h)
 ```
 
-As can be seen, the first item, that will be used to identify the $x$-axis, is found in the first list, `items[[1]]` and `item.1`.
+As can be seen, the first item, that will be used to identify the $x$-axis, is found in the first list, `id[[1]]` and `item.1`.
 In this case, the best item for the $x$-axis is item "W7Q3".
 The item that identifies the $y$-axis is found in the next list, `items[[2]]` and `Item.2`.
 In this case, the best item for the $y$-axis is item "W7Q20".
