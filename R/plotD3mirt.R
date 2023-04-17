@@ -552,7 +552,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         adj = adjust.lab, size = 2)
           })
         } else {
-          dl <-  as.data.frame(x$scal.vec[diff.level, drop = FALS])
+          dl <-  as.data.frame(x$scal.vec[diff.level, drop = FALSE])
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(item.lab[i]), color = axis.col,
