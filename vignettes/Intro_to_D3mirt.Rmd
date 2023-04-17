@@ -360,7 +360,7 @@ g <- D3mirt(d, c)
 summary(g)
 ```
 
-Compared to the previous function call to `D3mirt()`, we now see two extra lists: `$construct.angles` with direction cosines and angles for the constructs, and `$ddisc` containing the $DDISC$ parameters for the items on the three construct imputed with *c* in the example above.
+Compared to the previous function call to `D3mirt()`, we now see two extra lists: `$construct.angles` with direction cosines and angles for the constructs, and `$ddisc` containing the $DDISC_{1,2,3}$ parameters for the items corresponding to the three constructs (1,2,3) used with *c* in the example above.
 
 # 3. Plotting
 
