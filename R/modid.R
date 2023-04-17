@@ -28,7 +28,7 @@
 #' such as the EFA option in [mirt::mirt] (Chalmers, 2012) with `ìtemtype = 'graded'`, or `2PL` and number of factors set to 3.
 #'
 #' ## Step 2: Item Selection
-#' The `modid()` takes in the factor solution from the EFA, assigned to a data frame \emph{x}, and outputs lists (denoted \emph{items}) with suggestions of items (\emph{item.1....item.n}) to use for the model identification.
+#' The `modid()` takes in the factor solution from the EFA, assigned to a data frame \emph{x}, and outputs lists (denoted \emph{id}) with suggestions of items (\emph{item.1....item.n}) to use for the model identification.
 #' These lists contain one column for the loadings from each item on the factor of interest, and one column with absolute sum scores for each item calculated from the remaining factor loadings in the model.
 #' Each list is sorted with the lowest absolute sum score highest up.
 #' Accordingly, the top items in each list are the items that best meet the assumption of orthogonality in the analysis.
@@ -41,17 +41,17 @@
 #' If problems occur, try the following:
 #'
 #' \enumerate{
-#' \item Change the rotation method in the EFA, e.g., to change from *oblimin* to *varimax*.
+#' \item Change the rotation method in the EFA, e.g., to change from \emph{oblimin} to \emph{varimax}.
 #' \item Adjust the `lower` bound in `modid()`.
 #' \item Override factor order with `fac.order`.
 #' \item Adjust the `upper` bound in `modid()`.
 #' }
 #'
 #' The latter (point 4) should, however, only be used as a last resort.
-#' TThis is because the upper bound sets the upper limit for item inclusion.
-#' TAdjusting this limit too high means that the necessary statistical requirements are compromised.
-#' TThe lower limit (point 2), however, only increases the size of the item pool used for the item selection (see the section below on the model identification procedure).
-#' TIt is, therefore, recommended to adjust the lower limit up and down to see if the output differs, and from that make the final decision.
+#' This is because the upper bound sets the upper limit for item inclusion.
+#' Adjusting this limit too high means that the necessary statistical requirements are compromised.
+#' The lower limit (point 2), however, only increases the size of the item pool used for the item selection (see the section below on the model identification procedure).
+#' It is, therefore, recommended to adjust the lower limit up and down to see if the output differs, and from that make the final decision.
 #'
 #' The user also has the option of overriding the automatic sorting of factor order (point 4) with the argument `fac.order` (see examples section).
 #' This can be useful when there is only a very small difference between the squared factor loadings that in turn can
@@ -129,7 +129,7 @@ modid <- function(x, lower = 0.5, upper = .10, fac.order = NULL){
   } else {
     ss <- colSums((x^2)[, fac.order])
   }
-  modid <- list(items = f, ss.loadings = ss, loadings = y)
+  modid <- list(id = f, ss.loadings = ss, loadings = y)
   class(modid) <- "modid"
   modid
 }
