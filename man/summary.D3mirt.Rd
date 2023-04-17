@@ -9,12 +9,13 @@
 \arguments{
 \item{object}{S3 object of class \code{D3mirt}.}
 
-\item{...}{Additional arguments to be passed to methods.}
+\item{...}{Additional arguments.}
 
 \item{digits}{User can adjust the number of digits shown per estimate. Default is \code{digits = 4}.}
 }
 \value{
-Lists containing \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines, and degrees for vector angles for items and constructs.
+Tables containing \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines, and degrees for vector angles for items.
+If constructs were used in the estimation process, the summary function will also show tables for direction cosines, and degrees for construct vector angles as well as directional discrimination (DDISC) parameters.
 }
 \description{
 The \code{summary.D3mirt()} function presents a compressed output from the \code{\link[=D3mirt]{D3mirt()}} S3 object.
