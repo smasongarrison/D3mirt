@@ -418,13 +418,14 @@ An example of how the output can be described could be as follows.
 > > dimensions, however, seem to have some within-multidimensional
 > > tendencies since they are not completely orthogonal. This tendency,
 > > however, is much more prominent for the items W7Q11, W7Q12, W7Q13,
-> > and W7Q14, being located at around $\theta = 45$ or higher between
+> > and W7Q14, being located at around $\theta = 45°$ or higher between
 > > the $x$ and $z$-axis. Moreover, the angles of the constructs informs
-> > us that Compassion ($\theta = 1.710, \phi = 86.486$) and Conformity
-> > ($\theta = -2.519,\phi = 28.192$) have some within-multidimensional
-> > tendencies. However, they are both more or less orthogonal to the
-> > $z$-axis ($\theta = 1.710$ and $\theta = -2.519$ respectively).
-> > Next, we find Fairness ($\theta = 49.106, \phi = 78.308$) with clear
+> > us that Compassion ($\theta = 1.710°, \phi = 86.486°$) and
+> > Conformity ($\theta = -2.519°,\phi = 28.192°$) have some
+> > within-multidimensional tendencies. However, they are both more or
+> > less orthogonal to the $z$-axis ($\theta = 1.710°$ and
+> > $\theta = -2.519°$ respectively). Next, we find Fairness
+> > ($\theta = 49.106°, \phi = 78.308°$) with clear
 > > within-multidimensional tendencies with respect to the $x$-axis.
 > > Thus, the output indicates that Compassion and Conformity could be
 > > independent constructs but that Fairness seems not to be.
@@ -454,7 +455,7 @@ plotD3mirt(g,
 An example of how the output can be described could be as follows.
 
 > Figure $X$ shows that item W7Q16 is located at
-> $\theta = 16.083, \phi = 57.473$, which indicates that the item is
+> $\theta = 16.083°, \phi = 57.473°$, which indicates that the item is
 > within-multidimensional with respect to the $x$ and $y$-axis but
 > approaching orthogonal tendencies with respect to the $z$-axis. In
 > addition, the directional discrimination further underscores that the
@@ -468,7 +469,7 @@ An example of how the output can be described could be as follows.
 > ($MDISC = .923, MDIFF_{range} = [-4.680, 1.051]$) has the second
 > lowest discrimination score. However, the latter item does seem to
 > belong to the Conformity construct when comparing angle orientation
-> ($\theta = -19.436, \phi = 31.516$) and discrimination
+> ($\theta = -19.436°, \phi = 31.516°$) and discrimination
 > ($MDISC = .923, DDISC_1 = .332, DDISC_2 = .912, DDISC_3 = .497$).
 
 ## `D3mirt` Profile Analysis
