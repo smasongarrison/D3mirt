@@ -93,7 +93,7 @@ If problems appear with the model identification, please see the package vignett
 
 # 2. D3mirt Model Estimation
 
-The `D3mirt()` function takes in a data frame with model parameters from a three-dimensional compensatory model and returns an $S3$ object of class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$ parameters, direction cosines, and spherical coordinates. Regarding the latter, spherical coordinates are represented by $\theta$, the vector projection of the vector arrows in the $xz$-plane, and $\phi$, the positive angle between the y-axis and the vectors (the distance $\rho$ is set to $\rho = 1$). If constructs are used, the function also returns construct direction cosines, spherical coordinates for the construct vector arrows, and $DDISC$ parameters (one index per construct).
+The `D3mirt()` function takes in a data frame with model parameters from a three-dimensional compensatory model and returns an $S3$ object of class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$ parameters, direction cosines, and spherical coordinates. Regarding the latter, spherical coordinates are represented by $\theta$, the vector projection of the vector arrows in the $xz$-plane, and $\phi$, the positive angle between the y-axis and the vectors ($\rho = 1$). If constructs are used, the function also returns construct direction cosines, spherical coordinates for the construct vector arrows, and $DDISC$ parameters (one index per construct).
 
 The three-dimensional compensatory model is specified so that all items load on all three factors in the model, and that the factors are constrained to be orthogonal (see below). The fitting of the model is preferably done with the `mirt::mirt` (Chalmers, 2012) function. Please note very carefully regarding the model specification in the example below.
 
@@ -157,7 +157,7 @@ summary(g)
 
 ## The `plotD3mirt` Function
 
-The `plotD3mirt` function is built on the `rgl` package (Adler & Murdoch, 2023) for visualization with OpenGL. Graphing in default mode by calling `plotd3mirt` will return an RGL device that will appear in an external window as a three-dimensional object, containing vector arrows with the latent dimensions running along the orthogonal axes, that can be rotated. In this illustration, however, all RGL devices are shown inline as interactive objects.
+The `plotD3mirt` function is built on the `rgl` package (Adler & Murdoch, 2023) for visualization with OpenGL. Graphing in default mode by calling `plotd3mirt` will return an RGL device that will appear in an external window as a three-dimensional object, containing vector arrows with the latent dimensions running along the orthogonal axes, that can be rotated. In this illustration, however, all RGL devices are plotted inline as still shots.
 
 ```{r, eval = FALSE}
 # Plot RGL device with constructs visible and named
