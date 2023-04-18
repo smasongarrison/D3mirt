@@ -412,23 +412,22 @@ plotD3mirt(g,
 
 An example of how the output can be described could be as follows.
 
-> > As can be seen, the item vector clustering patterns in Figure $X$
-> > indicate the presence of foremost two latent dimensions, one aligned
-> > with the $x$-axis and one approaching the $y$-axis. The two
-> > dimensions, however, seem to have some within-multidimensional
-> > tendencies since they are not completely orthogonal. This tendency,
-> > however, is much more prominent for the items W7Q11, W7Q12, W7Q13,
-> > and W7Q14, being located at around $\theta = 45°$ or higher between
-> > the $x$ and $z$-axis. Moreover, the angles of the constructs informs
-> > us that Compassion ($\theta = 1.710°, \phi = 86.486°$) and
-> > Conformity ($\theta = -2.519°,\phi = 28.192°$) have some
-> > within-multidimensional tendencies. However, they are both more or
-> > less orthogonal to the $z$-axis ($\theta = 1.710°$ and
-> > $\theta = -2.519°$ respectively). Next, we find Fairness
-> > ($\theta = 49.106°, \phi = 78.308°$) with clear
-> > within-multidimensional tendencies with respect to the $x$-axis.
-> > Thus, the output indicates that Compassion and Conformity could be
-> > independent constructs but that Fairness seems not to be.
+> As can be seen, the item vector clustering patterns in Figure $X$
+> indicate the presence of foremost two latent dimensions, one aligned
+> with the $x$-axis and one approaching the $y$-axis. The two
+> dimensions, however, seem to have some within-multidimensional
+> tendencies since they are not completely orthogonal. This tendency,
+> however, is much more prominent for the items W7Q11, W7Q12, W7Q13, and
+> W7Q14, being located at around $\theta = 45°$ or higher between the
+> $x$ and $z$-axis. Moreover, the angles of the constructs informs us
+> that Compassion ($\theta = 1.710°, \phi = 86.486°$) and Conformity
+> ($\theta = -2.519°,\phi = 28.192°$) have some within-multidimensional
+> tendencies. However, they are both more or less orthogonal to the
+> $z$-axis ($\theta = 1.710°$ and $\theta = -2.519°$ respectively).
+> Next, we find Fairness ($\theta = 49.106°, \phi = 78.308°$) with clear
+> within-multidimensional tendencies with respect to the $x$-axis. Thus,
+> the output indicates that Compassion and Conformity could be
+> independent constructs but that Fairness seems not to be.
 
 As was mentioned above, the W7Q16 had the most measurement problems of
 all items in the data. Foremost, the short vector arrows indicate high
