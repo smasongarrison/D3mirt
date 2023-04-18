@@ -55,7 +55,7 @@ discriminate under the assumption that they measure one of the
 constructs used in the analysis. Importantly, while the $MDISC$
 represents the maximum level of discrimination in the model, the $DDISC$
 represents the local discrimination that makes it possible to compare
-item discrimination in a specific direction set by teh constructs.
+item discrimination in a specific direction set by the constructs.
 
 # Overview
 
@@ -206,7 +206,7 @@ a three-dimensional compensatory model and returns an $S3$ object of
 class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$
 parameters, direction cosines, and spherical coordinates. Regarding the
 latter, spherical coordinates are represented by $\theta$, the vector
-projection of the vector arrows in the xz-plane, and $\phi$, the
+projection of the vector arrows in the $xz$-plane, and $\phi$, the
 positive angle between the y-axis and the vectors (the distance $\rho$
 is set to $\rho = 1$). If constructs are used, the function also returns
 construct direction cosines, spherical coordinates for the construct
@@ -412,7 +412,7 @@ plotD3mirt(g,
 
 An example of how the output can be described could be as follows.
 
-> > As can be seen, the item vector clustering patterns in Figure X
+> > As can be seen, the item vector clustering patterns in Figure $X$
 > > indicate the presence of foremost two latent dimensions, one aligned
 > > with the $x$-axis and one approaching the $y$-axis. The two
 > > dimensions, however, seem to have some within-multidimensional

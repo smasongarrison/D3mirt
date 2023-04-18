@@ -282,7 +282,7 @@ But it does suggest that the methodology *can* be used and the results will be p
 ## The `D3mirt()` Function
 
 The `D3mirt()` function takes in a data frame with model parameters from a three-dimensional compensatory model and returns an $S3$ object of class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$ parameters, and direction cosines..
-The direction cosines are also reported in spherical coordinates ($\theta, \phi$), in which $\theta$ is the vector projection of the vector arrows in the xz-plane, and $\phi$ is the positive angle between the y-axis and the vectors (the distance $\rho$ has no meaning in the model and is set to $\rho = 1$).
+The direction cosines are also reported in spherical coordinates ($\theta, \phi$), in which $\theta$ is the vector projection of the vector arrows in the $xz$-plane, and $\phi$ is the positive angle between the $y$-axis and the vectors (the distance $\rho$ has no meaning in the model and is set to $\rho = 1$).
 If constructs are used, the function also returns construct direction cosines, spherical coordinates for the construct vector arrows, and $DDISC$ parameters (one index per construct).
 
 ### Fitting the Compensatory Multidimensional Model
@@ -407,7 +407,7 @@ plotD3mirt(g, view = c(15, 20, 0.6))
 
 An example of how the output can be described could be the following.
 
-> As can be seen, the item vector clustering patterns in Figure X indicate the presence of foremost two latent dimensions, one aligned with the $x$-axis and one approaching the $y$-axis.
+> As can be seen, the item vector clustering patterns in Figure $X$ indicate the presence of foremost two latent dimensions, one aligned with the $x$-axis and one approaching the $y$-axis.
 > The two dimensions, however, seem to have some within-multidimensional tendencies since they are not completely orthogonal.
 > This tendency, however, is much more prominent for the items W7Q11, W7Q12, W7Q13, and W7Q14, being located at around $\theta = 45°$ or higher between the $x$ and $z$-axis.
 
