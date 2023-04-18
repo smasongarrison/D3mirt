@@ -282,7 +282,7 @@ But it does suggest that the methodology *can* be used and the results will be p
 ## The `D3mirt()` Function
 
 The `D3mirt()` function takes in a data frame with model parameters from a three-dimensional compensatory model and returns an $S3$ object of class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$ parameters, and direction cosines..
-The direction cosines are also reported in spherical coordinates ($\theta, \phi$), in which $\theta$ is the vector projection of the vector arrows in the $xz$-plane, and $\phi$ is the positive angle between the $y$-axis and the vectors (the distance $\rho$ has no meaning in the model and is set to $\rho = 1$).
+The direction cosines are also reported in spherical coordinates ($\theta, \phi$), in which $\theta$ is the vector projection of the vector arrows in the $xz$-plane, and $\phi$ is the positive angle between the $y$-axis and the vectors ($\rho = 1$).
 If constructs are used, the function also returns construct direction cosines, spherical coordinates for the construct vector arrows, and $DDISC$ parameters (one index per construct).
 
 ### Fitting the Compensatory Multidimensional Model
@@ -670,7 +670,7 @@ htmlwidgets::saveWidget(rglwidget(s,
 # Export a snap shoot of an open RGL device directly to file
 plotD3mirt(g, 
            constructs = TRUE)
-rgl::snapshot3d('RGLdevice.png', 
+rgl::rgl.snapshot('RGLdevice.png', 
                     fmt = 'png')
 ```
 
