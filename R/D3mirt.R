@@ -110,7 +110,9 @@ D3mirt <- function(x, constructs = NULL){
   mdisc <- sqrt(rowSums(a^2))
   md <- mdisc%*%matrix(rep(1,3), nrow=1, ncol=3)
   dcos <- as.matrix(a/md, ncol = 3)
-  deg <- acos(dcos)*(180/pi)
+  theta <- atan(dcos[,3]/dcos[,1])*(180/pi)
+  phi <- acos(dcos[,2])*(180/pi)
+  sph <- cbind(theta, phi)
   vector1 <- NULL
   vector2 <- NULL
   mdiff <- NULL
@@ -130,13 +132,12 @@ D3mirt <- function(x, constructs = NULL){
     if(!is.list(constructs)) stop("The constructs must be of type list")
     if(!any(sapply(constructs, class) == "list")) stop("The constructs argument requires nested lists")
     con <- NULL
-    cdeg <- NULL
+    csph <- NULL
     ncos <- NULL
     ddisc <- NULL
     for (i in seq_along(constructs)){
       l <- unlist(constructs[i])
       cos <- NULL
-      cdcos <- NULL
       for (i in seq_along(l)){
         n <- l[i]
         m <- dcos[n,]
@@ -148,7 +149,10 @@ D3mirt <- function(x, constructs = NULL){
       minnorm <- (0.6*min(vector1))*cdcos
       con <- as.matrix(rbind(con,rbind(minnorm, maxnorm)), ncol = 3)
       ncos <- as.matrix(rbind(ncos,cdcos), ncol = 3)
-      cdeg <- as.matrix(rbind(cdeg,(acos(cdcos)*(180/pi))), ncol = 3)
+      theta <- atan(cdcos[,3]/cdcos[,1])*(180/pi)
+      phi <- acos(cdcos[,2])*(180/pi)
+      sphe <- cbind(theta, phi)
+      csph <- as.matrix(rbind(csph,sphe), ncol = 2)
       disc <-  apply(a, 1, function(x) x %*% t(cdcos))
       ddisc <- as.matrix(cbind(ddisc, disc), ncol = 1)
     }
@@ -169,8 +173,8 @@ D3mirt <- function(x, constructs = NULL){
   colnames(mdisc) <- c("MDISC")
   dcos <- as.data.frame(dcos)
   colnames(dcos) <- c("D.Cos X", "D.Cos Y", "D.Cos Z")
-  deg <- as.data.frame(deg)
-  colnames(deg) <- c("Deg.X", "Deg.Y", "Deg.Z")
+  sph <- as.data.frame(sph)
+  colnames(sph) <- c("Theta", "Phi")
   if (ndiff == 1){
     dir.vec <- vector1
     scal.vec <- vector2
@@ -181,16 +185,16 @@ D3mirt <- function(x, constructs = NULL){
   if (!is.null(constructs)){
     ncos <- as.data.frame(ncos)
     colnames(ncos) <- c("C.Cos X","C.Cos Y", "C.Cos Z")
-    cdeg <- as.data.frame(cdeg)
-    colnames(cdeg) <- c("C.Deg.X", "C.Deg.Y", "C.Deg.Z")
+    csph <- as.data.frame(csph)
+    colnames(csph) <- c("Theta", "Phi")
     dddisc <- as.data.frame(ddisc)
     for (i in ncol(ddisc)){
       colnames(ddisc) <- paste("DDISC", 1:i, sep = "")
     }
-    D3mirt <- list(loadings = a, diff = diff, mdisc = mdisc, mdiff = mdiff, dir.cos = dcos, degrees = deg, c.dir.cos = ncos , c.degrees = cdeg, ddisc = ddisc,
+    D3mirt <- list(loadings = a, diff = diff, mdisc = mdisc, mdiff = mdiff, dir.cos = dcos, spherical = sph, c.dir.cos = ncos , c.spherical = csph, ddisc = ddisc,
                   dir.vec = dir.vec, scal.vec = scal.vec, c = constructs,  c.vec = con)
   } else {
-    D3mirt <- list(loadings = a, diff = diff, mdisc = mdisc, mdiff = mdiff, dir.cos = dcos, degrees = deg, diff = diff,
+    D3mirt <- list(loadings = a, diff = diff, mdisc = mdisc, mdiff = mdiff, dir.cos = dcos, spherical = sph, diff = diff,
                   dir.vec = dir.vec, scal.vec = scal.vec)
   }
   class(D3mirt) <- "D3mirt"
