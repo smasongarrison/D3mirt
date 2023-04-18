@@ -3,49 +3,68 @@
 
 The `D3mirt` analysis is based on descriptive multidimensional item
 response theory (DMIRT; Reckase2009, 1985; Reckase & McKinley, 1991) and
-can be used to analyze dichotomous and polytomous items in a
-multidimensional ability space. In DMIRT analysis, also called within
-multidimensional modeling, it is assumed that items in a
-multidimensional ability space can measure single or multiple latent
-traits (Reckase, 2009, 1985; Reckase & McKinley, 1991). The method is
-said to be descriptive because the estimates describe item
-characteristics when more than one latent dimension is used in the
-analysis. The strength of the method is the possibility to represent
-item response functions visually with vector arrows located in a
-three-dimensional space.
+can be used to analyze dichotomous and polytomous items (Muraki &
+Carlson, 1995) in a multidimensional ability space. The method is
+foremost visual and illustrates item characteristics, represented by
+vector arrows, located in a three-dimensional interactive space.
 
-The DMIRT approach use two types of item models, dependent on item type.
-If dichotomous items are used, the analysis is based on the
-two-parameter logistic model (2-PL). If polytmous items are used, the
+In DMIRT analysis, also called within multidimensional modeling, it is
+assumed that items in a multidimensional ability space can measure
+single or multiple latent traits (Reckase, 2009, 1985; Reckase &
+McKinley, 1991). The methodology is a type of data reduction technique
+that uses a compensatory model (Reckase, 2009), i.e., a model that
+assumes the existence of a multidimensional trait space forming an
+interconnected latent ability field. The method is *descriptive* because
+the results describe the extent to which items in a test are
+unidimensional, i.e., that the items describe one dimension only, or are
+within-multidimensional, i.e., that the items describe more than one
+dimension.
+
+The DMIRT approach uses two types of item models, dependent on item
+type. If dichotomous items are used, the analysis is based on the
+two-parameter logistic model (2PL). If polytmous items are used, the
 analysis is based on the two-parameter graded response model (GRM;
-Samejima, 1969). In both cases, the estimation process consists of
-extracting two-parameter multidimensional equivalents to the to the
-discrimination $a$ and difficulty parameters $d$. The former becomes the
-multidimensional discrimination ($MDISC$) parameter and the latter the
-multidimensional difficulty ($MDIFF$) parameter.
+Samejima, 1969). The method is therefore limited to items that fit these
+item models.
+
+The estimation process begins by first extracting two-parameters
+multidimensional equivalents to the discrimination $a$ and difficulty
+parameters $d$. The former becomes the multidimensional discrimination
+($MDISC$) parameter and the latter the multidimensional difficulty
+($MDIFF$) parameter.
 
 The $MDIFF$ is interpreted similarly as the difficulty parameter in the
-unidimensional model, i.e., it describes a multidimensional distance
-from the origin to the item response function and shows the level of
-ability that is required for a higher response. Likewise, the $MDISC$
-represents the highest level of discrimination an item can achieve, but
-when located in a multidimensional latent trait space. In addition,
-in`D3mirt` the $MDISC$ score is visualized by scaling the length of the
-vector arrows representing the item response functions. Note, if
-polytomous items are used, such as Likert items, the items in question
-will be represented by multiple vector arrows (one for each response
-function) and the $MDIFF$ will, therefore, show the multidimensional
-range of difficulty for an item as located in a multidimensional latent
-trait space.
+unidimensional model, i.e., it shows the level of ability that is
+required for a higher or correct response. Note, if polytomous items are
+used, such as Likert items, the items in question will be represented by
+multiple vector arrows (one for each response function) and the $MDIFF$
+will, therefore, show the multidimensional range of difficulty for an
+item as located in a multidimensional latent trait space.
+
+The $MDISC$ shows the highest level of discrimination an item can
+achieve in the multidimensional model. In addition, the $MDISC$ score is
+also visualized in the graphical output by scaling the length of the
+vector arrows representing the item response functions.
+
+The `D3mirt` can also perform analysis of psychological constructs.
+Constructs, in this context, refer to the assumption that a subset of
+items can measure a higher-order latent variable. If constructs are
+used, the output will include reporting of the directional
+discrimination ($DDISC$) parameter that shows how well the items
+discriminate under the assumption that they measure one of the
+constructs used in the analysis. Importantly, while the $MDISC$
+represents the maximum level of discrimination in the model, the $DDISC$
+represents the local discrimination that makes it possible to compare
+item discrimination in a specific direction set by teh constructs.
 
 # Overview
 
 The package includes the following functions.
 
-- `modid()`: D3mirt Model Identification.
-- `D3mirt()`: 3D DMIRT Model Estimation.
-- `summary()`: Summary Function for `D3mirt()`.
-- `plotD3mirt`: Graphical Output for `D3mirt()`.
+- `modid()`: D3mirt Model Identification
+- `D3mirt()`: 3D DMIRT Model Estimation
+- `summary()`: Summary Function for `D3mirt()`
+- `plotD3mirt`: Graphical Output for `D3mirt()`
 
 ## Installation
 
@@ -73,19 +92,25 @@ The D3mirt approach largely consists of the following three steps:
 2.  D3mirt model estimation
 3.  Plotting
 
-For more details on the `D3mirt` package, including examples of analysis
-and functions, see the vignette included in the package documentation.
+For more details on the `D3mirt` package, including extended examples of
+analysis and functions, please see the vignette included in the package
+documentation.
 
 # 1. Model Identification
 
-As a first step in the analysis, the three-dimensional GRM must be
-identified (Reckase, 2009). In the three-dimensional case, this implies
-locating the x and y-axis.
+As a first step in the analysis, the three-dimensional compensatory
+model must be identified (Reckase, 2009). In the three-dimensional case,
+this implies locating the $x$ and $y$-axis by selecting two items from
+the item set. The first item should not load on the second and third
+axes ($y$ and $z$), while the second item should not load on the third
+axis ($z$).
 
-If the model is not known, this can be done with exploratory factor
-analysis (EFA), preferably with the help of the EFA option in
-`mirt::mirt` (Chalmers, 2012) using `ìtemtype = 'graded'`. Note, the EFA
-model itself is discarded after this step in the procedure.
+If the model is not known beforehand it is necessary to explore the data
+with exploratory factor analysis (EFA), preferably with the help of the
+EFA option in `mirt::mirt` (Chalmers, 2012) using `ìtemtype = 'graded'`
+or `'2PL'`. Note, the EFA is only used to find model identification
+items that meet the necessary DMIRT model specification requirements.
+The EFA model itself is discarded after this step in the procedure.
 
 ``` r
 # Load data
@@ -101,24 +126,34 @@ g <- summary(f, rotate= 'oblimin')
 h <- data.frame(g$rotF)
 ```
 
-The item lists have one column for the loadings from each item on the
+The `modid()` takes in the factor solution from the EFA, assigned to a
+data frame $h$, and outputs an $S3$ object of class `modid` containing
+lists with data frames of estimates. The most important is the item
+lists, (denoted `$id`), containing data frames that present suggestions
+on what items (`item.1`…`item.n`) to use for the model identification.
+The data frames have one column for the loadings from each item on the
 factor of interest, and one column with absolute sum scores (denoted
 `ABS`) for each item calculated from the remaining factor loadings in
 the model. Each item list is sorted with the lowest absolute sum score
-highest up.
+highest up. Consequently, the top items in each list are the items that
+best meet the necessary statistical requirements for model
+identification. Therefore, for a three-dimensional model, all else
+equal, the item highest up in the first list should be used to identify
+the $x$-axis, and the item highest up in the second list should be used
+to identify the $y$-axis, and so on.
 
 ``` r
 # Call to modid()
 modid(h)
-#> $items
-#> $items[[1]]
+#> $id
+#> $id[[1]]
 #>         Item.1        ABS
 #> W7Q3 0.8490903 0.01267429
 #> W7Q5 0.8068828 0.04904288
 #> W7Q1 0.7543773 0.07203403
 #> W7Q2 0.8727652 0.09042323
 #> 
-#> $items[[2]]
+#> $id[[2]]
 #>          Item.2         ABS
 #> W7Q20 0.7858844 0.000653665
 #> W7Q18 0.6812006 0.080729410
@@ -155,21 +190,34 @@ modid(h)
 #> [1] "modid"
 ```
 
-The top items in each list should be used to identify the model. The
-first item, the top item in `item.1` located in list, will be used set
-the x-axis. In this case, the best item for the x-axis is “W7Q3”. The
-second item, the top item in `Item.2` in `items[[1]]` will be used to
-identify the y-axis. In this case, the best item for the y-axis is
-“W7Q20”.
+As can be seen, the first item, that will be used to identify the
+$x$-axis, is found in the first list, `id[[1]]` and `item.1`. In this
+case, the best item for the $x$-axis is item “W7Q3”. The item that
+identifies the $y$-axis is found in the next list, `id[[2]]` and
+`Item.2`. In this case, the best item for the $y$-axis is item “W7Q20”.
+
+If problems appear with the model identification, please see the package
+vignette for guidance.
 
 # 2. D3mirt Model Estimation
 
 The `D3mirt()` function takes in a data frame with model parameters from
-a three-dimensional GRM model, specified with orthogonal factors, and
-set so that all items load on all factors (see examples below). The
-three-dimensional GRM estimation is preferably done with the
-`mirt::mirt` (Chalmers, 2012) function. Please note very carefully how
-the GRM model is specified in the example below.
+a three-dimensional compensatory model and returns an $S3$ object of
+class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$
+parameters, direction cosines, and spherical coordinates. Regarding the
+latter, spherical coordinates are represented by $\theta$, the vector
+projection of the vector arrows in the xz-plane, and $\phi$, the
+positive angle between the y-axis and the vectors (the distance $\rho$
+is set to $\rho = 1$). If constructs are used, the function also returns
+construct direction cosines, spherical coordinates for the construct
+vector arrows, and $DDISC$ parameters (one index per construct).
+
+The three-dimensional compensatory model is specified so that all items
+load on all three factors in the model, and that the factors are
+constrained to be orthogonal (see below). The fitting of the model is
+preferably done with the `mirt::mirt` (Chalmers, 2012) function. Please
+note very carefully regarding the model specification in the example
+below.
 
 ``` r
 # Load data
@@ -180,7 +228,8 @@ x <- x[,3:22] # Remove columns for age and gender
 # Fit a three-dimensional graded response model with orthogonal factors
 # Example below uses Likert items from the built-in data set "anes08_09offwaves"
 # Item W7Q3 and item W7Q20 was selected with `modid()`
-# The model specification specify all items in the data set (1-20) to load on all three factors (F1-F3)
+# The model specification set all items in the data set (1-20) 
+# to load on all three factors (F1-F3)
 # The START and FIXED commands are used on the two items to identify the DMIRT model
  spec <- ' F1 = 1-20
            F2 = 1-20
@@ -209,18 +258,20 @@ d <- data.frame(mirt::coef(mod1,
                            simplify=TRUE)$'items'[,1:8])
 ```
 
-In `D3mirt` modeling, the user has the option of including constructs in
-the estimation by creating one or more nested lists that indicate what
-items belong to what construct. The construct vector arrows can
-contribute to the analysis by (a) visualizing the average direction for
-a subset set of items, and (b) showing how combinations of items
-interrelate on group-level in the model, i.e., as a type of
-dimensionality analysis. Note, the length of the construct vector arrows
-is arbitrary.
+Constructs can be included in the analysis by creating one or more
+nested lists that indicate what items belong to what construct. From
+this, the `D3mirt()` function finds the average direction of the subset
+of items contained in each construct list by adding and normalizing the
+direction cosines for the items. Note, the length of the vector arrows
+is arbitrary and can be user adjusted.
+
+The construct vector arrows can contribute to the analysis by (a)
+visualizing the average direction for a subset set of items, and (b) by
+showing how combinations of items interrelate at group-level.
 
 The `D3mirt()` function call is straightforward. The output, however, is
-lengthy so it is recommended to use the summary function when inspecting
-the results.
+lengthy so the use of the summary function when inspecting the results
+is recommended.
 
 ``` r
 # Call to D3mirt(), including optional nested lists for three constructs
@@ -286,33 +337,33 @@ summary(g)
 #> W7Q10 1.7798 -4.6994 -3.2250 -2.4083 -1.1039 0.3732
 #> 
 #> $dmirt.angles
-#>       D.Cos X D.Cos Y D.Cos Z   Deg.X   Deg.Y    Deg.Z
-#> W7Q11  0.7796  0.2560  0.5716 38.7777 75.1671  55.1388
-#> W7Q12  0.6299  0.0340  0.7759 50.9584 88.0517  39.1093
-#> W7Q13  0.5488  0.1417  0.8238 56.7134 81.8559  34.5285
-#> W7Q14  0.5637  0.3656  0.7407 55.6902 68.5585  42.2080
-#> W7Q15  0.4929  0.8525 -0.1739 60.4658 31.5157 100.0172
-#> W7Q16  0.8101  0.5377  0.2336 35.8907 57.4726  76.4927
-#> W7Q17  0.6631  0.7479  0.0314 48.4621 41.5948  88.2006
-#> W7Q18  0.2888  0.9525 -0.0963 73.2117 17.7258  95.5255
-#> W7Q19  0.5150  0.8462  0.1368 59.0051 32.1959  82.1387
-#> W7Q20  0.3600  0.9330  0.0000 68.9015 21.0985  90.0000
-#> W7Q1   0.9949  0.0806 -0.0603  5.7761 85.3796  93.4587
-#> W7Q2   0.9952 -0.0010 -0.0980  5.6256 90.0588  95.6253
-#> W7Q3   1.0000  0.0000  0.0000  0.0000 90.0000  90.0000
-#> W7Q4   0.9922  0.0977  0.0779  7.1759 84.3945  85.5340
-#> W7Q5   0.9992 -0.0128 -0.0374  2.2650 90.7317  92.1434
-#> W7Q6   0.9899  0.1182  0.0777  8.1307 83.2121  85.5452
-#> W7Q7   0.9746  0.0619  0.2152 12.9368 86.4516  77.5756
-#> W7Q8   0.9733  0.1233  0.1933 13.2581 82.9150  78.8518
-#> W7Q9   0.9870  0.1431  0.0735  9.2584 81.7720  85.7845
-#> W7Q10  0.9943  0.0715 -0.0790  6.1172 85.9000  94.5321
+#>       D.Cos X D.Cos Y D.Cos Z    Theta     Phi
+#> W7Q11  0.7796  0.2560  0.5716  36.2490 75.1671
+#> W7Q12  0.6299  0.0340  0.7759  50.9315 88.0517
+#> W7Q13  0.5488  0.1417  0.8238  56.3293 81.8559
+#> W7Q14  0.5637  0.3656  0.7407  52.7295 68.5585
+#> W7Q15  0.4929  0.8525 -0.1739 -19.4363 31.5157
+#> W7Q16  0.8101  0.5377  0.2336  16.0827 57.4726
+#> W7Q17  0.6631  0.7479  0.0314   2.7110 41.5948
+#> W7Q18  0.2888  0.9525 -0.0963 -18.4366 17.7258
+#> W7Q19  0.5150  0.8462  0.1368  14.8745 32.1959
+#> W7Q20  0.3600  0.9330  0.0000   0.0000 21.0985
+#> W7Q1   0.9949  0.0806 -0.0603  -3.4700 85.3796
+#> W7Q2   0.9952 -0.0010 -0.0980  -5.6253 90.0588
+#> W7Q3   1.0000  0.0000  0.0000   0.0000 90.0000
+#> W7Q4   0.9922  0.0977  0.0779   4.4875 84.3945
+#> W7Q5   0.9992 -0.0128 -0.0374  -2.1436 90.7317
+#> W7Q6   0.9899  0.1182  0.0777   4.4863 83.2121
+#> W7Q7   0.9746  0.0619  0.2152  12.4486 86.4516
+#> W7Q8   0.9733  0.1233  0.1933  11.2350 82.9150
+#> W7Q9   0.9870  0.1431  0.0735   4.2594 81.7720
+#> W7Q10  0.9943  0.0715 -0.0790  -4.5437 85.9000
 #> 
 #> $construct.angles
-#>   C.Cos X C.Cos Y C.Cos Z C.Deg.X C.Deg.Y C.Deg.Z
-#> 1  0.6411  0.2026  0.7402 50.1281 78.3081 42.2479
-#> 2  0.4720  0.8814 -0.0208 61.8375 28.1921 91.1898
-#> 3  0.9977  0.0613  0.0298  3.9077 86.4857 88.2934
+#>   C.Cos X C.Cos Y C.Cos Z   Theta     Phi
+#> 1  0.6411  0.2026  0.7402 49.1064 78.3081
+#> 2  0.4720  0.8814 -0.0208 -2.5190 28.1921
+#> 3  0.9977  0.0613  0.0298  1.7098 86.4857
 #> 
 #> $ddisc
 #>       DDISC1 DDISC2 DDISC3
@@ -338,21 +389,17 @@ summary(g)
 #> W7Q10 1.0561 0.9503 1.7691
 ```
 
-The function then returns an $S3$ object of class `D3mirt` with lists of
-$a$ and $d$ parameters from the GRM, as well as $MDISC$, $MDIFF$,
-direction cosines, and degrees for vector angles, construct lists, and
-vector coordinates assessed by `D3mirt()`.
-
 # 3. Plotting
 
 ## The `plotD3mirt` Function
 
-The `plotD3mirt` function is based on the `rgl` package (Adler &
+The `plotD3mirt` function is built on the `rgl` package (Adler &
 Murdoch, 2023) for visualization with OpenGL. Graphing in default mode
 by calling `plotd3mirt` will return an RGL device that will appear in an
-external window as a three-dimensional object that can be rotated. In
-this illustration, however, all RGL devices are shown inline as
-interactive objects.
+external window as a three-dimensional object, containing vector arrows
+with the latent dimensions running along the orthogonal axes, that can
+be rotated. In this illustration, however, all RGL devices are shown
+inline as interactive objects.
 
 ``` r
 # Plot RGL device with constructs visible and named
@@ -365,32 +412,32 @@ plotD3mirt(g,
 
 An example of how the output can be described could be as follows.
 
-> Figure $X$ indicates the presence of foremost two latent dimensions,
-> one aligned with the x-axis and one approaching the y-axis. The two
-> dimensions, however, have some within-multidimensional tendencies
-> since they are not completely orthogonal. This tendency, is much more
-> prominent for the items W7Q11, W7Q12, W7Q13, and W7Q14, being located
-> at around the $45°$ angle or higher between the x and z-axis.
-> Moreover, the angles of the construct vectors inform us of how these
-> groups of items are associated. In this example, we find Compassion
-> ($x° = 3.908, y° = 86.486, z° = 88.293$) and Conformity
-> ($x° = 61.838, y° = 28.192, z° = 91.190$) with some
-> within-multidimensional tendencies. However, both more or less
-> orthogonal to the z-axis. Next, we find Fairness
-> ($x° = 50.128, y° = 78.308, z° = 42.248$) with clear
-> within-multidimensional tendencies with respect to the x and z-axis.
-> Thus, Fairness, in this model, does not seem to be an independent
-> construct.
+> > As can be seen, the item vector clustering patterns in Figure X
+> > indicate the presence of foremost two latent dimensions, one aligned
+> > with the $x$-axis and one approaching the $y$-axis. The two
+> > dimensions, however, seem to have some within-multidimensional
+> > tendencies since they are not completely orthogonal. This tendency,
+> > however, is much more prominent for the items W7Q11, W7Q12, W7Q13,
+> > and W7Q14, being located at around $\theta = 45$ or higher between
+> > the $x$ and $z$-axis. Moreover, the angles of the constructs informs
+> > us that Compassion ($\theta = 1.710, \phi = 86.486$) and Conformity
+> > ($\theta = -2.519,\phi = 28.192$) have some within-multidimensional
+> > tendencies. However, they are both more or less orthogonal to the
+> > $z$-axis ($\theta = 1.710$ and $\theta = -2.519$ respectively).
+> > Next, we find Fairness ($\theta = 49.106, \phi = 78.308$) with clear
+> > within-multidimensional tendencies with respect to the $x$-axis.
+> > Thus, the output indicates that Compassion and Conformity could be
+> > independent constructs but that Fairness seems not to be.
 
-In this model, item W7Q16 had the most measurement problems of all items
-in the data. More specifically, the short vector arrows indicate high
+As was mentioned above, the W7Q16 had the most measurement problems of
+all items in the data. Foremost, the short vector arrows indicate high
 amounts of model violations. Moreover, the location of the item in the
 model also indicates that the item is within-multidimensional and that
 it does not seem to belong to any construct explicitly.
 
-The `plotD3mirt` allows us to plot the item alone using argument `items`
-and entering the number indicating where the item appears in the data
-set (see `?anes08_09offwaves`).
+The `plotD3mirt()` function allows plotting W7Q16 alone using argument
+`items` and by entering the number indicating where the item appears in
+the data set (see `?anes08_09offwaves`).
 
 ``` r
 # Item W7Q16 has location 6 in the data set (gender and age excluded)
@@ -407,35 +454,42 @@ plotD3mirt(g,
 An example of how the output can be described could be as follows.
 
 > Figure $X$ shows that item W7Q16 is located at
-> $x° = 35.891, y° = 57.473, z° = 76.493$ which indicates that it is
-> within-multidimensional with respect to the x and y-axis but
-> approaching orthogonal tendencies with respect to the z-axis. In
-> addition, the directional discrimination further under scores that the
+> $\theta = 16.083, \phi = 57.473$, which indicates that the item is
+> within-multidimensional with respect to the $x$ and $y$-axis but
+> approaching orthogonal tendencies with respect to the $z$-axis. In
+> addition, the directional discrimination further underscores that the
 > item does not seem to measure any particular construct
 > ($DDISC_1 = .656, DDISC_2 = .656, DDISC_3 = .617$). The global
 > discrimination score ($MDISC = .770, MDIFF_{range} = [-4.838, 2.349]$)
 > is also the lowest of all discrimination scores in the model. This,
 > combined, implies that the item in question does not seem to fit the
-> three-dimensional GRM used in this analysis. We should also note that
-> item W7Q15 ($MDISC = .923, MDIFF_{range} = [-4.680, 1.051]$) has the
-> second lowest discrimination score. However, the latter item do seem
-> to belong to the Conformity construct when comparing angle orientation
-> in the model
-> ($x° = 60.466, y° = 31.516, z° = 100.017, MDISC = .923, DDISC_1 = .332, DDISC_2 = .912, DDISC_3 = .497$).
+> three-dimensional compensatory model used in this analysis. We should
+> also note that item W7Q15
+> ($MDISC = .923, MDIFF_{range} = [-4.680, 1.051]$) has the second
+> lowest discrimination score. However, the latter item does seem to
+> belong to the Conformity construct when comparing angle orientation
+> ($\theta = -19.436, \phi = 31.516$) and discrimination
+> ($MDISC = .923, DDISC_1 = .332, DDISC_2 = .912, DDISC_3 = .497$).
 
 ## `D3mirt` Profile Analysis
 
-The `plotD3mirt()` function can also display respondent scores in the
-three-dimensional model represented as spheres located with the help of
+The `plotD3mirt()` function can also display respondents in the
+three-dimensional model represented as spheres located with respondent
 factors scores used as coordinates. This allows for a profile analysis
-in which respondent rows are selected conditioned on some external
-criteria and then plotted. The resulting output shows where the
-respondent are located in the model.
+in which respondent rows can be selected conditioned on single or
+multiple criteria and then plotted. The resulting output shows where the
+respondents are located in the model, and, accordingly, what model
+profile best describes them. Similarly, respondent categories can be
+simultaneously compared to see if a group-level effect can be visually
+observed.
 
 To do this, the user must first extract respondent factor scores with
 `mirt::fscores` (Chalmers, 2012) and then select a subset of respondent
-rows. The example below select respondent scores by separating on the
-gender variable
+rows based on one or more criteria. The resulting data frame is imputed
+in the `profiles` argument. Generally, it can be useful to hide vector
+arrows with `hide = TRUE` when plotting respondent profiles to avoid
+visual cluttering. The example below separates respondents using the
+gender variable included in the built-in data set.
 
 ``` r
 # Extract respondent factor scores from mod1 with fscores() function from [mirt::mirt]
@@ -444,20 +498,23 @@ f <- mirt::fscores(mod1,
                    full.scores = TRUE, 
                    full.scores.SE = F, QMC = T)
 
-# Attach f to gender variable (column 2 from the "anes08_09offwaves" data set; "W3XGENDER")
-# Use cbind with fscores() output first
+# Attach f to the gender variable (column 2 from anes08_09offwaves data set; "W3XGENDER")
+# Use cbind with fscores() output attached first
 data("anes08_09offwaves")
 x <- anes08_09offwaves
 z <- data.frame(cbind(f, x[,2]))
 ```
 
-The `plotD3mirt`function uses `as.factor()` to count the number of
+The `plotD3mirt` function uses `as.factor()` to count the number of
 factor levels in the data imputed in the `levels` argument. This means
-that raw data can be used but the number of colors in the color vectors
-argument (`sphere.col`) may need to be adapted. In the example below,
-the criteria variable for gender only hold two factor levels. Therefore
-only two colors in the color vector are needed. The three axes have also
-been named in the function call.
+that raw data can be used as is but the number of colors in the color
+vectors argument (`sphere.col`) may need to be adapted. In the example
+below, the criteria variable for gender only hold two factor levels and
+therefore only two colors in the color vector are needed.
+
+Call `plotD3mirt` with the respondent data frame $z$ in the `profiles`
+argument and the `levels` argument with the levels column subsetted from
+$z$.
 
 ``` r
 # Plot profiles with item vector arrows hidden with hide = TRUE
@@ -475,20 +532,20 @@ plotD3mirt(g, hide = TRUE,
 
 An example of how the output can be described could be as follows.
 
-> “In the graphical output, it can be observed a simple profile on
-> gender in which more women tend to have higher levels of trait on
-> compassion. There seems not to be any observable gender difference
-> related to Conformity or Fairness.”
+> In the graphical output, it can be observed a simple profile on gender
+> in which more women tend to have higher levels of trait on Compassion.
+> When rotating the model, there seems not to be any observable gender
+> difference related to Conformity or Fairness.
 
 # Exporting The RGL Device
 
 Some options for exporting the RGL device are shown below. Over and
 above these, it is also possible to export graphical devices in R
 Markdown documents with `rgl::hookwebgl()` together with graphical
-options for knitr, as was done in this vignette.
+options for knitr, as was done when creating this vignette.
 
 ``` r
-# Export an open RGL device to the console to be saved as html or image file
+# Export an open RGL device to the console that can be saved as a html or image file
 plotD3mirt(g, 
            constructs = TRUE)
 s <- scene3d()
@@ -522,6 +579,10 @@ Package for the R Environment. *Journal of Statistical Software, 48*(6),
 DeBell, M., Krosnick, J. A., & Lupia, A.(2010). *Methodology Report and
 User’s Guide for the 2008–2009 ANES Panel Study*. Palo Alto, CA, and Ann
 Arbor, MI: Stanford University and the University of Michigan.
+
+Muraki, E., & Carlson, J. E. (1995). Full-Information Factor Analysis
+for Polytomous Item Responses. *Applied Psychological Measurement,
+19*(1), 73–90. <https://doi.org/10.1177/014662169501900109>
 
 Reckase, M. D.(2009).*Multidimensional Item Response Theory*. Springer.
 
