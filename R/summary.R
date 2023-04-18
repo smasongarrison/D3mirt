@@ -25,9 +25,9 @@ summary.D3mirt <- function(object, ..., digits = 4){
   tab3 <- as.data.frame(object$mdiff)
   tab4 <- as.data.frame(object$mdisc)
   tab4 <- as.data.frame(cbind(tab4, tab3))
-  tab5 <- as.data.frame(cbind(object$dir.cos, object$degrees))
+  tab5 <- as.data.frame(cbind(object$dir.cos, object$spherical))
   if (!is.null(object$c.dir.cos)){
-    tab6 <- as.data.frame(cbind(object$c.dir.cos, object$c.degrees))
+    tab6 <- as.data.frame(cbind(object$c.dir.cos, object$c.spherical))
     tab7 <- as.data.frame(cbind(object$ddisc))
     c <- object$c
     items <- NULL
