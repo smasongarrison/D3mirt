@@ -16,7 +16,7 @@ library(D3mirt)
 library(mirt)
 ```
 
-<img src="man/figures/logo.png" align="center" height="200"/>
+<img src="man/figures/logo.png" align="middle" height="200"/>
 
 # `D3MIRT` Modeling
 
@@ -95,7 +95,7 @@ If problems appear with the model identification, please see the package vignett
 
 # 2. D3mirt Model Estimation
 
-The `D3mirt()` function takes in a data frame with model parameters from a three-dimensional compensatory model and returns an $S3$ object of class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$ parameters, direction cosines, and spherical coordinates. Regarding the latter, spherical coordinates are represented by $\theta$ and $\phi$ ($\rho = 1$). The $\theta$ coordinate is the positive angle in degrees, starting from the $x$-axis, of the vector projections from the vector arrows in the $xz$-plane. Note, the $\theta$ angle is oriented following the positive pole of the $x$ and $z$ axis so that the angle increases clockwise in the graphical output. The $\phi$ coordinate is the positive angle in degrees from the $y$-axis and the vectors.
+The `D3mirt()` function takes in a data frame with model parameters from a three-dimensional compensatory model and returns an $S3$ object of class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$ parameters, direction cosines, and spherical coordinates. Regarding the latter, spherical coordinates are represented by $\theta$ and $\phi$ ($\rho = 1$). The $\theta$ coordinate is the positive or negative angle in degrees, starting from the $x$-axis, of the vector projections from the vector arrows in the $xz$-plane up to $\pm 180°$. Note, the $\theta$ angle is oriented following the positive pole of the $x$ and $z$ axis so that the angle increases clockwise in the graphical output. The $\phi$ coordinate is the positive angle in degrees from the $y$-axis and the vectors.
 
 If constructs are used, the function also returns construct direction cosines, spherical coordinates for the construct vector arrows, and $DDISC$ parameters (one index per construct).
 
