@@ -56,8 +56,8 @@
 #' @param levels Optional. Column with values indicating levels for sphere colors from the `sphere.col` vector. Default is `levels = NULL`.
 #' @param spheres.r Radius of the spheres for `spheres3d()`. Default is `spheres.r = 0.05`.
 #' @param sphere.col Color vector for `spheres3d()`. Default is `sphere.col = c("black", "grey20", "grey40", "grey60", "grey80")`.
-#' @param ellipse Logical, if spheres should include an ellipsoid outlining a confidence region returned from the `ellipse3d()` function. Default is `ellipse = FALSE`.
-#' @param CI.level Level of confidence for `ellipse3d()`, default is `CI.level = 0.95`.
+#' @param ci Logical, if spheres should include an ellipsoid outlining a confidence region returned from the `ellipse3d()` function. Default is `ci = FALSE`.
+#' @param ci.level Level of confidence for `ellipse3d()`, default is `ci.level = 0.95`.
 #' @param ellipse.col Color of the ellipse from `ellipse3d()`. Default is `ellipse.col = "grey80"`.
 #' @param ellipse.alpha Opacity for the confidence region from `ellipse3d()`. Default is `ellipse.alpha = 0.20`.
 #' @param ... Additional arguments to be passed to RGL or methods.
@@ -98,6 +98,7 @@
 #' This allows for a profile analysis in which respondent rows are selected conditioned on one or more external criteria.
 #' To do this, the user must first extract respondent factor scores with [mirt::fscores](Chalmers, 2012) and then use some selection process to subset respondent rows.
 #' The resulting data frame is used in the `profiles` argument.
+#' If desired, a confidence interval can be added for the respondent scores by setting `ci = TRUE`.
 #' A general advice is also to hide vector arrows with `hide = TRUE` when analyzing respondent profiles to avoid visual cluttering.
 #' For more on profile analysis (e.g., preparation and examples), see package vignette.
 #'
@@ -203,7 +204,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         c.type = "rotation", c.col = "black", c.arrow.width = 0.6,
                         c.n = 20, c.theta = 0.2, c.barblen = 0.03,
                         profiles = NULL, levels = NULL, sphere.col = c("black", "grey20", "grey40", "grey60", "grey80"), spheres.r = 0.05,
-                        ellipse = FALSE, CI.level = 0.95, ellipse.col = "grey80", ellipse.alpha = 0.20, ...){
+                        ci = FALSE, ci.level = 0.95, ellipse.col = "grey80", ellipse.alpha = 0.20, ...){
   if (!isa(x, "D3mirt")) stop("Input object must be of class D3mirt")
   rgl::open3d()
   rgl::par3d(windowRect = 50 + c( 0, 0, width.rgl.x, width.rgl.y))
@@ -591,7 +592,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
       color
       }
       rgl::spheres3d(x,y,z, radius = spheres.r, color = grad(levels, sphere.col))
-      if (ellipse == TRUE){
+      if (ci == TRUE){
         ellipse <- rgl::ellipse3d(cov(cbind(x,y,z)),
                                   centre=c(mean(x), mean(y), mean(z)), level = CI.level)
         rgl::shade3d(ellipse, col = ellipse.col, alpha = ellipse.alpha)

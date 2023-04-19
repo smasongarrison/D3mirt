@@ -283,6 +283,7 @@ But it does suggest that the methodology *can* be used and the results will be p
 
 The `D3mirt()` function takes in a data frame with model parameters from a three-dimensional compensatory model and returns an $S3$ object of class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$ parameters, and direction cosines..
 The direction cosines are also reported in spherical coordinates ($\theta, \phi$), in which $\theta$ is the vector projection of the vector arrows in the $xz$-plane, and $\phi$ is the positive angle between the $y$-axis and the vectors ($\rho = 1$).
+Observe, the $\theta$ angle is oriented following the positive pole of the $x$ and $z$ axis so that the angle increases clockwise in the graphical output. 
 If constructs are used, the function also returns construct direction cosines, spherical coordinates for the construct vector arrows, and $DDISC$ parameters (one index per construct).
 
 ### Fitting the Compensatory Multidimensional Model
@@ -622,9 +623,9 @@ z1 <- subset(y, y[,4] <= 30)
 colvec <- c(rep("red", 14))
 ```
 
-To plot the *CI*, the `ellipse` argument is set to `TRUE`.
+To plot the *CI*, the `ci` argument is set to `TRUE`.
 The color of the sphere was also changed from default `grey80` to `orange` in the example below.
-Note, the *CI* limit can be adjusted with the `CI.level` argument.
+Note, the *CI* limit can be adjusted with the `ci.level` argument.
 
 ```{r, testg10, webgl=TRUE, fig.width = 7, fig.height = 7}
 # Call plotD3mirt with profile data on age with item vector arrows hidden
@@ -635,8 +636,8 @@ plotD3mirt(g, hide = TRUE,
            x.lab = "Compassion", 
            y.lab="Conformity", 
            z.lab="Fairness", 
-           ellipse = TRUE, 
-           CI.level = 0.95, 
+           ci = TRUE, 
+           ci.level = 0.95, 
            ellipse.col = "orange",
            view = c(15, 20, 0.6))
 ```

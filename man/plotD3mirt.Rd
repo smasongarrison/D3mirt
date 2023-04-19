@@ -50,8 +50,8 @@ plotD3mirt(
   levels = NULL,
   sphere.col = c("black", "grey20", "grey40", "grey60", "grey80"),
   spheres.r = 0.05,
-  ellipse = FALSE,
-  CI.level = 0.95,
+  ci = FALSE,
+  ci.level = 0.95,
   ellipse.col = "grey80",
   ellipse.alpha = 0.2,
   ...
@@ -158,9 +158,9 @@ Default is \code{nticks = 4}.}
 
 \item{spheres.r}{Radius of the spheres for \code{spheres3d()}. Default is \code{spheres.r = 0.05}.}
 
-\item{ellipse}{Logical, if spheres should include an ellipsoid outlining a confidence region returned from the \code{ellipse3d()} function. Default is \code{ellipse = FALSE}.}
+\item{ci}{Logical, if spheres should include an ellipsoid outlining a confidence region returned from the \code{ellipse3d()} function. Default is \code{ci = FALSE}.}
 
-\item{CI.level}{Level of confidence for \code{ellipse3d()}, default is \code{CI.level = 0.95}.}
+\item{ci.level}{Level of confidence for \code{ellipse3d()}, default is \code{ci.level = 0.95}.}
 
 \item{ellipse.col}{Color of the ellipse from \code{ellipse3d()}. Default is \code{ellipse.col = "grey80"}.}
 
@@ -209,6 +209,7 @@ The plot function can display respondent scores in the three-dimensional model s
 This allows for a profile analysis in which respondent rows are selected conditioned on one or more external criteria.
 To do this, the user must first extract respondent factor scores with \link[mirt:fscores]{mirt::fscores}(Chalmers, 2012) and then use some selection process to subset respondent rows.
 The resulting data frame is used in the \code{profiles} argument.
+If desired, a confidence interval can be added for the respondent scores by setting \code{ci = TRUE}.
 A general advice is also to hide vector arrows with \code{hide = TRUE} when analyzing respondent profiles to avoid visual cluttering.
 For more on profile analysis (e.g., preparation and examples), see package vignette.
 }

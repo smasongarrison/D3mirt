@@ -207,10 +207,12 @@ class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$
 parameters, direction cosines, and spherical coordinates. Regarding the
 latter, spherical coordinates are represented by $\theta$, the vector
 projection of the vector arrows in the $xz$-plane, and $\phi$, the
-positive angle between the y-axis and the vectors ($\rho = 1$). If
-constructs are used, the function also returns construct direction
-cosines, spherical coordinates for the construct vector arrows, and
-$DDISC$ parameters (one index per construct).
+positive angle between the y-axis and the vectors ($\rho = 1$). Observe,
+the $\theta$ angle is oriented following the positive pole of the $x$
+and $z$ axis so that the angle increases clockwise in the graphical
+output. If constructs are used, the function also returns construct
+direction cosines, spherical coordinates for the construct vector
+arrows, and $DDISC$ parameters (one index per construct).
 
 The three-dimensional compensatory model is specified so that all items
 load on all three factors in the model, and that the factors are
@@ -360,10 +362,10 @@ summary(g)
 #> W7Q10  0.9943  0.0715 -0.0790  -4.5437 85.9000
 #> 
 #> $construct.angles
-#>   C.Cos X C.Cos Y C.Cos Z   Theta     Phi
-#> 1  0.6411  0.2026  0.7402 49.1064 78.3081
-#> 2  0.4720  0.8814 -0.0208 -2.5190 28.1921
-#> 3  0.9977  0.0613  0.0298  1.7098 86.4857
+#>     C.Cos X C.Cos Y C.Cos Z   Theta     Phi
+#> t    0.6411  0.2026  0.7402 49.1064 78.3081
+#> t.1  0.4720  0.8814 -0.0208 -2.5190 28.1921
+#> t.2  0.9977  0.0613  0.0298  1.7098 86.4857
 #> 
 #> $ddisc
 #>       DDISC1 DDISC2 DDISC3

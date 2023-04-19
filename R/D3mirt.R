@@ -110,7 +110,17 @@ D3mirt <- function(x, constructs = NULL){
   mdisc <- sqrt(rowSums(a^2))
   md <- mdisc%*%matrix(rep(1,3), nrow=1, ncol=3)
   dcos <- as.matrix(a/md, ncol = 3)
-  theta <- atan(dcos[,3]/dcos[,1])*(180/pi)
+  theta <- NULL
+  for (i in seq(nrow(dcos))){
+    c <- dcos[i,1]
+    if (c < 0){
+      t <- 180 + atan(dcos[i,3]/dcos[i,1])*(180/pi)
+      theta <- as.matrix(rbind(theta, t), ncol = 1)
+    } else {
+      t <- atan(dcos[i,3]/dcos[i,1])*(180/pi)
+      theta <- as.matrix(rbind(theta, t), ncol = 1)
+    }
+  }
   phi <- acos(dcos[,2])*(180/pi)
   sph <- cbind(theta, phi)
   vector1 <- NULL
@@ -149,7 +159,17 @@ D3mirt <- function(x, constructs = NULL){
       minnorm <- (0.6*min(vector1))*cdcos
       con <- as.matrix(rbind(con,rbind(minnorm, maxnorm)), ncol = 3)
       ncos <- as.matrix(rbind(ncos,cdcos), ncol = 3)
-      theta <- atan(cdcos[,3]/cdcos[,1])*(180/pi)
+      theta <- NULL
+      for (i in seq(nrow(cdcos))){
+        c <- cdcos[i,1]
+        if (c < 0){
+          t <- 180 + atan(cdcos[i,3]/cdcos[i,1])*(180/pi)
+          theta <- as.matrix(rbind(theta, t), ncol = 1)
+        } else {
+          t <- atan(cdcos[i,3]/cdcos[i,1])*(180/pi)
+          theta <- as.matrix(rbind(theta, t), ncol = 1)
+        }
+      }
       phi <- acos(cdcos[,2])*(180/pi)
       sphe <- cbind(theta, phi)
       csph <- as.matrix(rbind(csph,sphe), ncol = 2)
