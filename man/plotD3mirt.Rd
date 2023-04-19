@@ -272,7 +272,7 @@ plotD3mirt(g, hide = TRUE,
            y.lab="Conformity",
            z.lab="Fairness",
            ellipse = TRUE,
-           CI.level = 0.95,
+           ci.level = 0.95,
            ellipse.col = "orange")
 
 # Export an open RGL device to the console to be saved as html or image file

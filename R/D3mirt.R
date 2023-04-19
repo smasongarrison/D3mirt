@@ -162,8 +162,12 @@ D3mirt <- function(x, constructs = NULL){
       theta <- NULL
       for (i in seq(nrow(cdcos))){
         c <- cdcos[i,1]
-        if (c < 0){
+        d <- cdcos[i,3]
+        if (c < 0 && d >= 0){
           t <- 180 + atan(cdcos[i,3]/cdcos[i,1])*(180/pi)
+          theta <- as.matrix(rbind(theta, t), ncol = 1)
+        } else if (c < 0 && d < 0){
+          t <- -180 + atan(cdcos[i,3]/cdcos[i,1])*(180/pi)
           theta <- as.matrix(rbind(theta, t), ncol = 1)
         } else {
           t <- atan(cdcos[i,3]/cdcos[i,1])*(180/pi)
@@ -207,6 +211,9 @@ D3mirt <- function(x, constructs = NULL){
     colnames(ncos) <- c("C.Cos X","C.Cos Y", "C.Cos Z")
     csph <- as.data.frame(csph)
     colnames(csph) <- c("Theta", "Phi")
+    for (i in nrow(csph)){
+      rownames(csph) <- paste("C", 1:i, sep = "")
+    }
     dddisc <- as.data.frame(ddisc)
     for (i in ncol(ddisc)){
       colnames(ddisc) <- paste("DDISC", 1:i, sep = "")

@@ -164,7 +164,7 @@
 #'            y.lab="Conformity",
 #'            z.lab="Fairness",
 #'            ellipse = TRUE,
-#'            CI.level = 0.95,
+#'            ci.level = 0.95,
 #'            ellipse.col = "orange")
 #'
 #' # Export an open RGL device to the console to be saved as html or image file
@@ -594,14 +594,14 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
       rgl::spheres3d(x,y,z, radius = spheres.r, color = grad(levels, sphere.col))
       if (ci == TRUE){
         ellipse <- rgl::ellipse3d(cov(cbind(x,y,z)),
-                                  centre=c(mean(x), mean(y), mean(z)), level = CI.level)
+                                  centre=c(mean(x), mean(y), mean(z)), level = ci.level)
         rgl::shade3d(ellipse, col = ellipse.col, alpha = ellipse.alpha)
     }
     } else {
     rgl::spheres3d(x,y,z, radius = spheres.r, color = sphere.col[1])
       if (ellipse == TRUE){
         ellipse <- rgl::ellipse3d(cov(cbind(x,y,z)),
-                                  centre=c(mean(x), mean(y), mean(z)), level = CI.level)
+                                  centre=c(mean(x), mean(y), mean(z)), level = ci.level)
         rgl::shade3d(ellipse, col = ellipse.col, alpha = ellipse.alpha)
       }
     }

@@ -24,6 +24,8 @@ library(mirt)
 knitr::knit_hooks$set(webgl = hook_webgl)
 ```
 
+<img src="man/figures/logo.png" align="center" height="200"/>
+
 # `D3MIRT` Modeling
 
 The `D3mirt` analysis is based on descriptive multidimensional item response theory (DMIRT; Reckase2009, 1985; Reckase & McKinley, 1991) and can be used to analyze dichotomous and polytomous items (see Muraki & Carlson, 1995) in a multidimensional ability space.
@@ -282,8 +284,10 @@ But it does suggest that the methodology *can* be used and the results will be p
 ## The `D3mirt()` Function
 
 The `D3mirt()` function takes in a data frame with model parameters from a three-dimensional compensatory model and returns an $S3$ object of class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$ parameters, and direction cosines..
-The direction cosines are also reported in spherical coordinates ($\theta, \phi$), in which $\theta$ is the vector projection of the vector arrows in the $xz$-plane, and $\phi$ is the positive angle between the $y$-axis and the vectors ($\rho = 1$).
-Observe, the $\theta$ angle is oriented following the positive pole of the $x$ and $z$ axis so that the angle increases clockwise in the graphical output. 
+The direction cosines are also reported in spherical coordinates $\theta$ and $\phi$ ($\rho = 1$).
+The $\theta$ coordinate is the positive angle in degrees, starting from the $x$-axis, of the vector projections from the vector arrows in the $xz$-plane.
+Note, the $\theta$ angle is oriented following the positive pole of the $x$ and $z$ axis so that the angle increases clockwise in the graphical output.
+The $\phi$ coordinate is the positive angle in degrees from the $y$-axis and the vectors.
 If constructs are used, the function also returns construct direction cosines, spherical coordinates for the construct vector arrows, and $DDISC$ parameters (one index per construct).
 
 ### Fitting the Compensatory Multidimensional Model
