@@ -1,0 +1,14 @@
+citHeader("To cite D3mirt in publications use:")
+
+citEntry(
+  entry    = "Unpublished",
+  title    = "{D3mirt}",
+  author   = "Erik Forsberg",
+  institution  = "Department of Psychology, Stockholm University",
+  adress = "Stockholm, Sweden"
+  year     = "2023",
+  url      = "https://github.com/ForsbergPyschometrics/D3mirt",
+  textVersion = paste(
+
+  )
+)
