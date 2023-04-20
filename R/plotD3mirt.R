@@ -128,7 +128,7 @@
 #'            items = 6,
 #'            construct.lab = c("Fairness", "Conformity", "Compassion"))
 #'
-#' # Plot RGL device on difficulty level 5
+#' # Plot RGL device on item difficulty level 5
 #' plotD3mirt(g,
 #'            diff.level = 5)
 #'
@@ -163,7 +163,7 @@
 #'            x.lab = "Compassion",
 #'            y.lab="Conformity",
 #'            z.lab="Fairness",
-#'            ellipse = TRUE,
+#'            ci = TRUE,
 #'            ci.level = 0.95,
 #'            ellipse.col = "orange")
 #'
@@ -188,7 +188,7 @@
 #' # Export a snap shoot of an open RGL device directly to file
 #' plotD3mirt(g,
 #'            constructs = TRUE)
-#' rgl::snapshot3d('RGLdevice.png',
+#' rgl::rgl.snapshot('RGLdevice.png',
 #'                     fmt = 'png')
 #' }
 #' @export
@@ -211,7 +211,9 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
   rgl::bg3d(color = background)
   rgl::view3d(theta = view[1], phi = view[2], zoom = view[3])
   if (is.null(axis.length)){
-   if (is.null(ncol(x$dir.vec))){
+    if (!is.numeric(axis.scalar)) stop("Elements in axis.scalar are not numeric")
+    if (length(axis.scalar) > 1) stop ("The axis.scalar vector must be of length one")
+    if (is.null(ncol(x$dir.vec))){
     ax <- x$dir.vec
     low <- as.data.frame(ax[1])
     hig <- as.data.frame(ax[length(ax)])
@@ -416,6 +418,8 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         adj = adjust.lab, size = 2)
           })
         } else {
+          if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
+          if(length(item.lab) < nrow(x$loadings)) warning("There are too few item labels")
           dl <-  as.data.frame(x$dir.vec[diff.level, drop = FALSE])
           sapply(seq_along(items), function(i){
             m <- items[i]
@@ -505,13 +509,24 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         adj = adjust.lab, size = 2)
           } )
         }
+
       } else {
-        inames <- rownames(x$loadings)
-        dl <-  x$scal.vec[[diff.level]]
-        sapply(seq(nrow(x$mdisc)), function(i){
-          rgl::text3d(dl[(i*2),1],dl[(i*2),2], dl[(i*2),3], text = c(inames[i]), color = axis.col,
-                      adj = adjust.lab, size = 2)
-        })
+        if (is.null(item.lab)){
+          inames <- rownames(x$loadings)
+          dl <-  x$scal.vec[[diff.level]]
+          sapply(seq(nrow(x$mdisc)), function(i){
+            rgl::text3d(dl[(i*2),1],dl[(i*2),2], dl[(i*2),3], text = c(inames[i]), color = axis.col,
+                        adj = adjust.lab, size = 2)
+          })
+        } else {
+          if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
+          if(length(item.lab) < nrow(x$loadings)) warning("There are too few item labels")
+          max <-  x$scal.vec[[diff.level]]
+          sapply(seq(nrow(x$mdisc)), function(i){
+            rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.lab[i]), color = axis.col,
+                        adj = adjust.lab, size = 2)
+          } )
+        }
       }
     }
     if (item.names == TRUE && !is.null(items)){
@@ -553,6 +568,8 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         adj = adjust.lab, size = 2)
           })
         } else {
+          if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
+          if(length(item.lab) < nrow(x$loadings)) warning("There are too few item labels")
           dl <-  as.data.frame(x$scal.vec[diff.level, drop = FALSE])
           sapply(seq_along(items), function(i){
             m <- items[i]

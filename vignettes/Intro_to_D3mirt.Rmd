@@ -477,7 +477,7 @@ Note, *difficulty* is the number of item response functions, i.e., the total num
 In this case, $6$ response options were used which means that the model has $5$ levels of difficulty.
 
 ```{r, testg5, webgl = TRUE, fig.width = 7, fig.height = 7}
-# Plot RGL device on difficulty level 5
+# Plot RGL device on item difficulty level 5
 plotD3mirt(g, 
            diff.level = 5, 
            view = c(15, 20, 0.6))

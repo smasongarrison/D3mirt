@@ -80,6 +80,9 @@ You can install the development version of D3mirt from
 ``` r
 # install.packages("devtools")
 devtools::install_github("ForsbergPyschometrics/D3mirt")
+
+# install.packages("devtools") with package vignette included (takes longer time to install)
+devtools::install_github("ForsbergPyschometrics/D3mirt", build_vignettes = TRUE)
 ```
 
 In what follows, the `D3mirt` procedure will be described very briefly
@@ -568,7 +571,7 @@ rgl::rglwidget(s,
 # Export a snap shoot of an open RGL device directly to file
 plotD3mirt(g, 
            constructs = TRUE)
-rgl::snapshot3d('RGLdevice.png', 
+rgl::rgl.snapshot('RGLdevice.png', 
                     fmt = 'png')
 ```
 

@@ -77,11 +77,11 @@
 #' x <- x[,3:22] # Remove columns for age and gender
 #'
 #' # Fit a three-factor EFA model with the mirt package
-#' f <- mirt::mirt(x, 3, itemtype = 'graded')
+#' e <- mirt::mirt(x, 3, itemtype = 'graded')
 #'
 #' # Assign data frame with factor loadings with oblimin rotation
-#' g <- summary(f, rotate= 'oblimin')
-#' h <- data.frame(g$rotF)
+#' f <- summary(e, rotate= 'oblimin')
+#' h <- data.frame(f$rotF)
 #'
 #' # Call to modid()
 #' modid(h)

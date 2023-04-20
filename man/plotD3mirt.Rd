@@ -236,7 +236,7 @@ plotD3mirt(g,
            items = 6,
            construct.lab = c("Fairness", "Conformity", "Compassion"))
 
-# Plot RGL device on difficulty level 5
+# Plot RGL device on item difficulty level 5
 plotD3mirt(g,
            diff.level = 5)
 
@@ -271,7 +271,7 @@ plotD3mirt(g, hide = TRUE,
            x.lab = "Compassion",
            y.lab="Conformity",
            z.lab="Fairness",
-           ellipse = TRUE,
+           ci = TRUE,
            ci.level = 0.95,
            ellipse.col = "orange")
 
@@ -296,7 +296,7 @@ htmlwidgets::saveWidget(rglwidget(s,
 # Export a snap shoot of an open RGL device directly to file
 plotD3mirt(g,
            constructs = TRUE)
-rgl::snapshot3d('RGLdevice.png',
+rgl::rgl.snapshot('RGLdevice.png',
                     fmt = 'png')
 }
 }
