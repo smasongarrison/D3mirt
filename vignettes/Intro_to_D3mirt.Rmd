@@ -353,7 +353,7 @@ Examples of how DMIRT estimates can be used when reporting results are given bel
 ### Constructs
 
 Constructs can be included in the analysis by creating one or more nested lists that indicate what items belong to what construct.
-From this, the `D3mirt()` function finds the average direction of the subset of items contained in each construct list, by adding and normalizing the direction cosines for the items.
+From this, the `D3mirt()` function finds the average direction of the subset of items contained in each construct list, by normalizing the direction cosines for the items.
 Note, the length of the vector arrows is arbitrary and can be user adjusted.
 
 The construct vector arrows can contribute to the analysis by (a) visualizing the average direction for a subset set of items, and (b) by showing how combinations of items interrelate at group-level.
