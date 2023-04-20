@@ -80,11 +80,11 @@ x <- anes08_09offwaves
 x <- x[,3:22] # Remove columns for age and gender
 
 # Fit a three-factor EFA model with the mirt package
-f <- mirt::mirt(x, 3, itemtype = 'graded')
+e <- mirt::mirt(x, 3, itemtype = 'graded')
 
 # Assign data frame with factor loadings with oblimin rotation
-g <- summary(f, rotate= 'oblimin')
-h <- data.frame(g$rotF)
+f <- summary(e, rotate= 'oblimin')
+h <- data.frame(f$rotF)
 ```
 
 The `modid()` takes in the factor solution from the EFA, assigned to a data frame $h$, and outputs an $S3$ object of class `modid` containing lists with data frames of estimates. The most important is the item lists, (denoted `$id`), containing data frames that present suggestions on what items (`item.1`...`item.n`) to use for the model identification. The data frames have one column for the loadings from each item on the factor of interest, and one column with absolute sum scores (denoted `ABS`) for each item calculated from the remaining factor loadings in the model. Each item list is sorted with the lowest absolute sum score highest up. Consequently, the top items in each list are the items that best meet the necessary statistical requirements for model identification. Therefore, for a three-dimensional model, all else equal, the item highest up in the first list should be used to identify the $x$-axis, and the item highest up in the second list should be used to identify the $y$-axis, and so on.
