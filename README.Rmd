@@ -7,7 +7,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "100%",
+  fig.align="center"
 )
 ```
 
@@ -140,7 +141,7 @@ d <- data.frame(mirt::coef(mod1,
                            simplify=TRUE)$'items'[,1:8])
 ```
 
-Constructs can be included in the analysis by creating one or more nested lists that indicate what items belong to what construct. From this, the `D3mirt()` function finds the average direction of the subset of items contained in each construct list by adding and normalizing the direction cosines for the items. Note, the length of the vector arrows is arbitrary and can be user adjusted.
+Constructs can be included in the analysis by creating one or more nested lists that indicate what items belong to what construct. From this, the `D3mirt()` function finds the average direction of the subset of items contained in each construct list by normalizing the direction cosines for the items. Note, the length of the vector arrows is arbitrary and can be user adjusted.
 
 The construct vector arrows can contribute to the analysis by (a) visualizing the average direction for a subset set of items, and (b) by showing how combinations of items interrelate at group-level.
 

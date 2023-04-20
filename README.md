@@ -269,9 +269,9 @@ d <- data.frame(mirt::coef(mod1,
 Constructs can be included in the analysis by creating one or more
 nested lists that indicate what items belong to what construct. From
 this, the `D3mirt()` function finds the average direction of the subset
-of items contained in each construct list by adding and normalizing the
-direction cosines for the items. Note, the length of the vector arrows
-is arbitrary and can be user adjusted.
+of items contained in each construct list by normalizing the direction
+cosines for the items. Note, the length of the vector arrows is
+arbitrary and can be user adjusted.
 
 The construct vector arrows can contribute to the analysis by (a)
 visualizing the average direction for a subset set of items, and (b) by
