@@ -3,7 +3,7 @@
 #' @description `modid()` performs model identification for descriptive multidimensional item response theory (DMIRT) models by indicating what items, from a set or scale, that maximize interpretation of the DMIRT model.
 #'
 #' @param x A data frame with factor loadings
-#' @param lower The lower bound for item inclusion based on item factor loadings. Default is `lower = 0.5`.
+#' @param lower The lower bound for item inclusion based on item factor loadings. The Lower bound is the standard deviation on the scaled factor loadings. Default is `lower = 0.5`.
 #' @param upper The upper bound for filtering of absolute sum scores less than or equal to the indicated value. Default is `upper = .10`
 #' @param fac.order Optional. Users can override the automatic sorting of factors by manually indicating factor order with integer values, e.g., `c(2,1,3)` to use the second factor (or column) in data frame x first, first factor (or column) in x second, and the third factor (or column) is left untouched.
 #' Default is `fac.order = NULL`.
@@ -29,7 +29,7 @@
 #'
 #' ## Step 2: Item Selection
 #' The `modid()` takes in the factor solution from the EFA, assigned to a data frame \emph{x}, and outputs lists (denoted \emph{id}) with suggestions of items (\emph{item.1....item.n}) to use for the model identification.
-#' These lists contain one column for the loadings from each item on the factor of interest, and one column with absolute sum scores for each item calculated from the remaining factor loadings in the model.
+#' These lists contain one column for the highest factor loadings (equal to or higher than the limit set by the lower bound) from each item on the factor of interest, and one column with absolute sum scores for each item calculated from the remaining factor loadings in the model.
 #' Each list is sorted with the lowest absolute sum score highest up.
 #' Accordingly, the top items in each list are the items that best meet the assumption of orthogonality in the analysis.
 #' Therefore, for a three-dimensional model, all else equal, the item highest up in the first list should be used to identify the x-axis, and the item highest up in the second list should be used to identify the y-axis, and so on.
