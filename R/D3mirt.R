@@ -36,7 +36,7 @@
 #'
 #' # Constructs
 #' The user has the option of including constructs in the estimation, by creating one or more nested lists that indicate what items belong to what construct (see the examples section below).
-#' From this, the `D3mirt()` function calculates direction cosines for the constructs by adding and normalizing the direction cosines for the items contained in each construct list.
+#' From this, the `D3mirt()` function calculates direction cosines for the constructs by normalizing the direction cosines for the items contained in each construct list.
 #* The construct vector arrows can contribute to the analysis by (a) visualizing the average direction for a subset set of items, and (b) showing how combinations of items interrelate at group-level.
 #' Note, the length of the construct vector arrows is arbitrary.
 #'
@@ -113,8 +113,12 @@ D3mirt <- function(x, constructs = NULL){
   theta <- NULL
   for (i in seq(nrow(dcos))){
     c <- dcos[i,1]
-    if (c < 0){
+    d <- dcos[i,3]
+    if (c < 0 && d >= 0){
       t <- 180 + atan(dcos[i,3]/dcos[i,1])*(180/pi)
+      theta <- as.matrix(rbind(theta, t), ncol = 1)
+    } else if (c < 0 && d < 0){
+      t <- -180 + atan(dcos[i,3]/dcos[i,1])*(180/pi)
       theta <- as.matrix(rbind(theta, t), ncol = 1)
     } else {
       t <- atan(dcos[i,3]/dcos[i,1])*(180/pi)
