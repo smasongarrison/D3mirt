@@ -24,6 +24,10 @@ library(mirt)
 knitr::knit_hooks$set(webgl = hook_webgl)
 ```
 
+::: {align="center"}
+<img src="//Users/roadcastermusic/R Projects/D3mirt/man/figures/logo.png" align="center" height="200"/>
+:::
+
 # `D3MIRT` Modeling
 
 The `D3mirt` analysis is based on descriptive multidimensional item response theory (DMIRT; Reckase2009, 1985; Reckase & McKinley, 1991) and can be used to analyze dichotomous and polytomous items (see Muraki & Carlson, 1995) in a multidimensional ability space.
@@ -210,6 +214,7 @@ In this case, the best item for the $y$-axis is item "W7Q20".
 
 Sometimes, however, the model is hard to identify.
 If this happens, try the following in the order suggested.
+For more on the function arguments see the section below regarding the model identification procedure.
 
 1.  Change the rotation method in the EFA, e.g., to change from *oblimin* to *varimax*.
 2.  Adjust the `lower` bound in `modid()`.
@@ -219,7 +224,7 @@ If this happens, try the following in the order suggested.
 The latter (point 4) should, however, only be used as a last resort.
 This is because the upper bound sets the upper limit for item inclusion.
 Adjusting this limit too high means that the necessary statistical requirements are compromised.
-The lower limit (point 2), however, only increases the size of the item pool used for the item selection (see the section below on the model identification procedure).
+The lower limit (point 2), however, only increases the size of the item pool used for the item selection.
 It is, therefore, recommended to adjust the lower limit up and down to see if the output differs, and from that make the final decision.
 
 ```{r}
@@ -252,7 +257,7 @@ In brief, in the default automatic mode, `modid()` starts by first calculating t
 Next, the function creates a list containing the factor loadings on the first factor, $f_1$, and absolute sum scores of the factor loadings on the remaining factors, i.e., $F-f_1$, row-wise.
 The list is rearranged in decreasing order based on factor loading strength on $f_1$.
 
-Next, items are selected by first scaling $f_1$ loadings and then extracting the items with the highest loadings on $f_1$, up to a standard deviation of $0.5$ as the lower bound criteria counting from the top.
+Next, items are selected by first scaling $f_1$ loadings and then extracting the items with the highest loadings on $f_1$, up to a standard deviation of $0.5$ (default) as the lower bound criteria counting from the top.
 That is, rows with raw factor scores and absolute sum scores are extracted until the lower bound for factor loadings on $f_1$ is reached.
 This allows the function to extract more rows in the case empirical factor loadings are very similar in strength.
 The result is recorded as a nested list before the function starts over with the next factor, $f_2$, and so on.
