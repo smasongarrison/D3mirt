@@ -1,5 +1,9 @@
 
-<img src="man/figures/logo.png" align="middle" height="200"/>
+<div align="center">
+
+<img src="man/figures/logo.png" align="center" height="200"/>
+
+</div>
 
 # `D3MIRT` Modeling
 

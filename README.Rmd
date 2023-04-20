@@ -7,8 +7,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%",
-  fig.align="center"
+  out.width = "100%"
 )
 ```
 
@@ -17,7 +16,9 @@ library(D3mirt)
 library(mirt)
 ```
 
-<img src="man/figures/logo.png" align="middle" height="200"/>
+::: {align="center"}
+<img src="man/figures/logo.png" align="center" height="200"/>
+:::
 
 # `D3MIRT` Modeling
 
