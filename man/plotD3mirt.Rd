@@ -252,7 +252,22 @@ plotD3mirt(g,
            constructs = TRUE,
            construct.lab = c("Fairness", "Conformity", "Compassion"))
 
-# For more on profile analysis (e.g., options and how to prepare the data) see the package vignette
+# Profile Analaysis
+# Extract respondent factor scores from mod1 with fscores() function from [mirt::mirt]
+f <- mirt::fscores(mod1,
+                   method="EAP",
+                   full.scores = TRUE,
+                   full.scores.SE = F, QMC = T)
+
+# Alternatively, load factor scores for respondents from package file
+load("vignettes/fscores.Rdata")
+
+# Attach f to the gender variable (column 2 from anes08_09offwaves data set; "W3XGENDER")
+# Use cbind with fscores() output attached first
+data("anes08_09offwaves")
+x <- anes08_09offwaves
+z <- data.frame(cbind(f, x[,2]))
+
 # Plot profiles with item vector arrows hidden
 # Score levels: 1 = Blue ("male") and 2 = Red ("female")
 plotD3mirt(g, hide = TRUE,
@@ -263,7 +278,18 @@ plotD3mirt(g, hide = TRUE,
            y.lab="Conformity",
            z.lab="Fairness")
 
-# Call plotD3mirt with profile data, item vector arrows hidden, and with a 95\% CI
+# Add a 95\% CI to respondent factor scores on <= 30 y.o.
+# Column bind fscores() with age variable ("W3Xage")
+y <- data.frame(cbind(f, x[,1]))
+
+# Subset data frame y conditioned on age <= 30
+z1 <- subset(y, y[,4] <= 30)
+
+# Use rep() to create a color vector to color groups based on the nlevels() output
+# z1 has 14 factor levels
+colvec <- c(rep("red", 14))
+
+# Call plotD3mirt with profile data on age with item vector arrows hidden
 plotD3mirt(g, hide = TRUE,
            profiles = z1,
            levels = z1[,4],
@@ -282,16 +308,6 @@ s <- scene3d()
 rgl::rglwidget(s,
                width = 1040,
                height = 1040)
-
-# Store widget directly to file
-plotD3mirt(g,
-           constructs = TRUE)
-s <- scene3d()
-htmlwidgets::saveWidget(rglwidget(s,
-                         width = 1040, height = 1040),
-                        file = "anes08_09offwaves.html",
-                        libdir = "libs",
-                        selfcontained = FALSE)
 
 # Export a snap shoot of an open RGL device directly to file
 plotD3mirt(g,
