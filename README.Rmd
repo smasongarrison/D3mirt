@@ -73,7 +73,7 @@ As a first step in the analysis, the three-dimensional compensatory model must b
 
 If the model is not known beforehand it is necessary to explore the data with exploratory factor analysis (EFA), preferably with the help of the EFA option in `mirt::mirt` (Chalmers, 2012) using `ìtemtype = 'graded'` or `'2PL'`. Note, the EFA is only used to find model identification items that meet the necessary DMIRT model specification requirements. The EFA model itself is discarded after this step in the procedure.
 
-```{r, message = FALSE, results = 'hide'}
+```{r, message = FALSE, results = 'hide', eval = FALSE}
 # Load data
 data("anes08_09offwaves")
 x <- anes08_09offwaves
@@ -85,6 +85,10 @@ e <- mirt::mirt(x, 3, itemtype = 'graded')
 # Assign data frame with factor loadings with oblimin rotation
 f <- summary(e, rotate= 'oblimin')
 h <- data.frame(f$rotF)
+```
+```{r}
+# Alternatively, load the EFA data for this example directly from package file
+load("vignettes/efa.Rdata")
 ```
 
 The `modid()` takes in the factor solution from the EFA, assigned to a data frame $h$, and outputs an $S3$ object of class `modid` containing lists with data frames of estimates. The most important is the item lists, (denoted `$id`), containing data frames that present suggestions on what items (`item.1`...`item.n`) to use for the model identification. The data frames have one column for the loadings from each item on the factor of interest, and one column with absolute sum scores (denoted `ABS`) for each item calculated from the remaining factor loadings in the model. Each item list is sorted with the lowest absolute sum score highest up. Consequently, the top items in each list are the items that best meet the necessary statistical requirements for model identification. Therefore, for a three-dimensional model, all else equal, the item highest up in the first list should be used to identify the $x$-axis, and the item highest up in the second list should be used to identify the $y$-axis, and so on.
@@ -106,7 +110,7 @@ If constructs are used, the function also returns construct direction cosines, s
 
 The three-dimensional compensatory model is specified so that all items load on all three factors in the model, and that the factors are constrained to be orthogonal (see below). The fitting of the model is preferably done with the `mirt::mirt` (Chalmers, 2012) function. Please note very carefully regarding the model specification in the example below.
 
-```{r, message = FALSE, results = 'hide'}
+```{r, message = FALSE, results = 'hide', eval = FALSE}
 # Load data
 data("anes08_09offwaves")
 x <- anes08_09offwaves
@@ -138,11 +142,15 @@ mod1 <- mirt::mirt(x,
                    itemtype = 'graded', 
                    SE = TRUE, 
                    method = 'QMCEM')
-
+ 
 # Assign a data frame with factor loadings (located in the first three columns in mod1),
 # and difficulty parameters (columns 4-8 in mod1) with mirt::coef and $'items'[,1:8]))
 d <- data.frame(mirt::coef(mod1, 
                            simplify=TRUE)$'items'[,1:8])
+```
+```{r}
+# Alternatively, load data frame d for this example directly from package file
+load("vignettes/d.Rdata")
 ```
 
 Constructs can be included in the analysis by creating one or more nested lists that indicate what items belong to what construct. From this, the `D3mirt()` function finds the average direction of the subset of items contained in each construct list by normalizing the direction cosines for the items. Note, the length of the vector arrows is arbitrary and can be user adjusted.
@@ -207,13 +215,18 @@ The `plotD3mirt()` function can also display respondents in the three-dimensiona
 
 To do this, the user must first extract respondent factor scores with `mirt::fscores` (Chalmers, 2012) and then select a subset of respondent rows based on one or more criteria. The resulting data frame is imputed in the `profiles` argument. Generally, it can be useful to hide vector arrows with `hide = TRUE` when plotting respondent profiles to avoid visual cluttering. The example below separates respondents using the gender variable included in the built-in data set.
 
-```{r}
+```{r, eval = FALSE}
 # Extract respondent factor scores from mod1 with fscores() function from [mirt::mirt]
 f <- mirt::fscores(mod1, 
                    method="EAP", 
                    full.scores = TRUE, 
                    full.scores.SE = F, QMC = T)
-
+```
+```{r}
+# Alternatively, load respondent factor scores for this example directly from package file
+load("vignettes/fscores.Rdata")
+```
+```{r}
 # Attach f to the gender variable (column 2 from anes08_09offwaves data set; "W3XGENDER")
 # Use cbind with fscores() output attached first
 data("anes08_09offwaves")

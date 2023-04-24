@@ -135,6 +135,11 @@ f <- summary(e, rotate= 'oblimin')
 h <- data.frame(f$rotF)
 ```
 
+``` r
+# Alternatively, load the EFA data for this example from package file
+load("vignettes/efa.Rdata")
+```
+
 The `modid()` takes in the factor solution from the EFA, assigned to a
 data frame $h$, and outputs an $S3$ object of class `modid` containing
 lists with data frames of estimates. The most important is the item
@@ -266,11 +271,16 @@ mod1 <- mirt::mirt(x,
                    itemtype = 'graded', 
                    SE = TRUE, 
                    method = 'QMCEM')
-
+ 
 # Assign a data frame with factor loadings (located in the first three columns in mod1),
 # and difficulty parameters (columns 4-8 in mod1) with mirt::coef and $'items'[,1:8]))
 d <- data.frame(mirt::coef(mod1, 
                            simplify=TRUE)$'items'[,1:8])
+```
+
+``` r
+# Alternatively, load data frame d for this example from package file
+load("vignettes/d.Rdata")
 ```
 
 Constructs can be included in the analysis by creating one or more
@@ -512,7 +522,14 @@ f <- mirt::fscores(mod1,
                    method="EAP", 
                    full.scores = TRUE, 
                    full.scores.SE = F, QMC = T)
+```
 
+``` r
+# Alternatively, load respondent factor scores for this example from package file
+load("vignettes/fscores.Rdata")
+```
+
+``` r
 # Attach f to the gender variable (column 2 from anes08_09offwaves data set; "W3XGENDER")
 # Use cbind with fscores() output attached first
 data("anes08_09offwaves")
