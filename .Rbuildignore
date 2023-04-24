@@ -10,3 +10,5 @@
 ^D3mirt.png
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
+^doc$
+^Meta$
