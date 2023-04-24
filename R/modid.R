@@ -71,6 +71,7 @@
 #' @references Samejima, F. (1969). Estimation of latent ability using a response pattern of graded scores. \emph{Psychometrika 34}, 1–97. https://doi.org/10.1007/BF03372160
 #'
 #' @examples
+#' \dontrun{
 #' # Load data
 #' data("anes08_09offwaves")
 #' x <- anes08_09offwaves
@@ -82,6 +83,10 @@
 #' # Assign data frame with factor loadings with oblimin rotation
 #' f <- summary(e, rotate= 'oblimin')
 #' h <- data.frame(f$rotF)
+#' }
+#'
+#' # Alternatively, load the EFA data for this example directly from package file
+#' load("vignettes/efa.Rdata")
 #'
 #' # Call to modid()
 #' modid(h)
@@ -98,7 +103,7 @@ modid <- function(x, lower = 0.5, upper = .10, fac.order = NULL){
   } else {
    if(any(!fac.order == round(fac.order))) stop("Factor order must be indicated with integer values")
     if (any(duplicated(fac.order))) stop("The factor order argument has duplicate elements")
-    if (!length(fac.order) == length(x)) stop("The factor order argument has too many indicators")
+    if (!length(fac.order) == ncol(x)) stop("The number of factor indicators and the number of factors do not match")
     if(any(!fac.order <= ncol(x))) stop("The factor argument has at least one factor indicator that is higher than the total number of factors")
     y <- x[, fac.order]
   }
