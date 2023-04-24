@@ -53,6 +53,7 @@ Note, the length of the construct vector arrows is arbitrary.
 }
 
 \examples{
+\dontrun{
 # Load data
 data("anes08_09offwaves")
 x <- anes08_09offwaves
@@ -89,7 +90,10 @@ mod1 <- mirt::mirt(x,
 # and difficulty parameters (columns 4-8 in mod1) with mirt::coef and $'items'[,1:8]))
 d <- data.frame(mirt::coef(mod1,
                            simplify=TRUE)$'items'[,1:8])
+}
 
+# Alternatively, load the mirt data frame for this example directly from package file
+load("vignettes/d.Rdata")
 
 # Call D3mirt() with data frame d
 g <- D3mirt(d)
