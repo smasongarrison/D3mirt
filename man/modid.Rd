@@ -82,6 +82,7 @@ However, it is important to recognize that the \code{modid()} function only give
 }
 }
 \examples{
+\dontrun{
 # Load data
 data("anes08_09offwaves")
 x <- anes08_09offwaves
@@ -93,6 +94,10 @@ e <- mirt::mirt(x, 3, itemtype = 'graded')
 # Assign data frame with factor loadings with oblimin rotation
 f <- summary(e, rotate= 'oblimin')
 h <- data.frame(f$rotF)
+}
+
+# Alternatively, load the EFA data for this example directly from package file
+load("vignettes/efa.Rdata")
 
 # Call to modid()
 modid(h)
