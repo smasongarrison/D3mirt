@@ -1,15 +1,13 @@
-citHeader("To cite D3mirt in publications use:")
-
-citEntry(
-  entry    = "Unpublished",
+bibentry(
+  bibtype    = "Unpublished",
   note = "Development version of the D3mirt package",
-  title    = "{D3mirt}",
-  author   = "Erik Forsberg",
+  title    = "D3mirt: Identification, estimation, and plotting of D3mirt psychometric models",
+  author   = c(
+              person( "Erik", "Forsberg", role = c("aut", "cre", "cph"),
+              comment = c(ORCID = "0000-0002-5228-9729")),
+              person("Anders", "Sjöberg", role = c("ths", "ctb"))),
   institution  = "Department of Psychology, Stockholm University",
   adress = "Stockholm, Sweden",
   year     = "2023",
-  url      = "https://github.com/ForsbergPyschometrics/D3mirt",
-  textVersion = paste(
-
-  )
+  url      = "https://github.com/ForsbergPyschometrics/D3mirt"
 )
