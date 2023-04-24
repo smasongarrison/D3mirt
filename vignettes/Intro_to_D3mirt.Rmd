@@ -54,9 +54,7 @@ The most central estimates, briefly explained below, in DMIRT analysis are the s
 
 The $MDISC$ for item $i$ represents the highest level of discrimination the item $i$ can achieve located in a multidimensional latent trait space, with $m$ number of dimensions and $a_{ik}$ item slope parameters (Reckase2009, 1985; Reckase & McKinley, 1991).
 
-::: {align="center"}
-$MDISC = A_i = \sqrt {\sum_{k = 1}^{m} a^{2}_{ik} }$
-:::
+::: {align="center"} $MDISC = A_i = \sqrt {\sum_{k = 1}^{m} a^{2}_{ik} }$ :::
 
 Similarly to unidimensional modeling, the $MDISC$ parameter, also denoted as $A_i$, sets the steepness of the slope of the item response function at the point of inflection.
 The slope is, similarly to the unidimensional case, assessed as using the constant $\frac{A_i}{4}$ (omitted in the equation above).

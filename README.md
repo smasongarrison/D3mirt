@@ -136,7 +136,7 @@ h <- data.frame(f$rotF)
 ```
 
 ``` r
-# Alternatively, load the EFA data for this example from package file
+# Alternatively, load the EFA data for this example directly from package file
 load("vignettes/efa.Rdata")
 ```
 
@@ -279,8 +279,8 @@ d <- data.frame(mirt::coef(mod1,
 ```
 
 ``` r
-# Alternatively, load data frame d for this example from package file
-load("vignettes/d.Rdata")
+# Alternatively, load data frame d for this example directly from package file
+load("vignettes/d.rdata")
 ```
 
 Constructs can be included in the analysis by creating one or more
@@ -525,7 +525,7 @@ f <- mirt::fscores(mod1,
 ```
 
 ``` r
-# Alternatively, load respondent factor scores for this example from package file
+# Alternatively, load respondent factor scores for this example directly from package file
 load("vignettes/fscores.Rdata")
 ```
 
