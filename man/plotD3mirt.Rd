@@ -136,7 +136,8 @@ Default is \code{nticks = 4}.}
 
 \item{barblen}{The length of the barbs for vector arrows from \code{arrow3d()}. Default is \code{barblen = 0.03}.}
 
-\item{c.scalars}{Set of scalars for adjusting construct arrow length. The first numeric adjust the length in the negative direction and the second numeric the length in the positive direction. Default is \code{c.scalars = c(1,1)}.}
+\item{c.scalars}{Set of scalars for adjusting construct arrow length.
+The first numeric adjust the length in the negative direction and the second numeric the length in the positive direction. Default is \code{c.scalars = c(1,1)}.}
 
 \item{c.type}{Type of vector arrow for constructs. See \link[rgl:arrow3d]{rgl::arrow3d} for more options regarding arrow types. Default is \code{c.type = "rotation"}.}
 
@@ -253,13 +254,13 @@ plotD3mirt(g,
            construct.lab = c("Fairness", "Conformity", "Compassion"))
 
 # Profile Analaysis
-# Extract respondent factor scores from mod1 with fscores() function from [mirt::mirt]
+# Extract respondent factor scores from mod1 (see D3mirt()) with mirt::fscores()
 f <- mirt::fscores(mod1,
                    method="EAP",
                    full.scores = TRUE,
                    full.scores.SE = F, QMC = T)
 
-# Alternatively, load factor scores for respondents from package file
+# Alternatively, load respondent factor scores from the package file
 load("vignettes/fscores.Rdata")
 
 # Attach f to the gender variable (column 2 from anes08_09offwaves data set; "W3XGENDER")

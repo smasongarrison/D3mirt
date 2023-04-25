@@ -202,7 +202,7 @@ Consequently, the top items in each list are the items that best meet the necess
 Therefore, for a three-dimensional model, all else equal, the item highest up in the first list should be used to identify the $x$-axis, and the item highest up in the second list should be used to identify the $y$-axis, and so on.
 
 ```{r}
-# Load the EFA data for this example directly from package file
+# Load the EFA data for this example directly from the package file
 load("efa.Rdata")
 
 # Call to modid()
@@ -348,7 +348,7 @@ The `D3mirt()` function call is straightforward.
 The output, however, is lengthy so the use of the summary function when inspecting the results is recommended.
 
 ```{r}
-# Load data frame d for for this example directly from package file
+# Load data frame d for for this example directly from the package file
 load("d.Rdata")
 
 # Call D3mirt() 
@@ -542,7 +542,7 @@ f <- mirt::fscores(mod1,
 ```
 
 ```{r}
-# Load factor scores for respondents for this example directly from package file
+# Load respondent factor scores for this example directly from the package file
 load("fscores.Rdata")
 
 # Attach f to the gender variable (column 2 from anes08_09offwaves data set; "W3XGENDER")
@@ -718,13 +718,12 @@ Full-Information Factor Analysis for Polytomous Item Responses.
 Reckase, M. D.(2009).*Multidimensional Item Response Theory*.Springer.
 
 Reckase, M. D.(1985). The Difficulty of Test Items That Measure More Than One Ability.
-*Applied Psychological Measurement, 9*(4),401-412.<https://doi-org.ezp.sub.su.se/10.1177/014662168500900409>
+*Applied Psychological Measurement, 9*(4),401-412.
 
 Reckase, M. D., & McKinley, R. L.
 (1991).
 The Discriminating Power of Items That Measure More Than One Dimension.
 *Applied Psychological Measurement, 15*(4), 361-373.
-<https://doi-org.ezp.sub.su.se/10.1177/014662169101500407>
 
 Samejima, F.
 (1969).

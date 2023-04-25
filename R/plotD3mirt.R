@@ -45,7 +45,8 @@
 #' @param n Number of barbs for the vector arrows from `arrow3d()`. Default is `n = 20`.
 #' @param theta Opening angle of barbs for vector arrows from `arrow3d()`. Default is `theta = 0.2`.
 #' @param barblen The length of the barbs for vector arrows from `arrow3d()`. Default is `barblen = 0.03`.
-#' @param c.scalars Set of scalars for adjusting construct arrow length. The first numeric adjust the length in the negative direction and the second numeric the length in the positive direction. Default is `c.scalars = c(1,1)`.
+#' @param c.scalars Set of scalars for adjusting construct arrow length prportionally.
+#' The first numeric adjust the length proportionally in the positive direction and the second numeric the length in the negative direction. Default is `c.scalars = c(1,1)`.
 #' @param c.type Type of vector arrow for constructs. See [rgl::arrow3d] for more options regarding arrow types. Default is `c.type = "rotation"`.
 #' @param c.col Color for construct vector arrows from `arrow3d()`, default is `c.col = "black"`.
 #' @param c.arrow.width Width of construct vector arrows for `arrow3d()`. Default is `c.arrow.width = 0.6`.
@@ -145,13 +146,13 @@
 #'            construct.lab = c("Fairness", "Conformity", "Compassion"))
 #'
 #' # Profile Analaysis
-#' # Extract respondent factor scores from mod1 with fscores() function from [mirt::mirt]
+#' # Extract respondent factor scores from mod1 (see D3mirt()) with mirt::fscores()
 #' f <- mirt::fscores(mod1,
 #'                    method="EAP",
 #'                    full.scores = TRUE,
 #'                    full.scores.SE = F, QMC = T)
 #'
-#' # Alternatively, load factor scores for respondents from package file
+#' # Alternatively, load respondent factor scores from the package file
 #' load("vignettes/fscores.Rdata")
 #'
 #' # Attach f to the gender variable (column 2 from anes08_09offwaves data set; "W3XGENDER")
@@ -434,8 +435,8 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         adj = adjust.lab, size = 2)
           })
         } else {
-          if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
-          if(length(item.lab) < nrow(x$loadings)) warning("There are too few item labels")
+          if(!length(item.lab) <= length(items)) warning("There are more item labels than items in the items list")
+          if(length(item.lab) < length(items)) warning("There are too few item labels")
           dl <-  as.data.frame(x$dir.vec[diff.level, drop = FALSE])
           sapply(seq_along(items), function(i){
             m <- items[i]
@@ -584,8 +585,8 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
                         adj = adjust.lab, size = 2)
           })
         } else {
-          if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
-          if(length(item.lab) < nrow(x$loadings)) warning("There are too few item labels")
+          if(!length(item.lab) <= length(items)) warning("There are more item labels than items in the items list")
+          if(length(item.lab) < length(items)) warning("There are too few item labels")
           dl <-  as.data.frame(x$scal.vec[diff.level, drop = FALSE])
           sapply(seq_along(items), function(i){
             m <- items[i]
@@ -601,11 +602,11 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
     if (is.null(x$c.vec)) warning("3D mirt object does not contain any constructs")
     cvec <- x$c.vec
     sapply(seq(from = 1, to = nrow(cvec), by=2), function(x){
-      rgl::arrow3d(cvec[x,]*c.scalars[1], cvec[x+1,]*c.scalars[2], type = c.type, col = c.col, width = c.arrow.width, n = c.n, theta = c.theta, barblen = c.barblen)
+      rgl::arrow3d(cvec[x,]*c.scalars[2], cvec[x+1,]*c.scalars[1], type = c.type, col = c.col, width = c.arrow.width, n = c.n, theta = c.theta, barblen = c.barblen)
     })
     if (!is.null(construct.lab) && constructs == TRUE){
       if(!length(construct.lab) <= nrow(x$c.vec)) warning("There are more construct labels than constructs")
-      clab <-  x$c.vec*c.scalars[2]
+      clab <-  x$c.vec*c.scalars[1]
       sapply(seq(nrow(x$c.dir.cos)), function(i){
         rgl::text3d(clab[(i*2),1],clab[(i*2),2], clab[(i*2),3], text = c(construct.lab[i]), color = axis.col,
                     adj = adjust.lab, size = 2)

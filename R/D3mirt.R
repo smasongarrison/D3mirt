@@ -86,9 +86,9 @@
 #' # and difficulty parameters (columns 4-8 in mod1) with mirt::coef and $'items'[,1:8]))
 #' d <- data.frame(mirt::coef(mod1,
 #'                            simplify=TRUE)$'items'[,1:8])
-#' }
 #'
-#' # Alternatively, load the mirt data frame for this example directly from package file
+#'
+#' # Alternatively, load the mirt data frame for this example directly from the package file
 #' load("vignettes/d.Rdata")
 #'
 #' # Call D3mirt() with data frame d
@@ -103,6 +103,7 @@
 #'           list(11,12,13,14,15,15,16,17,18,19,20))
 #' g <- D3mirt(d, c)
 #' summary(g)
+#' }
 #' @export
 D3mirt <- function(x, constructs = NULL){
   if(ncol(x) < 4) stop("Data frame must have at least 4 columns")

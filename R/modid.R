@@ -83,9 +83,9 @@
 #' # Assign data frame with factor loadings with oblimin rotation
 #' f <- summary(e, rotate= 'oblimin')
 #' h <- data.frame(f$rotF)
-#' }
 #'
-#' # Alternatively, load the EFA data for this example directly from package file
+#'
+#' # Alternatively, load the EFA data for this example directly from the package file
 #' load("vignettes/efa.Rdata")
 #'
 #' # Call to modid()
@@ -96,6 +96,7 @@
 #'
 #' # Override factor order by reversing columns in the original data frame
 #' modid(h, fac.order = c(3,2,1))
+#' }
 #' @export
 modid <- function(x, lower = 0.5, upper = .10, fac.order = NULL){
   if (is.null(fac.order)){

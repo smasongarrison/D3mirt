@@ -73,6 +73,8 @@ As a first step in the analysis, the three-dimensional compensatory model must b
 
 If the model is not known beforehand it is necessary to explore the data with exploratory factor analysis (EFA), preferably with the help of the EFA option in `mirt::mirt` (Chalmers, 2012) using `ìtemtype = 'graded'` or `'2PL'`. Note, the EFA is only used to find model identification items that meet the necessary DMIRT model specification requirements. The EFA model itself is discarded after this step in the procedure.
 
+Note, all outputs from functions from the `mirt` package are available as package files that can be loaded directly into the R session to save time.
+
 ```{r, message = FALSE, results = 'hide', eval = FALSE}
 # Load data
 data("anes08_09offwaves")
@@ -87,7 +89,7 @@ f <- summary(e, rotate= 'oblimin')
 h <- data.frame(f$rotF)
 ```
 ```{r}
-# Alternatively, load the EFA data for this example directly from package file
+# Load the EFA data directly from the package file
 load("vignettes/efa.Rdata")
 ```
 
@@ -149,7 +151,7 @@ d <- data.frame(mirt::coef(mod1,
                            simplify=TRUE)$'items'[,1:8])
 ```
 ```{r}
-# Alternatively, load data frame d for this example directly from package file
+# Load data frame d directly from the package file
 load("vignettes/d.rdata")
 ```
 
@@ -223,7 +225,7 @@ f <- mirt::fscores(mod1,
                    full.scores.SE = F, QMC = T)
 ```
 ```{r}
-# Alternatively, load respondent factor scores for this example directly from package file
+# Load the respondent factor scores directly from the package file
 load("vignettes/fscores.Rdata")
 ```
 ```{r}

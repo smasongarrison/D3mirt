@@ -94,9 +94,9 @@ e <- mirt::mirt(x, 3, itemtype = 'graded')
 # Assign data frame with factor loadings with oblimin rotation
 f <- summary(e, rotate= 'oblimin')
 h <- data.frame(f$rotF)
-}
 
-# Alternatively, load the EFA data for this example directly from package file
+
+# Alternatively, load the EFA data for this example directly from the package file
 load("vignettes/efa.Rdata")
 
 # Call to modid()
@@ -107,6 +107,7 @@ modid(h, lower = 1, upper = .12 )
 
 # Override factor order by reversing columns in the original data frame
 modid(h, fac.order = c(3,2,1))
+}
 }
 \references{
 Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.

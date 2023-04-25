@@ -90,9 +90,9 @@ mod1 <- mirt::mirt(x,
 # and difficulty parameters (columns 4-8 in mod1) with mirt::coef and $'items'[,1:8]))
 d <- data.frame(mirt::coef(mod1,
                            simplify=TRUE)$'items'[,1:8])
-}
 
-# Alternatively, load the mirt data frame for this example directly from package file
+
+# Alternatively, load the mirt data frame for this example directly from the package file
 load("vignettes/d.Rdata")
 
 # Call D3mirt() with data frame d
@@ -107,6 +107,7 @@ c <- list(list (1,2,3,4),
           list(11,12,13,14,15,15,16,17,18,19,20))
 g <- D3mirt(d, c)
 summary(g)
+}
 }
 \references{
 Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.

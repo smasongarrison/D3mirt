@@ -121,6 +121,10 @@ or `'2PL'`. Note, the EFA is only used to find model identification
 items that meet the necessary DMIRT model specification requirements.
 The EFA model itself is discarded after this step in the procedure.
 
+Note, all outputs from functions from the `mirt` package are available
+as package files that can be loaded directly into the R session to save
+time.
+
 ``` r
 # Load data
 data("anes08_09offwaves")
@@ -136,7 +140,7 @@ h <- data.frame(f$rotF)
 ```
 
 ``` r
-# Alternatively, load the EFA data for this example directly from package file
+# Load the EFA data directly from the package file
 load("vignettes/efa.Rdata")
 ```
 
@@ -279,7 +283,7 @@ d <- data.frame(mirt::coef(mod1,
 ```
 
 ``` r
-# Alternatively, load data frame d for this example directly from package file
+# Load data frame d directly from the package file
 load("vignettes/d.rdata")
 ```
 
@@ -525,7 +529,7 @@ f <- mirt::fscores(mod1,
 ```
 
 ``` r
-# Alternatively, load respondent factor scores for this example directly from package file
+# Load the respondent factor scores directly from the package file
 load("vignettes/fscores.Rdata")
 ```
 
