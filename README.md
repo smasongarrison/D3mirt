@@ -8,8 +8,8 @@
 # `D3MIRT` Modeling
 
 The `D3mirt` analysis is based on descriptive multidimensional item
-response theory (DMIRT; Reckase2009, 1985; Reckase & McKinley, 1991) and
-can be used to analyze dichotomous and polytomous items (Muraki &
+response theory (DMIRT; Reckase, 2009, 1985; Reckase & McKinley, 1991)
+and can be used to analyze dichotomous and polytomous items (Muraki &
 Carlson, 1995) in a multidimensional ability space. The method is
 foremost visual and illustrates item characteristics, represented by
 vector arrows, located in a three-dimensional interactive space.
@@ -536,7 +536,7 @@ gender variable included in the built-in data set.
 f <- mirt::fscores(mod1, 
                    method="EAP", 
                    full.scores = TRUE, 
-                   full.scores.SE = F, QMC = T)
+                   full.scores.SE = FALSE, QMC = TRUE)
 ```
 
 ``` r
@@ -621,7 +621,7 @@ Adler, D., & Murdoch, D. (2023). *Rgl: 3d Visualization Using OpenGL*
 
 Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory
 Package for the R Environment. *Journal of Statistical Software, 48*(6),
-1-29.
+1-29. <https://doi.org/10.18637/jss.v048.i06>
 
 DeBell, M., Krosnick, J. A., & Lupia, A.(2010). *Methodology Report and
 User’s Guide for the 2008–2009 ANES Panel Study*. Palo Alto, CA, and Ann
@@ -632,16 +632,17 @@ for Polytomous Item Responses. *Applied Psychological Measurement,
 19*(1), 73–90. <https://doi.org/10.1177/014662169501900109>
 
 Reckase, M. D.(2009).*Multidimensional Item Response Theory*. Springer.
+<https://doi.org/10.1007/978-0-387-89976-3>
 
 Reckase, M. D.(1985). The Difficulty of Test Items That Measure More
-Than One Ability. *Applied Psychological Measurement,
-9*(4),401-412.<https://doi-org.ezp.sub.su.se/10.1177/014662168500900409>
+Than One Ability. *Applied Psychological Measurement, 9*(4),401-412.
+<https://doi.org/10.1177/014662168500900409>
 
 Reckase, M. D., & McKinley, R. L. (1991). The Discriminating Power of
 Items That Measure More Than One Dimension. *Applied Psychological
 Measurement, 15*(4), 361-373.
-<https://doi-org.ezp.sub.su.se/10.1177/014662169101500407>
+<https://doi.org/10.1177/014662169101500407>
 
 Samejima, F. (1969). Estimation of latent ability using a response
-pattern of graded scores. *Psychometrika 34*,
-1-97.<https://doi.org/10.1007/BF03372160>
+pattern of graded scores. *Psychometrika 34*, 1-97.
+<https://doi.org/10.1007/BF03372160>
