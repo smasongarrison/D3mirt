@@ -74,19 +74,6 @@ represents the maximum level of discrimination in the model, the $DDISC$
 represents the local discrimination that makes it possible to compare
 item discrimination in a specific direction set by the constructs.
 
-\### Model Violations
-
-When plotting the \`D3mirt\` model with \`plotD3mirt()\`, it is possible
-to visually observe statistical violations in the graphical output
-returned. For instance, shorter vector arrows indicate weaker
-discrimination and therefore also higher amounts of model violations. As
-another example, if an item struggles or even fail to describe any of
-the latent variables in the model, it can often lead to an extreme
-stretch of the \$MDIFF\$ range. This is comparable to trace lines
-turning horizontal in a unidimensional item response theory model. Some
-examples of model violations and within-dimensionality will be given in
-the illustration below.
-
 # Overview
 
 The package includes the following functions.
