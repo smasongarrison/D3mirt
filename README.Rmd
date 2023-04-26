@@ -26,6 +26,9 @@ The `D3mirt` analysis is based on descriptive multidimensional item response the
 
 In DMIRT analysis, also called within multidimensional modeling, it is assumed that items in a multidimensional ability space can measure single or multiple latent traits (Reckase, 2009, 1985; Reckase & McKinley, 1991). The methodology is a type of data reduction technique that uses a compensatory model (Reckase, 2009), i.e., a model that assumes the existence of a multidimensional trait space forming an interconnected latent ability field. The method is *descriptive* because the results describe the extent to which items in a test are unidimensional, i.e., that the items describe one dimension only, or are within-multidimensional, i.e., that the items describe more than one dimension.
 
+Regarding vectors, the angle of the vector arrows indicates what traits, located along the orthogonal axes in the model, an item can be said to describe (Reckase, 2009, 1985, Reckase & McKinley, 1991). For instance, in a two-dimensional space, an item is *unidimensional* if its item vector arrow is at $0°$ with respect to one of the axes in the model, and $90°$ with respect to the other. Such an item only describes a singular trait.
+In contrast, an item is *within-multidimensional* if its item vector arrow is oriented at $45°$ in relation to the axes in the model. Such an item describes both traits in the model equally well. The same criteria is extended to the three-dimensional case.
+
 The DMIRT approach uses two types of item models, dependent on item type. If dichotomous items are used, the analysis is based on the two-parameter logistic model (2PL). If polytmous items are used, the analysis is based on the two-parameter graded response model (GRM; Samejima, 1969). The method is therefore limited to items that fit these item models.
 
 The estimation process begins by first extracting two-parameters multidimensional equivalents to the discrimination $a$ and difficulty parameters $d$. The former becomes the multidimensional discrimination ($MDISC$) parameter and the latter the multidimensional difficulty ($MDIFF$) parameter.
@@ -35,6 +38,14 @@ The $MDIFF$ is interpreted similarly as the difficulty parameter in the unidimen
 The $MDISC$ shows the highest level of discrimination an item can achieve in the multidimensional model. In addition, the $MDISC$ score is also visualized in the graphical output by scaling the length of the vector arrows representing the item response functions.
 
 The `D3mirt` can also perform analysis of psychological constructs. Constructs, in this context, refer to the assumption that a subset of items can measure a higher-order latent variable. If constructs are used, the output will include reporting of the directional discrimination ($DDISC$) parameter that shows how well the items discriminate under the assumption that they measure one of the constructs used in the analysis. Importantly, while the $MDISC$ represents the maximum level of discrimination in the model, the $DDISC$ represents the local discrimination that makes it possible to compare item discrimination in a specific direction set by the constructs.
+
+\### Model Violations
+
+When plotting the \`D3mirt\` model with \`plotD3mirt()\`, it is possible to visually observe statistical violations in the graphical output returned.
+For instance, shorter vector arrows indicate weaker discrimination and therefore also higher amounts of model violations.
+As another example, if an item struggles or even fail to describe any of the latent variables in the model, it can often lead to an extreme stretch of the \$MDIFF\$ range.
+This is comparable to trace lines turning horizontal in a unidimensional item response theory model.
+Some examples of model violations and within-dimensionality will be given in the illustration below.
 
 # Overview
 
@@ -88,6 +99,7 @@ e <- mirt::mirt(x, 3, itemtype = 'graded')
 f <- summary(e, rotate= 'oblimin')
 h <- data.frame(f$rotF)
 ```
+
 ```{r}
 # Load the EFA data directly from the package file
 load("vignettes/efa.Rdata")
@@ -150,6 +162,7 @@ mod1 <- mirt::mirt(x,
 d <- data.frame(mirt::coef(mod1, 
                            simplify=TRUE)$'items'[,1:8])
 ```
+
 ```{r}
 # Load data frame d directly from the package file
 load("vignettes/d.rdata")
@@ -224,10 +237,12 @@ f <- mirt::fscores(mod1,
                    full.scores = TRUE, 
                    full.scores.SE = F, QMC = T)
 ```
+
 ```{r}
 # Load the respondent factor scores directly from the package file
 load("vignettes/fscores.Rdata")
 ```
+
 ```{r}
 # Attach f to the gender variable (column 2 from anes08_09offwaves data set; "W3XGENDER")
 # Use cbind with fscores() output attached first

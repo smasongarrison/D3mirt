@@ -26,6 +26,17 @@ unidimensional, i.e., that the items describe one dimension only, or are
 within-multidimensional, i.e., that the items describe more than one
 dimension.
 
+Regarding vectors, the angle of the vector arrows indicates what traits,
+located along the orthogonal axes in the model, an item can be said to
+describe (Reckase, 2009, 1985, Reckase & McKinley, 1991). For instance,
+in a two-dimensional space, an item is *unidimensional* if its item
+vector arrow is at $0°$ with respect to one of the axes in the model,
+and $90°$ with respect to the other. Such an item only describes a
+singular trait. In contrast, an item is *within-multidimensional* if its
+item vector arrow is oriented at $45°$ in relation to the axes in the
+model. Such an item describes both traits in the model equally well. The
+same criteria is extended to the three-dimensional case.
+
 The DMIRT approach uses two types of item models, dependent on item
 type. If dichotomous items are used, the analysis is based on the
 two-parameter logistic model (2PL). If polytmous items are used, the
@@ -62,6 +73,19 @@ constructs used in the analysis. Importantly, while the $MDISC$
 represents the maximum level of discrimination in the model, the $DDISC$
 represents the local discrimination that makes it possible to compare
 item discrimination in a specific direction set by the constructs.
+
+\### Model Violations
+
+When plotting the \`D3mirt\` model with \`plotD3mirt()\`, it is possible
+to visually observe statistical violations in the graphical output
+returned. For instance, shorter vector arrows indicate weaker
+discrimination and therefore also higher amounts of model violations. As
+another example, if an item struggles or even fail to describe any of
+the latent variables in the model, it can often lead to an extreme
+stretch of the \$MDIFF\$ range. This is comparable to trace lines
+turning horizontal in a unidimensional item response theory model. Some
+examples of model violations and within-dimensionality will be given in
+the illustration below.
 
 # Overview
 
