@@ -38,7 +38,8 @@ The methodology is a type of data reduction technique that uses a compensatory m
 This means that if one trait level is low, some other trait in the model can compensate to create the same predictive score.
 Probability estimates are therefore based on linear combinations of trait scores in the model.
 
-Moreover, the DMIRT analysis is said to be *descriptive* because the results describe the extent to which items in a test are unidimensional, i.e., that the items describe one dimension only, or are within-multidimensional, i.e., that the items describe more than one dimension.
+Regarding vector orientation, the DMIRT analysis is said to be *descriptive* because the results describe the extent to which the items in a test measure a singular or multiple traits (Reckase, 2009, 1985, Reckase & McKinley, 1991). Briefly, in a two-dimensional space, an item is *unidimensional* if its item vector arrow is at $0°$ with respect to one of the axes in the model, and $90°$ with respect to the other. Such an item describes a singular trait only.
+In contrast, an item is *within-multidimensional* if its item vector arrow is oriented at $45°$ in relation to the axes in the model. Such an item describes both traits in the model equally well. The same criteria is extended to the three-dimensional case.
 
 The DMIRT approach uses two types of item models, dependent on item type.
 If dichotomous items are used, the analysis is based on the two-parameter logistic model (2PL).
@@ -54,7 +55,9 @@ The most central estimates, briefly explained below, in DMIRT analysis are the s
 
 The $MDISC$ for item $i$ represents the highest level of discrimination the item $i$ can achieve located in a multidimensional latent trait space, with $m$ number of dimensions and $a_{ik}$ item slope parameters (Reckase2009, 1985; Reckase & McKinley, 1991).
 
-::: {align="center"} $MDISC = A_i = \sqrt {\sum_{k = 1}^{m} a^{2}_{ik} }$ :::
+::: {align="center"}
+$MDISC = A_i = \sqrt {\sum_{k = 1}^{m} a^{2}_{ik} }$
+:::
 
 Similarly to unidimensional modeling, the $MDISC$ parameter, also denoted as $A_i$, sets the steepness of the slope of the item response function at the point of inflection.
 The slope is, similarly to the unidimensional case, assessed as using the constant $\frac{A_i}{4}$ (omitted in the equation above).
@@ -389,15 +392,6 @@ Compared to the previous function call to `D3mirt()`, we now see two extra frame
 The `plotD3mirt` function is built on the `rgl` package (Adler & Murdoch, 2023) for visualization with OpenGL.
 The output consists of a three-dimensional interactive RGL device, displaying vector arrows with the latent dimensions running along the orthogonal axes centered at zero.
 If polytomous items are used each item will have multiple arrows, representing the multiple item step response functions, running along the exact same direction in the model.
-In the following two sections, some theory will be given to help interpret the graphical output.
-
-### Unidimensionality vs. Within-Dimensionality
-
-In DMIRT, the angle of the vector arrows indicates what traits, located along the orthogonal axes, an item can be said to describe (Reckase, 2009, 1985, Reckase & McKinley, 1991).
-For instance, in Cartesian coordinates, an item located at $0°$ seen from the $x$-axis, and $90°$ as seen from the $y$ and $z$-axis, only describes trait $x$.
-Such an item is unidimensional because its direction vector of maximal discrimination slope lies parallel and on the $x$-axis.
-In contrast, an item located at $45°$ between all three axes in a three-dimensional model describes all three traits in the model equally well.
-Such an item is within-multidimensional with respect to all three latent traits used in the analysis because its direction vector points in the $45°$ direction in the model.
 
 ### Model Violations
 
