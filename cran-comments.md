@@ -2,6 +2,17 @@
 
 0 errors ✔ | 0 warnings ✔ | 2 notes ✖
 
+Duration: 8m 34.6s
+
+❯ checking installed package size ... NOTE
+    installed size is  5.3Mb
+    sub-directories of 1Mb or more:
+      doc   4.9Mb
+
+❯ checking for non-standard things in the check directory ... NOTE
+  Found the following files/directories:
+    ‘RGLdevice.png’
+
 ## Revision 20230426
 
 A longer description of the package has been added in the description file.
