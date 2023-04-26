@@ -21,8 +21,40 @@ If constructs were used in the estimation process, the summary function will als
 The \code{summary.D3mirt()} function presents a compressed output from the \code{\link[=D3mirt]{D3mirt()}} S3 object.
 }
 \examples{
-\dontrun{
-# Preparation: Call `D3mirt()` and create list of constructs
+\donttest{
+# Load data
+data("anes08_09offwaves")
+x <- anes08_09offwaves
+x <- x[,3:22] # Remove columns for age and gender
+
+# Fit a three-dimensional graded response model with orthogonal factors
+spec <- ' F1 = 1-20
+           F2 = 1-20
+           F3 = 1-20
+
+           START=(W7Q3,a2,0)
+           START=(W7Q3,a3,0)
+
+           START=(W7Q20,a3,0)
+
+           FIXED=(W7Q3,a2)
+           FIXED=(W7Q3,a3)
+
+           FIXED=(W7Q20,a3) '
+
+
+mod1 <- mirt::mirt(x,
+                   spec,
+                   itemtype = 'graded',
+                   SE = TRUE,
+                   method = 'QMCEM')
+
+# Assign a data frame with factor loadings (located in the first three columns in mod1),
+# and difficulty parameters (columns 4-8 in mod1) with mirt::coef and $'items'[,1:8]))
+d <- data.frame(mirt::coef(mod1,
+                           simplify=TRUE)$'items'[,1:8])
+
+# Call D3mirt() and create list of constructs
 c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
 g <- D3mirt(d, c)
 

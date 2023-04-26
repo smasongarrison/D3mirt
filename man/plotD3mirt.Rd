@@ -221,8 +221,45 @@ In the case of the latter, the model perspective in the still shoot can be manua
 }
 
 \examples{
-\dontrun{
-# g is an S3 object of class "D3mirt" prepared with the D3mirt() function
+\donttest{
+# To plot, the data must be prepared with mirt::mirt and the D3mirt() function
+# Load data
+data("anes08_09offwaves")
+x <- anes08_09offwaves
+x <- x[,3:22] # Remove columns for age and gender
+
+# Fit a three-dimensional graded response model with orthogonal factors
+spec <- ' F1 = 1-20
+           F2 = 1-20
+           F3 = 1-20
+
+           START=(W7Q3,a2,0)
+           START=(W7Q3,a3,0)
+
+           START=(W7Q20,a3,0)
+
+           FIXED=(W7Q3,a2)
+           FIXED=(W7Q3,a3)
+
+           FIXED=(W7Q20,a3) '
+
+
+mod1 <- mirt::mirt(x,
+                   spec,
+                   itemtype = 'graded',
+                   SE = TRUE,
+                   method = 'QMCEM')
+
+# Assign a data frame with factor loadings (located in the first three columns in mod1),
+# and difficulty parameters (columns 4-8 in mod1) with mirt::coef and $'items'[,1:8]))
+d <- data.frame(mirt::coef(mod1,
+                           simplify=TRUE)$'items'[,1:8])
+
+# Call D3mirt() with data frame d and constructs assigned to c
+c <- list(list (1,2,3,4),
+          list(5,7,8,9,10),
+          list(11,12,13,14,15,15,16,17,18,19,20))
+g <- D3mirt(d, c)
 plotD3mirt(g)
 
 # Plot RGL device with constructs visible and named
@@ -258,14 +295,10 @@ plotD3mirt(g,
 f <- mirt::fscores(mod1,
                    method="EAP",
                    full.scores = TRUE,
-                   full.scores.SE = F, QMC = T)
-
-# Alternatively, load respondent factor scores from the package file
-load("vignettes/fscores.Rdata")
+                   full.scores.SE = FALSE, QMC = TRUE)
 
 # Attach f to the gender variable (column 2 from anes08_09offwaves data set; "W3XGENDER")
 # Use cbind with fscores() output attached first
-data("anes08_09offwaves")
 x <- anes08_09offwaves
 z <- data.frame(cbind(f, x[,2]))
 

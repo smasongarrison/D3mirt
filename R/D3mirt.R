@@ -49,7 +49,7 @@
 #' @references Samejima, F. (1969). Estimation of latent ability using a response pattern of graded scores. \emph{Psychometrika 34}, 1–97. https://doi.org/10.1007/BF03372160
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Load data
 #' data("anes08_09offwaves")
 #' x <- anes08_09offwaves
@@ -86,10 +86,6 @@
 #' # and difficulty parameters (columns 4-8 in mod1) with mirt::coef and $'items'[,1:8]))
 #' d <- data.frame(mirt::coef(mod1,
 #'                            simplify=TRUE)$'items'[,1:8])
-#'
-#'
-#' # Alternatively, load the mirt data frame for this example directly from the package file
-#' load("vignettes/d.Rdata")
 #'
 #' # Call D3mirt() with data frame d
 #' g <- D3mirt(d)
