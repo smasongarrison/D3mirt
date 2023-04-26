@@ -26,16 +26,16 @@ unidimensional, i.e., that the items describe one dimension only, or are
 within-multidimensional, i.e., that the items describe more than one
 dimension.
 
-Regarding vectors, the angle of the vector arrows indicates what traits,
-located along the orthogonal axes in the model, an item can be said to
-describe (Reckase, 2009, 1985, Reckase & McKinley, 1991). For instance,
-in a two-dimensional space, an item is *unidimensional* if its item
-vector arrow is at $0°$ with respect to one of the axes in the model,
-and $90°$ with respect to the other. Such an item only describes a
-singular trait. In contrast, an item is *within-multidimensional* if its
-item vector arrow is oriented at $45°$ in relation to the axes in the
-model. Such an item describes both traits in the model equally well. The
-same criteria is extended to the three-dimensional case.
+Regarding vector orientation, the angle of the vector arrows indicates
+what traits, located along the orthogonal axes in the model, an item can
+be said to describe (Reckase, 2009, 1985, Reckase & McKinley, 1991). For
+instance, in a two-dimensional space, an item is *unidimensional* if its
+item vector arrow is at $0°$ with respect to one of the axes in the
+model, and $90°$ with respect to the other. Such an item describes a
+singular trait only. In contrast, an item is *within-multidimensional*
+if its item vector arrow is oriented at $45°$ in relation to the axes in
+the model. Such an item describes both traits in the model equally well.
+The same criteria is extended to the three-dimensional case.
 
 The DMIRT approach uses two types of item models, dependent on item
 type. If dichotomous items are used, the analysis is based on the
