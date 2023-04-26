@@ -90,10 +90,8 @@ You can install the development version of D3mirt from
 
 ``` r
 # install.packages("devtools")
+# To include package vignette in the installation add: build_vignettes = TRUE
 devtools::install_github("ForsbergPyschometrics/D3mirt")
-
-# install.packages("devtools") with the package vignette (extended theoretical, examples, and instruction sections)
-devtools::install_github("ForsbergPyschometrics/D3mirt", build_vignettes = TRUE)
 ```
 
 In what follows, the `D3mirt` procedure will be described very briefly
