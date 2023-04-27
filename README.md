@@ -95,7 +95,7 @@ devtools::install_github("ForsbergPyschometrics/D3mirt")
 ```
 
 In what follows, the `D3mirt` procedure will be described very briefly
-using the built-in data set “anes08_09offwaves”. The data set
+using the built-in data set “anes0809offwaves”. The data set
 ($N = 1046, M_{age} = 51.33, SD = 14.56, 57\%$ Female) is a subset from
 the American National Election Survey (ANES) from the 2008-2009 Panel
 Study Off Wave Questionnaires, December 2009 (DeBell, et al, 2010;
@@ -136,8 +136,8 @@ time.
 
 ``` r
 # Load data
-data("anes08_09offwaves")
-x <- anes08_09offwaves
+data("anes0809offwaves")
+x <- anes0809offwaves
 x <- x[,3:22] # Remove columns for age and gender
 
 # Fit a three-factor EFA model with the mirt package
@@ -254,12 +254,12 @@ below.
 
 ``` r
 # Load data
-data("anes08_09offwaves")
-x <- anes08_09offwaves
+data("anes0809offwaves")
+x <- anes0809offwaves
 x <- x[,3:22] # Remove columns for age and gender
 
 # Fit a three-dimensional graded response model with orthogonal factors
-# Example below uses Likert items from the built-in data set "anes08_09offwaves"
+# Example below uses Likert items from the built-in data set "anes0809offwaves"
 # Item W7Q3 and item W7Q20 was selected with `modid()`
 # The model specification set all items in the data set (1-20) 
 # to load on all three factors (F1-F3)
@@ -446,7 +446,7 @@ plotD3mirt(g,
            construct.lab = c("Fairness", "Conformity", "Compassion"))
 ```
 
-![anesdata08_09offwaves](anesdata.png)
+![anesdata0809offwaves](anesdata.png)
 
 An example of how the output can be described could be as follows.
 
@@ -475,7 +475,7 @@ it does not seem to belong to any construct explicitly.
 
 The `plotD3mirt()` function allows plotting W7Q16 alone using argument
 `items` and by entering the number indicating where the item appears in
-the data set (see `?anes08_09offwaves`).
+the data set (see `?anes0809offwaves`).
 
 ``` r
 # Item W7Q16 has location 6 in the data set (gender and age excluded)
@@ -487,7 +487,7 @@ plotD3mirt(g,
            view = c(15, 20, 0.6))
 ```
 
-![anesdata08_09offwaves](item.png)
+![anesdata0809offwaves](item.png)
 
 An example of how the output can be described could be as follows.
 
@@ -543,10 +543,10 @@ load("vignettes/fscores.Rdata")
 ```
 
 ``` r
-# Attach f to the gender variable (column 2 from anes08_09offwaves data set; "W3XGENDER")
+# Attach f to the gender variable (column 2 from anes0809offwaves data set; "W3XGENDER")
 # Use cbind with fscores() output attached first
-data("anes08_09offwaves")
-x <- anes08_09offwaves
+data("anes0809offwaves")
+x <- anes0809offwaves
 z <- data.frame(cbind(f, x[,2]))
 ```
 
@@ -573,7 +573,7 @@ plotD3mirt(g, hide = TRUE,
            z.lab="Fairness")
 ```
 
-![anesdata08_09offwaves](profile.png)
+![anesdata0809offwaves](profile.png)
 
 An example of how the output can be described could be as follows.
 
