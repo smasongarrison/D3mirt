@@ -38,8 +38,12 @@ The methodology is a type of data reduction technique that uses a compensatory m
 This means that if one trait level is low, some other trait in the model can compensate to create the same predictive score.
 Probability estimates are therefore based on linear combinations of trait scores in the model.
 
-Regarding vector orientation, the DMIRT analysis is said to be *descriptive* because the results describe the extent to which the items in a test measure a singular or multiple traits (Reckase, 2009, 1985, Reckase & McKinley, 1991). Briefly, in a two-dimensional space, an item is *unidimensional* if its item vector arrow is at $0°$ with respect to one of the axes in the model, and $90°$ with respect to the other. Such an item describes a singular trait only.
-In contrast, an item is *within-multidimensional* if its item vector arrow is oriented at $45°$ in relation to the axes in the model. Such an item describes both traits in the model equally well. The same criteria is extended to the three-dimensional case.
+Regarding vector orientation, the DMIRT analysis is said to be *descriptive* because the results describe the extent to which the items in a test measure a singular or multiple traits (Reckase, 2009, 1985, Reckase & McKinley, 1991).
+Briefly, in a two-dimensional space, an item is *unidimensional* if its item vector arrow is at $0°$ with respect to one of the axes in the model, and $90°$ with respect to the other.
+Such an item describes a singular trait only.
+In contrast, an item is *within-multidimensional* if its item vector arrow is oriented at $45°$ in relation to the axes in the model.
+Such an item describes both traits in the model equally well.
+The same criteria is extended to the three-dimensional case.
 
 The DMIRT approach uses two types of item models, dependent on item type.
 If dichotomous items are used, the analysis is based on the two-parameter logistic model (2PL).
@@ -121,7 +125,7 @@ The package includes the following functions.
 -   `summary()`: Summary Function for `D3mirt()`
 -   `plotD3mirt()`: Graphical Output for `D3mirt()`
 
-In what follows, the `D3mirt` procedure and some of its functions and options will be described using the built-in data set "anes08_09offwaves".
+In what follows, the `D3mirt` procedure and some of its functions and options will be described using the built-in data set "anes0809offwaves".
 The data set ($N = 1046, M_{age} = 51.33, SD = 14.56, 57\%$ Female) is a subset from the American National Election Survey (ANES) from the 2008-2009 Panel Study Off Wave Questionnaires, December 2009 (DeBell, et al, 2010; <https://electionstudies.org/data-center/2008-2009-panel-study/>).
 All items measure moral preferences and are positively scored of Likert type, ranging from 1 = *Strongly Disagree* to 6 = *Strongly Agree*.
 Demographic variables include age and gender (male/female).
@@ -183,8 +187,8 @@ Note, because the EFA in the `mirt()` function takes a long time to perform, the
 
 ```{r, message = FALSE, results = 'hide', eval = FALSE}
 # Load data
-data("anes08_09offwaves")
-x <- anes08_09offwaves
+data("anes0809offwaves")
+x <- anes0809offwaves
 x <- x[,3:22] # Remove columns for age and gender
 
 # Fit a three-factor EFA model with the mirt package
@@ -308,12 +312,12 @@ Note, because the fitting of the compensatory model in the `mirt()` function tak
 
 ```{r, message = FALSE, results = 'hide', eval = FALSE}
 # Load data
-data("anes08_09offwaves")
-x <- anes08_09offwaves
+data("anes0809offwaves")
+x <- anes0809offwaves
 x <- x[,3:22] # Remove columns for age and gender
 
 # Fit a three-dimensional graded response model with orthogonal factors
-# Example below uses Likert items from the built-in data set "anes08_09offwaves"
+# Example below uses Likert items from the built-in data set "anes0809offwaves"
 # Item W7Q3 and item W7Q20 was selected with `modid()`
 # The model specification set all items in the data set (1-20) 
 # to load on all three factors (F1-F3)
@@ -403,7 +407,7 @@ Some examples of model violations and within-dimensionality will be given in the
 
 ### Illustration: A Short Item and Dimensionality Analysis
 
-To illustrate the utility of `D3mirt` visualization, a short example using the `anes08_09offwaves` data set will be presented.
+To illustrate the utility of `D3mirt` visualization, a short example using the `anes0809offwaves` data set will be presented.
 Graphing in default mode by calling `plotd3mirt()` will return an RGL device that will appear in an external window as a three-dimensional interactive object that can be rotated manually.
 In this illustration, however, all RGL devices are plotted as inline interactive objects.
 The `view` argument is also used in all function calls to `plotD3mirt()` below.
@@ -447,7 +451,7 @@ As was mentioned above, the W7Q16 had the most measurement problems of all items
 Foremost, the short vector arrows indicate high amounts of model violations.
 Moreover, the location of the item in the model also indicates that the item is within-multidimensional and that it does not seem to belong to any construct explicitly.
 
-The `plotD3mirt()` function allows plotting W7Q16 alone using argument `items` and by entering the number indicating where the item appears in the data set (see `?anes08_09offwaves`).
+The `plotD3mirt()` function allows plotting W7Q16 alone using argument `items` and by entering the number indicating where the item appears in the data set (see `?anes0809offwaves`).
 
 ```{r, testg4, webgl=TRUE, fig.width = 7, fig.height = 7}
 # Item W7Q16 has location 6 in the data set (gender and age excluded)
@@ -487,7 +491,7 @@ plotD3mirt(g,
 
 A subset of items can be plotted for a more thorough investigation.
 In the example below constructs are kept in the function call which can help with the visual interpretation of the item subset.
-Items are selected, just as in the single case, based on the item order in the original data frame (see `?anes08_09offwaves`)
+Items are selected, just as in the single case, based on the item order in the original data frame (see `?anes0809offwaves`)
 
 ```{r, testg6, webgl=TRUE, fig.width = 7, fig.height = 7}
 # A selection of Conformity items from the model plotted with constructs
@@ -539,10 +543,10 @@ f <- mirt::fscores(mod1,
 # Load respondent factor scores for this example directly from the package file
 load("fscores.Rdata")
 
-# Attach f to the gender variable (column 2 from anes08_09offwaves data set; "W3XGENDER")
+# Attach f to the gender variable (column 2 from anes0809offwaves data set; "W3XGENDER")
 # Use cbind with fscores() output attached first
-data("anes08_09offwaves")
-x <- anes08_09offwaves
+data("anes0809offwaves")
+x <- anes0809offwaves
 z <- data.frame(cbind(f, x[,2]))
 ```
 
@@ -676,7 +680,7 @@ plotD3mirt(g,
 s <- scene3d()
 htmlwidgets::saveWidget(rglwidget(s, 
                         width = 1040, height = 1040), 
-                        file = "anes08_09offwaves.html", 
+                        file = "anes0809offwaves.html", 
                         libdir = "libs", 
                         selfcontained = FALSE)
 ```
@@ -698,7 +702,8 @@ Adler, D., & Murdoch, D.
 
 Chalmers, R., P. (2012).
 mirt: A Multidimensional Item Response Theory Package for the R Environment.
-*Journal of Statistical Software, 48*(6), 1-29. <https://doi.org/10.18637/jss.v048.i06>
+*Journal of Statistical Software, 48*(6), 1-29.
+<https://doi.org/10.18637/jss.v048.i06>
 
 DeBell, M., Krosnick, J. A., & Lupia, A.(2010). *Methodology Report and User's Guide for the 2008--2009 ANES Panel Study*.
 Palo Alto, CA, and Ann Arbor, MI: Stanford University and the University of Michigan.
@@ -709,15 +714,18 @@ Full-Information Factor Analysis for Polytomous Item Responses.
 *Applied Psychological Measurement, 19*(1), 73--90.
 <https://doi.org/10.1177/014662169501900109>
 
-Reckase, M. D.(2009).*Multidimensional Item Response Theory*.Springer. <https://doi.org/10.1007/978-0-387-89976-3>
+Reckase, M. D.(2009).*Multidimensional Item Response Theory*.Springer.
+<https://doi.org/10.1007/978-0-387-89976-3>
 
 Reckase, M. D.(1985). The Difficulty of Test Items That Measure More Than One Ability.
-*Applied Psychological Measurement, 9*(4),401-412. <https://doi.org/10.1177/014662168500900409>
+*Applied Psychological Measurement, 9*(4),401-412.
+<https://doi.org/10.1177/014662168500900409>
 
 Reckase, M. D., & McKinley, R. L.
 (1991).
 The Discriminating Power of Items That Measure More Than One Dimension.
-*Applied Psychological Measurement, 15*(4), 361-373. <https://doi.org/10.1177/014662169101500407>
+*Applied Psychological Measurement, 15*(4), 361-373.
+<https://doi.org/10.1177/014662169101500407>
 
 Samejima, F.
 (1969).

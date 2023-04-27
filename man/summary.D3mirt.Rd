@@ -23,8 +23,8 @@ The \code{summary.D3mirt()} function presents a compressed output from the \code
 \examples{
 \donttest{
 # Load data
-data("anes08_09offwaves")
-x <- anes08_09offwaves
+data("anes0809offwaves")
+x <- anes0809offwaves
 x <- x[,3:22] # Remove columns for age and gender
 
 # Fit a three-dimensional graded response model with orthogonal factors

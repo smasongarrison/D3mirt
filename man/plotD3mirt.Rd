@@ -224,12 +224,12 @@ In the case of the latter, the model perspective in the still shoot can be manua
 \donttest{
 # To plot, the data must be prepared with mirt::mirt and the D3mirt() function
 # Load data
-data("anes08_09offwaves")
-x <- anes08_09offwaves
+data("anes0809offwaves")
+x <- anes0809offwaves
 x <- x[,3:22] # Remove columns for age and gender
 
 # Fit a three-dimensional graded response model with orthogonal factors
-spec <- ' F1 = 1-20
+spec <- '  F1 = 1-20
            F2 = 1-20
            F3 = 1-20
 
@@ -251,7 +251,7 @@ mod1 <- mirt::mirt(x,
                    method = 'QMCEM')
 
 # Assign a data frame with factor loadings (located in the first three columns in mod1),
-# and difficulty parameters (columns 4-8 in mod1) with mirt::coef and $'items'[,1:8]))
+# and difficulty parameters (columns 4-8 in mod1)
 d <- data.frame(mirt::coef(mod1,
                            simplify=TRUE)$'items'[,1:8])
 
@@ -297,9 +297,9 @@ f <- mirt::fscores(mod1,
                    full.scores = TRUE,
                    full.scores.SE = FALSE, QMC = TRUE)
 
-# Attach f to the gender variable (column 2 from anes08_09offwaves data set; "W3XGENDER")
+# Attach f to the gender variable (column 2 from anes0809offwaves data set; "W3XGENDER")
 # Use cbind with fscores() output attached first
-x <- anes08_09offwaves
+x <- anes0809offwaves
 z <- data.frame(cbind(f, x[,2]))
 
 # Plot profiles with item vector arrows hidden

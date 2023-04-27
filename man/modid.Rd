@@ -84,8 +84,8 @@ However, it is important to recognize that the \code{modid()} function only give
 \examples{
 \donttest{
 # Load data
-data("anes08_09offwaves")
-x <- anes08_09offwaves
+data("anes0809offwaves")
+x <- anes0809offwaves
 x <- x[,3:22] # Remove columns for age and gender
 
 # Fit a three-factor EFA model with the mirt package

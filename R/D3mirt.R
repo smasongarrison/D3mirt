@@ -51,17 +51,17 @@
 #' @examples
 #' \donttest{
 #' # Load data
-#' data("anes08_09offwaves")
-#' x <- anes08_09offwaves
+#' data("anes0809offwaves")
+#' x <- anes0809offwaves
 #' x <- x[,3:22] # Remove columns for age and gender
 #'
 #' # Fit a three-dimensional graded response model with orthogonal factors
-#' # Example below uses Likert items from the built-in data set "anes08_09offwaves"
+#' # Example below uses Likert items from the built-in data set "anes0809offwaves"
 #' # Item W7Q3 and item W7Q20 was selected with `modid()`
 #' # The model specification set all items in the data set (1-20)
 #' # to load on all three factors (F1-F3)
 #' # The START and FIXED commands are used on the two items to identify the DMIRT model
-#' spec <- ' F1 = 1-20
+#' spec <- '  F1 = 1-20
 #'            F2 = 1-20
 #'            F3 = 1-20
 #'
@@ -83,7 +83,7 @@
 #'                    method = 'QMCEM')
 #'
 #' # Assign a data frame with factor loadings (located in the first three columns in mod1),
-#' # and difficulty parameters (columns 4-8 in mod1) with mirt::coef and $'items'[,1:8]))
+#' # and difficulty parameters (columns 4-8 in mod1)
 #' d <- data.frame(mirt::coef(mod1,
 #'                            simplify=TRUE)$'items'[,1:8])
 #'

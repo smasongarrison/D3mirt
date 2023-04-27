@@ -1,9 +1,5 @@
 ## R CMD check results
 
-0 errors ✔ | 0 warnings ✔ | 2 notes ✖
-
-Duration: 8m 34.6s
-
 ❯ checking installed package size ... NOTE
     installed size is  5.3Mb
     sub-directories of 1Mb or more:
@@ -12,6 +8,14 @@ Duration: 8m 34.6s
 ❯ checking for non-standard things in the check directory ... NOTE
   Found the following files/directories:
     ‘RGLdevice.png’
+
+0 errors ✔ | 0 warnings ✔ | 2 notes ✖
+
+
+## Revision 20230427
+2PL was changed to two parameter logistic model
+
+`D3mirt` was changed to 'D3mirt'
 
 ## Revision 20230426
 
@@ -27,7 +31,7 @@ The use of \donttest{} creates a .png file in the examples section for the plot 
 The .png file, however, does not seem to be saved in the package.
 
 
-## Previous comments
+## Previous revisions
 
 Note refers to package size (5.3mb). The package contains many examples, hence the package larger size. Examples are important because the analytical approach is less known and partly contains new components.
 
