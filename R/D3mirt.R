@@ -32,7 +32,7 @@
 #'
 #' The most central estimates, in DMIRT analysis are the single multidimensional discrimination (MDISC) parameter, the multidimensional difficulty (MDIFF) parameters, and the directional discrimination (DDISC) parameters (Reckase2009, 1985; Reckase & McKinley, 1991).
 #' In addition, if constructs are used in the function call the output will also contain the directional discrimination (DDISC) parameters for the items on each construct vector orientation.
-#' This makes it possible to compare item discrimination under the assumption that they measure in the same direction as each constructs.
+#' This makes it possible to compare item discrimination under the assumption that they measure in the same direction as the constructs.
 #'
 #' # Constructs
 #' The user has the option of including constructs in the estimation, by creating one or more nested lists that indicate what items belong to what construct (see the examples section below).

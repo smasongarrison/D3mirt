@@ -28,7 +28,7 @@ x <- anes0809offwaves
 x <- x[,3:22] # Remove columns for age and gender
 
 # Fit a three-dimensional graded response model with orthogonal factors
-spec <- ' F1 = 1-20
+spec <- '  F1 = 1-20
            F2 = 1-20
            F3 = 1-20
 
