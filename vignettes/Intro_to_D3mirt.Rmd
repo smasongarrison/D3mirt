@@ -272,7 +272,7 @@ This allows the function to extract more rows in the case empirical factor loadi
 The result is recorded as a nested list before the function starts over with the next factor, $f_2$, and so on.
 
 For every iteration, the algorithm jumps to the next factor in the EFA model, rearranges rows, and extracts the strongest loading items.
-However the absolute sum score is always assessed based on the number of factors less than the total number of factors, following the order of iteration, That is, iteration $1$ use factor loadings from all factors $F-f_1$, iteration $2$ $F-(f_{1-2})$, iteration $3$ $F-(f_{1-3})$, and so on, when calculating the absolute sum scores.
+However the absolute sum score is always assessed based on the number of factors less than the total number of factors, following the order of iteration, That is, iteration $1$ use factor loadings from all factors $F-f_1$, iteration $2$ $F-(f_{1,2})$, iteration $3$ $F-(f_{1,2,3})$, and so on, when calculating the absolute sum scores.
 
 ## Criteria For Model Identification
 
