@@ -1,4 +1,10 @@
+# D3mirt 1.0.2
+Change of D parameter to MDIFF
+Minor documentation revisions
+
 # D3mirt 1.0.1
+
+First release
 
 # D3mirt 1.0.0
 

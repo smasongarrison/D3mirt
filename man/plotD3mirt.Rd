@@ -60,112 +60,113 @@ plotD3mirt(
 \arguments{
 \item{x}{S3 object of class \code{D3mirt}.}
 
-\item{scale}{Logical, if item vector arrow length should visualize the MDISC estimates. If set to FALSE, the vector arrow length will be of one unit length. Default is \code{scale = FALSE}.}
+\item{scale}{Logical, if item vector arrow length should visualize the MDISC. If set to FALSE, the vector arrow length will be of one unit length. The default is \code{scale = FALSE}.}
 
-\item{hide}{Logical, if items should be plotted. Default is \code{hide = FALSE}.}
+\item{hide}{Logical, if items should be plotted. The default is \code{hide = FALSE}.}
 
 \item{diff.level}{Optional. Plotting of a single level of difficulty indicated by an integer.}
 
-\item{items}{Optional. The user can input a list of integers indicating what item vector arrows will be visible while the remaining items are hidden.}
+\item{items}{Optional. The user can input a list of integers indicating what item vector arrows will be visible while the remaining item vector arrows are hidden.}
 
-\item{item.names}{Logical, if item labels should be plotted. Default is \code{item.names = TRUE}.}
+\item{item.names}{Logical, if item labels should be plotted. The default is \code{item.names = TRUE}.}
 
-\item{item.lab}{Optional. String vector of item names that will override row names extracted from the data frame. Note, row names are not over written.
-Instead, the string vector in \code{ìtem.lab} displays item labels on the item vector currently displayed following the order of plotting.
-For example, when plotting in default mode (all item vectors) the labels will follow the order of the items in data frame, left-right or top-down.
-If a selection of items are plotted with \code{items}, e.g., \code{ìtems = c(24,34,25)}, then the item labels will be displayed following the order of the integer vector in \code{items} left to right.
-In this case, the item label 1 will be printed on item 24, item label 2 on item 34, and item label 3 on item 25, and so on.}
+\item{item.lab}{Optional. String vector of item names that will override row names extracted from the data frame. Note, row names are not overwritten.
+Instead, the string vector in \code{ìtem.lab} prints item labels on the item vector arrows currently displayed following the order of item vector arrows in the graphical output.
+For example, when plotting in the default mode (plotting all item vectors) the labels will follow the order of the items in the data frame.
+If a selection of items is plotted with \code{items}, e.g., \code{ìtems = c(24,34,25)}, then the item labels will be displayed following the order of the vector in \code{items} left to right.
+In this case, item label 1 will be printed on item 24, item label 2 on item 34, and item label 3 on item 25, and so on.}
 
-\item{constructs}{Logical, if construct vector arrows should be plotted. Default set to FALSE}
+\item{constructs}{Logical, if construct vector arrows should be plotted. The default is \code{constructs = FALSE}.}
 
-\item{construct.lab}{Optional. String vector of names for constructs.}
+\item{construct.lab}{Optional. String vector of names for constructs, similar to \code{item.lab}.}
 
-\item{adjust.lab}{Vector of parameters for the position of item and construct labels for the \code{text3d} function. The first value is for horizontal adjustment and the second is for vertical adjustment. Default is \code{adjust.lab = c(0.5, -0.8)}.}
+\item{adjust.lab}{Vector of parameters for the position of the item and construct labels for the \code{text3d} function.
+The first value is for horizontal adjustment and the second is for vertical adjustment. The default is \code{adjust.lab = c(0.5, -0.8)}.}
 
-\item{x.lab}{Labels for x-axis, Default is \code{x.lab = "X"}.}
+\item{x.lab}{Labels for x-axis, the default is \code{x.lab = "X"}.}
 
-\item{y.lab}{Labels for y-axis, Default is \code{y.lab = "Y"}.}
+\item{y.lab}{Labels for y-axis, the default is \code{y.lab = "Y"}.}
 
-\item{z.lab}{Labels for y-axis, Default is \code{z.lab = "Z"}.}
+\item{z.lab}{Labels for y-axis, the default is \code{z.lab = "Z"}.}
 
-\item{title}{The main title for the graphical device, plotted with the \code{title3d()} function.}
+\item{title}{The main title for the graphical device, plotted with the \code{title3d()} function. The default is no title.}
 
-\item{line}{Title placement for \code{title3d()}. Default is \code{line = -5}.}
+\item{line}{Title placement for \code{title3d()}. The default is \code{line = -5}.}
 
-\item{axis.scalar}{Scalar multiple for adjusting the length all axes (x, y, z) in the 3D model proportionally. Default is \code{axis.scalar = 1.1}.}
+\item{axis.scalar}{Scalar multiple for adjusting the length of all axes (x, y, z) in the 3D model proportionally. The default is \code{axis.scalar = 1.1}.}
 
 \item{axis.length}{Optional. For adjusting the length of the axis manually by entering a numeric or a numeric vector.
 For instance, c(3,2,4,3,3,2) indicate axis coordinates x = 3, -x = 3, y = 4, -y = 3, z = 3, -z = 2.
 Note, a symmetric model can be created easily by adding a single numeric in the \code{axis.length} argument (e.g., \code{axis.length = 4}) because the function repeats the last value in the vector to cover all axis points.
-Default is \code{axis.length = NULL}.}
+The default is \code{axis.length = NULL}.}
 
-\item{axis.col}{Color of axis for the \code{segment3D()}function, default is \code{axis.col = "Black"}.}
+\item{axis.col}{Color of axis for the \code{segment3D()}function, the default is \code{axis.col = "black"}.}
 
-\item{axis.points}{Color of axis points for the \code{points3d()} function. Default is \code{axis.points = "black"}.}
+\item{axis.points}{Color of axis points for the \code{points3d()} function. The default is \code{axis.points = "black"}.}
 
-\item{points}{Logical, if axis from \code{points3d()} have end points. Default is \code{points = TRUE}.}
+\item{points}{Logical, if axis from \code{points3d()} should have end points. The default is \code{points = TRUE}.}
 
-\item{axis.ticks}{Logical, if axis ticks from the \code{axis3d()} function should be plotted. Default is `axis.ticks = TRUE'.}
+\item{axis.ticks}{Logical, if axis ticks from the \code{axis3d()} function should be plotted. The default is \code{axis.ticks = TRUE}.}
 
 \item{nticks}{Number of ticks for \code{axis3d()}.
 The function repeats the last numeric value in the vector to cover all axis.
-The user can, therefore, adjust the number of ticks with one numeric value (e.g., \code{nticks = 6}) or up to three (e.g., \code{nticks = c(6,4,8)}corresponding to the for the x, y, and z axes respectively.
-Default is \code{nticks = 4}.}
+The user can, therefore, adjust the number of ticks with one numeric value (e.g., \code{nticks = 6}) or up to three (e.g., \code{nticks = c(6,4,8)} corresponding to the for the x, y, and z axes respectively.
+The default is \code{nticks = 4}.}
 
-\item{width.rgl.x}{Width in the x direction for \code{par3d()}. Default is \code{width.rgl.x = 1040}.}
+\item{width.rgl.x}{Width in the x direction for \code{par3d()}. The default is \code{width.rgl.x = 1040}.}
 
-\item{width.rgl.y}{Width in the y direction for \code{par3d()}. Default is \code{width.rgl.y = 1040}.}
+\item{width.rgl.y}{Width in the y direction for \code{par3d()}. The default is \code{width.rgl.y = 1040}.}
 
-\item{view}{Vector with polar coordinates and zoom factor for the \code{view3d} function. Default is \code{view = c(15,20, 1)}.}
+\item{view}{Vector with polar coordinates and zoom factor for the \code{view3d} function. The default is \code{view = c(15,20, 1)}.}
 
-\item{show.plane}{Logical, if xz-plane should be visible in the graphical device. Default is \code{show.plane = TRUE}.}
+\item{show.plane}{Logical, if xz-plane should be visible in the graphical device. The default is \code{show.plane = TRUE}.}
 
-\item{plane.col}{Color of the plane, default is \code{plane.col = "grey80"}.}
+\item{plane.col}{Color of the plane, the default is \code{plane.col = "grey80"}.}
 
-\item{background}{Set background color for the graphical device, Default is \code{background = "white"}.}
+\item{background}{Set background color for the graphical device, the default is \code{background = "white"}.}
 
-\item{type}{Type of vector arrow for items, default is \code{type = "rotation"}. See \link[rgl:arrow3d]{rgl::arrow3d} for more options regarding arrow types.}
+\item{type}{Type of vector arrow for items, the default is \code{type = "rotation"}. See \link[rgl:arrow3d]{rgl::arrow3d} for more options regarding arrow types.}
 
-\item{col}{Vector of colors representing difficulty levels for item response functions used in \code{arrow3d()}. Default is \code{col = c("black", "grey20", "grey40", "grey60", "grey80")}.}
+\item{col}{Vector of colors representing difficulty levels for item response functions used in \code{arrow3d()}. The default is \code{col = c("black", "grey20", "grey40", "grey60", "grey80")}.}
 
-\item{arrow.width}{Width of vector arrows for \code{arrow3d()}. Default is \code{arrow.width = 0.6}.}
+\item{arrow.width}{Width of vector arrows for \code{arrow3d()}. The default is \code{arrow.width = 0.6}.}
 
-\item{n}{Number of barbs for the vector arrows from \code{arrow3d()}. Default is \code{n = 20}.}
+\item{n}{Number of barbs for the vector arrows from \code{arrow3d()}. The default is \code{n = 20}.}
 
-\item{theta}{Opening angle of barbs for vector arrows from \code{arrow3d()}. Default is \code{theta = 0.2}.}
+\item{theta}{Opening angle of barbs for vector arrows from \code{arrow3d()}. The default is \code{theta = 0.2}.}
 
-\item{barblen}{The length of the barbs for vector arrows from \code{arrow3d()}. Default is \code{barblen = 0.03}.}
+\item{barblen}{The length of the barbs for vector arrows from \code{arrow3d()}. The default is \code{barblen = 0.03}.}
 
-\item{c.scalars}{Set of scalars for adjusting construct arrow length prportionally.
-The first numeric adjust the length proportionally in the positive direction and the second numeric the length in the negative direction. Default is \code{c.scalars = c(1,1)}.}
+\item{c.scalars}{Set of scalars for adjusting construct arrow length proportionally.
+The first numeric adjusts the length in the positive direction and the second numeric the length in the negative direction. The default is \code{c.scalars = c(1,1)}.}
 
-\item{c.type}{Type of vector arrow for constructs. See \link[rgl:arrow3d]{rgl::arrow3d} for more options regarding arrow types. Default is \code{c.type = "rotation"}.}
+\item{c.type}{Type of vector arrow for constructs. See \link[rgl:arrow3d]{rgl::arrow3d} for more options regarding arrow types. The default is \code{c.type = "rotation"}.}
 
-\item{c.col}{Color for construct vector arrows from \code{arrow3d()}, default is \code{c.col = "black"}.}
+\item{c.col}{Color of construct vector arrows from \code{arrow3d()}, the default is \code{c.col = "black"}.}
 
-\item{c.arrow.width}{Width of construct vector arrows for \code{arrow3d()}. Default is \code{c.arrow.width = 0.6}.}
+\item{c.arrow.width}{Width of construct vector arrows for \code{arrow3d()}. The default is \code{c.arrow.width = 0.6}.}
 
-\item{c.n}{Number of barbs for the construct vector arrows from the \code{arrow3d()} function. Default is \code{c.n = 20}.}
+\item{c.n}{Number of barbs for the construct vector arrows from the \code{arrow3d()} function. The default is \code{c.n = 20}.}
 
-\item{c.theta}{Opening angle of barbs for construct vector arrows from \code{arrow3d()}. Default is \code{c.theta = 0.2}.}
+\item{c.theta}{Opening angle of barbs for construct vector arrows from \code{arrow3d()}. The default is \code{c.theta = 0.2}.}
 
-\item{c.barblen}{The length of the barbs for construct vector arrows from \code{arrow3d()}. Default is \code{c.barblen = 0.03}.}
+\item{c.barblen}{The length of the barbs for construct vector arrows from \code{arrow3d()}. The default is \code{c.barblen = 0.03}.}
 
-\item{profiles}{Data frame with coordinates for spheres representing respondent scores. Default is \code{profiles = NULL}.}
+\item{profiles}{Data frame with coordinates for spheres representing respondent scores. The default is \code{profiles = NULL}.}
 
-\item{levels}{Optional. Column with values indicating levels for sphere colors from the \code{sphere.col} vector. Default is \code{levels = NULL}.}
+\item{levels}{Optional. A column with values indicating levels for sphere colors from the \code{sphere.col} vector. The default is \code{levels = NULL}.}
 
-\item{sphere.col}{Color vector for \code{spheres3d()}. Default is \code{sphere.col = c("black", "grey20", "grey40", "grey60", "grey80")}.}
+\item{sphere.col}{Color vector for \code{spheres3d()}. The default is \code{sphere.col = c("black", "grey20", "grey40", "grey60", "grey80")}.}
 
-\item{spheres.r}{Radius of the spheres for \code{spheres3d()}. Default is \code{spheres.r = 0.05}.}
+\item{spheres.r}{Radius of the spheres for \code{spheres3d()}. The default is \code{spheres.r = 0.05}.}
 
-\item{ci}{Logical, if spheres should include an ellipsoid outlining a confidence region returned from the \code{ellipse3d()} function. Default is \code{ci = FALSE}.}
+\item{ci}{Logical, if spheres should include an ellipsoid outlining a confidence region returned from the \code{ellipse3d()} function. The default is \code{ci = FALSE}.}
 
-\item{ci.level}{Level of confidence for \code{ellipse3d()}, default is \code{ci.level = 0.95}.}
+\item{ci.level}{Level of confidence for \code{ellipse3d()}, the default is \code{ci.level = 0.95}.}
 
-\item{ellipse.col}{Color of the ellipse from \code{ellipse3d()}. Default is \code{ellipse.col = "grey80"}.}
+\item{ellipse.col}{Color of the ellipse from \code{ellipse3d()}. The default is \code{ellipse.col = "grey80"}.}
 
-\item{ellipse.alpha}{Opacity for the confidence region from \code{ellipse3d()}. Default is \code{ellipse.alpha = 0.20}.}
+\item{ellipse.alpha}{Opacity for the confidence region from \code{ellipse3d()}. The default is \code{ellipse.alpha = 0.20}.}
 
 \item{...}{Additional arguments to be passed to RGL or methods.}
 }
@@ -173,7 +174,7 @@ The first numeric adjust the length proportionally in the positive direction and
 A RGL graphical device.
 }
 \description{
-For graphing of objects of class \code{D3mirt} from the \code{\link[=D3mirt]{D3mirt()}} function with the rgl 3D visualization device system (Adler & Murdoch, 2022).
+For graphing of objects of class \code{D3mirt} from the \code{\link[=D3mirt]{D3mirt()}} function using the rgl 3D visualization device system (Adler & Murdoch, 2022).
 }
 \details{
 The function is used for graphing class \code{D3mirt} S3 objects in three dimensions using the \link{rgl} package for visualization with OpenGL (Adler & Murdoch, 2022).
@@ -181,34 +182,34 @@ The function is used for graphing class \code{D3mirt} S3 objects in three dimens
 \section{Unidimensionality vs. Within-Dimensionality}{
 In DMIRT, the angle of the vector arrows indicates what traits, located along the orthogonal axes, an item can be said to describe (Reckase, 2009, 1985, Reckase & McKinley, 1991).
 For instance, an item located at 0° seen from the x-axis, and 90° as seen from the y and z-axis, only describes trait x.
-Such an item is unidimensional because its direction vector of maximal discrimination slope lies parallel and on the x-axis.
+Such an item is unidimensional because its direction vector lies parallel and on the x-axis.
 In contrast, an item located at 45° between all three axes in a three-dimensional model describes all three traits in the model equally well.
-Such an item is within-multidimensional with respect to all three latent traits used in the analysis because its direction vector points in the 45° direction in the model.
+Such an item is within-multidimensional with respect to all three latent traits used in the analysis because its direction vector points in the neutral 45° direction in the model.
 }
 
 \section{Model Violations}{
 When plotting the \code{D3mirt} model with \code{plotD3mirt()}, it is possible to visually observe statistical violations in the graphical output returned.
-For instance, shorter vector arrows indicate weaker discrimination and therefore also higher amounts of model violations.
-As another example, if an item struggles or even fail to describe any of the latent variables in the model, it can often lead to an extreme stretch of the $MDIFF$ range.
+For instance, shorter vector arrows indicate weaker discrimination and therefore also higher amounts of statistical violations.
+Moreover, if a polytomous item struggles or even fail to describe any of the latent variables in the model, it can often lead to an extreme stretch of the MDIFF range.
 This is comparable to trace lines turning horizontal in a unidimensional item response theory model.
 }
 
-\section{Some Plotting Options}{
-The function allows plotting of all items, a selection of items as well as plotting a single item.
-Length of the vector arrows can be set to one unit length across all arrows by setting \code{scale = TRUE}.
-This removes the visualization of MDISC parameter that affect the vector arrow lengths.
-Note, when scaling items with \code{scale = TRUE}, the \code{plotD3mirt()} function does not recalculate the length of the model axis.
-This often means that the axes of the model needs to be adjusted, which can be achieved with proportionally with \code{axis.scalar} or manually with \code{axis.length}.
+\section{Plotting Options}{
+The plotting function allows plotting of all items, a selection of items as well as plotting a single item.
+Length of the vector arrows can be set to one unit length across all item vector arrows by setting \code{scale = TRUE}.
+This removes the visualization of the MDISC parameter.
+Note, when scaling items with \code{scale = TRUE}, the \code{plotD3mirt()} function does not change the length of the model axis.
+This often means that the axes of the model need to be adjusted, which can be achieved proportionally with \code{axis.scalar} or manually with \code{axis.length}.
 
-The user also has the option of adding constructs to the graphical output with \code{constructs = TRUE} (see the documentation for \link{D3mirt} or package vignette regarding constructs).
-Other options include plotting one level of difficulty at a time with the \code{diff.level} argument, if multiple levels of difficulty are used in the model.
+The user also has the option of adding constructs to the graphical output with \code{constructs = TRUE} (see the documentation for \link{D3mirt} or the package vignette regarding constructs).
+Other options include plotting one level of difficulty at a time with the \code{diff.level} argument if polytomous items are used in the model.
 Item row names are displayed by default, but the user has the option of adding new item labels for the items (with \code{item.lab}), as well as labeling constructs (with \code{construct.lab}).
 }
 
 \section{Profile Analysis}{
 The plot function can display respondent scores in the three-dimensional model space, represented as spheres located with factors scores used as coordinates.
-This allows for a profile analysis in which respondent rows are selected conditioned on one or more external criteria.
-To do this, the user must first extract respondent factor scores with \link[mirt:fscores]{mirt::fscores}(Chalmers, 2012) and then use some selection process to subset respondent rows.
+This allows for a profile analysis in which respondent rows are separated or selected conditioned on one or more external criteria.
+To do this, the user must first extract respondent factor scores with \link[mirt:fscores]{mirt::fscores}(Chalmers, 2012) and then use some selection process to separate or subset respondent rows.
 The resulting data frame is used in the \code{profiles} argument.
 If desired, a confidence interval can be added for the respondent scores by setting \code{ci = TRUE}.
 A general advice is also to hide vector arrows with \code{hide = TRUE} when analyzing respondent profiles to avoid visual cluttering.
@@ -216,8 +217,8 @@ For more on profile analysis (e.g., preparation and examples), see package vigne
 }
 
 \section{Exporting The RGL Device}{
-The returned RGL device can, for example, be exported to the R console and saved as an interactive html file or as a still shoots (see examples below).
-In the case of the latter, the model perspective in the still shoot can be manually adjusted or adjusted by changing the \code{view} argument for the function.
+The returned RGL device can, for example, be exported to the R console and be saved as an interactive html file or as a still shoot (see examples below).
+In the case of the latter, the model perspective in the still shoot can be manually adjusted by changing the \code{view} argument for the function.
 }
 
 \examples{

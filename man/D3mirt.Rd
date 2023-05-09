@@ -7,49 +7,44 @@
 D3mirt(x, constructs = NULL)
 }
 \arguments{
-\item{x}{Data frame with rows for items and columns for model parameters. The number of columns must be more than or equal to 4, i.e., three columns with(\emph{a}) parameters and at least one column for difficulty (\emph{d}) parameters.}
+\item{x}{Data frame with rows for items and columns for model parameters. The number of columns must be more than or equal to 4, i.e., three columns with (\emph{a}) parameters and at least one column for difficulty (\emph{d}) parameters.}
 
-\item{constructs}{Optional. Nested lists with integer values indicating construct. Default is \code{constructs = NULL}.}
+\item{constructs}{Optional. Nested lists with integer values indicating construct. The default is \code{constructs = NULL}.}
 }
 \value{
-S3 object of class \code{D3mirt} with lists of \emph{a} and \emph{d} parameters from the 2PL or GRM estimation, multidimensional difficulty (MDIFF), multidimensional discrimination (MDISC), direction cosines and degrees for vector angles, construct lists, and vector coordinates.
+S3 object of class \code{D3mirt} with lists of \emph{a} and \emph{d} parameters from the M2PL or MGRM estimation, multidimensional difficulty (MDIFF), multidimensional discrimination (MDISC), direction cosines and degrees for vector angles, construct lists, and vector coordinates.
 }
 \description{
-Descriptive multidimensional item response theory modeling (DMIRT; Reckase, 2009, 1985, Reckase & McKinley, 1991), for dichotomous and polytomous items restricted to three dimensions.
+Descriptive multidimensional item response theory modeling (DMIRT; Reckase, 2009, 1985, Reckase & McKinley, 1991) for dichotomous and polytomous items restricted to three dimensions.
 }
 \details{
-The \code{D3mirt()}function takes in a data frame of factor slopes and difficulty parameters from a compensatory three-dimensional two-parameter logistic model (2PL) or a graded
-response model (GRM; Samejima, 1969), fitted in accordance with descriptive item response theory model specifications described below.
-The function returns an S3 object containing descriptive multidimensional item response theory estimates that can be graphed as vector arrows representing item response functions in a three dimensional space with \link{plotD3mirt}.
+The \code{D3mirt()} function takes in a data frame of factor slopes and difficulty parameters from a compensatory three-dimensional multidimensional two-parameter logistic model (M2PL) or a multidimensional graded
+response model (MGRM), fitted in accordance with descriptive item response theory model specifications described below.
+The function returns an S3 object containing descriptive multidimensional item response theory estimates that can be graphed as vector arrows representing item response functions in a three-dimensional space with \link{plotD3mirt}.
 
-Note, model parameters from the multidimensional 2PL or GRM must be assessed prior to using the \code{D3mirt()} function (see examples section below or the vignette included in this package).
-This means that the model must first be identified (see \link{modid}.
+Note, model parameters from the multidimensional M2PL or MGRM must be assessed prior to using the \code{D3mirt()} function (see examples section below or the vignette included in the package).
+This means that the model must first be identified (see \link{modid} for more on model identification).
 }
 \section{DMIRT Theory}{
 In DMIRT analysis, also called within multidimensional modeling, it is assumed that items in a multidimensional ability space can measure single or multiple latent traits (Reckase, 2009, 1985; Reckase & McKinley, 1991).
-The methodology is a type of data reduction technique that uses a compensatory type of model (Reckase, 2009), i.e., a model that assumes the existence of a multidimensional trait space forming an interconnected latent ability field.
-This means that if one trait level is low, some other trait in the model can compensate to create the same predictive score.
-Probability estimates are therefore based on linear combinations of trait scores in the model.
+The methodology is a type of data reduction technique for the compensatory model (Reckase, 2009), i.e., a type of measurement model that uses linear combinations of ability estimates.
+The method seeks to maximize item discrimination and so is \emph{descriptive} because the results describe the extent to which items in a test are unidimensional,
+i.e., that the items discriminate on one dimension only, or are within-multidimensional, i.e., that the items discriminate on more than one dimension.
 
-Moreover, the DMIRT analysis is said to be descriptive because the results describe the extent to which items in a test are unidimensional,
-i.e., that the items describe one dimension only, or are within-multidimensional, i.e., that the items describe more than one dimension.
+The most central estimates in DMIRT analysis are the single multidimensional discrimination (MDISC) parameter and the multidimensional difficulty (MDIFF) parameters (Reckase2009, 1985; Reckase & McKinley, 1991).
+In addition, if constructs are used (see below) the output will also contain the directional discrimination (DDISC) parameters for all items estimated in the direction set by the construct vectors.
+This makes it possible to compare item discrimination under the assumption that they measure the same construct.
 
-The DMIRT estimation process consists of first fitting a compensatory multidimensional two-parameter model so that discrimination and difficulty parameters can be extracted.
-For \code{D3mirt}, this implies that a compensatory three-dimensional 2PL or GRM must be fitted.
-Next, using these parameters the DMIRT computation finds the direction of the highest possible discrimination slope for each item.
-The direction, in turn, shows what latent trait the item can be said to measure in the multidimensional latent model.
-The output can be visualized as vector arrows representing item response functions located in a multidimensional space pointing in the direction of the maximum slope.
-The \code{D3mirt} can be used to calculate all necessary estimates for this purpose, as well as to plot the results (albeit limited to three dimensions).
-
-The most central estimates, in DMIRT analysis are the single multidimensional discrimination (MDISC) parameter, the multidimensional difficulty (MDIFF) parameters, and the directional discrimination (DDISC) parameters (Reckase2009, 1985; Reckase & McKinley, 1991).
-In addition, if constructs are used in the function call the output will also contain the directional discrimination (DDISC) parameters for the items on each construct vector orientation.
-This makes it possible to compare item discrimination under the assumption that they measure in the same direction as the constructs.
+Using the parameters from the compensatory model, the \code{D3mirt()} function computes parameters describing the location and direction of the highest possible discrimination for each item.
+The output can be visualized with the \link{plotD3mirt} function that use vector geometry with vector arrows indicating level of difficulty and direction of the maximum discrimination.
 }
 
 \section{Constructs}{
-The user has the option of including constructs in the estimation, by creating one or more nested lists that indicate what items belong to what construct (see the examples section below).
-From this, the \code{D3mirt()} function calculates direction cosines for the constructs by normalizing the direction cosines for the items contained in each construct list.
-Note, the length of the construct vector arrows is arbitrary.
+The user has the option of including constructs in the estimation.
+Constructs, in this context, refer to the assumption that a subset of items can measure a higher-order latent variable.
+To include constructs, the user must create one or more nested lists that indicate what items belong to what construct (see the examples section below).
+From this, the \code{D3mirt()} function calculates direction cosines for the constructs by adding and normalizing the direction cosines for the items in the nested lists.
+The construct vector arrows can contribute to the analysis by (a) visualizing the average direction for a subset set of items, and (b) showing how all items discriminate in the direction set by the construct vector with the help of the DDISC index.
 }
 
 \examples{
@@ -113,8 +108,6 @@ Reckase, M. D. (2009). \emph{Multidimensional Item Response Theory}. Springer.
 Reckase, M. D. (1985). The Difficulty of Test Items That Measure More Than One Ability. \emph{Applied Psychological Measurement, 9}(4), 401-412–412. https://doi-org.ezp.sub.su.se/10.1177/014662168500900409
 
 Reckase, M. D., & McKinley, R. L. (1991). The Discriminating Power of Items That Measure More Than One Dimension. \emph{Applied Psychological Measurement, 15}(4), 361-373–373. https://doi-org.ezp.sub.su.se/10.1177/014662169101500407
-
-Samejima, F. (1969). Estimation of latent ability using a response pattern of graded scores. \emph{Psychometrika 34}, 1–97. https://doi.org/10.1007/BF03372160
 }
 \author{
 Erik Forsberg

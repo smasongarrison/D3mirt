@@ -1,66 +1,67 @@
 #' Graphical Output for D3mirt()
 #'
-#' @description For graphing of objects of class `D3mirt` from the [D3mirt::D3mirt()] function with the rgl 3D visualization device system (Adler & Murdoch, 2022).
+#' @description For graphing of objects of class `D3mirt` from the [D3mirt::D3mirt()] function using the rgl 3D visualization device system (Adler & Murdoch, 2022).
 #' @param x S3 object of class `D3mirt`.
-#' @param scale Logical, if item vector arrow length should visualize the MDISC estimates. If set to FALSE, the vector arrow length will be of one unit length. Default is `scale = FALSE`.
-#' @param hide Logical, if items should be plotted. Default is `hide = FALSE`.
+#' @param scale Logical, if item vector arrow length should visualize the MDISC. If set to FALSE, the vector arrow length will be of one unit length. The default is `scale = FALSE`.
+#' @param hide Logical, if items should be plotted. The default is `hide = FALSE`.
 #' @param diff.level Optional. Plotting of a single level of difficulty indicated by an integer.
-#' @param items Optional. The user can input a list of integers indicating what item vector arrows will be visible while the remaining items are hidden.
-#' @param item.names Logical, if item labels should be plotted. Default is `item.names = TRUE`.
-#' @param item.lab Optional. String vector of item names that will override row names extracted from the data frame. Note, row names are not over written.
-#' Instead, the string vector in `ìtem.lab` displays item labels on the item vector currently displayed following the order of plotting.
-#' For example, when plotting in default mode (all item vectors) the labels will follow the order of the items in data frame, left-right or top-down.
-#' If a selection of items are plotted with `items`, e.g., `ìtems = c(24,34,25)`, then the item labels will be displayed following the order of the integer vector in `items` left to right.
-#' In this case, the item label 1 will be printed on item 24, item label 2 on item 34, and item label 3 on item 25, and so on.
-#' @param constructs Logical, if construct vector arrows should be plotted. Default set to FALSE
-#' @param construct.lab Optional. String vector of names for constructs.
-#' @param adjust.lab Vector of parameters for the position of item and construct labels for the `text3d` function. The first value is for horizontal adjustment and the second is for vertical adjustment. Default is `adjust.lab = c(0.5, -0.8)`.
-#' @param x.lab Labels for x-axis, Default is `x.lab = "X"`.
-#' @param y.lab Labels for y-axis, Default is `y.lab = "Y"`.
-#' @param z.lab Labels for y-axis, Default is `z.lab = "Z"`.
-#' @param title The main title for the graphical device, plotted with the `title3d()` function.
-#' @param line  Title placement for `title3d()`. Default is `line = -5`.
-#' @param axis.scalar Scalar multiple for adjusting the length all axes (x, y, z) in the 3D model proportionally. Default is `axis.scalar = 1.1`.
+#' @param items Optional. The user can input a list of integers indicating what item vector arrows will be visible while the remaining item vector arrows are hidden.
+#' @param item.names Logical, if item labels should be plotted. The default is `item.names = TRUE`.
+#' @param item.lab Optional. String vector of item names that will override row names extracted from the data frame. Note, row names are not overwritten.
+#' Instead, the string vector in `ìtem.lab` prints item labels on the item vector arrows currently displayed following the order of item vector arrows in the graphical output.
+#' For example, when plotting in the default mode (plotting all item vectors) the labels will follow the order of the items in the data frame.
+#' If a selection of items is plotted with `items`, e.g., `ìtems = c(24,34,25)`, then the item labels will be displayed following the order of the vector in `items` left to right.
+#' In this case, item label 1 will be printed on item 24, item label 2 on item 34, and item label 3 on item 25, and so on.
+#' @param constructs Logical, if construct vector arrows should be plotted. The default is `constructs = FALSE`.
+#' @param construct.lab Optional. String vector of names for constructs, similar to `item.lab`.
+#' @param adjust.lab Vector of parameters for the position of the item and construct labels for the `text3d` function.
+#' The first value is for horizontal adjustment and the second is for vertical adjustment. The default is `adjust.lab = c(0.5, -0.8)`.
+#' @param x.lab Labels for x-axis, the default is `x.lab = "X"`.
+#' @param y.lab Labels for y-axis, the default is `y.lab = "Y"`.
+#' @param z.lab Labels for y-axis, the default is `z.lab = "Z"`.
+#' @param title The main title for the graphical device, plotted with the `title3d()` function. The default is no title.
+#' @param line  Title placement for `title3d()`. The default is `line = -5`.
+#' @param axis.scalar Scalar multiple for adjusting the length of all axes (x, y, z) in the 3D model proportionally. The default is `axis.scalar = 1.1`.
 #' @param axis.length Optional. For adjusting the length of the axis manually by entering a numeric or a numeric vector.
 #' For instance, c(3,2,4,3,3,2) indicate axis coordinates x = 3, -x = 3, y = 4, -y = 3, z = 3, -z = 2.
 #' Note, a symmetric model can be created easily by adding a single numeric in the `axis.length` argument (e.g., `axis.length = 4`) because the function repeats the last value in the vector to cover all axis points.
-#' Default is `axis.length = NULL`.
-#' @param axis.col Color of axis for the `segment3D()`function, default is `axis.col = "Black"`.
-#' @param axis.points Color of axis points for the `points3d()` function. Default is `axis.points = "black"`.
-#' @param points Logical, if axis from `points3d()` have end points. Default is `points = TRUE`.
-#' @param axis.ticks Logical, if axis ticks from the `axis3d()` function should be plotted. Default is `axis.ticks = TRUE'.
+#' The default is `axis.length = NULL`.
+#' @param axis.col Color of axis for the `segment3D()`function, the default is `axis.col = "black"`.
+#' @param axis.points Color of axis points for the `points3d()` function. The default is `axis.points = "black"`.
+#' @param points Logical, if axis from `points3d()` should have end points. The default is `points = TRUE`.
+#' @param axis.ticks Logical, if axis ticks from the `axis3d()` function should be plotted. The default is `axis.ticks = TRUE`.
 #' @param nticks Number of ticks for `axis3d()`.
 #' The function repeats the last numeric value in the vector to cover all axis.
-#' The user can, therefore, adjust the number of ticks with one numeric value (e.g., `nticks = 6`) or up to three (e.g., `nticks = c(6,4,8)`corresponding to the for the x, y, and z axes respectively.
-#' Default is `nticks = 4`.
-#' @param width.rgl.x Width in the x direction for `par3d()`. Default is `width.rgl.x = 1040`.
-#' @param width.rgl.y Width in the y direction for `par3d()`. Default is `width.rgl.y = 1040`.
-#' @param view Vector with polar coordinates and zoom factor for the `view3d` function. Default is `view = c(15,20, 1)`.
-#' @param show.plane Logical, if xz-plane should be visible in the graphical device. Default is `show.plane = TRUE`.
-#' @param plane.col Color of the plane, default is `plane.col = "grey80"`.
-#' @param background Set background color for the graphical device, Default is `background = "white"`.
-#' @param type Type of vector arrow for items, default is `type = "rotation"`. See [rgl::arrow3d] for more options regarding arrow types.
-#' @param col Vector of colors representing difficulty levels for item response functions used in `arrow3d()`. Default is `col = c("black", "grey20", "grey40", "grey60", "grey80")`.
-#' @param arrow.width Width of vector arrows for `arrow3d()`. Default is `arrow.width = 0.6`.
-#' @param n Number of barbs for the vector arrows from `arrow3d()`. Default is `n = 20`.
-#' @param theta Opening angle of barbs for vector arrows from `arrow3d()`. Default is `theta = 0.2`.
-#' @param barblen The length of the barbs for vector arrows from `arrow3d()`. Default is `barblen = 0.03`.
-#' @param c.scalars Set of scalars for adjusting construct arrow length prportionally.
-#' The first numeric adjust the length proportionally in the positive direction and the second numeric the length in the negative direction. Default is `c.scalars = c(1,1)`.
-#' @param c.type Type of vector arrow for constructs. See [rgl::arrow3d] for more options regarding arrow types. Default is `c.type = "rotation"`.
-#' @param c.col Color for construct vector arrows from `arrow3d()`, default is `c.col = "black"`.
-#' @param c.arrow.width Width of construct vector arrows for `arrow3d()`. Default is `c.arrow.width = 0.6`.
-#' @param c.n Number of barbs for the construct vector arrows from the `arrow3d()` function. Default is `c.n = 20`.
-#' @param c.theta Opening angle of barbs for construct vector arrows from `arrow3d()`. Default is `c.theta = 0.2`.
-#' @param c.barblen The length of the barbs for construct vector arrows from `arrow3d()`. Default is `c.barblen = 0.03`.
-#' @param profiles Data frame with coordinates for spheres representing respondent scores. Default is `profiles = NULL`.
-#' @param levels Optional. Column with values indicating levels for sphere colors from the `sphere.col` vector. Default is `levels = NULL`.
-#' @param spheres.r Radius of the spheres for `spheres3d()`. Default is `spheres.r = 0.05`.
-#' @param sphere.col Color vector for `spheres3d()`. Default is `sphere.col = c("black", "grey20", "grey40", "grey60", "grey80")`.
-#' @param ci Logical, if spheres should include an ellipsoid outlining a confidence region returned from the `ellipse3d()` function. Default is `ci = FALSE`.
-#' @param ci.level Level of confidence for `ellipse3d()`, default is `ci.level = 0.95`.
-#' @param ellipse.col Color of the ellipse from `ellipse3d()`. Default is `ellipse.col = "grey80"`.
-#' @param ellipse.alpha Opacity for the confidence region from `ellipse3d()`. Default is `ellipse.alpha = 0.20`.
+#' The user can, therefore, adjust the number of ticks with one numeric value (e.g., `nticks = 6`) or up to three (e.g., `nticks = c(6,4,8)` corresponding to the for the x, y, and z axes respectively.
+#' The default is `nticks = 4`.
+#' @param width.rgl.x Width in the x direction for `par3d()`. The default is `width.rgl.x = 1040`.
+#' @param width.rgl.y Width in the y direction for `par3d()`. The default is `width.rgl.y = 1040`.
+#' @param view Vector with polar coordinates and zoom factor for the `view3d` function. The default is `view = c(15,20, 1)`.
+#' @param show.plane Logical, if xz-plane should be visible in the graphical device. The default is `show.plane = TRUE`.
+#' @param plane.col Color of the plane, the default is `plane.col = "grey80"`.
+#' @param background Set background color for the graphical device, the default is `background = "white"`.
+#' @param type Type of vector arrow for items, the default is `type = "rotation"`. See [rgl::arrow3d] for more options regarding arrow types.
+#' @param col Vector of colors representing difficulty levels for item response functions used in `arrow3d()`. The default is `col = c("black", "grey20", "grey40", "grey60", "grey80")`.
+#' @param arrow.width Width of vector arrows for `arrow3d()`. The default is `arrow.width = 0.6`.
+#' @param n Number of barbs for the vector arrows from `arrow3d()`. The default is `n = 20`.
+#' @param theta Opening angle of barbs for vector arrows from `arrow3d()`. The default is `theta = 0.2`.
+#' @param barblen The length of the barbs for vector arrows from `arrow3d()`. The default is `barblen = 0.03`.
+#' @param c.scalars Set of scalars for adjusting construct arrow length proportionally.
+#' The first numeric adjusts the length in the positive direction and the second numeric the length in the negative direction. The default is `c.scalars = c(1,1)`.
+#' @param c.type Type of vector arrow for constructs. See [rgl::arrow3d] for more options regarding arrow types. The default is `c.type = "rotation"`.
+#' @param c.col Color of construct vector arrows from `arrow3d()`, the default is `c.col = "black"`.
+#' @param c.arrow.width Width of construct vector arrows for `arrow3d()`. The default is `c.arrow.width = 0.6`.
+#' @param c.n Number of barbs for the construct vector arrows from the `arrow3d()` function. The default is `c.n = 20`.
+#' @param c.theta Opening angle of barbs for construct vector arrows from `arrow3d()`. The default is `c.theta = 0.2`.
+#' @param c.barblen The length of the barbs for construct vector arrows from `arrow3d()`. The default is `c.barblen = 0.03`.
+#' @param profiles Data frame with coordinates for spheres representing respondent scores. The default is `profiles = NULL`.
+#' @param levels Optional. A column with values indicating levels for sphere colors from the `sphere.col` vector. The default is `levels = NULL`.
+#' @param spheres.r Radius of the spheres for `spheres3d()`. The default is `spheres.r = 0.05`.
+#' @param sphere.col Color vector for `spheres3d()`. The default is `sphere.col = c("black", "grey20", "grey40", "grey60", "grey80")`.
+#' @param ci Logical, if spheres should include an ellipsoid outlining a confidence region returned from the `ellipse3d()` function. The default is `ci = FALSE`.
+#' @param ci.level Level of confidence for `ellipse3d()`, the default is `ci.level = 0.95`.
+#' @param ellipse.col Color of the ellipse from `ellipse3d()`. The default is `ellipse.col = "grey80"`.
+#' @param ellipse.alpha Opacity for the confidence region from `ellipse3d()`. The default is `ellipse.alpha = 0.20`.
 #' @param ... Additional arguments to be passed to RGL or methods.
 #'
 #'
@@ -73,39 +74,39 @@
 #' # Unidimensionality vs. Within-Dimensionality
 #' In DMIRT, the angle of the vector arrows indicates what traits, located along the orthogonal axes, an item can be said to describe (Reckase, 2009, 1985, Reckase & McKinley, 1991).
 #' For instance, an item located at 0° seen from the x-axis, and 90° as seen from the y and z-axis, only describes trait x.
-#' Such an item is unidimensional because its direction vector of maximal discrimination slope lies parallel and on the x-axis.
+#' Such an item is unidimensional because its direction vector lies parallel and on the x-axis.
 #' In contrast, an item located at 45° between all three axes in a three-dimensional model describes all three traits in the model equally well.
-#' Such an item is within-multidimensional with respect to all three latent traits used in the analysis because its direction vector points in the 45° direction in the model.
+#' Such an item is within-multidimensional with respect to all three latent traits used in the analysis because its direction vector points in the neutral 45° direction in the model.
 #'
 #' # Model Violations
 #' When plotting the `D3mirt` model with `plotD3mirt()`, it is possible to visually observe statistical violations in the graphical output returned.
-#' For instance, shorter vector arrows indicate weaker discrimination and therefore also higher amounts of model violations.
-#' As another example, if an item struggles or even fail to describe any of the latent variables in the model, it can often lead to an extreme stretch of the $MDIFF$ range.
+#' For instance, shorter vector arrows indicate weaker discrimination and therefore also higher amounts of statistical violations.
+#' Moreover, if a polytomous item struggles or even fail to describe any of the latent variables in the model, it can often lead to an extreme stretch of the MDIFF range.
 #' This is comparable to trace lines turning horizontal in a unidimensional item response theory model.
 #'
-#' # Some Plotting Options
-#' The function allows plotting of all items, a selection of items as well as plotting a single item.
-#' Length of the vector arrows can be set to one unit length across all arrows by setting `scale = TRUE`.
-#' This removes the visualization of MDISC parameter that affect the vector arrow lengths.
-#' Note, when scaling items with `scale = TRUE`, the `plotD3mirt()` function does not recalculate the length of the model axis.
-#' This often means that the axes of the model needs to be adjusted, which can be achieved with proportionally with `axis.scalar` or manually with `axis.length`.
+#' # Plotting Options
+#' The plotting function allows plotting of all items, a selection of items as well as plotting a single item.
+#' Length of the vector arrows can be set to one unit length across all item vector arrows by setting `scale = TRUE`.
+#' This removes the visualization of the MDISC parameter.
+#' Note, when scaling items with `scale = TRUE`, the `plotD3mirt()` function does not change the length of the model axis.
+#' This often means that the axes of the model need to be adjusted, which can be achieved proportionally with `axis.scalar` or manually with `axis.length`.
 #'
-#' The user also has the option of adding constructs to the graphical output with `constructs = TRUE` (see the documentation for [D3mirt::D3mirt] or package vignette regarding constructs).
-#' Other options include plotting one level of difficulty at a time with the `diff.level` argument, if multiple levels of difficulty are used in the model.
+#' The user also has the option of adding constructs to the graphical output with `constructs = TRUE` (see the documentation for [D3mirt::D3mirt] or the package vignette regarding constructs).
+#' Other options include plotting one level of difficulty at a time with the `diff.level` argument if polytomous items are used in the model.
 #' Item row names are displayed by default, but the user has the option of adding new item labels for the items (with `item.lab`), as well as labeling constructs (with `construct.lab`).
 #'
 #' # Profile Analysis
 #' The plot function can display respondent scores in the three-dimensional model space, represented as spheres located with factors scores used as coordinates.
-#' This allows for a profile analysis in which respondent rows are selected conditioned on one or more external criteria.
-#' To do this, the user must first extract respondent factor scores with [mirt::fscores](Chalmers, 2012) and then use some selection process to subset respondent rows.
+#' This allows for a profile analysis in which respondent rows are separated or selected conditioned on one or more external criteria.
+#' To do this, the user must first extract respondent factor scores with [mirt::fscores](Chalmers, 2012) and then use some selection process to separate or subset respondent rows.
 #' The resulting data frame is used in the `profiles` argument.
 #' If desired, a confidence interval can be added for the respondent scores by setting `ci = TRUE`.
 #' A general advice is also to hide vector arrows with `hide = TRUE` when analyzing respondent profiles to avoid visual cluttering.
 #' For more on profile analysis (e.g., preparation and examples), see package vignette.
 #'
 #' # Exporting The RGL Device
-#' The returned RGL device can, for example, be exported to the R console and saved as an interactive html file or as a still shoots (see examples below).
-#' In the case of the latter, the model perspective in the still shoot can be manually adjusted or adjusted by changing the `view` argument for the function.
+#' The returned RGL device can, for example, be exported to the R console and be saved as an interactive html file or as a still shoot (see examples below).
+#' In the case of the latter, the model perspective in the still shoot can be manually adjusted by changing the `view` argument for the function.
 #'
 #' @return A RGL graphical device.
 #' @author Erik Forsberg
