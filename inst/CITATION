@@ -2,10 +2,8 @@ bibentry(
   bibtype    = "Unpublished",
   note = "Development version of the D3mirt package",
   title    = "D3mirt: Descriptive 3D Multidimensional Item Response Theory Modeling",
-  author   = c(
-              person( "Erik", "Forsberg", role = c("aut", "cre", "cph"),
+  author   =  person( "Erik", "Forsberg", role = c("aut", "cre", "cph"),
               comment = c(ORCID = "0000-0002-5228-9729")),
-              person("Anders", "Sjöberg", role = c("ths", "ctb"))),
   institution  = "Department of Psychology, Stockholm University",
   adress = "Stockholm, Sweden",
   year     = "2023",

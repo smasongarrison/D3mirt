@@ -103,13 +103,16 @@ $DDISC = \sum_{k = 1}^{m} a_{ik} cos \alpha_{ik}$
 :::
 
 The $DDISC$ describes the level of discrimination for one or more items in the model at the angle set by the direction of choice.
-Note, it is always true that $DDISC ≤ MDISC$.
+Note, it is always true that $DDISC \leq MDISC$.
 
 In the `D3mirt`package the $DDISC$ is computed for all items following the angle orientation given by the *construct vectors*.
 Constructs, in this context, refer to the assumption that a subset of items can measure a higher-order latent variable.
-In `D3mirt`, constructs are implemented as optional vectors whose angle direction is calculated as the average direction of a set of items in the model.
+In `D3mirt`, constructs are implemented as optional vectors whose orientation is calculated as the average direction, i.e., the average multidimensional discrimination of a subset of items in the model.
+A construct vector will, therefore, point in the direction of the maximum slope of an imaginary item response function indicated by the items chosen by the user.
 Item sets are created by the user and can be exploratory (e.g., grouping items based on model observations) or theoretical (e.g., personality theory).
-If constructs are used, the output will include reporting of the $DDISC$ parameter that shows how well the items discriminate under the assumption that they measure one of the constructs used in the analysis. That is, while the $MDISC$ represents the maximum level of discrimination for the items in the model, the $DDISC$ represents the local discrimination that makes it possible to compare item discrimination in a specific direction set by the constructs. Constructs are visually represented with construct vector arrows scaled to an arbitrary length.
+If constructs are used, the output will include reporting of the $DDISC$ parameter that shows how well the items discriminate under the assumption that they measure one of the constructs used in the analysis.
+That is, while the $MDISC$ represents the maximum level of discrimination for the items in the model, the $DDISC$ represents the local discrimination that makes it possible to compare item discrimination in a specific direction set by the constructs.
+Constructs are visually represented with construct vector arrows scaled to an arbitrary length.
 
 ## Limitations
 
@@ -297,13 +300,21 @@ But it does suggest that the methodology *can* be used and the results will be p
 
 ## The `D3mirt()` Function
 
-The `D3mirt()` function takes in a data frame with model parameters from a three-dimensional compensatory model and returns an $S3$ object of class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$ parameters, direction cosines, and spherical coordinates. Regarding the latter, spherical coordinates are represented by $\theta$ and $\phi$. The $\theta$ coordinate is the positive or negative angle in degrees, starting from the $x$-axis, of the vector projections from the vector arrows in the $xz$-plane up to $\pm 180°$. Note, the $\theta$ angle is oriented following the positive pole of the $x$ and $z$ axis so that the angle increases clockwise in the graphical output. The $\phi$ coordinate is the positive angle in degrees from the $y$-axis and the vectors. Note, the $\rho$ coordinate from the spherical coordinate system is in DMIRT represented by the $MDIFF$, and so is reported separately.
+The `D3mirt()` function takes in a data frame with model parameters from a three-dimensional compensatory model and returns an $S3$ object of class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$ parameters, direction cosines, and spherical coordinates.
+Regarding the latter, spherical coordinates are represented by $\theta$ and $\phi$.
+The $\theta$ coordinate is the positive or negative angle in degrees, starting from the $x$-axis, of the vector projections from the vector arrows in the $xz$-plane up to $\pm 180°$.
+Note, the $\theta$ angle is oriented following the positive pole of the $x$ and $z$ axis so that the angle increases clockwise in the graphical output.
+The $\phi$ coordinate is the positive angle in degrees from the $y$-axis and the vectors.
+Note, the $\rho$ coordinate from the spherical coordinate system is in DMIRT represented by the $MDIFF$, and so is reported separately.
 
 If constructs are used, the function also returns construct direction cosines, spherical coordinates for the construct vector arrows, and $DDISC$ parameters (one index per construct).
 
 ### Fitting the Compensatory Multidimensional Model
 
-The three-dimensional compensatory model is specified so that all items load on all three factors in the model, and all factors are constrained to be orthogonal (see below). The fitting of the model is preferably done with the `mirt::mirt` (Chalmers, 2012) function. Observe that the START and FIXED commands are used to fix the slope parameters on the second, $a2$, and third, $a3$. factor for item $_1$ (W7Q3), and the slope on the third, $a3$, factor for item $i_2$ (W7Q20).
+The three-dimensional compensatory model is specified so that all items load on all three factors in the model, and all factors are constrained to be orthogonal (see below).
+The fitting of the model is preferably done with the `mirt::mirt` (Chalmers, 2012) function.
+Observe that the START and FIXED commands are used to fix the slope parameters on the second, $a2$, and third, $a3$.
+factor for item $_1$ (W7Q3), and the slope on the third, $a3$, factor for item $i_2$ (W7Q20).
 Note, because the fitting of the compensatory model in the `mirt()` function takes a long time to fit, the item parameters are available in the package file "d.Rdata" and can be loaded in the next code chunk below.
 
 ```{r, message = FALSE, results = 'hide', eval = FALSE}
@@ -418,7 +429,9 @@ plotD3mirt(g, view = c(15, 20, 0.6))
 
 An example of how the output can be described could be the following.
 
-> As can be seen in the figure, the pattern in the data indicates the presence of foremost two main latent dimensions indicated by the items, one aligned with the $x$-axis and one approaching the $y$-axis. We might also suspect the presence of a third dimension located close to the $xy$-plane, between the $x$ and $z$ axes. Studying the content of the items, the labels *Compassion*, *Conformity*, and *Fairness* were introduced.
+> As can be seen in the figure, the pattern in the data indicates the presence of foremost two main latent dimensions indicated by the items, one aligned with the $x$-axis and one approaching the $y$-axis.
+> We might also suspect the presence of a third dimension located close to the $xy$-plane, between the $x$ and $z$ axes.
+> Studying the content of the items, the labels *Compassion*, *Conformity*, and *Fairness* were introduced.
 
 To get a better understanding of the interrelation of the dimensions, constructs can be added to asses the average angle when grouping items.
 As mentioned above, in this example the items have been grouped in constructs in an exploratory fashion, i.e., based on their observed location in the model.
@@ -438,7 +451,10 @@ plotD3mirt(g,
 
 An example of how the output can be described could be as follows.
 
-> The angles of the constructs inform us that Compassion ($\theta = 1.710^{\circ}$, $\phi = 86.486^{\circ}$) and Conformity ($\theta = - 2.519^{\circ}$,$\phi = 28.192^{\circ}$) have some within-multidimensional tendencies. However, they are both more or less orthogonal to the $z$-axis ($\theta = 1.710^{\circ}$ and $\theta = -2.519^{\circ}$ respectively). Next, we find Fairness ($\theta = 49.106^{\circ}$, $\phi = 78.308^{\circ}$) with clear within-multidimensional tendencies with respect to the $x$-axis. Thus, the output indicates that Compassion and Conformity could be independent constructs but that Fairness seems not to be.
+> The angles of the constructs inform us that Compassion ($\theta = 1.710^{\circ}$, $\phi = 86.486^{\circ}$) and Conformity ($\theta = - 2.519^{\circ}$,$\phi = 28.192^{\circ}$) have some within-multidimensional tendencies.
+> However, they are both more or less orthogonal to the $z$-axis ($\theta = 1.710^{\circ}$ and $\theta = -2.519^{\circ}$ respectively).
+> Next, we find Fairness ($\theta = 49.106^{\circ}$, $\phi = 78.308^{\circ}$) with clear within-multidimensional tendencies with respect to the $x$-axis.
+> Thus, the output indicates that Compassion and Conformity could be independent constructs but that Fairness seems not to be.
 
 As was mentioned above, the W7Q16 had the most measurement problems of all items in the data.
 Foremost, the short vector arrows indicate high amounts of model violations.
@@ -458,7 +474,12 @@ plotD3mirt(g,
 
 An example of how the output can be described could be as follows.
 
-> The figure shows that item W7Q16 is located at $\theta = 16.083^{\circ}$, $\phi = 57.473^{\circ}$, indicating that the item is within-multidimensional with respect to the $x$ and $y$-axis; but much less so with respect to the $z$-axis. In addition, the directional discrimination further underscores that the item does not seem to measure any particular construct ($DDISC_1 = .656$, $DDISC_2 = .656$, $DDISC_3 = .617$). The global discrimination ($MDISC = .770$, $MDIFF_{range} = [-4.838, 2.349]$) is also the lowest of all discrimination scores in the model. This, combined, implies that the item in question does not seem to fit the three-dimensional DMIRT used in this analysis and should therefore be removed or adapted. On a side note, we can also note that item W7Q15, $MDISC = .923$, $MDIFF_{range} = [-4.680, 1.051]$) has the second lowest global discrimination score. However, this item does seem to belong to the Conformity construct, observable when comparing angle orientation ($\theta = -19.436^{\circ}, \phi = 31.516^{\circ}$) and discrimination ($MDISC = .923$, $DDISC_1 = .332$, $DDISC_2 = .912$, $DDISC_3 = .497$).
+> The figure shows that item W7Q16 is located at $\theta = 16.083^{\circ}$, $\phi = 57.473^{\circ}$, indicating that the item is within-multidimensional with respect to the $x$ and $y$-axis; but much less so with respect to the $z$-axis.
+> In addition, the directional discrimination further underscores that the item does not seem to measure any particular construct ($DDISC_1 = .656$, $DDISC_2 = .656$, $DDISC_3 = .617$).
+> The global discrimination ($MDISC = .770$, $MDIFF_{range} = [-4.838, 2.349]$) is also the lowest of all discrimination scores in the model.
+> This, combined, implies that the item in question does not seem to fit the three-dimensional DMIRT used in this analysis and should therefore be removed or adapted.
+> On a side note, we can also note that item W7Q15, $MDISC = .923$, $MDIFF_{range} = [-4.680, 1.051]$) has the second lowest global discrimination score.
+> However, this item does seem to belong to the Conformity construct, observable when comparing angle orientation ($\theta = -19.436^{\circ}, \phi = 31.516^{\circ}$) and discrimination ($MDISC = .923$, $DDISC_1 = .332$, $DDISC_2 = .912$, $DDISC_3 = .497$).
 
 ### Other Graphical Options
 
@@ -495,7 +516,8 @@ plotD3mirt(g,
 The `D3mirt()` function returns item vector coordinates estimated with and without the $MDISC$ as a scalar for the arrow length.
 When the $MDISC$ is not used for the arrow length, all item vector arrows are scaled to one unit length.
 This allows the user to graph the item vector arrows with `plotD3mirt()` set to uniform length.
-This can help reduce visual clutter in the graphical output. To view the item vector arrows without the $MDISC$, set `scale = TRUE`.
+This can help reduce visual clutter in the graphical output.
+To view the item vector arrows without the $MDISC$, set `scale = TRUE`.
 
 ```{r, testg7, webgl=TRUE, fig.width = 7, fig.height = 7}
 # Plot RGL device with items in uniform length and constructs visible and named
@@ -508,7 +530,10 @@ plotD3mirt(g,
 
 ## `D3mirt` Profile Analysis
 
-The `plotD3mirt()` function can also display respondents in the three-dimensional model represented as spheres located using respondent factors scores used as coordinates. This allows for a profile analysis in which respondents can be separated, or subset, conditioned on single or multiple criteria and then plotted. The resulting output shows where the respondents are located in the model, and, accordingly, what model profile best describes them. Similarly, respondent categories can be simultaneously compared to see if a group-level effect can be visually observed.
+The `plotD3mirt()` function can also display respondents in the three-dimensional model represented as spheres located using respondent factors scores used as coordinates.
+This allows for a profile analysis in which respondents can be separated, or subset, conditioned on single or multiple criteria and then plotted.
+The resulting output shows where the respondents are located in the model, and, accordingly, what model profile best describes them.
+Similarly, respondent categories can be simultaneously compared to see if a group-level effect can be visually observed.
 
 To do this, the user must first extract respondent factor scores with `mirt::fscores` (Chalmers, 2012) and then seprate or select a subset of respondent rows based on one or more criteria.
 The resulting data frame is imputed in the `profiles` argument.
@@ -556,7 +581,8 @@ plotD3mirt(g, hide = TRUE,
 
 An example of how the output can be described could be as follows.
 
-> In the figure, it can be observed a simple profile on gender in which more women tend to have higher levels of trait on Compassion. When rotating the model $90^{\circ}$ clockwise, there seems not to be any easily observable gender difference related to Conformity or Fairness.
+> In the figure, it can be observed a simple profile on gender in which more women tend to have higher levels of trait on Compassion.
+> When rotating the model $90^{\circ}$ clockwise, there seems not to be any easily observable gender difference related to Conformity or Fairness.
 
 The use of `rep()` function makes it possible to create groups based on factor levels.
 This can be useful when a criterion variable has a wide data range, such as an age variable.
@@ -564,8 +590,9 @@ More specifically, a color vector for the `sphere.col` argument can be created w
 When plotting, the `plotD3mirt()` function will pick colors from the `sphere.col` argument following the factor order in the `levels` argument.
 The example below illustrates this when comparing respondents 30 years or younger against 70 years or older.
 
-First, we must count the number of factor levels in the variable. 
-This can be done with, the `nlevels(as.factor(x))`. Then we use the output from the latter to set the appropriate size of color vector for `sphere.col`.
+First, we must count the number of factor levels in the variable.
+This can be done with, the `nlevels(as.factor(x))`.
+Then we use the output from the latter to set the appropriate size of color vector for `sphere.col`.
 
 ```{r}
 # Column bind fscores() with age variable ("W3Xage")
@@ -611,7 +638,7 @@ An example of how the output can be described could be as follows.
 > To sum, we can say, therefore, that the analysis indicates a possibility that older individuals may have a moral profile consisting of high Conformity and possibly also high Fairness.
 
 It is also possible to plot a confidence interval in the shape of an ellipse surrounding the individual factor scores.
-In the example below, the younger individuals ($≤30$) are selected and plotted with a $95\%$ *CI*.
+In the example below, the younger individuals ($\leq30$) are selected and plotted with a $95\%$ *CI*.
 
 ```{r}
 # Column bind fscores() with age variable ("W3Xage")
