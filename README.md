@@ -488,6 +488,7 @@ plotD3mirt(g,
 ![anesdata0809offwaves](anes1.png)Figure 1: Three-dimensional vector
 plot for all items and the three constructs Compassion, Conformity, and
 Fairness (solid black arrows) plotted rotated $15^{\circ}$ clock wise.
+
 ![anesdata0809offwaves](anes2.png)Figure 2: Three-dimensional vector
 plot for all items and the three constructs Compassion, Conformity, and
 Fairness (solid black arrows) plotted rotated $90^{\circ}$ clock wise.
@@ -495,9 +496,9 @@ Fairness (solid black arrows) plotted rotated $90^{\circ}$ clock wise.
 An example of how the output can be described could be as follows.
 
 > As can be seen in Figures 1 and 2, the pattern in the data indicates
-> the presence of foremost two main nested latent dimensions indicated
+> the presence of foremost two main nested latent constructs indicated
 > by the items, one aligned with the $x$-axis and one approaching the
-> $y$-axis. We might also suspect the presence of a third dimension
+> $y$-axis. We might also suspect the presence of a third construct
 > located close to the $xy$-plane, between the $x$ and $z$ axes.
 > Studying the content of the items, the labels *Compassion*,
 > *Conformity*, and *Fairness* were introduced. The angles of the
@@ -549,7 +550,7 @@ An example of how the output can be described could be as follows.
 > ($MDISC = .770$, $MDIFF_{range} = [-4.838, 2.349]$) is also the lowest
 > of all discrimination scores in the model. This, combined, implies
 > that the item in question does not seem to fit the three-dimensional
-> DMIRT used in this analysis and should therefore be removed or
+> DMIRT model used in this analysis and should therefore be removed or
 > adapted. On a side note, we can also note that item W7Q15,
 > $MDISC = .923$, $MDIFF_{range} = [-4.680, 1.051]$) has the second
 > lowest global discrimination score. However, this item does seem to
@@ -625,6 +626,7 @@ plotD3mirt(g, hide = TRUE,
 
 ![anesdata0809offwaves](p1.png)Figure 5: Gender profile for the
 `anes0809offwaves` data set, plotted rotated $15^{\circ}$ clock wise.
+
 ![anesdata0809offwaves](p2.png)Figure 6: Gender profile for the
 `anes0809offwaves` data set, plotted rotated $90^{\circ}$ clock wise.
 
@@ -692,11 +694,18 @@ plotD3mirt(g, hide = TRUE,
 ![anesdata0809offwaves](ci1.png)Figure 7: Adults less than or equal to
 age 30 from the `anes0809offwaves` data set plotted surrounded by a
 $95\%\,CI$ and rotated $15^{\circ}$ clock wise.
+
 ![anesdata0809offwaves](ci2.png)Figure 8: Adults less than or equal to
 age 30 from the `anes0809offwaves` data set plotted surrounded by a
 $95\%\,CI$ and rotated $90^{\circ}$ clock wise.
 
-# Exporting The RGL Device
+An example of how the output can be described could be as follows.
+
+> In Figures 7 and 8 we can see a tendency for a profile on age in which
+> younger individuals could be described as less oriented towards
+> Conformity. We can also observe a slight tendency for an interaction
+> effect in which higher levels of Conformity seem to be associated with
+> lower levels of Fairness. \# Exporting The RGL Device
 
 Some options for exporting the RGL device are shown below. Over and
 above these, it is also possible to export graphical devices in R

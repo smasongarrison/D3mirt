@@ -195,11 +195,13 @@ plotD3mirt(g,
            construct.lab = c("Fairness", "Conformity", "Compassion"))
 ```
 
-![anesdata0809offwaves](anes1.png)Figure 1: Three-dimensional vector plot for all items and the three constructs Compassion, Conformity, and Fairness (solid black arrows) plotted rotated $15^{\circ}$ clock wise. ![anesdata0809offwaves](anes2.png)Figure 2: Three-dimensional vector plot for all items and the three constructs Compassion, Conformity, and Fairness (solid black arrows) plotted rotated $90^{\circ}$ clock wise.
+![anesdata0809offwaves](anes1.png)Figure 1: Three-dimensional vector plot for all items and the three constructs Compassion, Conformity, and Fairness (solid black arrows) plotted rotated $15^{\circ}$ clock wise.
+
+![anesdata0809offwaves](anes2.png)Figure 2: Three-dimensional vector plot for all items and the three constructs Compassion, Conformity, and Fairness (solid black arrows) plotted rotated $90^{\circ}$ clock wise.
 
 An example of how the output can be described could be as follows.
 
-> As can be seen in Figures 1 and 2, the pattern in the data indicates the presence of foremost two main nested latent dimensions indicated by the items, one aligned with the $x$-axis and one approaching the $y$-axis. We might also suspect the presence of a third dimension located close to the $xy$-plane, between the $x$ and $z$ axes. Studying the content of the items, the labels *Compassion*, *Conformity*, and *Fairness* were introduced. The angles of the constructs inform us that Compassion ($\theta = 1.710^{\circ}$, $\phi = 86.486^{\circ}$) and Conformity ($\theta = - 2.519^{\circ}$,$\phi = 28.192^{\circ}$) have some within-multidimensional tendencies. However, they are both more or less orthogonal to the $z$-axis ($\theta = 1.710^{\circ}$ and $\theta = -2.519^{\circ}$ respectively). Next, we find Fairness ($\theta = 49.106^{\circ}$, $\phi = 78.308^{\circ}$) with clear within-multidimensional tendencies with respect to the $x$-axis. Thus, the output indicates that Compassion and Conformity could be independent constructs but that Fairness seems not to be.
+> As can be seen in Figures 1 and 2, the pattern in the data indicates the presence of foremost two main nested latent constructs indicated by the items, one aligned with the $x$-axis and one approaching the $y$-axis. We might also suspect the presence of a third construct located close to the $xy$-plane, between the $x$ and $z$ axes. Studying the content of the items, the labels *Compassion*, *Conformity*, and *Fairness* were introduced. The angles of the constructs inform us that Compassion ($\theta = 1.710^{\circ}$, $\phi = 86.486^{\circ}$) and Conformity ($\theta = - 2.519^{\circ}$,$\phi = 28.192^{\circ}$) have some within-multidimensional tendencies. However, they are both more or less orthogonal to the $z$-axis ($\theta = 1.710^{\circ}$ and $\theta = -2.519^{\circ}$ respectively). Next, we find Fairness ($\theta = 49.106^{\circ}$, $\phi = 78.308^{\circ}$) with clear within-multidimensional tendencies with respect to the $x$-axis. Thus, the output indicates that Compassion and Conformity could be independent constructs but that Fairness seems not to be.
 
 As was mentioned above, the W7Q16 was not included in any of the constructs because the item had measurement problems. For example, the short vector arrows indicate high amounts of model violations. Moreover, the location of the item in the model also indicates that the item is within-multidimensional and that it does not seem to belong to any construct explicitly.
 
@@ -218,7 +220,7 @@ plotD3mirt(g,
 
 An example of how the output can be described could be as follows.
 
-> The Figures 3 and 4 shows that item W7Q16 is located at $\theta = 16.083^{\circ}$, $\phi = 57.473^{\circ}$, indicating that the item is within-multidimensional with respect to the $x$ and $y$-axis; but much less so with respect to the $z$-axis. In addition, the directional discrimination further underscores that the item does not seem to measure any particular construct ($DDISC_1 = .656$, $DDISC_2 = .656$, $DDISC_3 = .617$). The global discrimination ($MDISC = .770$, $MDIFF_{range} = [-4.838, 2.349]$) is also the lowest of all discrimination scores in the model. This, combined, implies that the item in question does not seem to fit the three-dimensional DMIRT used in this analysis and should therefore be removed or adapted. On a side note, we can also note that item W7Q15, $MDISC = .923$, $MDIFF_{range} = [-4.680, 1.051]$) has the second lowest global discrimination score. However, this item does seem to belong to the Conformity construct, observable when comparing angle orientation ($\theta = -19.436^{\circ}, \phi = 31.516^{\circ}$) and discrimination ($MDISC = .923$, $DDISC_1 = .332$, $DDISC_2 = .912$, $DDISC_3 = .497$).
+> The Figures 3 and 4 shows that item W7Q16 is located at $\theta = 16.083^{\circ}$, $\phi = 57.473^{\circ}$, indicating that the item is within-multidimensional with respect to the $x$ and $y$-axis; but much less so with respect to the $z$-axis. In addition, the directional discrimination further underscores that the item does not seem to measure any particular construct ($DDISC_1 = .656$, $DDISC_2 = .656$, $DDISC_3 = .617$). The global discrimination ($MDISC = .770$, $MDIFF_{range} = [-4.838, 2.349]$) is also the lowest of all discrimination scores in the model. This, combined, implies that the item in question does not seem to fit the three-dimensional DMIRT model used in this analysis and should therefore be removed or adapted. On a side note, we can also note that item W7Q15, $MDISC = .923$, $MDIFF_{range} = [-4.680, 1.051]$) has the second lowest global discrimination score. However, this item does seem to belong to the Conformity construct, observable when comparing angle orientation ($\theta = -19.436^{\circ}, \phi = 31.516^{\circ}$) and discrimination ($MDISC = .923$, $DDISC_1 = .332$, $DDISC_2 = .912$, $DDISC_3 = .497$).
 
 ## `D3mirt` Profile Analysis
 
@@ -263,7 +265,9 @@ plotD3mirt(g, hide = TRUE,
            z.lab="Fairness")
 ```
 
-![anesdata0809offwaves](p1.png)Figure 5: Gender profile for the `anes0809offwaves` data set, plotted rotated $15^{\circ}$ clock wise. ![anesdata0809offwaves](p2.png)Figure 6: Gender profile for the `anes0809offwaves` data set, plotted rotated $90^{\circ}$ clock wise.
+![anesdata0809offwaves](p1.png)Figure 5: Gender profile for the `anes0809offwaves` data set, plotted rotated $15^{\circ}$ clock wise.
+
+![anesdata0809offwaves](p2.png)Figure 6: Gender profile for the `anes0809offwaves` data set, plotted rotated $90^{\circ}$ clock wise.
 
 An example of how the output can be described could be as follows.
 
@@ -308,9 +312,13 @@ plotD3mirt(g, hide = TRUE,
            ellipse.col = "orange")
 ```
 
-![anesdata0809offwaves](ci1.png)Figure 7: Adults less than or equal to age 30 from the `anes0809offwaves` data set plotted surrounded by a $95\%\,CI$ and rotated $15^{\circ}$ clock wise. ![anesdata0809offwaves](ci2.png)Figure 8: Adults less than or equal to age 30 from the `anes0809offwaves` data set plotted surrounded by a $95\%\,CI$ and rotated $90^{\circ}$ clock wise.
+![anesdata0809offwaves](ci1.png)Figure 7: Adults less than or equal to age 30 from the `anes0809offwaves` data set plotted surrounded by a $95\%\,CI$ and rotated $15^{\circ}$ clock wise.
 
-# Exporting The RGL Device
+![anesdata0809offwaves](ci2.png)Figure 8: Adults less than or equal to age 30 from the `anes0809offwaves` data set plotted surrounded by a $95\%\,CI$ and rotated $90^{\circ}$ clock wise.
+
+An example of how the output can be described could be as follows.
+
+> In Figures 7 and 8 we can see a tendency for a profile on age in which younger individuals could be described as less oriented towards Conformity. We can also observe a slight tendency for an interaction effect in which higher levels of Conformity seem to be associated with lower levels of Fairness. \# Exporting The RGL Device
 
 Some options for exporting the RGL device are shown below. Over and above these, it is also possible to export graphical devices in R Markdown documents with `rgl::hookwebgl()` together with graphical options for knitr, as was done when creating this vignette.
 
