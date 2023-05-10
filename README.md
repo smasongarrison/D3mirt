@@ -83,9 +83,10 @@ items discriminate under the assumption that they measure one of the
 constructs used in the analysis. That is, while the $MDISC$ represents
 the maximum level of discrimination in the model, the $DDISC$ represents
 the local discrimination that makes it possible to compare item
-discrimination in a specific direction set by the constructs. Constructs
-are visually represented with construct vector arrows scaled to an
-arbitrary length.
+discrimination in a specific direction set by the constructs. The
+constructs are, therefore, like unidimensional models nested in the
+multidimensional latent space and are visually represented with
+construct vector arrows scaled to an arbitrary length.
 
 # Overview
 
@@ -494,16 +495,17 @@ Fairness (solid black arrows) plotted rotated $90^{\circ}$ clock wise.
 An example of how the output can be described could be as follows.
 
 > As can be seen in Figures 1 and 2, the pattern in the data indicates
-> the presence of foremost two main latent dimensions indicated by the
-> items, one aligned with the $x$-axis and one approaching the $y$-axis.
-> We might also suspect the presence of a third dimension located close
-> to the $xy$-plane, between the $x$ and $z$ axes. Studying the content
-> of the items, the labels *Compassion*, *Conformity*, and *Fairness*
-> were introduced. The angles of the constructs inform us that
-> Compassion ($\theta = 1.710^{\circ}$, $\phi = 86.486^{\circ}$) and
-> Conformity ($\theta = - 2.519^{\circ}$,$\phi = 28.192^{\circ}$) have
-> some within-multidimensional tendencies. However, they are both more
-> or less orthogonal to the $z$-axis ($\theta = 1.710^{\circ}$ and
+> the presence of foremost two main nested latent dimensions indicated
+> by the items, one aligned with the $x$-axis and one approaching the
+> $y$-axis. We might also suspect the presence of a third dimension
+> located close to the $xy$-plane, between the $x$ and $z$ axes.
+> Studying the content of the items, the labels *Compassion*,
+> *Conformity*, and *Fairness* were introduced. The angles of the
+> constructs inform us that Compassion ($\theta = 1.710^{\circ}$,
+> $\phi = 86.486^{\circ}$) and Conformity
+> ($\theta = - 2.519^{\circ}$,$\phi = 28.192^{\circ}$) have some
+> within-multidimensional tendencies. However, they are both more or
+> less orthogonal to the $z$-axis ($\theta = 1.710^{\circ}$ and
 > $\theta = -2.519^{\circ}$ respectively). Next, we find Fairness
 > ($\theta = 49.106^{\circ}$, $\phi = 78.308^{\circ}$) with clear
 > within-multidimensional tendencies with respect to the $x$-axis. Thus,
