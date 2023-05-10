@@ -149,7 +149,7 @@
 #'                            simplify=TRUE)$'items'[,1:8])
 #'
 #' # Call D3mirt() with data frame d and constructs assigned to c
-#' c <- list(list (1,2,3,4),
+#' c <- list(list(1,2,3,4),
 #'           list(5,7,8,9,10),
 #'           list(11,12,13,14,15,15,16,17,18,19,20))
 #' g <- D3mirt(d, c)
