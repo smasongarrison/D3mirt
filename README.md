@@ -70,15 +70,22 @@ vice versa).
 A novel theoretical contribution to DMIRT is the use of constructs in
 the `D3mirt` functions. Constructs, in this context, refer to the
 assumption that a subset of items can measure a higher-order latent
-variable. More specifically, if constructs are used, the output will
-include reporting of the directional discrimination ($DDISC$) parameter
-that shows how well the items discriminate under the assumption that
-they measure one of the constructs used in the analysis. That is, while
-the $MDISC$ represents the maximum level of discrimination in the model,
-the $DDISC$ represents the local discrimination that makes it possible
-to compare item discrimination in a specific direction set by the
-constructs. Constructs are visually represented with construct vector
-arrows scaled to an arbitrary length.
+variable. In `D3mirt`, constructs are implemented as optional vectors
+whose orientation is calculated as the average direction, i.e., the
+average multidimensional discrimination of a subset of items in the
+model. A construct vector will, therefore, point in the direction of the
+maximum slope of an imaginary item response function indicated by the
+items chosen by the user.
+
+If constructs are used, the output will include reporting of the
+directional discrimination ($DDISC$) parameter that shows how well the
+items discriminate under the assumption that they measure one of the
+constructs used in the analysis. That is, while the $MDISC$ represents
+the maximum level of discrimination in the model, the $DDISC$ represents
+the local discrimination that makes it possible to compare item
+discrimination in a specific direction set by the constructs. Constructs
+are visually represented with construct vector arrows scaled to an
+arbitrary length.
 
 # Overview
 
