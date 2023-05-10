@@ -275,7 +275,7 @@ An example of how the output can be described could be as follows.
 
 ### Plotting Confidence Intervals
 
-It is also possible to plot a confidence interval in the shape of an ellipse surrounding the individual factor scores. In the example below, the younger individuals ($≤30$) are selected and plotted together with a $95\%$ *CI*.
+It is also possible to plot a confidence interval in the shape of an ellipse surrounding the individual factor scores. In the example below, the younger individuals ($\leq30$) are selected and plotted together with a $95\%$ *CI*.
 
 ```{r}
 # Column bind fscores() with age variable ("W3Xage") from column 1
@@ -318,7 +318,7 @@ plotD3mirt(g, hide = TRUE,
 
 An example of how the output can be described could be as follows.
 
-> In Figures 7 and 8 we can see a tendency for a profile on age in which younger individuals could be described as less oriented towards Conformity. 
+> In Figures 7 and 8 we can see a tendency for a profile on age in which younger individuals could be described as less oriented towards Conformity.
 
 # Exporting The RGL Device
 

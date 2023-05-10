@@ -53,7 +53,7 @@ Therefore, for a three-dimensional model, all else equal, the item highest up in
 
 \subsection{Criteria}{
 
-Model identification items should preferably (a) have an absolute sum score of ≤.10 and (b) have the highest factor loading scores on the factor of interest.
+Model identification items should preferably (a) have an absolute sum score of less than or equal to .10 and (b) have the highest factor loading scores on the factor of interest.
 Of these two criteria, (a) should be given the strongest weight in the selection decision.
 If these conditions cannot be met, the user is advised to proceed with caution since the loading scores, therefore, imply that an adequate orthogonal structure may not be empirically attainable.
 If problems occur, try the following:

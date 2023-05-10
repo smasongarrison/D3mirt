@@ -642,8 +642,8 @@ An example of how the output can be described could be as follows.
 
 It is also possible to plot a confidence interval in the shape of an
 ellipse surrounding the individual factor scores. In the example below,
-the younger individuals ($≤30$) are selected and plotted together with a
-$95\%$ *CI*.
+the younger individuals ($\leq30$) are selected and plotted together
+with a $95\%$ *CI*.
 
 ``` r
 # Column bind fscores() with age variable ("W3Xage") from column 1

@@ -32,7 +32,7 @@
 #' Constructs, in this context, refer to the assumption that a subset of items can measure a higher-order latent variable.
 #' To include constructs, the user must create one or more nested lists that indicate what items belong to what construct (see the examples section below).
 #' From this, the `D3mirt()` function calculates direction cosines for the constructs by adding and normalizing the direction cosines for the items in the nested lists.
-#' The construct vector arrows can contribute to the analysis by (a) visualizing the average direction for a subset set of items, and (b) showing how all items discriminate in the direction set by the construct vector with the help of the DDISC index.
+#' The construct vector arrows can contribute to the analysis by visualizing the average direction of multidimensional discrimination for a subset set of items.
 #'
 #'
 #' @return S3 object of class `D3mirt` with lists of \emph{a} and \emph{d} parameters from the M2PL or MGRM estimation, multidimensional difficulty (MDIFF), multidimensional discrimination (MDISC), direction cosines and degrees for vector angles, construct lists, and vector coordinates.
