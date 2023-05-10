@@ -703,9 +703,7 @@ An example of how the output can be described could be as follows.
 
 > In Figures 7 and 8 we can see a tendency for a profile on age in which
 > younger individuals could be described as less oriented towards
-> Conformity. We can also observe a slight tendency for an interaction
-> effect in which higher levels of Conformity seem to be associated with
-> lower levels of Fairness.
+> Conformity.
 
 # Exporting The RGL Device
 
