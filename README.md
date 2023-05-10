@@ -705,7 +705,9 @@ An example of how the output can be described could be as follows.
 > younger individuals could be described as less oriented towards
 > Conformity. We can also observe a slight tendency for an interaction
 > effect in which higher levels of Conformity seem to be associated with
-> lower levels of Fairness. \# Exporting The RGL Device
+> lower levels of Fairness.
+
+# Exporting The RGL Device
 
 Some options for exporting the RGL device are shown below. Over and
 above these, it is also possible to export graphical devices in R
