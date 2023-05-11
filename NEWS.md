@@ -1,3 +1,5 @@
+# D3mirt 1.0.3
+
 # D3mirt 1.0.2
 Change of D parameter to MDIFF
 Minor documentation revisions
