@@ -430,11 +430,11 @@ plotD3mirt(g, view = c(15, 20, 0.6))
 
 An example of how the output can be described could be the following.
 
-> As can be seen in the figure, the pattern in the data indicates the presence of foremost two main latent dimensions indicated by the items, one aligned with the $x$-axis and one approaching the $y$-axis.
-> We might also suspect the presence of a third dimension located close to the $xy$-plane, between the $x$ and $z$ axes.
+> As can be seen in the figure, the pattern in the data indicates the presence of foremost two main latent constructs indicated by the items, one aligned with the $x$-axis and one approaching the $y$-axis.
+> We might also suspect the presence of a third construct located close to the $xy$-plane, between the $x$ and $z$ axes.
 > Studying the content of the items, the labels *Compassion*, *Conformity*, and *Fairness* were introduced.
 
-To get a better understanding of the interrelation of the dimensions, constructs can be added to asses the average angle when grouping items.
+To get a better understanding of the interrelation of the data, constructs can be added to asses the average angle when grouping items.
 As mentioned above, in this example the items have been grouped in constructs in an exploratory fashion, i.e., based on their observed location in the model.
 Note, item W7Q16 was not included in any of the constructs because of a high amount of model violation tendencies and notable within-multidimensionality.
 
@@ -566,6 +566,8 @@ This means that raw data can be used as is but the number of colors in the color
 In the example below, the criteria variable for gender only hold two factor levels and therefore only two colors in the color vector are needed.
 
 Call `plotD3mirt` with the respondent data frame $z$ in the `profiles` argument and the `levels` argument with the levels column subset from $z$.
+In the function call below, the axes in the model are named using the `x.lab`, `y.lab`, and `z.lab` arguments following the direction of the constructs.
+Note, the model axes represent unidimensional singular structures, or traits, in this case borrowing the names of the constructs.
 
 ```{r, testg8, webgl=TRUE, fig.width = 7, fig.height = 7}
 # Plot profiles with item vector arrows hidden
@@ -582,8 +584,8 @@ plotD3mirt(g, hide = TRUE,
 
 An example of how the output can be described could be as follows.
 
-> In the figure, it can be observed a simple profile on gender in which more women tend to have higher levels of trait on Compassion.
-> When rotating the model $90^{\circ}$ clockwise, there seems not to be any easily observable gender difference related to Conformity or Fairness.
+> In the figure, it can be observed a simple profile on gender in which more women tend to have higher levels of trait Compassion.
+> When rotating the model $90^{\circ}$ clockwise, there seems not to be any easily observable gender difference related to trait Conformity or trait Fairness.
 
 The use of `rep()` function makes it possible to create groups based on factor levels.
 This can be useful when a criterion variable has a wide data range, such as an age variable.
@@ -633,10 +635,10 @@ plotD3mirt(g, hide = TRUE,
 
 An example of how the output can be described could be as follows.
 
-> As can be seen, the figure indicates an age effect in which older individuals have higher levels of trait on Conformity.
-> Rotating the model to the left also shows that older individuals may have slightly higher levels of Fairness, even if the effect is less clear.
-> There does not seem to be any difference in Compassion, however.
-> To sum, we can say, therefore, that the analysis indicates a possibility that older individuals may have a moral profile consisting of high Conformity and possibly also high Fairness.
+> As can be seen, the figure indicates an age effect in which older individuals have higher levels of trait Conformity.
+> Rotating the model to the left also shows that older individuals may have slightly higher levels of trait Fairness, even if the effect is less clear.
+> There does not seem to be any difference in trait Compassion, however.
+> To sum, we can say, therefore, that the analysis indicates a possibility that older individuals may have a moral profile consisting of high trait Conformity and possibly also high trait Fairness.
 
 It is also possible to plot a confidence interval in the shape of an ellipse surrounding the individual factor scores.
 In the example below, the younger individuals ($\leq30$) are selected and plotted with a $95\%$ *CI*.
@@ -671,6 +673,11 @@ plotD3mirt(g, hide = TRUE,
            ellipse.col = "orange",
            view = c(15, 20, 0.6))
 ```
+
+An example of how the output can be described could be as follows.
+
+> In Figures 7 and 8 we can see a tendency for a profile on age in which younger individuals could be described as less oriented towards trait Conformity.
+> We can also observe a tendency for what could be an interaction effect in which higher levels of trait Conformity seem to be associated with lower levels of trait Fairness.
 
 # Exporting The RGL Device
 

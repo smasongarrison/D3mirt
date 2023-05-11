@@ -610,7 +610,10 @@ therefore only two colors in the color vector are needed.
 Call `plotD3mirt` with the respondent data frame $z$ in the `profiles`
 argument and the `levels` argument with the levels column subset from
 $z$. In the function call below, the axes in the model are named using
-the `x.lab`, `y.lab`, and `z.lab` arguments.
+the `x.lab`, `y.lab`, and `z.lab` arguments following the direction of
+the constructs. Note, the model axes represent unidimensional singular
+structures, or traits, in this case borrowing the names of the
+constructs.
 
 ``` r
 # Plot profiles with item vector arrows hidden with hide = TRUE
@@ -633,10 +636,10 @@ plotD3mirt(g, hide = TRUE,
 An example of how the output can be described could be as follows.
 
 > In Figures 5 and 6, it can be observed a simple profile on gender in
-> which more women tend to have higher levels of trait on Compassion.
-> When rotating the model $90^{\circ}$ clockwise, there seems not to be
-> any easily observable gender difference related to Conformity or
-> Fairness.
+> which more women tend to have higher levels of trait Compassion. When
+> rotating the model $90^{\circ}$ clockwise, there seems not to be any
+> easily observable gender difference related to trait Conformity or
+> trait Fairness.
 
 ### Plotting Confidence Intervals
 
@@ -702,8 +705,10 @@ $95\%\,CI$ and rotated $90^{\circ}$ clock wise.
 An example of how the output can be described could be as follows.
 
 > In Figures 7 and 8 we can see a tendency for a profile on age in which
-> younger individuals could be described as less oriented towards
-> Conformity.
+> younger individuals could be described as less oriented towards trait
+> Conformity. We can also observe a tendency for what could be an
+> interaction effect in which higher levels of trait Conformity seem to
+> be associated with lower levels of trait Fairness.
 
 # Exporting The RGL Device
 
