@@ -351,7 +351,7 @@ exploratory reasons, i.e., because these items cluster in the model
 # Call to D3mirt(), including optional nested lists for three constructs
 # Item W7Q16 is not included in any construct because of model violations
 # The model violations for the item can be seen when plotting the model
-c <- list(list (1,2,3,4), 
+c <- list(list(1,2,3,4), 
           list(5,7,8,9,10), 
           list(11,12,13,14,15,15,16,17,18,19,20))
 g <- D3mirt(d, c)
