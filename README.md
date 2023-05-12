@@ -487,11 +487,13 @@ plotD3mirt(g,
 
 ![anesdata0809offwaves](anes1.png)Figure 1: Three-dimensional vector
 plot for all items and the three constructs Compassion, Conformity, and
-Fairness (solid black arrows) plotted rotated $15^{\circ}$ clock wise.
+Fairness (solid black arrows) plotted with the model rotated
+$15^{\circ}$ clock wise.
 
 ![anesdata0809offwaves](anes2.png)Figure 2: Three-dimensional vector
 plot for all items and the three constructs Compassion, Conformity, and
-Fairness (solid black arrows) plotted rotated $90^{\circ}$ clock wise.
+Fairness (solid black arrows) plotted with the model rotated
+$90^{\circ}$ clock wise.
 
 An example of how the output can be described could be as follows.
 
@@ -534,9 +536,9 @@ plotD3mirt(g,
 ```
 
 ![anesdata0809offwaves](item1.png)Figure 3: The item W7Q16 plotted with
-the three constructs, with the model rotated $15^{\circ}$ clock wise.
+the three constructs and with the model rotated $15^{\circ}$ clock wise.
 ![anesdata0809offwaves](item2.png)Figure 4: The item W7Q16 plotted with
-the three constructs, with the model rotated $90^{\circ}$ clock wise.
+the three constructs and with the model rotated $90^{\circ}$ clock wise.
 
 An example of how the output can be described could be as follows.
 
@@ -628,10 +630,12 @@ plotD3mirt(g, hide = TRUE,
 ```
 
 ![anesdata0809offwaves](p1.png)Figure 5: Gender profile for the
-`anes0809offwaves` data set, plotted rotated $15^{\circ}$ clock wise.
+`anes0809offwaves` data set plotted with the model rotated $15^{\circ}$
+clock wise.
 
 ![anesdata0809offwaves](p2.png)Figure 6: Gender profile for the
-`anes0809offwaves` data set, plotted rotated $90^{\circ}$ clock wise.
+`anes0809offwaves` data set plotted with the model rotated $90^{\circ}$
+clock wise.
 
 An example of how the output can be described could be as follows.
 
@@ -696,11 +700,11 @@ plotD3mirt(g, hide = TRUE,
 
 ![anesdata0809offwaves](ci1.png)Figure 7: Adults less than or equal to
 age 30 from the `anes0809offwaves` data set plotted surrounded by a
-$95\%\,CI$ and rotated $15^{\circ}$ clock wise.
+$95\%\,CI$ and with the model rotated $15^{\circ}$ clock wise.
 
 ![anesdata0809offwaves](ci2.png)Figure 8: Adults less than or equal to
 age 30 from the `anes0809offwaves` data set plotted surrounded by a
-$95\%\,CI$ and rotated $90^{\circ}$ clock wise.
+$95\%\,CI$ and with the model rotated $90^{\circ}$ clock wise.
 
 An example of how the output can be described could be as follows.
 
