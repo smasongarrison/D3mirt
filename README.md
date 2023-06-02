@@ -168,11 +168,6 @@ f <- summary(e, rotate= 'oblimin')
 h <- data.frame(f$rotF)
 ```
 
-``` r
-# Optional: Load the EFA data directly from the package file
-load("vignettes/efa.Rdata")
-```
-
 The `modid()` takes in the factor solution from the EFA, assigned to a
 data frame $h$, and outputs an $S3$ object of class `modid` containing
 lists with data frames of estimates. The functions have two arguments
@@ -321,11 +316,6 @@ mod1 <- mirt::mirt(x,
 # and difficulty parameters (columns 4-8 in mod1) with mirt::coef and $'items'[,1:8]))
 d <- data.frame(mirt::coef(mod1, 
                            simplify=TRUE)$'items'[,1:8])
-```
-
-``` r
-# Optional: Load data frame d directly from the package file
-load("vignettes/d.rdata")
 ```
 
 Constructs can be included in the analysis by creating one or more
@@ -587,11 +577,6 @@ f <- mirt::fscores(mod1,
                    method="EAP", 
                    full.scores = TRUE, 
                    full.scores.SE = FALSE, QMC = TRUE)
-```
-
-``` r
-# Optional: Load the respondent factor scores directly from the package file
-load("vignettes/fscores.Rdata")
 ```
 
 ``` r

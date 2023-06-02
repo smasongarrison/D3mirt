@@ -13,7 +13,6 @@ knitr::opts_chunk$set(
 
 ```{r setup, message = FALSE, include = FALSE}
 library(D3mirt)
-library(mirt)
 ```
 
 ::: {align="center"}
@@ -95,7 +94,7 @@ f <- summary(e, rotate= 'oblimin')
 h <- data.frame(f$rotF)
 ```
 
-```{r}
+```{r, message = FALSE, include = FALSE}
 # Optional: Load the EFA data directly from the package file
 load("vignettes/efa.Rdata")
 ```
@@ -160,7 +159,7 @@ d <- data.frame(mirt::coef(mod1,
                            simplify=TRUE)$'items'[,1:8])
 ```
 
-```{r}
+```{r, message = FALSE, include = FALSE}
 # Optional: Load data frame d directly from the package file
 load("vignettes/d.rdata")
 ```
@@ -236,7 +235,7 @@ f <- mirt::fscores(mod1,
                    full.scores.SE = FALSE, QMC = TRUE)
 ```
 
-```{r}
+```{r, message = FALSE, include = FALSE}
 # Optional: Load the respondent factor scores directly from the package file
 load("vignettes/fscores.Rdata")
 ```
