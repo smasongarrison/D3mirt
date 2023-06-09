@@ -250,7 +250,7 @@ z <- data.frame(cbind(f, x[,2]))
 
 The `plotD3mirt` function uses `as.factor()` to count the number of factor levels in the data imputed in the `levels` argument. This means that raw data can be used as is but the number of colors in the color vectors argument (`sphere.col`) may need to be adapted. In the example below, the criteria variable for gender only hold two factor levels and therefore only two colors in the color vector are needed.
 
-Call `plotD3mirt` with the respondent data frame $z$ in the `profiles` argument and the `levels` argument with the levels column subset from $z$. In the function call below, the axes in the model are named using the `x.lab`, `y.lab`, and `z.lab` arguments following the direction of the constructs.  Note, the model axes represent unidimensional singular structures, or traits, in this case borrowing the names of the constructs.
+Call `plotD3mirt` with the respondent data frame $z$ in the `profiles` argument and the `levels` argument with the levels column subset from $z$. In the function call below, the axes in the model are named using the `x.lab`, `y.lab`, and `z.lab` arguments following the direction of the constructs. Note, the model axes represent unidimensional singular structures, or traits, in this case borrowing the names of the constructs.
 
 ```{r, eval = FALSE}
 # Plot profiles with item vector arrows hidden with hide = TRUE
@@ -317,7 +317,7 @@ plotD3mirt(g, hide = TRUE,
 
 An example of how the output can be described could be as follows.
 
-> In Figures 7 and 8 we can see a tendency for a profile on age in which younger individuals could be described as less oriented towards trait Conformity. We can also observe a tendency for what could be an interaction effect in which higher levels of trait Conformity seem to be associated with lower levels of trait Fairness. 
+> In Figures 7 and 8 we can see a tendency for a profile on age in which younger individuals could be described as less oriented towards trait Conformity. We can also observe a tendency for what could be an interaction effect in which higher levels of trait Conformity seem to be associated with lower levels of trait Fairness.
 
 # Exporting The RGL Device
 

@@ -347,7 +347,7 @@ c <- list(list(1,2,3,4),
 g <- D3mirt(d, c)
 summary(g)
 #> 
-#> 3Dmirt object with 20 items and 5 levels of difficulty
+#> D3mirt object with 20 items and 5 levels of difficulty
 #> 
 #> Construct vector 1 contains items 1, 2, 3, 4 
 #> 

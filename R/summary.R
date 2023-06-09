@@ -79,13 +79,13 @@ summary.D3mirt <- function(object, ..., digits = 4){
     sum <- list(model.est = round(tab1,digits), dmirt.est = round(tab4,digits), dmirt.angles = round(tab5, digits))
   }
   if (!is.null(object$c.dir.cos)){
-    cat(paste("\n3Dmirt object with", nrow(tab1), "items and", ncol(tab2), "levels of difficulty\n\n"))
+    cat(paste("\nD3mirt object with", nrow(tab1), "items and", ncol(tab2), "levels of difficulty\n\n"))
     for (i in seq_along(c)){
       n <- c[i]
       cat(paste("Construct vector", i, "contains items", paste(c[[i]], collapse = ", "), "\n\n"))
     }
   } else {
-    cat(paste("\n3Dmirt object with", nrow(tab1), "items and", ncol(tab2), "levels of difficulty\n\n"))
+    cat(paste("\nD3mirt object with", nrow(tab1), "items and", ncol(tab2), "levels of difficulty\n\n"))
   }
   sum
 }
