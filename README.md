@@ -72,10 +72,10 @@ the `D3mirt` functions. Constructs, in this context, refer to the
 assumption that a subset of items can measure a higher-order latent
 variable. In `D3mirt`, constructs are implemented as optional vectors
 whose orientation is calculated as the average direction, i.e., the
-average multidimensional discrimination of a subset of items in the
-model. A construct vector will, therefore, point in the direction of the
-maximum slope of an imaginary item response function indicated by the
-items chosen by the user.
+average multidimensional discrimination of a subset of items (from one
+item to all items in the set) in the model. A construct vector will,
+therefore, point in the direction of the maximum slope of an imaginary
+item response function indicated by the items chosen by the user.
 
 If constructs are used, the output will include reporting of the
 directional discrimination ($DDISC$) parameter that shows how well the
@@ -319,12 +319,13 @@ d <- data.frame(mirt::coef(mod1,
 ```
 
 Constructs can be included in the analysis by creating one or more
-nested lists that indicate what items belong to what construct. From
+nested lists that indicate what items belong to what construct. Such a
+nested list can contain all items in the set down to a single item. From
 this, the `D3mirt()` function finds the average direction of the subset
-of items contained in each construct list by adding and normalizing the
+of items contained in each nested list by adding and normalizing the
 direction cosines for the items and scaling the construct direction
-vector to an arbitrary length (length can be user adjusted) so that the
-the arrows can be seen when plotting.
+vector to an arbitrary length (length can be adjusted by user) so that
+the the arrows can be seen when plotting.
 
 The construct vector arrows can contribute to the analysis by (a)
 visualizing the average direction for a subset set of items, and (b)
@@ -495,15 +496,15 @@ An example of how the output can be described could be as follows.
 > Studying the content of the items, the labels *Compassion*,
 > *Conformity*, and *Fairness* were introduced. The angles of the
 > constructs inform us that Compassion ($\theta = 1.710^{\circ}$,
-> $\phi = 86.486^{\circ}$) and Conformity
-> ($\theta = - 2.519^{\circ}$,$\phi = 28.192^{\circ}$) have some
-> within-multidimensional tendencies. However, they are both more or
-> less orthogonal to the $z$-axis ($\theta = 1.710^{\circ}$ and
-> $\theta = -2.519^{\circ}$ respectively). Next, we find Fairness
-> ($\theta = 49.106^{\circ}$, $\phi = 78.308^{\circ}$) with clear
-> within-multidimensional tendencies with respect to the $x$-axis. Thus,
-> the output indicates that Compassion and Conformity could be
-> independent constructs but that Fairness seems not to be.
+> $\phi = 86.486^{\circ}$) and Conformity ($\theta = - 2.519^{\circ}$,
+> $\phi = 28.192^{\circ}$) have some within-multidimensional tendencies.
+> However, they are both more or less orthogonal to the $z$-axis
+> ($\theta = 1.710^{\circ}$ and $\theta = -2.519^{\circ}$ respectively).
+> Next, we find Fairness ($\theta = 49.106^{\circ}$,
+> $\phi = 78.308^{\circ}$) with clear within-multidimensional tendencies
+> with respect to the $x$-axis. Thus, the output indicates that
+> Compassion and Conformity could be independent constructs but that
+> Fairness seems not to be.
 
 As was mentioned above, the W7Q16 was not included in any of the
 constructs because the item had measurement problems. For example, the
