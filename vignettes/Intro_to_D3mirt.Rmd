@@ -106,7 +106,7 @@ Note, it is always true that $DDISC \leq MDISC$.
 
 In the `D3mirt`package the $DDISC$ is computed for all items following the angle orientation given by the *construct vectors*.
 Constructs, in this context, refer to the assumption that a subset of items can measure a higher-order latent variable.
-In `D3mirt`, constructs are implemented as optional vectors whose orientation is calculated as the average direction, i.e., the average multidimensional discrimination of a subset of items in the model.
+In `D3mirt`, constructs are implemented as optional vectors whose orientation is calculated as the average direction, i.e., the average multidimensional discrimination of a subset of items (from one item to all items in the set) in the model.
 A construct vector will, therefore, point in the direction of the maximum slope of an imaginary item response function indicated by the items chosen by the user.
 
 Item subsets for construct analysis are chosen by the user and can be exploratory (e.g., grouped based on observations) or theoretical (e.g., fixed a priori based on personality theory).
@@ -377,9 +377,9 @@ Examples of how DMIRT estimates can be used when reporting results are given bel
 
 ### Constructs
 
-Constructs can be included in the analysis by creating one or more nested lists that indicate what items belong to what construct.
-From this, the `D3mirt()` function finds the average direction of the subset of items contained in each construct list, by adding and normalizing the direction cosines for the items and scaling the construct direction vector to an arbitrary length.
-Note, the length of the construct vector arrows can be user adjusted.
+Constructs can be included in the analysis by creating one or more nested lists that indicate what items belong to what construct. Such a nested list can contain all items in the set down to a single item. 
+From this, the `D3mirt()` function finds the average direction of the subset of items contained in each nested list, by adding and normalizing the direction cosines for the items and scaling the construct direction vector to an arbitrary length.
+Note, the length of the construct vector arrows can be adjusted by he user.
 
 The construct vector arrows can contribute to the analysis by (a) visualizing the average direction for a subset set of items, and (b) showing how all items discriminate locally in the direction of the construct vector with the help of the $DDISC$ index.
 
