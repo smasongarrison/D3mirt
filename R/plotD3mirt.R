@@ -667,7 +667,7 @@ plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items
     }
     } else {
     rgl::spheres3d(x,y,z, radius = spheres.r, color = sphere.col[1])
-      if (ellipse == TRUE){
+      if (ci == TRUE){
         ellipse <- rgl::ellipse3d(cov(cbind(x,y,z)),
                                   centre=c(mean(x), mean(y), mean(z)), level = ci.level)
         rgl::shade3d(ellipse, col = ellipse.col, alpha = ellipse.alpha)
