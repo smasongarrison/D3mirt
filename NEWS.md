@@ -1,4 +1,9 @@
+# D3mirt 1.0.4
+Minor fix regarding error message in plot function
+Minor documentation revisions
+
 # D3mirt 1.0.3
+Minor documentation revisions
 
 # D3mirt 1.0.2
 Change of D parameter to MDIFF

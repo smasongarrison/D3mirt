@@ -1,5 +1,24 @@
 ## R CMD check results
 
+── R CMD check results D3mirt 1.0.3 ────
+Duration: 8m 34s
+
+❯ checking installed package size ... NOTE
+    installed size is  5.3Mb
+    sub-directories of 1Mb or more:
+      doc   4.9Mb
+
+❯ checking for non-standard things in the check directory ... NOTE
+  Found the following files/directories:
+    ‘RGLdevice.png’
+
+0 errors ✔ | 0 warnings ✔ | 2 notes ✖
+
+Update only regards minor adjustments in plot function and documentation
+
+## Previos updates and revisions
+
+## Revision 20230511
 Duration: 8m 33.7s
 
 ❯ checking installed package size ... NOTE
@@ -20,9 +39,6 @@ The use of \donttest{} creates a .png file in the examples section for the plot 
     ‘RGLdevice.png’"
 The .png file, however, does not seem to be saved in the package.
 
-
-
-## Previos updates and revisions
 
 ## Revision 20230427
 ❯ checking installed package size ... NOTE

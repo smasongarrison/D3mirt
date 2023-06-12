@@ -30,7 +30,7 @@
 #' # Constructs
 #' The user has the option of including constructs in the estimation.
 #' Constructs, in this context, refer to the assumption that a subset of items can measure a higher-order latent variable.
-#' To include constructs, the user must create one or more nested lists that indicate what items belong to what construct (see the examples section below).
+#' To include constructs, the user must create one or more nested lists that indicate what items belong to what construct (from one to all items in the set; see the examples section below).
 #' From this, the `D3mirt()` function calculates direction cosines for the constructs by adding and normalizing the direction cosines for the items in the nested lists.
 #' The construct vector arrows can contribute to the analysis by visualizing the average direction of multidimensional discrimination for a subset set of items.
 #'
