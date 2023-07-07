@@ -1,9 +1,9 @@
-#' Summary Function for `D3mirt()`
+#' Summary Function for S3 Objects of Class `D3mirt`
 #'
-#' @description The `summary.D3mirt()` function presents a compressed output from the [D3mirt::D3mirt()] S3 object.
+#' @description The `summary.D3mirt()` function returns a compressed output from the [D3mirt::D3mirt()] function.
 #' @param object S3 object of class `D3mirt`.
 #' @param ... Additional arguments.
-#' @param digits User can adjust the number of digits shown per estimate. The default is `digits = 4`.
+#' @param digits The number of digits shown per estimate. The default is `digits = 4`.
 #'
 #' @return Tables containing \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines, and degrees for vector angles for items.
 #' If constructs were used in the estimation process, the summary function will also show tables for direction cosines, and degrees for construct vectors as well as directional discrimination (DDISC) parameters.
@@ -31,20 +31,17 @@
 #'            FIXED=(W7Q20,a3) '
 #'
 #'
-#' mod1 <- mirt::mirt(x,
+#' mod.1 <- mirt::mirt(x,
 #'                    spec,
 #'                    itemtype = 'graded',
 #'                    SE = TRUE,
 #'                    method = 'QMCEM')
 #'
-#' # Assign a data frame with factor loadings (located in the first three columns in mod1),
-#' # and difficulty parameters (columns 4-8 in mod1) with mirt::coef and $'items'[,1:8]))
-#' d <- data.frame(mirt::coef(mod1,
-#'                            simplify=TRUE)$'items'[,1:8])
-#'
 #' # Call D3mirt() and create list of constructs
-#' c <- list(list(1,3,4,6,8), list(2,5,7,9,10))
-#' g <- D3mirt(d, c)
+#' c <- list(list(1,2,3,4,5,6,7,8,9,10),
+#'           list(11,12,13,14),
+#'           list(15,17,18,19,20))
+#' g <- D3mirt(mod.1, c)
 #'
 #' # Call to summary
 #' summary(g)
@@ -61,31 +58,33 @@ summary.D3mirt <- function(object, ..., digits = 4){
   if (!is.null(object$c.dir.cos)){
     tab6 <- as.data.frame(cbind(object$c.dir.cos, object$c.spherical))
     tab7 <- as.data.frame(cbind(object$ddisc))
-    c <- object$c
-    items <- NULL
-    for (i in seq_along(c)){
-      l <- unlist(c[i])
-      items <- list(l)
-      for (i in seq_along(l)){
-        n <- l[i]
-        m <- rownames(tab1[n,])
-        items <- list(m)
-      }
-    }
-  }
-  if (!is.null(object$c.dir.cos)){
-    sum <- list(model.est = round(tab1,digits), dmirt.est = round(tab4,digits), dmirt.angles = round(tab5, digits), construct.angles = round(tab6, digits), ddisc = round(tab7, digits))
-  } else{
-    sum <- list(model.est = round(tab1,digits), dmirt.est = round(tab4,digits), dmirt.angles = round(tab5, digits))
-  }
-  if (!is.null(object$c.dir.cos)){
-    cat(paste("\nD3mirt object with", nrow(tab1), "items and", ncol(tab2), "levels of difficulty\n\n"))
-    for (i in seq_along(c)){
-      n <- c[i]
-      cat(paste("Construct vector", i, "contains items", paste(c[[i]], collapse = ", "), "\n\n"))
+    cat(paste("\nD3mirt:", nrow(tab1), "items and", ncol(tab2), "levels of difficulty\n\n"))
+    cat(paste("Constructs:\n"))
+    for (i in seq_along(object$c)){
+      n <- unlist(object$c[i])
+      z <- sapply(n, function (x){
+        q <- as.character(rownames(tab1[x,]))
+      })
+      cat(paste("Vector ", i, ": ", paste(z, collapse=", "), "\n", sep = ""))
     }
   } else {
-    cat(paste("\nD3mirt object with", nrow(tab1), "items and", ncol(tab2), "levels of difficulty\n\n"))
+    cat(paste("\nD3mirt:", nrow(tab1), "items and", ncol(tab2), "levels of difficulty\n\n"))
   }
-  sum
+  if (!is.null(object$c.dir.cos)){
+    print(round(tab1,digits))
+    cat(paste("\n"))
+    print(round(tab4,digits))
+    cat(paste("\n"))
+    print(round(tab5, digits))
+    cat(paste("\n"))
+    print(round(tab6, digits))
+    cat(paste("\n"))
+    print(round(tab7, digits))
+  } else{
+    print(round(tab1,digits))
+    cat(paste("\n"))
+    print(round(tab4,digits))
+    cat(paste("\n"))
+    print(round(tab5, digits))
+  }
 }

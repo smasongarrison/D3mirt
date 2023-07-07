@@ -1,4 +1,4 @@
-#' Graphical Output for D3mirt()
+#' Plot method for Objects of Class `D3mirt`
 #'
 #' @description For graphing of objects of class `D3mirt` from the [D3mirt::D3mirt()] function using the rgl 3D visualization device system (Adler & Murdoch, 2022).
 #' @param x S3 object of class `D3mirt`.
@@ -79,7 +79,7 @@
 #' Such an item is within-multidimensional with respect to all three latent traits used in the analysis because its direction vector points in the neutral 45° direction in the model.
 #'
 #' # Model Violations
-#' When plotting the `D3mirt` model with `plotD3mirt()`, it is possible to visually observe statistical violations in the graphical output returned.
+#' When plotting the `D3mirt` model with `plot()`, it is possible to visually observe statistical violations in the graphical output returned.
 #' For instance, shorter vector arrows indicate weaker discrimination and therefore also higher amounts of statistical violations.
 #' Moreover, if a polytomous item struggles or even fail to describe any of the latent variables in the model, it can often lead to an extreme stretch of the MDIFF range.
 #' This is comparable to trace lines turning horizontal in a unidimensional item response theory model.
@@ -88,7 +88,7 @@
 #' The plotting function allows plotting of all items, a selection of items as well as plotting a single item.
 #' Length of the vector arrows can be set to one unit length across all item vector arrows by setting `scale = TRUE`.
 #' This removes the visualization of the MDISC parameter.
-#' Note, when scaling items with `scale = TRUE`, the `plotD3mirt()` function does not change the length of the model axis.
+#' Note, when scaling items with `scale = TRUE`, the `plot()` function does not change the length of the model axis.
 #' This often means that the axes of the model need to be adjusted, which can be achieved proportionally with `axis.scalar` or manually with `axis.length`.
 #'
 #' The user also has the option of adding constructs to the graphical output with `constructs = TRUE` (see the documentation for [D3mirt::D3mirt] or the package vignette regarding constructs).
@@ -137,58 +137,54 @@
 #'            FIXED=(W7Q20,a3) '
 #'
 #'
-#' mod1 <- mirt::mirt(x,
+#' mod.1 <- mirt::mirt(x,
 #'                    spec,
 #'                    itemtype = 'graded',
 #'                    SE = TRUE,
 #'                    method = 'QMCEM')
 #'
-#' # Assign a data frame with factor loadings (located in the first three columns in mod1),
-#' # and difficulty parameters (columns 4-8 in mod1)
-#' d <- data.frame(mirt::coef(mod1,
-#'                            simplify=TRUE)$'items'[,1:8])
+#' # Optional: Load the mod.1 data for this example directly from the package file
+#' # load(system.file("mod.1.Rdata", package = "D3mirt"))
 #'
-#' # Call D3mirt() with data frame d and constructs assigned to c
-#' c <- list(list(1,2,3,4),
-#'           list(5,7,8,9,10),
-#'           list(11,12,13,14,15,15,16,17,18,19,20))
-#' g <- D3mirt(d, c)
-#' plotD3mirt(g)
+#' # Call D3mirt() with mod.1 and constructs assigned to c
+#' c <- list(list(1,2,3,4,5,6,7,8,9,10),
+#'           list(11,12,13,14),
+#'           list(15,17,18,19,20))
+#' g <- D3mirt(mod.1, c)
+#' plot(g)
 #'
 #' # Plot RGL device with constructs visible and named
-#' plotD3mirt(g,
-#'            constructs = TRUE,
-#'            construct.lab = c("Fairness", "Conformity", "Compassion"))
+#' plot(g, constructs = TRUE,
+#'      construct.lab = c("Compassion", "Fairness", "Conformity"))
 #'
 #' # Item W7Q16 has location 6 in the data set (gender and age excluded)
 #' # The item is plotted together with construct to aid the visual interpretation
-#' plotD3mirt(g,
-#'            constructs = TRUE,
-#'            items = 6,
-#'            construct.lab = c("Fairness", "Conformity", "Compassion"))
+#' plot(g, constructs = TRUE,
+#'      items = 6,
+#'      construct.lab = c("Compassion", "Fairness", "Conformity"))
 #'
 #' # Plot RGL device on item difficulty level 5
-#' plotD3mirt(g,
-#'            diff.level = 5)
+#' plot(g, diff.level = 5)
 #'
 #' # A selection of Conformity items from the model plotted with constructs
-#' plotD3mirt(g,
-#'            constructs = TRUE,
-#'            items = c(5,7,8,9,10),
-#'            construct.lab = c("Fairness", "Conformity", "Compassion"))
+#' plot(g, constructs = TRUE,
+#'      items = c(5,7,8,9,10),
+#'      construct.lab = c("Compassion", "Fairness", "Conformity"))
 #'
 #' # Plot RGL device with scaled items and constructs visible and named
-#' plotD3mirt(g,
-#'            scale = TRUE,
-#'            constructs = TRUE,
-#'            construct.lab = c("Fairness", "Conformity", "Compassion"))
+#' plot(g, scale = TRUE,
+#'      constructs = TRUE,
+#'      construct.lab = c("Compassion", "Fairness", "Conformity"))
 #'
-#' # Profile Analaysis
-#' # Extract respondent factor scores from mod1 (see D3mirt()) with mirt::fscores()
-#' f <- mirt::fscores(mod1,
+#' # Profile Analysis
+#' # Extract respondent factor scores from mod.1 (see D3mirt()) with fscores()
+#' f <- mirt::fscores(mod.1,
 #'                    method="EAP",
 #'                    full.scores = TRUE,
 #'                    full.scores.SE = FALSE, QMC = TRUE)
+#'
+#' # Optional: Load the respondent factor scores for this example directly from the package file
+#' # load(system.file("fscores.Rdata", package = "D3mirt"))
 #'
 #' # Attach f to the gender variable (column 2 from anes0809offwaves data set; "W3XGENDER")
 #' # Use cbind with fscores() output attached first
@@ -197,13 +193,13 @@
 #'
 #' # Plot profiles with item vector arrows hidden
 #' # Score levels: 1 = Blue ("male") and 2 = Red ("female")
-#' plotD3mirt(g, hide = TRUE,
-#'            profiles = z,
-#'            levels = z[,4],
-#'            sphere.col = c("blue", "red"),
-#'            x.lab = "Compassion",
-#'            y.lab="Conformity",
-#'            z.lab="Fairness")
+#' plot(g, hide = TRUE,
+#'      profiles = z,
+#'      levels = z[,4],
+#'      sphere.col = c("blue", "red"),
+#'      x.lab = "Compassion",
+#'      y.lab="Conformity",
+#'      z.lab="Fairness")
 #'
 #' # Add a 95% CI to respondent factor scores on <= 30 y.o.
 #' # Column bind fscores() with age variable ("W3Xage")
@@ -216,34 +212,32 @@
 #' # z1 has 14 factor levels
 #' colvec <- c(rep("red", 14))
 #'
-#' # Call plotD3mirt with profile data on age with item vector arrows hidden
-#' plotD3mirt(g, hide = TRUE,
-#'            profiles = z1,
-#'            levels = z1[,4],
-#'            sphere.col = colvec,
-#'            x.lab = "Compassion",
-#'            y.lab="Conformity",
-#'            z.lab="Fairness",
-#'            ci = TRUE,
-#'            ci.level = 0.95,
-#'            ellipse.col = "orange")
+#' # Call plot() with profile data on age with item vector arrows hidden
+#' plot(g, hide = TRUE,
+#'      profiles = z1,
+#'      levels = z1[,4],
+#'      sphere.col = colvec,
+#'      x.lab = "Compassion",
+#'      y.lab="Conformity",
+#'      z.lab="Fairness",
+#'      ci = TRUE,
+#'      ci.level = 0.95,
+#'      ellipse.col = "orange")
 #'
 #' # Export an open RGL device to the console to be saved as html or image file
-#' plotD3mirt(g,
-#'            constructs = TRUE)
+#' plot(g, constructs = TRUE)
 #' s <- scene3d()
 #' rgl::rglwidget(s,
 #'                width = 1040,
 #'                height = 1040)
 #'
 #' # Export a snap shoot of an open RGL device directly to file
-#' plotD3mirt(g,
-#'            constructs = TRUE)
+#' plot(g, constructs = TRUE)
 #' rgl::rgl.snapshot('RGLdevice.png',
 #'                     fmt = 'png')
 #' }
 #' @export
-plotD3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items = NULL, item.names = TRUE,  item.lab = NULL,
+plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items = NULL, item.names = TRUE,  item.lab = NULL,
                         constructs = FALSE, construct.lab = NULL, adjust.lab = c(0.5, -0.8),
                         x.lab = "X", y.lab="Y", z.lab="Z", title="", line = -5,
                         axis.scalar = 1.1, axis.length = NULL, axis.col = "black", axis.points = "black",

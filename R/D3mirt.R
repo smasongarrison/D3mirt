@@ -9,7 +9,7 @@
 #'
 #' @details The `D3mirt()` function takes in a data frame of factor slopes and difficulty parameters from a compensatory three-dimensional multidimensional two-parameter logistic model (M2PL) or a multidimensional graded
 #' response model (MGRM), fitted in accordance with descriptive item response theory model specifications described below.
-#' The function returns an S3 object containing descriptive multidimensional item response theory estimates that can be graphed as vector arrows representing item response functions in a three-dimensional space with [D3mirt::plotD3mirt].
+#' The function returns an S3 object containing descriptive multidimensional item response theory estimates that can be graphed as vector arrows representing item response functions in a three-dimensional space with [D3mirt::plot].
 #'
 #' Note, model parameters from the multidimensional M2PL or MGRM must be assessed prior to using the `D3mirt()` function (see examples section below or the vignette included in the package).
 #' This means that the model must first be identified (see [D3mirt::modid] for more on model identification).
@@ -25,7 +25,7 @@
 #' This makes it possible to compare item discrimination under the assumption that they measure the same construct.
 #'
 #' Using the parameters from the compensatory model, the `D3mirt()` function computes parameters describing the location and direction of the highest possible discrimination for each item.
-#' The output can be visualized with the [D3mirt::plotD3mirt] function that use vector geometry with vector arrows indicating level of difficulty and direction of the maximum discrimination.
+#' The output can be visualized with the [D3mirt::plot] function that use vector geometry with vector arrows indicating level of difficulty and direction of the maximum discrimination.
 #'
 #' # Constructs
 #' The user has the option of including constructs in the estimation.
@@ -70,41 +70,45 @@
 #'            FIXED=(W7Q20,a3) '
 #'
 #'
-#' mod1 <- mirt::mirt(x,
+#' mod.1 <- mirt::mirt(x,
 #'                    spec,
 #'                    itemtype = 'graded',
 #'                    SE = TRUE,
 #'                    method = 'QMCEM')
 #'
-#' # Assign a data frame with factor loadings (located in the first three columns in mod1),
-#' # and difficulty parameters (columns 4-8 in mod1)
-#' d <- data.frame(mirt::coef(mod1,
-#'                            simplify=TRUE)$'items'[,1:8])
+#' # Optional: Load the mod.1 data for this example directly from the package file
+#' # load(system.file("mod.1.Rdata", package = "D3mirt"))
 #'
-#' # Call D3mirt() with data frame d
-#' g <- D3mirt(d)
-#' summary(g) # Show summary of results
+#' # Call D3mirt() using mod.1 as input
+#' g <- D3mirt(mod.1)
+#'
+#' # Show summary of results
+#' summary(g)
 #'
 #' # Call to D3mirt(), including optional nested lists for three constructs
 #' # Item W7Q16 is not included in any construct because of model violations
 #' # The model violations for the W7Q16 item can be seen when plotting the model
-#' c <- list(list(1,2,3,4),
-#'           list(5,7,8,9,10),
-#'           list(11,12,13,14,15,15,16,17,18,19,20))
-#' g <- D3mirt(d, c)
+#' c <- list(list(1,2,3,4,5,6,7,8,9,10),
+#'           list(11,12,13,14),
+#'           list(15,17,18,19,20))
+#' g <- D3mirt(mod.1, c)
+#'
+#' # Show summary of results
 #' summary(g)
 #' }
 #' @export
 D3mirt <- function(x, constructs = NULL){
-  if(ncol(x) < 4) stop("Data frame must have at least 4 columns")
-  x <- as.matrix(x)
+  if (isS4(x)){
+    k <- x@Data$K[1]-1
+    x <- data.frame(mirt::coef(x, simplify=TRUE)$'items'[,1:(3+k)])
+    x <- as.matrix(x)
+  } else {
+    x <- as.matrix(x)
+  }
+  if (ncol(x) < 4) stop("Data frame must have at least 4 columns")
   a <- x[,1:3, drop = FALSE]
   ndiff <- ncol(x)-3
-  if (ndiff == 1){
-    diff <- x[,4, drop = FALSE]
-  } else {
-    diff <- x[,(4):(3+ndiff), drop = FALSE]
-  }
+  diff <- x[,(4):(3+ndiff), drop = FALSE]
   mdisc <- sqrt(rowSums(a^2))
   md <- mdisc%*%matrix(rep(1,3), nrow=1, ncol=3)
   dcos <- as.matrix(a/md, ncol = 3)

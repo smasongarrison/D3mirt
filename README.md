@@ -24,7 +24,7 @@ ability assessment. The method seeks to maximize item discrimination and
 so is *descriptive* because the results describe the extent to which
 items in a test are unidimensional, i.e., that the items discriminate on
 one dimension only, or are within-multidimensional, i.e., that the items
-discriminate on more than one dimension..
+discriminate on more than one dimension.
 
 Regarding vector orientation, the angle of the vector arrows indicates
 what traits, located along the orthogonal axes in the model, an item can
@@ -48,7 +48,7 @@ The estimation process begins by first fitting and extracting the
 discrimination $a$ and difficulty parameters $d$ from a compensatory
 model. Next, the DMIRT estimation uses the former to compute the
 multidimensional discrimination ($MDISC$) parameter and the
-multidimensional difficulty ($MDIFF$) parameter that are used to locate
+multidimensional difficulty ($MDIFF$) parameter that is used to locate
 the items in a vector space.
 
 The $MDIFF$ is interpreted similarly as the difficulty parameter in the
@@ -61,11 +61,10 @@ as located in a multidimensional latent trait space.
 
 The $MDISC$ shows the highest level of discrimination an item can
 achieve in the multidimensional model. It is, therefore, a global item
-characteristic under the assumption of a multidimensional latent space.
-In addition, the $MDISC$ score is visualized in the graphical output by
-scaling the length of the vector arrows representing the item response
-functions, such that longer arrows indicate higher discrimination (and
-vice versa).
+characteristic assuming a multidimensional latent space. In addition,
+the $MDISC$ score is visualized in the graphical output by scaling the
+length of the vector arrows representing the item response functions,
+such that longer arrows indicate higher discrimination (and vice versa).
 
 A novel theoretical contribution to DMIRT is the use of constructs in
 the `D3mirt` functions. Constructs, in this context, refer to the
@@ -90,12 +89,11 @@ construct vector arrows scaled to an arbitrary length.
 
 # Overview
 
-The package includes the following functions.
+The package includes the following main functions.
 
 - `modid()`: D3mirt Model Identification
 - `D3mirt()`: 3D DMIRT Model Estimation
-- `summary()`: Summary Function for `D3mirt()`
-- `plotD3mirt`: Graphical Output for `D3mirt()`
+- `plot()`: Graphical Output for `D3mirt()`
 
 ## Installation
 
@@ -147,11 +145,11 @@ EFA option in `mirt::mirt` (Chalmers, 2012), using `ìtemtype = 'graded'`
 or `'2PL'`. Note, the EFA is only used to find model identification
 items that meet the necessary DMIRT model specification requirements.
 The EFA model itself is discarded after this step in the procedure. This
-implies that rotation method is less crucial and the user is encouraged
-to try different rotation methods and compare the results.
+implies that the rotation method is less crucial and the user is
+encouraged to try different rotation methods and compare the results.
 
 Note, all outputs from functions from the `mirt` package are available
-as ready made package files that can be loaded directly into the R
+as ready-made package files that can be loaded directly into the R
 session.
 
 ``` r
@@ -159,91 +157,99 @@ session.
 data("anes0809offwaves")
 x <- anes0809offwaves
 x <- x[,3:22] # Remove columns for age and gender
-
-# Fit a three-factor EFA model with the mirt package
-e <- mirt::mirt(x, 3, itemtype = 'graded')
-
-# Assign data frame with factor loadings with oblimin rotation
-f <- summary(e, rotate= 'oblimin')
-h <- data.frame(f$rotF)
 ```
 
-The `modid()` takes in the factor solution from the EFA, assigned to a
-data frame $h$, and outputs an $S3$ object of class `modid` containing
-lists with data frames of estimates. The functions have two arguments
-that set what is called the *lower* and *upper* bound. In brief, the
-lower bound increase the item pool used in the analysis while the upper
-bound is a filter that removes improper items that do not meet the
-necessary statistical requirements. In other words, the upper bound
-should not, in general, be manipulated.
+The `modid()` can take in raw item data or a data frame with item factor
+loadings. If raw data is used, the function first performs an EFA, with
+three factors as default, and then finishes with the model
+identification. The output consists of an $S3$ object of class `modid`
+containing data frames with model identification items, order of factor
+strength (based on sum of squares), and item factor loadings. The
+function has two arguments: the *lower* and *upper* bound. In brief, the
+lower bound increase the item pool used in the procedure while the upper
+bound acts as a filter that removes items that do not meet the necessary
+statistical requirements. This implies that the upper bound should not,
+in general, be manipulated.
 
-The most important output from the `modid()` function is the item lists,
-(denoted `$id`), containing data frames that present suggestions on what
-items (`item.1`…`item.n`) to use for the model identification. The data
-frames have one column for the loadings from each item on the factor of
-interest, and one column with absolute sum scores (denoted `ABS`) for
-each item calculated from the remaining factor loadings in the model.
-Each item list is sorted with the lowest absolute sum score highest up.
-Consequently, the top items in each list are the items that best meet
-the necessary statistical requirements for model identification.
-Therefore, for a three-dimensional model, all else equal, the item
-highest up in the first list should be used to identify the $x$-axis,
-and the item highest up in the second list should be used to identify
-the $y$-axis, and so on.
+The `summary()` function prints the number of items and the number of
+factors used in the analysis together with the suggested model
+identification items. As can be seen, the items suggested by `modid()`
+are the items “W7Q3” and “W7Q20”. The output also includes data frames
+that hold all the model identification items (`Item.1...Item.n`)
+selected by `modid()` together with the items’ absolute sum score
+(`ABS`), one frame for the sum of squares for factors sorted in
+descending order, and one frame for item factor loadings. The order of
+the factors follows the model identification items so that item 1 comes
+from the strongest factor (sorted highest up), item 2 from the second
+strongest (sorted second), and so on.
+
+The absolute sum scores indicate statistical fit to the structural
+assumptions of the DMIRT model and the items are, therefore, sorted with
+the lowest absolute sum score highest up. The top items are the items
+that best meet the necessary statistical requirements for model
+identification. For a three-dimensional model this implies that the item
+highest up in the first data frame should be used to identify the
+$x$-axis, and the item highest up in the second data frame should be
+used to identify the $y$-axis, and so on.
 
 ``` r
-# Call to modid()
-modid(h)
-#> $id
-#> $id[[1]]
-#>         Item.1        ABS
-#> W7Q3 0.8490903 0.01267429
-#> W7Q5 0.8068828 0.04904288
-#> W7Q1 0.7543773 0.07203403
-#> W7Q2 0.8727652 0.09042323
+# Optional: Load the EFA data for this example directly from the package file
+load(system.file("efa.Rdata", package = "D3mirt"))
+
+# Call to modid() with h, containing factors scores from EFA
+a <- modid(x, efa = FALSE)
+summary(a)
 #> 
-#> $id[[2]]
-#>          Item.2         ABS
-#> W7Q20 0.7858844 0.000653665
-#> W7Q18 0.6812006 0.080729410
+#> modid: 20 items and 3 factors
 #> 
+#> Model identification items:
+#> Item 1 W7Q3 
+#> Item 2 W7Q20 
 #> 
-#> $ss.loadings
-#>       F1       F3       F2 
-#> 5.328901 2.113441 1.689176 
+#>       Item.1    ABS
+#> W7Q3  0.8547 0.0174
+#> W7Q5  0.8199 0.0648
+#> W7Q1  0.7589 0.0772
+#> W7Q10 0.7239 0.0854
 #> 
-#> $loadings
-#>                F1           F3           F2
-#> W7Q11  0.21764339  0.101650054  0.535617304
-#> W7Q12  0.07445495 -0.079798063  0.554858770
-#> W7Q13 -0.01369236 -0.018393288  0.769725868
-#> W7Q14 -0.03993821  0.145349221  0.564359537
-#> W7Q15  0.10245563  0.453634967 -0.099027661
-#> W7Q16  0.16609422  0.212788638  0.126237569
-#> W7Q17  0.21251128  0.576133340  0.039833393
-#> W7Q18 -0.05188854  0.681200616 -0.080729410
-#> W7Q19  0.02592854  0.626381734  0.125087323
-#> W7Q20 -0.05079509  0.785884397  0.000653665
-#> W7Q1   0.75437734  0.040367304 -0.031666723
-#> W7Q2   0.87276522 -0.024432875 -0.065990357
-#> W7Q3   0.84909025 -0.010993866  0.001680422
-#> W7Q4   0.66228706  0.032788311  0.101713685
-#> W7Q5   0.80688278 -0.040279704 -0.008763174
-#> W7Q6   0.66856685  0.054813498  0.102271288
-#> W7Q7   0.56078396 -0.013762611  0.211076266
-#> W7Q8   0.56779935  0.042979814  0.204500105
-#> W7Q9   0.60483387  0.090013632  0.088259630
-#> W7Q10  0.77064478  0.009554713 -0.116375618
+#>       Item.2    ABS
+#> W7Q20 0.7723 0.0465
+#> W7Q19 0.6436 0.0526
+#> W7Q18 0.6777 0.0782
 #> 
-#> attr(,"class")
-#> [1] "modid"
+#>    SS Loadings
+#> F2      5.3505
+#> F1      2.1127
+#> F3      1.6744
+#> 
+#>            F2      F1      F3
+#> W7Q1   0.7589  0.0407 -0.0365
+#> W7Q2   0.8901 -0.0263 -0.0838
+#> W7Q3   0.8547 -0.0096 -0.0078
+#> W7Q4   0.6628  0.0272  0.1053
+#> W7Q5   0.8199 -0.0390 -0.0258
+#> W7Q6   0.6654  0.0525  0.1054
+#> W7Q7   0.5603 -0.0148  0.2087
+#> W7Q8   0.5731  0.0390  0.1966
+#> W7Q9   0.6151  0.0697  0.0918
+#> W7Q10  0.7239  0.0371 -0.0483
+#> W7Q11  0.2085  0.0959  0.5488
+#> W7Q12  0.0755 -0.0853  0.5559
+#> W7Q13 -0.0176 -0.0153  0.7654
+#> W7Q14 -0.0407  0.1439  0.5629
+#> W7Q15  0.1087  0.4556 -0.1111
+#> W7Q16  0.1759  0.2100  0.1152
+#> W7Q17  0.2160  0.5816  0.0261
+#> W7Q18 -0.0560  0.6777 -0.0782
+#> W7Q19  0.0589  0.6436  0.0526
+#> W7Q20 -0.0735  0.7723  0.0465
 ```
 
-As can be seen, the first item, that will be used to identify the
-$x$-axis, is found in the first list, `id[[1]]` and `item.1`. In this
-case, the best item for the $x$-axis is item “W7Q3”. The item that
-identifies the $y$-axis is found in the next list, `id[[2]]` and
-`Item.2`. In this case, the best item for the $y$-axis is item “W7Q20”.
+The `summary()` function prints the number of items and the number of
+factors used in the analysis together with the suggested model
+identification items. As can be seen, the items that are suggested by
+`modid()` to identify the model are the items “W7Q3”, for the $x$-axis,
+and “W7Q20”, for the $y$-axis.
 
 The `modid()` is designed so that the strongest loading item, from the
 strongest factor, always aligns perfectly with the x-axis, and the
@@ -255,7 +261,9 @@ the model identification, please see the package vignette for guidance.
 # 2. D3mirt Model Estimation
 
 The `D3mirt()` function takes in a data frame with model parameters from
-a three-dimensional compensatory model and returns an $S3$ object of
+a three-dimensional compensatory model (either in the form of a data
+frame or an S4 object of class ‘SingleGroupClass’ exported from
+`mirt::mirt` (Chalmers, 2012) function) and returns an $S3$ object of
 class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$
 parameters, direction cosines, and spherical coordinates. Regarding the
 latter, spherical coordinates are represented by $\theta$ and $\phi$.
@@ -306,16 +314,11 @@ x <- x[,3:22] # Remove columns for age and gender
            FIXED=(W7Q20,a3) '
 
 
-mod1 <- mirt::mirt(x, 
+mod.1 <- mirt::mirt(x, 
                    spec, 
                    itemtype = 'graded', 
                    SE = TRUE, 
                    method = 'QMCEM')
- 
-# Assign a data frame with factor loadings (located in the first three columns in mod1),
-# and difficulty parameters (columns 4-8 in mod1) with mirt::coef and $'items'[,1:8]))
-d <- data.frame(mirt::coef(mod1, 
-                           simplify=TRUE)$'items'[,1:8])
 ```
 
 Constructs can be included in the analysis by creating one or more
@@ -324,167 +327,172 @@ nested list can contain all items in the set down to a single item. From
 this, the `D3mirt()` function finds the average direction of the subset
 of items contained in each nested list by adding and normalizing the
 direction cosines for the items and scaling the construct direction
-vector to an arbitrary length (length can be adjusted by user) so that
-the the arrows can be seen when plotting.
+vector to an arbitrary length (length can be adjusted by the user) so
+that the arrows can be seen when plotting.
 
 The construct vector arrows can contribute to the analysis by (a)
 visualizing the average direction for a subset set of items, and (b)
 showing how all items discriminate locally in the direction of the
 construct vector with the help of the $DDISC$ index.
 
-The `D3mirt()` function call is straightforward. The output, however, is
-lengthy so the use of the summary function when inspecting the results
-is recommended. The constructs included below were grouped based on
+In this example, the S4 object `mod.1` from the `mirt` estimation above
+is used directly in the call to `D3mirt()`, and the `summary()`
+function, included in the package, is used to inspect the DMIRT
+estimates. The constructs included below were grouped based on
 exploratory reasons, i.e., because these items cluster in the model
-(will be observable in the graphical output).
+(observable in the graphical output).
 
 ``` r
+# Optional: Load the mod.1 data for this example directly from the package file
+load(system.file("mod.1.Rdata", package = "D3mirt"))
+
 # Call to D3mirt(), including optional nested lists for three constructs
 # Item W7Q16 is not included in any construct because of model violations
 # The model violations for the item can be seen when plotting the model
-c <- list(list(1,2,3,4), 
-          list(5,7,8,9,10), 
-          list(11,12,13,14,15,15,16,17,18,19,20))
-g <- D3mirt(d, c)
+c <- list(list(1,2,3,4,5,6,7,8,9,10),
+          list(11,12,13,14),
+          list(15,17,18,19,20))
+g <- D3mirt(mod.1, c)
 summary(g)
 #> 
-#> D3mirt object with 20 items and 5 levels of difficulty
+#> D3mirt: 20 items and 5 levels of difficulty
 #> 
-#> Construct vector 1 contains items 1, 2, 3, 4 
-#> 
-#> Construct vector 2 contains items 5, 7, 8, 9, 10 
-#> 
-#> Construct vector 3 contains items 11, 12, 13, 14, 15, 15, 16, 17, 18, 19, 20
-#> $model.est
+#> Constructs:
+#> Vector 1: W7Q1, W7Q2, W7Q3, W7Q4, W7Q5, W7Q6, W7Q7, W7Q8, W7Q9, W7Q10
+#> Vector 2: W7Q11, W7Q12, W7Q13, W7Q14
+#> Vector 3: W7Q15, W7Q17, W7Q18, W7Q19, W7Q20
 #>           a1      a2      a3      d1     d2     d3      d4      d5
-#> W7Q11 1.4237  0.4675  1.0439  6.2189 4.6926 3.5435  1.1920 -1.8576
-#> W7Q12 0.7604  0.0410  0.9367  4.1360 2.8771 2.3419  1.1790 -0.4240
-#> W7Q13 1.1278  0.2911  1.6930  5.8892 4.3988 3.4413  1.8946 -0.6008
-#> W7Q14 0.7447  0.4829  0.9785  5.3891 3.9333 3.0258  0.8143 -1.5868
-#> W7Q15 0.4551  0.7870 -0.1606  4.3207 3.0545 2.3969  0.9187 -0.9705
-#> W7Q16 0.6237  0.4140  0.1798  3.7249 2.0305 1.1658 -0.0612 -1.8085
-#> W7Q17 1.1892  1.3412  0.0563  6.9013 5.8023 4.9345  2.7916 -0.0041
-#> W7Q18 0.4106  1.3542 -0.1369  3.7837 2.0985 1.4183  0.1828 -1.9855
-#> W7Q19 0.8580  1.4099  0.2279  4.4978 2.6483 1.6730  0.3741 -1.9966
-#> W7Q20 0.7357  1.9067  0.0000  4.6378 2.3633 1.2791 -0.3431 -2.9190
-#> W7Q1  2.0298  0.1643 -0.1231  8.0865 7.0640 5.9876  3.2015 -0.4835
-#> W7Q2  2.6215 -0.0027 -0.2582  9.2885 6.6187 4.5102  1.6649 -2.4439
-#> W7Q3  2.7923  0.0000  0.0000 10.4894 7.5887 5.6776  2.7172 -1.1789
-#> W7Q4  1.9045  0.1875  0.1495  7.3750 6.0465 4.9813  2.4830 -1.1145
-#> W7Q5  2.2425 -0.0287 -0.0839  8.4279 6.6712 4.9049  1.8253 -1.8316
-#> W7Q6  2.0021  0.2390  0.1571  8.0684 6.3577 4.9520  2.3300 -1.0189
-#> W7Q7  1.6286  0.1034  0.3595  6.0178 4.8974 3.6908  1.6326 -1.3484
-#> W7Q8  1.7774  0.2252  0.3531  6.9171 5.1822 3.7661  1.4844 -1.8332
-#> W7Q9  1.7198  0.2494  0.1281  7.5586 4.9755 3.3648  0.9343 -2.2094
-#> W7Q10 1.7696  0.1272 -0.1406  8.3638 5.7397 4.2863  1.9647 -0.6642
+#> W7Q1  2.0298  0.1643 -0.1233  8.0868 7.0642 5.9877  3.2015 -0.4836
+#> W7Q2  2.6215 -0.0027 -0.2585  9.2889 6.6187 4.5102  1.6648 -2.4440
+#> W7Q3  2.7917  0.0000  0.0000 10.4835 7.5865 5.6764  2.7167 -1.1788
+#> W7Q4  1.9046  0.1874  0.1491  7.3754 6.0467 4.9814  2.4830 -1.1146
+#> W7Q5  2.2423 -0.0287 -0.0841  8.4266 6.6706 4.9047  1.8252 -1.8316
+#> W7Q6  2.0022  0.2390  0.1567  8.0687 6.3578 4.9520  2.3300 -1.0189
+#> W7Q7  1.6286  0.1033  0.3593  6.0178 4.8974 3.6908  1.6326 -1.3484
+#> W7Q8  1.7775  0.2252  0.3528  6.9171 5.1822 3.7661  1.4844 -1.8332
+#> W7Q9  1.7199  0.2493  0.1278  7.5587 4.9755 3.3648  0.9343 -2.2094
+#> W7Q10 1.7696  0.1272 -0.1407  8.3639 5.7396 4.2862  1.9646 -0.6642
+#> W7Q11 1.4237  0.4673  1.0433  6.2180 4.6920 3.5430  1.1918 -1.8573
+#> W7Q12 0.7605  0.0409  0.9366  4.1360 2.8770 2.3419  1.1790 -0.4239
+#> W7Q13 1.1285  0.2910  1.6943  5.8922 4.4009 3.4430  1.8955 -0.6009
+#> W7Q14 0.7448  0.4828  0.9785  5.3891 3.9333 3.0258  0.8144 -1.5868
+#> W7Q15 0.4551  0.7870 -0.1606  4.3206 3.0544 2.3969  0.9187 -0.9705
+#> W7Q16 0.6237  0.4139  0.1799  3.7249 2.0305 1.1658 -0.0612 -1.8085
+#> W7Q17 1.1893  1.3412  0.0564  6.9011 5.8022 4.9344  2.7915 -0.0041
+#> W7Q18 0.4107  1.3542 -0.1368  3.7837 2.0985 1.4183  0.1828 -1.9855
+#> W7Q19 0.8580  1.4098  0.2279  4.4978 2.6483 1.6731  0.3740 -1.9966
+#> W7Q20 0.7357  1.9068  0.0000  4.6378 2.3633 1.2791 -0.3431 -2.9190
 #> 
-#> $dmirt.est
 #>        MDISC  MDIFF1  MDIFF2  MDIFF3  MDIFF4 MDIFF5
-#> W7Q11 1.8263 -3.4052 -2.5695 -1.9403 -0.6527 1.0171
-#> W7Q12 1.2072 -3.4262 -2.3833 -1.9400 -0.9767 0.3512
-#> W7Q13 2.0550 -2.8658 -2.1405 -1.6746 -0.9220 0.2923
-#> W7Q14 1.3211 -4.0793 -2.9773 -2.2904 -0.6164 1.2011
-#> W7Q15 0.9232 -4.6801 -3.3085 -2.5963 -0.9951 1.0512
-#> W7Q16 0.7699 -4.8382 -2.6374 -1.5142  0.0795 2.3490
-#> W7Q17 1.7934 -3.8481 -3.2353 -2.7514 -1.5566 0.0023
-#> W7Q18 1.4217 -2.6613 -1.4760 -0.9976 -0.1286 1.3966
-#> W7Q19 1.6661 -2.6996 -1.5896 -1.0042 -0.2245 1.1984
-#> W7Q20 2.0437 -2.2693 -1.1564 -0.6259  0.1679 1.4283
-#> W7Q1  2.0402 -3.9637 -3.4625 -2.9348 -1.5692 0.2370
-#> W7Q2  2.6342 -3.5261 -2.5126 -1.7122 -0.6320 0.9278
-#> W7Q3  2.7923 -3.7565 -2.7177 -2.0333 -0.9731 0.4222
-#> W7Q4  1.9195 -3.8421 -3.1500 -2.5950 -1.2935 0.5806
-#> W7Q5  2.2442 -3.7554 -2.9726 -2.1856 -0.8133 0.8161
-#> W7Q6  2.0225 -3.9894 -3.1436 -2.4485 -1.1521 0.5038
-#> W7Q7  1.6710 -3.6013 -2.9308 -2.2087 -0.9770 0.8069
+#> W7Q1  2.0402 -3.9638 -3.4625 -2.9348 -1.5692 0.2370
+#> W7Q2  2.6343 -3.5262 -2.5125 -1.7121 -0.6320 0.9278
+#> W7Q3  2.7917 -3.7553 -2.7176 -2.0333 -0.9731 0.4222
+#> W7Q4  1.9196 -3.8421 -3.1500 -2.5950 -1.2935 0.5806
+#> W7Q5  2.2441 -3.7550 -2.9725 -2.1856 -0.8133 0.8162
+#> W7Q6  2.0225 -3.9894 -3.1435 -2.4485 -1.1520 0.5038
+#> W7Q7  1.6710 -3.6013 -2.9308 -2.2087 -0.9770 0.8070
 #> W7Q8  1.8261 -3.7880 -2.8379 -2.0624 -0.8129 1.0039
 #> W7Q9  1.7425 -4.3377 -2.8553 -1.9310 -0.5362 1.2679
-#> W7Q10 1.7798 -4.6994 -3.2250 -2.4083 -1.1039 0.3732
+#> W7Q10 1.7797 -4.6995 -3.2249 -2.4083 -1.1039 0.3732
+#> W7Q11 1.8259 -3.4055 -2.5697 -1.9404 -0.6527 1.0172
+#> W7Q12 1.2071 -3.4263 -2.3834 -1.9400 -0.9767 0.3512
+#> W7Q13 2.0564 -2.8653 -2.1401 -1.6743 -0.9218 0.2922
+#> W7Q14 1.3211 -4.0794 -2.9773 -2.2904 -0.6164 1.2011
+#> W7Q15 0.9232 -4.6800 -3.3085 -2.5963 -0.9951 1.0513
+#> W7Q16 0.7699 -4.8381 -2.6373 -1.5142  0.0795 2.3490
+#> W7Q17 1.7934 -3.8481 -3.2353 -2.7514 -1.5566 0.0023
+#> W7Q18 1.4217 -2.6613 -1.4760 -0.9976 -0.1286 1.3966
+#> W7Q19 1.6661 -2.6996 -1.5895 -1.0042 -0.2245 1.1984
+#> W7Q20 2.0438 -2.2693 -1.1563 -0.6259  0.1679 1.4282
 #> 
-#> $dmirt.angles
 #>       D.Cos X D.Cos Y D.Cos Z    Theta     Phi
-#> W7Q11  0.7796  0.2560  0.5716  36.2490 75.1671
-#> W7Q12  0.6299  0.0340  0.7759  50.9315 88.0517
-#> W7Q13  0.5488  0.1417  0.8238  56.3293 81.8559
-#> W7Q14  0.5637  0.3656  0.7407  52.7295 68.5585
-#> W7Q15  0.4929  0.8525 -0.1739 -19.4363 31.5157
-#> W7Q16  0.8101  0.5377  0.2336  16.0827 57.4726
-#> W7Q17  0.6631  0.7479  0.0314   2.7110 41.5948
-#> W7Q18  0.2888  0.9525 -0.0963 -18.4366 17.7258
-#> W7Q19  0.5150  0.8462  0.1368  14.8745 32.1959
-#> W7Q20  0.3600  0.9330  0.0000   0.0000 21.0985
-#> W7Q1   0.9949  0.0806 -0.0603  -3.4700 85.3796
-#> W7Q2   0.9952 -0.0010 -0.0980  -5.6253 90.0588
+#> W7Q1   0.9949  0.0805 -0.0604  -3.4748 85.3808
+#> W7Q2   0.9952 -0.0010 -0.0981  -5.6305 90.0597
 #> W7Q3   1.0000  0.0000  0.0000   0.0000 90.0000
-#> W7Q4   0.9922  0.0977  0.0779   4.4875 84.3945
-#> W7Q5   0.9992 -0.0128 -0.0374  -2.1436 90.7317
-#> W7Q6   0.9899  0.1182  0.0777   4.4863 83.2121
-#> W7Q7   0.9746  0.0619  0.2152  12.4486 86.4516
-#> W7Q8   0.9733  0.1233  0.1933  11.2350 82.9150
-#> W7Q9   0.9870  0.1431  0.0735   4.2594 81.7720
-#> W7Q10  0.9943  0.0715 -0.0790  -4.5437 85.9000
+#> W7Q4   0.9922  0.0976  0.0777   4.4767 84.3967
+#> W7Q5   0.9992 -0.0128 -0.0375  -2.1474 90.7326
+#> W7Q6   0.9900  0.1182  0.0775   4.4765 83.2140
+#> W7Q7   0.9746  0.0618  0.2150  12.4409 86.4543
+#> W7Q8   0.9734  0.1233  0.1932  11.2272 82.9174
+#> W7Q9   0.9870  0.1431  0.0734   4.2512 81.7735
+#> W7Q10  0.9943  0.0715 -0.0791  -4.5468 85.9010
+#> W7Q11  0.7797  0.2560  0.5714  36.2355 75.1698
+#> W7Q12  0.6300  0.0339  0.7759  50.9236 88.0565
+#> W7Q13  0.5488  0.1415  0.8239  56.3330 81.8637
+#> W7Q14  0.5638  0.3655  0.7407  52.7234 68.5629
+#> W7Q15  0.4929  0.8525 -0.1739 -19.4324 31.5149
+#> W7Q16  0.8102  0.5376  0.2336  16.0853 57.4764
+#> W7Q17  0.6631  0.7478  0.0315   2.7156 41.5968
+#> W7Q18  0.2888  0.9525 -0.0962 -18.4194 17.7246
+#> W7Q19  0.5150  0.8462  0.1368  14.8767 32.1990
+#> W7Q20  0.3600  0.9330  0.0000   0.0000 21.0997
 #> 
-#> $construct.angles
 #>    C.Cos X C.Cos Y C.Cos Z   Theta     Phi
-#> C1  0.6411  0.2026  0.7402 49.1064 78.3081
-#> C2  0.4720  0.8814 -0.0208 -2.5190 28.1921
-#> C3  0.9977  0.0613  0.0298  1.7098 86.4857
+#> C1  0.9970  0.0687  0.0364  2.0923 86.0608
+#> C2  0.6412  0.2026  0.7402 49.1006 78.3129
+#> C3  0.4720  0.8814 -0.0207 -2.5136 28.1932
 #> 
-#> $ddisc
 #>       DDISC1 DDISC2 DDISC3
-#> W7Q11 1.7802 1.0624 1.4802
-#> W7Q12 1.1892 0.3756 0.7890
-#> W7Q13 2.0353 0.7537 1.1935
-#> W7Q14 1.2996 0.7568 0.8017
-#> W7Q15 0.3324 0.9118 0.4975
-#> W7Q16 0.6169 0.6555 0.6530
-#> W7Q17 1.0759 1.7422 1.2704
-#> W7Q18 0.4364 1.3902 0.4886
-#> W7Q19 1.0044 1.6428 0.9492
-#> W7Q20 0.8580 2.0277 0.8509
-#> W7Q1  1.2434 1.1054 2.0315
-#> W7Q2  1.4889 1.2403 2.6076
-#> W7Q3  1.7901 1.3179 2.7858
-#> W7Q4  1.3696 1.0610 1.9160
-#> W7Q5  1.3697 1.0349 2.2330
-#> W7Q6  1.4482 1.1524 2.0168
-#> W7Q7  1.3311 0.8523 1.6418
-#> W7Q8  1.4464 1.0301 1.7976
-#> W7Q9  1.2479 1.0288 1.7349
-#> W7Q10 1.0561 0.9503 1.7691
+#> W7Q1  2.0305 1.2435 1.1054
+#> W7Q2  2.6040 1.4890 1.2403
+#> W7Q3  2.7832 1.7899 1.3177
+#> W7Q4  1.9171 1.3695 1.0611
+#> W7Q5  2.2305 1.3696 1.0348
+#> W7Q6  2.0183 1.4482 1.1524
+#> W7Q7  1.6439 1.3311 0.8523
+#> W7Q8  1.8004 1.4464 1.0301
+#> W7Q9  1.7364 1.2478 1.0289
+#> W7Q10 1.7679 1.0562 0.9503
+#> W7Q11 1.4895 1.7797 1.0622
+#> W7Q12 0.7951 1.1891 0.3756
+#> W7Q13 1.2068 2.0366 0.7541
+#> W7Q14 0.8113 1.2996 0.7568
+#> W7Q15 0.5019 0.3324 0.9118
+#> W7Q16 0.6568 0.6169 0.6555
+#> W7Q17 1.2799 1.0759 1.7422
+#> W7Q18 0.4975 0.4364 1.3902
+#> W7Q19 0.9606 1.0044 1.6428
+#> W7Q20 0.8645 0.8580 2.0278
 ```
+
+The `D3mirt()` function prints a short report containing the number of
+items used and the levels of difficulty of the items when the estimation
+is done. As can be seen, when construct vectors are used, the function
+also prints the number of construct vectors and the names of the items
+included in each construct. Next, the factor loadings and the difficulty
+parameters from the compensatory model are reported in data frames
+followed by all necessary DMIRT estimates.
 
 # 3. Plotting
 
-## The `plotD3mirt` Function
+## The `plot()` Function
 
-The `plotD3mirt` function is built on the `rgl` package (Adler &
-Murdoch, 2023) for visualization with OpenGL. Graphing in default mode
-by calling `plotd3mirt` will return an RGL device that will appear in an
-external window as a three-dimensional interactive object, containing
-vector arrows with the latent dimensions running along the orthogonal
-axes, that can be rotated. In this illustration, however, all RGL
-devices are plotted inline as still shots from two angles, $15^{\circ}$
-(clockwise; default plot angle) and $90^{\circ}$. To change the plot
-output to $90^{\circ}$, use the `view` argument in the `plotD3mirt`
-function and change the first indicator from $15$ to $90$.
+The `plot()` function is built on the `rgl` package (Adler & Murdoch,
+2023) for visualization with OpenGL. Graphing in default mode by calling
+`plot()` will return an RGL device that will appear in an external
+window as a three-dimensional interactive object, containing vector
+arrows with the latent dimensions running along the orthogonal axes,
+that can be rotated. In this illustration, however, all RGL devices are
+plotted inline as still shots from two angles, $15^{\circ}$ (clockwise;
+default plot angle) and $90^{\circ}$. To change the plot output to
+$90^{\circ}$, use the `view` argument in the `plot()` function and
+change the first indicator from $15$ to $90$.
 
 ``` r
 # Plot RGL device with constructs visible and named
-plotD3mirt(g, 
-           constructs = TRUE, 
-           construct.lab = c("Fairness", "Conformity", "Compassion"))
+plot(g, constructs = TRUE, 
+        construct.lab = c("Compassion", "Fairness", "Conformity"))
 ```
 
 ![anesdata0809offwaves](anes1.png)Figure 1: Three-dimensional vector
 plot for all items and the three constructs Compassion, Conformity, and
 Fairness (solid black arrows) plotted with the model rotated
-$15^{\circ}$ clock wise.
+$15^{\circ}$ clockwise.
 
 ![anesdata0809offwaves](anes2.png)Figure 2: Three-dimensional vector
 plot for all items and the three constructs Compassion, Conformity, and
 Fairness (solid black arrows) plotted with the model rotated
-$90^{\circ}$ clock wise.
+$90^{\circ}$ clockwise.
 
 An example of how the output can be described could be as follows.
 
@@ -494,17 +502,15 @@ An example of how the output can be described could be as follows.
 > $y$-axis. We might also suspect the presence of a third construct
 > located close to the $xy$-plane, between the $x$ and $z$ axes.
 > Studying the content of the items, the labels *Compassion*,
-> *Conformity*, and *Fairness* were introduced. The angles of the
-> constructs inform us that Compassion ($\theta = 1.710^{\circ}$,
-> $\phi = 86.486^{\circ}$) and Conformity ($\theta = - 2.519^{\circ}$,
-> $\phi = 28.192^{\circ}$) have some within-multidimensional tendencies.
-> However, they are both more or less orthogonal to the $z$-axis
-> ($\theta = 1.710^{\circ}$ and $\theta = -2.519^{\circ}$ respectively).
-> Next, we find Fairness ($\theta = 49.106^{\circ}$,
-> $\phi = 78.308^{\circ}$) with clear within-multidimensional tendencies
-> with respect to the $x$-axis. Thus, the output indicates that
-> Compassion and Conformity could be independent constructs but that
-> Fairness seems not to be.
+> *Fairness*, and *Conformity* were introduced. The angles of the
+> constructs inform us that Compassion ($\theta = 2.092^{\circ}$,
+> $\phi = 86.061^{\circ}$) and Conformity ($\theta = -2.514 ^{\circ}$,
+> $\phi = 28.193^{\circ}$) have some within-multidimensional tendencies.
+> However, they are both more or less orthogonal to the $z$-axis. Next,
+> we find Fairness ($\theta = 49.101^{\circ}$, $\phi = 78.313^{\circ}$)
+> with clear within-multidimensional tendencies with respect to the
+> $x$-axis. Thus, the output indicates that Compassion and Conformity
+> could be independent constructs but that Fairness seems not to be.
 
 As was mentioned above, the W7Q16 was not included in any of the
 constructs because the item had measurement problems. For example, the
@@ -513,17 +519,16 @@ the location of the item in the model also indicates that the item is
 within-multidimensional and that it does not seem to belong to any
 construct explicitly.
 
-The `plotD3mirt()` function allows plotting W7Q16 in isolation using the
+The `plot()` function allows plotting W7Q16 in isolation using the
 argument `items` and by entering the number indicating where the item
 appears in the data set (see `?anes0809offwaves`).
 
 ``` r
-# Item W7Q16 has location 6 in the data set (gender and age excluded)
+# Item W7Q16 has location 16 in the data set (gender and age excluded)
 # The item is plotted together with construct to aid the visual interpretation
-plotD3mirt(g, 
-           constructs = TRUE, 
-           items = 6, 
-           construct.lab = c("Fairness", "Conformity", "Compassion"))
+plot(g, constructs = TRUE, 
+        items = 16, 
+        construct.lab = c("Compassion", "Fairness", "Conformity"))
 ```
 
 ![anesdata0809offwaves](item1.png)Figure 3: The item W7Q16 plotted with
@@ -534,12 +539,12 @@ the three constructs and with the model rotated $90^{\circ}$ clock wise.
 An example of how the output can be described could be as follows.
 
 > The Figures 3 and 4 shows that item W7Q16 is located at
-> $\theta = 16.083^{\circ}$, $\phi = 57.473^{\circ}$, indicating that
+> $\theta = 16.085^{\circ}$, $\phi = 57.476^{\circ}$, indicating that
 > the item is within-multidimensional with respect to the $x$ and
 > $y$-axis; but much less so with respect to the $z$-axis. In addition,
 > the directional discrimination further underscores that the item does
-> not seem to measure any particular construct ($DDISC_1 = .656$,
-> $DDISC_2 = .656$, $DDISC_3 = .617$). The global discrimination
+> not seem to measure any particular construct ($DDISC_1 = .657$,
+> $DDISC_2 = .617$, $DDISC_3 = .656$). The global discrimination
 > ($MDISC = .770$, $MDIFF_{range} = [-4.838, 2.349]$) is also the lowest
 > of all discrimination scores in the model. This, combined, implies
 > that the item in question does not seem to fit the three-dimensional
@@ -548,13 +553,13 @@ An example of how the output can be described could be as follows.
 > $MDISC = .923$, $MDIFF_{range} = [-4.680, 1.051]$) has the second
 > lowest global discrimination score. However, this item does seem to
 > belong to the Conformity construct, observable when comparing angle
-> orientation ($\theta = -19.436^{\circ}, \phi = 31.516^{\circ}$) and
-> discrimination ($MDISC = .923$, $DDISC_1 = .332$, $DDISC_2 = .912$,
-> $DDISC_3 = .497$).
+> orientation ($\theta = -19.432^{\circ}, \phi = 31.515^{\circ}$) and
+> direction discrimination ($DDISC_1 = .502$, $DDISC_2 = .332$,
+> $DDISC_3 = .912$).
 
 ## `D3mirt` Profile Analysis
 
-The `plotD3mirt()` function can also display respondents in the
+The `plot()` function can also display respondents in the
 three-dimensional model represented as spheres located using respondent
 factors scores used as coordinates. This allows for a profile analysis
 in which respondents can be separated, or subset, conditioned on single
@@ -581,6 +586,9 @@ f <- mirt::fscores(mod1,
 ```
 
 ``` r
+# Optional: Load the respondent factor scores for this example directly from the package file
+load(system.file("fscores.Rdata", package = "D3mirt"))
+
 # Attach f to the gender variable (column 2 from anes0809offwaves data set; "W3XGENDER")
 # Use cbind with fscores() output attached first
 data("anes0809offwaves")
@@ -588,14 +596,14 @@ x <- anes0809offwaves
 z <- data.frame(cbind(f, x[,2]))
 ```
 
-The `plotD3mirt` function uses `as.factor()` to count the number of
-factor levels in the data imputed in the `levels` argument. This means
-that raw data can be used as is but the number of colors in the color
-vectors argument (`sphere.col`) may need to be adapted. In the example
-below, the criteria variable for gender only hold two factor levels and
+The `plot()` function uses `as.factor()` to count the number of factor
+levels in the data imputed in the `levels` argument. This means that raw
+data can be used as is but the number of colors in the color vectors
+argument (`sphere.col`) may need to be adapted. In the example below,
+the criteria variable for gender only hold two factor levels and
 therefore only two colors in the color vector are needed.
 
-Call `plotD3mirt` with the respondent data frame $z$ in the `profiles`
+Call `plot()` with the respondent data frame $z$ in the `profiles`
 argument and the `levels` argument with the levels column subset from
 $z$. In the function call below, the axes in the model are named using
 the `x.lab`, `y.lab`, and `z.lab` arguments following the direction of
@@ -606,13 +614,13 @@ constructs.
 ``` r
 # Plot profiles with item vector arrows hidden with hide = TRUE
 # Score levels: 1 = Blue ("male") and 2 = Red ("female")
-plotD3mirt(g, hide = TRUE, 
-           profiles = z, 
-           levels = z[,4], 
-           sphere.col = c("blue", "red"), 
-           x.lab = "Compassion", 
-           y.lab="Conformity", 
-           z.lab="Fairness")
+plot(g, hide = TRUE, 
+     profiles = z, 
+     levels = z[,4], 
+     sphere.col = c("blue", "red"), 
+     x.lab = "Compassion", 
+     y.lab="Conformity", 
+     z.lab="Fairness")
 ```
 
 ![anesdata0809offwaves](p1.png)Figure 5: Gender profile for the
@@ -649,11 +657,10 @@ z1 <- subset(y, y[,4] <= 30)
 When a criterion variable has a wide data range, such as an age
 variable, `rep()` can be used to set the appropriate size of the color
 vector for `sphere.col` by repeating color names with `rep()`. When
-plotting,the `plotD3mirt()` function will pick colors from the
-`sphere.col` argument following the factor order in the levels argument.
-To do this, the first step is to count the number of factors in the
-criterion variable. This can be done with `nlevels()`, as can be seen
-below.
+plotting, the `plot()` function will pick colors from the `sphere.col`
+argument following the factor order in the levels argument. To do this,
+the first step is to count the number of factors in the criterion
+variable. This can be done with `nlevels()`, as can be seen below.
 
 ``` r
 # Check number of factor levels with nlevels() and as.factor()
@@ -671,26 +678,26 @@ below. Note, the *CI* limit can be adjusted with the `ci.level`
 argument.
 
 ``` r
-# Call plotD3mirt with profile data on age with item vector arrows hidden
-plotD3mirt(g, hide = TRUE, 
-           profiles = z1, 
-           levels = z1[,4], 
-           sphere.col = colvec, 
-           x.lab = "Compassion", 
-           y.lab="Conformity", 
-           z.lab="Fairness", 
-           ci = TRUE, 
-           ci.level = 0.95, 
-           ellipse.col = "orange")
+# Call plot() with profile data on age with item vector arrows hidden
+plot(g, hide = TRUE, 
+     profiles = z1, 
+     levels = z1[,4], 
+     sphere.col = colvec, 
+     x.lab = "Compassion", 
+     y.lab="Conformity", 
+     z.lab="Fairness", 
+     ci = TRUE, 
+     ci.level = 0.95, 
+     ellipse.col = "orange")
 ```
 
 ![anesdata0809offwaves](ci1.png)Figure 7: Adults less than or equal to
 age 30 from the `anes0809offwaves` data set plotted surrounded by a
-$95\%\,CI$ and with the model rotated $15^{\circ}$ clock wise.
+$95\%\,CI$ and with the model rotated $15^{\circ}$ clockwise.
 
 ![anesdata0809offwaves](ci2.png)Figure 8: Adults less than or equal to
 age 30 from the `anes0809offwaves` data set plotted surrounded by a
-$95\%\,CI$ and with the model rotated $90^{\circ}$ clock wise.
+$95\%\,CI$ and with the model rotated $90^{\circ}$ clockwise.
 
 An example of how the output can be described could be as follows.
 
@@ -708,17 +715,15 @@ Markdown documents with `rgl::hookwebgl()` together with graphical
 options for knitr, as was done when creating this vignette.
 
 ``` r
-# Export an open RGL device to the console that can be saved as a html or image file
-plotD3mirt(g, 
-           constructs = TRUE)
+# Export an open RGL device to the console that can be saved as an html or image file
+plot(g, constructs = TRUE)
 s <- scene3d()
 rgl::rglwidget(s, 
                width = 1040, 
                height = 1040)
 
 # Export a snap shoot of an open RGL device directly to file
-plotD3mirt(g, 
-           constructs = TRUE)
+plot(g, constructs = TRUE)
 rgl::rgl.snapshot('RGLdevice.png', 
                     fmt = 'png')
 ```
