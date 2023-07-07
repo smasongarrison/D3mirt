@@ -61,6 +61,7 @@ print.D3mirt <- function(x, ...){
       })
       cat(paste("Vector ", i, ": ", paste(z, collapse=", "), "\n", sep = ""))
     }
+    cat(paste("\n"))
   } else {
     cat(paste("\nD3mirt:", nrow(tab1), "items and", ncol(tab2), "levels of difficulty\n\n"))
   }
