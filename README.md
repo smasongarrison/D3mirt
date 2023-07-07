@@ -340,7 +340,7 @@ is used directly in the call to `D3mirt()`, and the `summary()`
 function, included in the package, is used to inspect the DMIRT
 estimates. The constructs included below were grouped based on
 exploratory reasons, i.e., because these items cluster in the model
-(observable in the graphical output).
+(observable in the graphical output below).
 
 ``` r
 # Optional: Load the mod.1 data for this example directly from the package file
@@ -361,6 +361,7 @@ summary(g)
 #> Vector 1: W7Q1, W7Q2, W7Q3, W7Q4, W7Q5, W7Q6, W7Q7, W7Q8, W7Q9, W7Q10
 #> Vector 2: W7Q11, W7Q12, W7Q13, W7Q14
 #> Vector 3: W7Q15, W7Q17, W7Q18, W7Q19, W7Q20
+#> 
 #>           a1      a2      a3      d1     d2     d3      d4      d5
 #> W7Q1  2.0298  0.1643 -0.1233  8.0868 7.0642 5.9877  3.2015 -0.4836
 #> W7Q2  2.6215 -0.0027 -0.2585  9.2889 6.6187 4.5102  1.6648 -2.4440

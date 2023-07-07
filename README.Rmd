@@ -151,7 +151,7 @@ Constructs can be included in the analysis by creating one or more nested lists 
 
 The construct vector arrows can contribute to the analysis by (a) visualizing the average direction for a subset set of items, and (b) showing how all items discriminate locally in the direction of the construct vector with the help of the $DDISC$ index.
 
-In this example, the S4 object `mod.1` from the `mirt` estimation above is used directly in the call to `D3mirt()`, and the `summary()` function, included in the package, is used to inspect the DMIRT estimates. The constructs included below were grouped based on exploratory reasons, i.e., because these items cluster in the model (observable in the graphical output).
+In this example, the S4 object `mod.1` from the `mirt` estimation above is used directly in the call to `D3mirt()`, and the `summary()` function, included in the package, is used to inspect the DMIRT estimates. The constructs included below were grouped based on exploratory reasons, i.e., because these items cluster in the model (observable in the graphical output below).
 
 ```{r}
 # Optional: Load the mod.1 data for this example directly from the package file
