@@ -250,13 +250,13 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
                         c.n = 20, c.theta = 0.2, c.barblen = 0.03,
                         profiles = NULL, levels = NULL, sphere.col = c("black", "grey20", "grey40", "grey60", "grey80"), spheres.r = 0.05,
                         ci = FALSE, ci.level = 0.95, ellipse.col = "grey80", ellipse.alpha = 0.20, ...){
-  if (!isa(x, "D3mirt")) stop("Input object must be of class D3mirt")
+  if (!isa(x, "D3mirt")) stop("The input object must be of class D3mirt")
   rgl::open3d()
   rgl::par3d(windowRect = 50 + c( 0, 0, width.rgl.x, width.rgl.y))
   rgl::bg3d(color = background)
   rgl::view3d(theta = view[1], phi = view[2], zoom = view[3])
   if (is.null(axis.length)){
-    if (!is.numeric(axis.scalar)) stop("Elements in axis.scalar are not numeric")
+    if (!is.numeric(axis.scalar)) stop("The elements in axis.scalar are not numeric")
     if (length(axis.scalar) > 1) stop ("The axis.scalar vector must be of length one")
     if (is.null(ncol(x$dir.vec))){
     ax <- x$dir.vec
@@ -278,7 +278,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
     zaxis.max <- max(ax[,3])*axis.scalar
   }
   } else {
-    if (!is.numeric(axis.length)) stop("Elements in axis.length are not numeric")
+    if (!is.numeric(axis.length)) stop("The elements in axis.length are not numeric")
     if (length(axis.length) > 6) warning("The axis.length argument contains too many indicators")
     if (length(axis.length) < 6){
       a <-  rep(axis.length[length(axis.length)], (6-length(axis.length)))
@@ -298,7 +298,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
   rgl::segments3d(c(0, 0), yaxis, c(0, 0), color = axis.col)
   rgl::segments3d(c(0, 0), c(0, 0), zaxis, color = axis.col)
   if (axis.ticks == TRUE){
-    if (!is.numeric(nticks)) stop("Elements in nticks are not numeric")
+    if (!is.numeric(nticks)) stop("The elements in nticks are not numeric")
     if (length(nticks) > 3) warning("The nticks argument contains too many indicators")
     if (length(nticks) < 3){
       a <-  rep(nticks[length(nticks)], (3-length(nticks)))
@@ -627,7 +627,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
   }
 }
   if (constructs == TRUE){
-    if (is.null(x$c.vec)) warning("3D mirt object does not contain any constructs")
+    if (is.null(x$c.vec)) warning("The D3mirt object does not contain any constructs")
     cvec <- x$c.vec
     sapply(seq(from = 1, to = nrow(cvec), by=2), function(x){
       rgl::arrow3d(cvec[x,]*c.scalars[2], cvec[x+1,]*c.scalars[1], type = c.type, col = c.col, width = c.arrow.width, n = c.n, theta = c.theta, barblen = c.barblen)
@@ -648,7 +648,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
     if (!is.null(levels)){
       grad <- function (levels, sphere.col){
       levels <- as.factor(levels)
-      if (nlevels(levels) > length(sphere.col)) stop ("There number of factor levels are more than the number of available sphere colors")
+      if (nlevels(levels) > length(sphere.col)) stop ("The number of factor levels are higher than the number of available sphere colors")
       color <- sphere.col[as.numeric(levels)]
       names(color) <- as.vector(levels)
       color

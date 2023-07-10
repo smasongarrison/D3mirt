@@ -44,7 +44,7 @@ If constructs are used, the output will include reporting of the directional dis
 The package includes the following main functions.
 
 -   `modid()`: D3mirt Model Identification
--   `D3mirt()`: 3D DMIRT Model Estimation
+-   `D3mirt()`: D3 DMIRT Model Estimation
 -   `plot()`: Graphical Output for `D3mirt()`
 
 ## Installation
@@ -86,17 +86,21 @@ x <- anes0809offwaves
 x <- x[,3:22] # Remove columns for age and gender
 ```
 
-The `modid()` can take in raw item data or a data frame with item factor loadings. If raw data is used, the function first performs an EFA, with three factors as default, and then finishes with the model identification. The output consists of an $S3$ object of class `modid` containing data frames with model identification items, order of factor strength (based on sum of squares), and item factor loadings. The function has two arguments: the *lower* and *upper* bound. In brief, the lower bound increase the item pool used in the procedure while the upper bound acts as a filter that removes items that do not meet the necessary statistical requirements. This implies that the upper bound should not, in general, be manipulated.
+The `modid()` can take in raw item data or a data frame with item factor loadings. In the default mode (`efa = TRUE`) using raw data, the function performs an EFA, with three factors as default (`factors = 3`), and then finishes with the model identification. If, however, item factor loadings are already available, the function can jump directly to the model identification by setting `efa = FALSE`. 
+
+The output consists of an $S3$ object of class `modid` containing data frames with model identification items, order of factor strength (based on sum of squares), and item factor loadings. The function has two arguments: the *lower* and *upper* bound. In brief, the lower bound increase the item pool used in the procedure while the upper bound acts as a filter that removes items that do not meet the necessary statistical requirements. This implies that the upper bound should not, in general, be manipulated.
 
 The `summary()` function prints the number of items and the number of factors used in the analysis together with the suggested model identification items. As can be seen, the items suggested by `modid()` are the items "W7Q3" and "W7Q20". The output also includes data frames that hold all the model identification items (`Item.1...Item.n`) selected by `modid()` together with the items' absolute sum score (`ABS`), one frame for the sum of squares for factors sorted in descending order, and one frame for item factor loadings. The order of the factors follows the model identification items so that item 1 comes from the strongest factor (sorted highest up), item 2 from the second strongest (sorted second), and so on.
 
-The absolute sum scores indicate statistical fit to the structural assumptions of the DMIRT model and the items are, therefore, sorted with the lowest absolute sum score highest up. The top items are the items that best meet the necessary statistical requirements for model identification. For a three-dimensional model this implies that the item highest up in the first data frame should be used to identify the $x$-axis, and the item highest up in the second data frame should be used to identify the $y$-axis, and so on.
+The absolute sum scores indicate statistical fit to the structural assumptions of the DMIRT model and the items are, therefore, sorted with the lowest absolute sum score highest up. The top items are the items that best meet the necessary statistical requirements for the model identification. For a three-dimensional model this implies that the item highest up in the first data frame should be used to identify the $x$-axis, and the item highest up in the second data frame should be used to identify the $y$-axis, and so on.
 
 ```{r}
 # Optional: Load the EFA data for this example directly from the package file
 load(system.file("efa.Rdata", package = "D3mirt"))
 
 # Call to modid() with h, containing factors scores from EFA
+# Observe that the efa argument is set to false 
+# The former is because item factor loadings are contained in x
 a <- modid(x, efa = FALSE)
 summary(a)
 ```
@@ -107,11 +111,11 @@ The `modid()` is designed so that the strongest loading item, from the strongest
 
 # 2. D3mirt Model Estimation
 
-The `D3mirt()` function takes in a data frame with model parameters from a three-dimensional compensatory model (either in the form of a data frame or an S4 object of class 'SingleGroupClass' exported from `mirt::mirt` (Chalmers, 2012) function) and returns an $S3$ object of class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$ parameters, direction cosines, and spherical coordinates. Regarding the latter, spherical coordinates are represented by $\theta$ and $\phi$. The $\theta$ coordinate is the positive or negative angle in degrees, starting from the $x$-axis, of the vector projections from the vector arrows in the $xz$-plane up to $\pm 180°$. Note, the $\theta$ angle is oriented following the positive pole of the $x$ and $z$ axis so that the angle increases clockwise in the graphical output. The $\phi$ coordinate is the positive angle in degrees from the $y$-axis and the vectors. Note, the $\rho$ coordinate from the spherical coordinate system is in DMIRT represented by the MDIFF, and so is reported separately.
+The `D3mirt()` function takes model parameters from a three-dimensional compensatory model (either in the form of a data frame or an S4 object of class 'SingleGroupClass' exported from the `mirt()` (Chalmers, 2012) function) and returns an $S3$ object of class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$ parameters, direction cosines, and spherical coordinates. Regarding the latter, spherical coordinates are represented by $\theta$ and $\phi$. The $\theta$ coordinate is the positive or negative angle in degrees, starting from the $x$-axis, of the vector projections from the vector arrows in the $xz$-plane up to $\pm 180°$. Note, the $\theta$ angle is oriented following the positive pole of the $x$ and $z$ axis so that the angle increases clockwise in the graphical output. The $\phi$ coordinate is the positive angle in degrees from the $y$-axis and the vectors. Note, the $\rho$ coordinate from the spherical coordinate system is in DMIRT represented by the MDIFF, and so is reported separately.
 
 If constructs are used, the function also returns construct direction cosines, spherical coordinates for the construct vector arrows, and $DDISC$ parameters (one index per construct).
 
-The three-dimensional compensatory model is specified so that all items load on all three factors in the model, and that the factors are constrained to be orthogonal (see below). The fitting of the model is preferably done with the `mirt::mirt` (Chalmers, 2012) function. Please note very carefully regarding the model specification in the example below.
+The three-dimensional compensatory model is specified so that all items load on all three factors in the model, and that the factors are constrained to be orthogonal (see below). The fitting of the model is preferably done with the `mirt()` (Chalmers, 2012) function. Please note very carefully regarding the model specification in the example below.
 
 ```{r, message = FALSE, results = 'hide', eval = FALSE}
 # Load data
@@ -181,15 +185,15 @@ plot(g, constructs = TRUE,
         construct.lab = c("Compassion", "Fairness", "Conformity"))
 ```
 
-![anesdata0809offwaves](anes1.png)Figure 1: Three-dimensional vector plot for all items and the three constructs Compassion, Conformity, and Fairness (solid black arrows) plotted with the model rotated $15^{\circ}$ clockwise.
+![anesdata0809offwaves](anes1.png)Figure 1: Three-dimensional vector plot for all items and the three constructs Compassion, Fairness, and Conformity (solid black arrows) plotted with the model rotated $15^{\circ}$ clockwise.
 
-![anesdata0809offwaves](anes2.png)Figure 2: Three-dimensional vector plot for all items and the three constructs Compassion, Conformity, and Fairness (solid black arrows) plotted with the model rotated $90^{\circ}$ clockwise.
+![anesdata0809offwaves](anes2.png)Figure 2: Three-dimensional vector plot for all items and the three constructs Compassion, Fairness, and Conformity (solid black arrows) plotted with the model rotated $90^{\circ}$ clockwise.
 
 An example of how the output can be described could be as follows.
 
 > As can be seen in Figures 1 and 2, the pattern in the data indicates the presence of foremost two main nested latent constructs indicated by the items, one aligned with the $x$-axis and one approaching the $y$-axis. We might also suspect the presence of a third construct located close to the $xy$-plane, between the $x$ and $z$ axes. Studying the content of the items, the labels *Compassion*, *Fairness*, and *Conformity* were introduced. The angles of the constructs inform us that Compassion ($\theta = 2.092^{\circ}$, $\phi = 86.061^{\circ}$) and Conformity ($\theta = -2.514 ^{\circ}$, $\phi = 28.193^{\circ}$) have some within-multidimensional tendencies. However, they are both more or less orthogonal to the $z$-axis. Next, we find Fairness ($\theta = 49.101^{\circ}$, $\phi = 78.313^{\circ}$) with clear within-multidimensional tendencies with respect to the $x$-axis. Thus, the output indicates that Compassion and Conformity could be independent constructs but that Fairness seems not to be.
 
-As was mentioned above, the W7Q16 was not included in any of the constructs because the item had measurement problems. For example, the short vector arrows indicate high amounts of model violations. Moreover, the location of the item in the model also indicates that the item is within-multidimensional and that it does not seem to belong to any construct explicitly.
+As was mentioned above, the W7Q16 was not included in any of the constructs because the item showed signs of measurement problems. For example, the short vector arrows indicate high amounts of model violations and the location of the item in the model also indicates that the item is within-multidimensional and that it does not seem to belong to any construct explicitly.
 
 The `plot()` function allows plotting W7Q16 in isolation using the argument `items` and by entering the number indicating where the item appears in the data set (see `?anes0809offwaves`).
 
@@ -211,10 +215,10 @@ An example of how the output can be described could be as follows.
 
 The `plot()` function can also display respondents in the three-dimensional model represented as spheres located using respondent factors scores used as coordinates. This allows for a profile analysis in which respondents can be separated, or subset, conditioned on single or multiple criteria and then plotted. The resulting output shows where the respondents are located in the model, and, accordingly, what model profile best describes them. Similarly, respondent categories can be simultaneously compared to see if a group-level effect can be visually observed.
 
-To do this, the user must first extract respondent factor scores with `mirt::fscores` (Chalmers, 2012) and then separate or select a subset of respondent rows based on one or more criteria. The resulting data frame is imputed in the `profiles` argument. Generally, it can be useful to hide vector arrows with `hide = TRUE` when plotting respondent profiles to avoid visual cluttering. The example below separates respondents using the gender variable included in the built-in data set.
+To do this, the user must first extract respondent factor scores with `fscores()` (Chalmers, 2012) and then separate or select a subset of respondent rows based on one or more criteria. The resulting data frame is imputed in the `profiles` argument. Generally, it can be useful to hide vector arrows with `hide = TRUE` when plotting respondent profiles to avoid visual cluttering. The example below separates respondents using the gender variable included in the built-in data set.
 
 ```{r, eval = FALSE}
-# Extract respondent factor scores from mod1 with fscores() function from [mirt::mirt]
+# Extract respondent factor scores from mod1 with fscores()
 f <- mirt::fscores(mod1, 
                    method="EAP", 
                    full.scores = TRUE, 
