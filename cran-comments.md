@@ -14,6 +14,13 @@ Duration: 14m 47s
 
 0 errors ✔ | 0 warnings ✔ | 2 notes ✖
 
+Update includes:
+- Print method added to the modid() and D3mirt() functions
+- Summary method added to the modid() function
+- Plot function changed to use generic plot() method
+- mirt::mirt() function integrated into modid() and D3mirt()
+- Minor revisions of documentation
+
 
 ## Previos updates and revisions
 
