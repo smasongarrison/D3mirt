@@ -17,6 +17,9 @@
 #' # Identify the DMIRT model using a three-factor EFA
 #' g <- modid(x)
 #'
+#' #' # Optional: Load the EFA data for this example directly from the package file
+#' # load(system.file("efa.Rdata", package = "D3mirt"))
+#'
 #' # Call to summary
 #' summary(g)
 #' }

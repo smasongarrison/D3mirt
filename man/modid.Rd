@@ -20,7 +20,7 @@ modid(
 \arguments{
 \item{x}{A data frame with factor loadings}
 
-\item{efa}{The data frame can be explored with exploratory factor analysis using the integrated \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) function. The default is \code{efa = TRUE}.}
+\item{efa}{Logical, if the data should be explored with exploratory factor analysis using the integrated \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) function. The default is \code{efa = TRUE}.}
 
 \item{factors}{The number of factors for the exploratory factor analysis. The default is \code{factors = 3}.}
 
@@ -33,7 +33,7 @@ The default is \code{fac.order = NULL}.}
 
 \item{itemtype}{The item model for the exploratory factor analysis. Note, only item type 'graded' or '2PL' are allowed. The default is \code{itemtype = "graded"}. See \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) for more on item models.}
 
-\item{method}{A string indicating what integration algorithm to use. The deafult is \code{method = 'QMCEM'}. See \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) for on methods.}
+\item{method}{A string indicating what integration algorithm to use. The default is \code{method = 'QMCEM'}. See \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) for more on methods.}
 
 \item{rotate}{A string indicating what rotation method to use for the exploratory factor analysis. The default is \code{rotate = "oblimin"}. See \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) for more on rotations.}
 
@@ -56,22 +56,24 @@ This orders the model so that the strongest loading item, from the strongest fac
 
 If the model is not known, the factor structure must be explored with exploratory factor analysis (EFA).
 However, because \code{D3mirt} analysis is based on the M2PL and the MGRM, it is recommended to use multidimensional item response theory EFA methods, such as the EFA option in \code{mirt::mirt} (Chalmers, 2012) with \code{ìtemtype = 'graded'} or \code{'2PL'}, so that the EFA is performed with the proper item model.
-The \code{mirt()}function is integrated into the \code{modid()} function so that the user needs only to provide the data frame containing empirical data directly in the first argument of the function.
+The \code{mirt()} function is integrated into the \code{modid()} function so that the user needs only to provide the data frame containing empirical data directly in the first argument of the function.
+Accordingly, in the default mode (\code{efa = TRUE}) using raw data, the function performs an EFA, with three factors as default (\code{factors = 3}), and then finishes with the model identification.
 However, it is also possible to use the \code{modid()} function without performing the EFA internally by setting \code{efa = FALSE}, if, for instance, a factor loading data frame is already available.
+This allows the function to jump directly to the model identification.
 Note, the EFA is only used to find model identification items that meet the necessary DMIRT model specification requirements.
 The EFA model itself is discarded after this step in the procedure and the user can, therefore, try different types of rotation methods and compare model identification results.
 
-If raw data is used, the function first performs an EFA, with three factors as default, and then finish with the model identification.
-The output consists of an $S3$ object of class \code{modid} containing lists with model identification items, order of factor strength (based on sum of squares), and item factor loadings.
+Running the function prints the number of items and factors together with the suggested model identification items to the console.
+The output consists of an S3 object of class \code{modid} containing lists with model identification items, order of factor strength (based on sum of squares), and item factor loadings.
 The summary function is used to inspect the results.
-This includes data frames that hold all the model identification items (\code{Item.1...Item.n}) selected by \code{modid()} together with the items absolute sum score (\code{ABS}), one frame for sum of squares for factors sorted in descending order, and one frame for item factor loadings.
-The order of the factors follows the model identification items so that item 1 comes from the strongest factor (sorted highest up), item 2 from the second strongest (sorted second), and so on.
+The latter includes data frames that hold all the model identification items (\code{Item.1...Item.n}) selected by \code{modid()} together with the items absolute sum score (\code{ABS}), one frame for sum of squares for factors sorted in descending order, and one frame for item factor loadings.
+The order of the factors follows the model identification items so that item 1 comes from the strongest factor, item 2 from the second strongest, and so on.
 
 The absolute sum scores indicate statistical fit to the structural assumptions of the DMIRT model and the items are, therefore, sorted with the lowest absolute sum score highest up.
-The top items are the items that best meet the necessary statistical requirements for model identification.
-For a three-dimensional model this implies that the item highest up in the first data frame should be used to identify the $x$-axis, and the item highest up in the second data frame should be used to identify the $y$-axis, and so on.
+The top items are the items that best meet the necessary statistical requirements for the model identification.
+For a three-dimensional model this implies that the item highest up in the first data frame should be used to identify the x-axis, and the item highest up in the second data frame should be used to identify the y-axis, and so on.
 
-When fitting the model,  the first item is constrained not to load on the second and third axes (y and z), while the second item is only constrained not to load on the third axis (z).
+When fitting the model, the first item is constrained not to load on the second and third axes (y and z), while the second item is only constrained not to load on the third axis (z).
 This will identify an orthogonal three-dimensional structure with the first item fixed on the x-axis.
 For more details on the model identification process, please see the package vignette.
 \subsection{Criteria}{

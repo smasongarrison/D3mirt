@@ -1,5 +1,23 @@
 ## R CMD check results
 
+── R CMD check results D3mirt 1.0.4 ────
+Duration: 14m 47s
+
+❯ checking installed package size ... NOTE
+    installed size is  5.5Mb
+    sub-directories of 1Mb or more:
+      doc   4.9Mb
+
+❯ checking for non-standard things in the check directory ... NOTE
+  Found the following files/directories:
+    ‘RGLdevice.png’
+
+0 errors ✔ | 0 warnings ✔ | 2 notes ✖
+
+
+## Previos updates and revisions
+
+# Revision ## Revision 20230511
 ── R CMD check results D3mirt 1.0.3 ────
 Duration: 8m 34s
 
@@ -15,8 +33,6 @@ Duration: 8m 34s
 0 errors ✔ | 0 warnings ✔ | 2 notes ✖
 
 Update only regards minor adjustments in plot function and documentation
-
-## Previos updates and revisions
 
 ## Revision 20230511
 Duration: 8m 33.7s

@@ -7,7 +7,8 @@
 D3mirt(x, constructs = NULL)
 }
 \arguments{
-\item{x}{Data frame with rows for items and columns for model parameters. The number of columns must be more than or equal to 4, i.e., three columns with (\emph{a}) parameters and at least one column for difficulty (\emph{d}) parameters.}
+\item{x}{A data frame with rows for items and columns for model parameters or an S4 object of class 'SingleGroupClass' exported from \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012).
+Regarding the data frame, the number of columns must be more than or equal to 4, i.e., three columns with (\emph{a}) parameters and at least one column for difficulty (\emph{d}) parameters.}
 
 \item{constructs}{Optional. Nested lists with integer values indicating construct. The default is \code{constructs = NULL}.}
 }
@@ -18,8 +19,8 @@ S3 object of class \code{D3mirt} with lists of \emph{a} and \emph{d} parameters 
 Descriptive multidimensional item response theory modeling (DMIRT; Reckase, 2009, 1985, Reckase & McKinley, 1991) for dichotomous and polytomous items restricted to three dimensions.
 }
 \details{
-The \code{D3mirt()} function takes in a data frame of factor slopes and difficulty parameters from a compensatory three-dimensional multidimensional two-parameter logistic model (M2PL) or a multidimensional graded
-response model (MGRM), fitted in accordance with descriptive item response theory model specifications described below.
+The \code{D3mirt()} function takes in model parameters from a compensatory three-dimensional multidimensional two-parameter logistic model (M2PL) or a multidimensional graded
+response model (MGRM), either in the form of a data frame or an S4 object of class 'SingleGroupClass' exported from \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) function fitted in accordance with descriptive item response theory model specifications described below.
 The function returns an S3 object containing descriptive multidimensional item response theory estimates that can be graphed as vector arrows representing item response functions in a three-dimensional space with \link{plot}.
 
 Note, model parameters from the multidimensional M2PL or MGRM must be assessed prior to using the \code{D3mirt()} function (see examples section below or the vignette included in the package).
@@ -36,7 +37,7 @@ In addition, if constructs are used (see below) the output will also contain the
 This makes it possible to compare item discrimination under the assumption that they measure the same construct.
 
 Using the parameters from the compensatory model, the \code{D3mirt()} function computes parameters describing the location and direction of the highest possible discrimination for each item.
-The output can be visualized with the \link{plot} function that use vector geometry with vector arrows indicating level of difficulty and direction of the maximum discrimination.
+The output can be visualized with the \link{plot} function that uses vector geometry with vector arrows indicating level of difficulty and direction of the maximum discrimination.
 }
 
 \section{Constructs}{
@@ -84,7 +85,7 @@ mod.1 <- mirt::mirt(x,
 # Optional: Load the mod.1 data for this example directly from the package file
 # load(system.file("mod.1.Rdata", package = "D3mirt"))
 
-# Call D3mirt() using mod.1 as input
+# Call D3mirt() using the S4 object mod.1 as input
 g <- D3mirt(mod.1)
 
 # Show summary of results

@@ -7,6 +7,7 @@
 #'
 #' @return Tables containing \emph{a} and \emph{d} parameters, multidimensional discrimination (MDISC), multidimensional item difficulty (MDIFF), direction cosines, and degrees for vector angles for items.
 #' If constructs were used in the estimation process, the summary function will also show tables for direction cosines, and degrees for construct vectors as well as directional discrimination (DDISC) parameters.
+#'
 #' @author Erik Forsberg
 #' @examples
 #' \donttest{
@@ -36,6 +37,9 @@
 #'                    itemtype = 'graded',
 #'                    SE = TRUE,
 #'                    method = 'QMCEM')
+#'
+#' # Optional: Load the mod.1 data for this example directly from the package file
+#' # load(system.file("mod.1.Rdata", package = "D3mirt"))
 #'
 #' # Call D3mirt() and create list of constructs
 #' c <- list(list(1,2,3,4,5,6,7,8,9,10),

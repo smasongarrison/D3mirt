@@ -4,7 +4,7 @@
 #' @param x S3 object of class `modid`.
 #' @param ... Additional arguments.
 #'
-#' @return Mode summary reporting number of factors and the model identification items.
+#' @return Printed message reporting the number of factors and the suggested model identification items.
 #' @export
 #'
 #' @examples
@@ -16,6 +16,9 @@
 #'
 #' # Identify the DMIRT model using a three-factor EFA
 #' g <- modid(x)
+#'
+#' #' # Optional: Load the EFA data for this example directly from the package file
+#' # load(system.file("efa.Rdata", package = "D3mirt"))
 #'
 #' # Print model summary
 #' print(g)

@@ -12,7 +12,7 @@
 \item{...}{Additional arguments.}
 }
 \value{
-Mode summary reporting number of factors and the model identification items.
+Printed message reporting the number of factors and the suggested model identification items.
 }
 \description{
 The \code{print.D3mirt()} function returns a compressed output from the \code{\link[=modid]{modid()}} function.
@@ -26,6 +26,9 @@ x <- x[,3:22] # Remove columns for age and gender
 
 # Identify the DMIRT model using a three-factor EFA
 g <- modid(x)
+
+#' # Optional: Load the EFA data for this example directly from the package file
+# load(system.file("efa.Rdata", package = "D3mirt"))
 
 # Print model summary
 print(g)

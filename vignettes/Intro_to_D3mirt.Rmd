@@ -138,8 +138,8 @@ The sections below are sorted under the following headings.
 1.  Model Identification
 
 -   1.1 The `modid()` Function
--   1.2 The Model Identification Procedure
--   1.3 Item Selection
+-   1.2 Item Selection
+-   1.3 The Model Identification Procedure
 -   1.4 Trouble Shooting
 -   1.5 Criteria For Model Identification
 -   1.6 Limitations
@@ -172,34 +172,16 @@ The first item should not load on the second and third axes ($y$ and $z$), while
 If this can be empirically achieved, it will be possible to create the orthogonal structure necessary for the analysis.
 The `modid()` function can help by suggesting what items to use for this purpose.
 
-## The Model Identification Procedure
-
-If improper items are chosen the model will be hard to interpret, or even unempirical if the data is forced to fit the model.
-The `modid()` function was, therefore, developed to hinder these problems and to maximize the interpretive meaning by using an algorithmic approach that can be user adjusted.
-In brief, in the default automatic mode, `modid()` starts by first calculating the sum of squares loadings on all factors $F$ in the data frame $x$ and then rearranging the columns in $x$, in decreasing order following the level of strength of the sum of squares loadings.
-Next, the function creates a list containing the factor loadings on the first factor, $f_1$, and absolute sum scores of the factor loadings on the remaining factors, i.e., $F-f_1$, row-wise.
-The list is rearranged in decreasing order based row-wise on factor loading strength on $f_1$.
-
-Next, items are selected by scaling $f_1$ loadings and then extracting the items with the highest loadings on $f_1$, up to a standard deviation of $0.5$ (the default setting) as the lower bound criteria counting from the top.
-That is, rows with raw factor scores and absolute sum scores are extracted until the lower bound for factor loadings on $f_1$ is reached.
-This allows the function to extract more rows in the case empirical factor loadings are very similar in strength.
-As a last step, the function filters the list based on the absolute sum score by using the `upper` bound as the selection criteria, i.e., items with an absolute sum score higher than the `upper` bound are removed.
-The results are recorded in nested list before the function starts over with the next factor, $f_2$, and so on.
-
-Note, the absolute sum score is always assessed based on the number of factors less than the total number of factors, following the order of iteration, That is, iteration $1$ use factor loadings from all factors $F-f_1$, iteration $2$ $F-(f_{1,2})$, iteration $3$ $F-(f_{1,2,3})$, and so on, when calculating the absolute sum scores.
-
-The model identification procedure orders the entire model so that the strongest loading item, from the strongest factor, always aligns perfectly with the $x$-axis and that the other items follow thereon.
-The model identification process is described in more detail below.
-
 ## Item Selection
 
 If the model is not known, the factor structure must be explored with exploratory factor analysis (EFA).
 However, because `D3mirt` analysis is based on the M2PL and the MGRM, it is recommended to use multidimensional item response theory EFA methods, such as the EFA option in `mirt::mirt` (Chalmers, 2012) with `ìtemtype = 'graded'` or `'2PL'`, so that the EFA is performed with the proper item model.
-The `mirt()` function is integrated into the `modid()` function so that the user needs only to provide the data frame containing empirical data directly in the first argument of the function.
+The `mirt()` function is integrated into the `modid()` function so that the user needs only to provide a data frame containing empirical data in the first argument of the function.
 However, it is also possible to use the `modid()` function without performing the EFA internally by setting `efa = FALSE`, if, for instance, a factor loading data frame is already available.
+
 Note, the EFA is only used to find model identification items that meet the necessary DMIRT model specification requirements.
 The EFA model itself is discarded after this step in the procedure and the user can, therefore, try different types of rotation methods and compare model identification results.
-Because the EFA in the `mirt()` function takes a long time to perform, the item loadings from the EFA for this example are stored in the package file "efa.Rdata" which is loaded in the next code chunk below.
+Because the EFA in the `mirt()` function takes a long time to perform, the item loadings from the EFA for this example were stored in the package file "efa.Rdata" and are loaded in the next code chunk below.
 
 To start, load the data set from the ANES 2008-2009 Panel Study and remove columns for age and gender.
 
@@ -210,9 +192,8 @@ x <- anes0809offwaves
 x <- x[,3:22] # Remove columns for age and gender
 ```
 
-The `modid()` can take in raw item data or a data frame with item factor loadings.
-If raw data is used, the function first performs an EFA, with three factors as default, and then finishes with the model identification.
-The output consists of an $S3$ object of class `modid` containing data frames with model identification items, order of factor strength (based on sum of squares), and item factor loadings.
+If the default mode `efa = TRUE` is not changed, the function first does a EFA with three factors as default before performing the model identification.
+In this example, however, the factor loadings are already available in the package file "efa.Rdata" and so the function call will only identify the model.
 
 ```{r}
 # Optional: Load the EFA data for this example directly from the package file
@@ -223,14 +204,33 @@ a <- modid(x, efa = FALSE)
 summary(a)
 ```
 
-The `summary()` function prints the number of items and the number of factors used in the analysis together with the suggested model identification items.
-As can be seen, the items that are suggested by `modid()` to identify the model are the items "W7Q3", for the $x$-axis, and "W7Q20", for the $y$-axis.
-The output also includes data frames that hold all the model identification items (`Item.1...Item.n`) selected by `modid()` together with the items' absolute sum score (`ABS`), one frame for the sum of squares for factors sorted in descending order, and one frame for item factor loadings.
-The order of the factors follows the model identification items so that item 1 comes from the strongest factor (sorted highest up), item 2 from the second strongest (sorted second), and so on.
+The output consists of an $S3$ object of class `modid` containing data frames with model identification items, order of factor strength (based on sum of squares), and item factor loadings.
+Using the `summary()` function, we first get a printed message telling us the number of items and the number of factors used in the analysis together with the suggested model identification items.
+As can be seen, the items that are suggested by `modid()` to identify the model in this example are the items "W7Q3", for the $x$-axis, and "W7Q20", for the $y$-axis.
+Next, we find data frames that hold all the model identification items (`Item.1...Item.n`) selected by `modid()` together with the items' absolute sum score (`ABS`), one frame for the sum of squares for factors sorted in descending order, and one frame for item factor loadings.
 
-The absolute sum scores indicate statistical fit to the structural assumptions of the DMIRT model and the items are, therefore, sorted with the lowest absolute sum score highest up.
-The top items are the items that best meet the necessary statistical requirements for model identification.
-For a three-dimensional model this implies that the item highest up in the first data frame should be used to identify the $x$-axis, and the item highest up in the second data frame should be used to identify the $y$-axis, and so on.
+The absolute sum scores for the model identification items indicate statistical fit to the structural assumptions of the DMIRT model and are sorted with the lowest absolute sum score highest up.
+Accordingly, the top items are the items that best meet the necessary statistical requirements for model identification.
+Note, the order of the factors follows the model identification items so that item 1 comes from the strongest factor, item 2 from the second strongest, and so on.
+
+## The Model Identification Procedure
+
+If improper items are chosen the model will be hard to interpret, or even unempirical if the data is forced to fit the model.
+The `modid()` function was, therefore, developed to hinder these problems and to maximize the interpretive meaning by using an algorithmic approach that can be user adjusted.
+In brief, in the default automatic mode, `modid()` starts by first calculating the sum of squares loadings for the number of factors $F$ in the data and then rearranging the columns in $x$ in decreasing order, following the level of strength of the sum of squares loadings.
+Next, the function creates a list containing the factor loadings on the first factor, $f_1$, and absolute sum scores of the factor loadings on the remaining factors, i.e., $F-f_1$, row-wise.
+The list is rearranged in decreasing order row-wise from factor loading strength on $f_1$.
+
+Next, items are selected by scaling $f_1$ loadings and then extracting the items with the highest loadings on $f_1$, up to a standard deviation of $0.5$ (the default setting) as the lower bound criteria counting from the top.
+That is, rows with raw factor scores and absolute sum scores are extracted until the lower bound for factor loadings on $f_1$ is reached.
+This allows the function to extract more rows in the case empirical factor loadings are very similar in strength, while also excluding weak loading items.
+As a last step, the function filters the list based on the absolute sum score by using the `upper` bound as the selection criteria, i.e., items with an absolute sum score higher than the `upper` bound are removed.
+The results are recorded in nested list before the function starts over with the next factor, $f_2$, and so on.
+
+Note, the absolute sum score is always assessed based on the number of factors less than the total number of factors, following the order of iteration, That is, iteration $1$ use factor loadings from all factors $F-f_1$, iteration $2$ $F-(f_{1,2})$, iteration $3$ $F-(f_{1,2,3})$, and so on, when calculating the absolute sum scores.
+
+The model identification procedure orders the entire model so that the strongest loading item, from the strongest factor, always aligns perfectly with the $x$-axis and that the other items follow thereon.
+The model identification process is described in more detail below.
 
 ## Trouble Shooting
 
@@ -256,11 +256,11 @@ summary(b)
 ```
 
 In this case, we find that the second item "W7Q17" is new.
-Observing the statistical estimates we can also see that this outcome is related to the increased `lower` bound allowing weaker loading items to be used in the selection process.
+Observing the statistical estimates we can also see that this outcome is related to the increased `lower` bound allowing weaker loading items to be included in the selection process.
 Both the previous item ("W7Q20") and the new item ("W7Q17") have an acceptable absolute sum score, however.
 We can also note that the increased `upper` bound allows more items to be included in the selection process.
-This is most notable in the first data frame, containing `Item.1`.
-In this case, however, this did not affect the final selection.
+This is most notable in the first data frame for `Item.1`.
+In this case, however, this had no effect on the final selection.
 
 Another option (point 3) is to override the factor order with the `fac.order` argument.
 More specifically, `modid()` orders factor by squared factor loadings so that the strongest factor is used first, the second strongest factor is used second, and so on.
@@ -300,7 +300,7 @@ But it does suggest that the methodology *can* be used and the results will be p
 
 ## The `D3mirt()` Function
 
-The `D3mirt()` function takes in model parameters from a three-dimensional compensatory model (either in the form of a data frame or an S4 object of class  'SingleGroupClass' exported from `mirt::mirt` (Chalmers, 2012) function) and returns an $S3$ object of class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$ parameters, direction cosines, and spherical coordinates.
+The `D3mirt()` function takes in model parameters from a three-dimensional compensatory model (either in the form of a data frame or an S4 object of class 'SingleGroupClass' exported from `mirt::mirt` (Chalmers, 2012) function) and returns an $S3$ object of class `D3mirt` with lists of $a$ and $d$, $MDISC$, and $MDIFF$ parameters, direction cosines, and spherical coordinates.
 Regarding the latter, spherical coordinates are represented by $\theta$ and $\phi$.
 The $\theta$ coordinate is the positive or negative angle in degrees, starting from the $x$-axis, of the vector projections from the vector arrows in the $xz$-plane up to $\pm 180°$.
 Note, the $\theta$ angle is oriented following the positive pole of the $x$ and $z$ axis so that the angle increases clockwise in the graphical output.
@@ -315,7 +315,7 @@ The three-dimensional compensatory model is specified so that all items load on 
 The fitting of the model is preferably done with the `mirt::mirt` (Chalmers, 2012) function.
 Observe that the START and FIXED commands are used to fix the slope parameters on the second, $a2$, and third, $a3$.
 factor for item $_1$ (W7Q3), and the slope on the third, $a3$, factor for item $i_2$ (W7Q20).
-Note, because the fitting of the compensatory model in the `mirt()` function takes a long time, the item parameters are available in the package file "mod.1.Rdata" and can be loaded in the next code chunk below.
+Note, because the fitting of the compensatory model in the `mirt()` function takes a long time, the item parameters are available in the package file "mod.1.Rdata" and are loaded in the next code chunk below.
 
 ```{r, message = FALSE, results = 'hide', eval = FALSE}
 # Load data
@@ -355,6 +355,7 @@ mod.1 <- mirt::mirt(x,
 
 The `D3mirt()` function prints a short report containing the number of items used and the levels of difficulty of the items when the estimation is done.
 If construct vectors are used, the function will also print the number of construct vectors and the names of the items included in each construct (for an example see below).
+
 The `summary()` function, included in the package, is used to inspect the DMIRT estimates.
 In this example, the S4 object `mod.1` from the mirt estimation above is used directly in the call to `D3mirt()`.
 
@@ -368,7 +369,7 @@ summary(g) # Show summary of results
 ```
 
 After the printed message, the factor loadings and the difficulty parameters from the compensatory model are reported followed by all necessary DMIRT estimates.
-Examples of how DMIRT estimates can be used when reporting results are given below in the item and dimensionality analysis example.
+Examples of how DMIRT estimates can be used when reporting results are given below in the item and dimensionality analysis.
 
 ### Constructs
 
@@ -530,7 +531,7 @@ To do this, the user must first extract respondent factor scores with `mirt::fsc
 The resulting data frame is imputed in the `profiles` argument.
 Generally, it can be useful to hide vector arrows with `hide = TRUE` when plotting respondent profiles to avoid visual cluttering.
 The example below separates respondents using the gender variable included in the built-in data set.
-To save some time in running the examples, the `fscores()` output is stored in the package file "fscores.Rdata" and can be loaded in the next code chunk below.
+To save some time in running the examples, the `fscores()` output is stored in the package file "fscores.Rdata" and is loaded in the next code chunk below.
 
 ```{r, eval = FALSE}
 # Extract respondent factor scores from mod1 with fscores() function from [mirt::mirt]

@@ -4,7 +4,7 @@
 #' @param x S3 object of class `D3mirt`.
 #' @param ... Additional arguments.
 #'
-#' @return Model summary containing class, numbber of items, levels of difficulty, the number construct vectors and their respective items.
+#' @return Model summary containing class, number of items, levels of difficulty, the number of construct vectors and their respective items.
 #' @author Erik Forsberg
 #'
 #' @examples
@@ -36,6 +36,8 @@
 #'                    SE = TRUE,
 #'                    method = 'QMCEM')
 #'
+#' # Optional: Load the mod.1 data for this example directly from the package file
+#' # load(system.file("mod.1.Rdata", package = "D3mirt"))
 #'
 #' # Call D3mirt() and create list of constructs
 #' c <- list(list(1,2,3,4,5,6,7,8,9,10),
@@ -43,7 +45,7 @@
 #'           list(15,17,18,19,20))
 #' g <- D3mirt(mod.1, c)
 #'
-#' # Print model summery
+#' # Print model summary
 #' print(g)
 #' }
 #' @export
