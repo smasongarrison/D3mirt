@@ -92,7 +92,7 @@ construct vector arrows scaled to an arbitrary length.
 The package includes the following main functions.
 
 - `modid()`: D3mirt Model Identification
-- `D3mirt()`: D3 DMIRT Model Estimation
+- `D3mirt()`: 3D DMIRT Model Estimation
 - `plot()`: Graphical Output for `D3mirt()`
 
 ## Installation

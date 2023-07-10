@@ -125,7 +125,7 @@ This since only two items in the set are needed to identify the model (see the s
 The package includes the following main functions.
 
 -   `modid()`: D3mirt Model Identification
--   `D3mirt()`: D3 DMIRT Model Estimation
+-   `D3mirt()`: 3D DMIRT Model Estimation
 -   `plot()`: Graphical Output for `D3mirt()`
 
 In what follows, the `D3mirt` procedure and some of its functions and options will be described using the built-in data set "anes0809offwaves".
