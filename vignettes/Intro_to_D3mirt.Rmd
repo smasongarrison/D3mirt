@@ -446,7 +446,7 @@ To plot constructs alongside item vectors, change to `constructs = TRUE`.
 The constructs can be named with strings as input to the `construct.lab` argument.
 In this example, construct labels were chosen based on item content.
 
-```{r, testg3, webgl=TRUE, fig.width = 7, fig.height = 7}
+```{r, testg2, webgl=TRUE, fig.width = 7, fig.height = 7}
 # Plot RGL device with constructs visible and named
 plot(g, constructs = TRUE, 
         construct.lab = c("Compassion", "Fairness", "Conformity"), 
@@ -465,7 +465,7 @@ Moreover, the location of the item in the model also indicates that the item is 
 
 The `plot()` function allows plotting W7Q16 alone using argument `items` and by entering the number indicating where the item appears in the data set (see `?anes0809offwaves`).
 
-```{r, testg4, webgl=TRUE, fig.width = 7, fig.height = 7}
+```{r, testg3, webgl=TRUE, fig.width = 7, fig.height = 7}
 # Item W7Q16 has location 16 in the data set (gender and age excluded)
 # The item is plotted together with constructs to aid the visual interpretation
 plot(g, constructs = TRUE, 
@@ -491,7 +491,7 @@ The user has the option of plotting on one level of difficulty at a time with th
 Note, *difficulty* refers to the number of item response functions, i.e., the total number of response options minus one.
 In this case, $6$ response options were used which means that the model has $5$ levels of difficulty.
 
-```{r, testg5, webgl = TRUE, fig.width = 7, fig.height = 7}
+```{r, testg4, webgl = TRUE, fig.width = 7, fig.height = 7}
 # Plot RGL device on item difficulty level 5
 plot(g, diff.level = 5, 
         view = c(15, 20, 0.6))
@@ -503,7 +503,7 @@ A subset of items can be plotted for a more thorough investigation.
 In the example below constructs are kept in the function call which can help with the visual interpretation of the item subset.
 Items are selected, just as in the single case, based on the item order in the original data frame (see `?anes0809offwaves`)
 
-```{r, testg6, webgl=TRUE, fig.width = 7, fig.height = 7}
+```{r, testg5, webgl=TRUE, fig.width = 7, fig.height = 7}
 # A selection of Conformity items from the model plotted with constructs
 plot(g, constructs = TRUE, 
         items = c(15,17,18,19,20), 
@@ -519,7 +519,7 @@ This allows the user to graph the item vector arrows with `plot()` set to a unif
 This can help reduce visual clutter in the graphical output.
 To view the item vector arrows without the $MDISC$, set `scale = TRUE`.
 
-```{r, testg7, webgl=TRUE, fig.width = 7, fig.height = 7}
+```{r, testg6, webgl=TRUE, fig.width = 7, fig.height = 7}
 # Plot RGL device with items in uniform length and constructs visible and named
 plot(g, scale = TRUE, 
         constructs = TRUE, 
@@ -571,7 +571,7 @@ Call `plot()` with the respondent data frame $z$ in the `profiles` argument and 
 In the function call below, the axes in the model are named using the `x.lab`, `y.lab`, and `z.lab` arguments following the direction of the constructs.
 Note, the model axes represent unidimensional singular structures, or traits, in this case borrowing the names of the constructs.
 
-```{r, testg8, webgl=TRUE, fig.width = 7, fig.height = 7}
+```{r, testg7, webgl=TRUE, fig.width = 7, fig.height = 7}
 # Plot profiles with item vector arrows hidden
 # Score levels: 1 = Blue ("male") and 2 = Red ("female")
 plot(g, hide = TRUE, 
@@ -623,7 +623,7 @@ colvec <- c(rep("red", 14),
             rep("blue", 16))
 ```
 
-```{r, testg9, webgl=TRUE, fig.width = 7, fig.height = 7}
+```{r, testg8, webgl=TRUE, fig.width = 7, fig.height = 7}
 # Call plot() with profile data on age with item vector arrows hidden
 plot(g, hide = TRUE, 
      profiles = z, 
@@ -661,7 +661,7 @@ To plot the *CI*, the `ci` argument is set to `TRUE`.
 The color of the sphere was also changed from the default `grey80` to `orange` in the example below.
 Note, the *CI* limit can be adjusted with the `ci.level` argument.
 
-```{r, testg10, webgl=TRUE, fig.width = 7, fig.height = 7}
+```{r, testg9, webgl=TRUE, fig.width = 7, fig.height = 7}
 # Call plot() with profile data on age with item vector arrows hidden
 plot(g, hide = TRUE, 
      profiles = z1, 
