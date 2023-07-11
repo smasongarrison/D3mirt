@@ -1,7 +1,7 @@
 ## R CMD check results
 
 ── R CMD check results D3mirt 1.0.4 ────
-Duration: 14m 53.2s
+Duration: 14m 51.5s
 
 ❯ checking installed package size ... NOTE
     installed size is  5.5Mb
@@ -11,7 +11,7 @@ Duration: 14m 53.2s
 ❯ checking for non-standard things in the check directory ... NOTE
   Found the following files/directories:
     ‘RGLdevice.png’
-    
+
 0 errors ✔ | 0 warnings ✔ | 2 notes ✖
 
 Update includes:

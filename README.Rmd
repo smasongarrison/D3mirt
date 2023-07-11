@@ -86,7 +86,7 @@ x <- anes0809offwaves
 x <- x[,3:22] # Remove columns for age and gender
 ```
 
-The `modid()` can take in raw item data or a data frame with item factor loadings. In the default mode (`efa = TRUE`) using raw data, the function performs an EFA, with three factors as default (`factors = 3`), and then finishes with the model identification. If, however, item factor loadings are already available, the function can jump directly to the model identification by setting `efa = FALSE`. 
+The `modid()` can take in raw item data or a data frame with item factor loadings. In the default mode (`efa = TRUE`) using raw data, the function performs an EFA, with three factors as default (`factors = 3`), and then finishes with the model identification. If, however, item factor loadings are already available, the function can jump directly to the model identification by setting `efa = FALSE`.
 
 The output consists of an $S3$ object of class `modid` containing data frames with model identification items, order of factor strength (based on sum of squares), and item factor loadings. The function has two arguments: the *lower* and *upper* bound. In brief, the lower bound increase the item pool used in the procedure while the upper bound acts as a filter that removes items that do not meet the necessary statistical requirements. This implies that the upper bound should not, in general, be manipulated.
 
