@@ -137,42 +137,41 @@ The sections below are sorted under the following headings.
 
 1.  Model Identification
 
--   1.1 The `modid()` Function
--   1.2 Item Selection
--   1.3 The Model Identification Procedure
--   1.4 Trouble Shooting
--   1.5 Criteria For Model Identification
--   1.6 Limitations
+-   The `modid()` Function
+    -   Item Selection
+    -   The Model Identification Procedure
+    -   Trouble Shooting
+    -   Criteria For Model Identification
+-   Limitations
 
 2.  `D3mirt` Model Estimation
 
--   2.1 The `D3mirt()` Function
+-   The `D3mirt()` Function
     -   Fitting the Compensatory Multidimensional Model
-    -   The `D3mirt` Function Call
+    -   The `D3mirt()` Function Call
     -   Constructs
 
 3.  Plotting
 
--   3.1 The `plot()` Function
-    -   Unidimensionality vs. Within-Dimensionality
+-   The `plot()` Function
     -   Model Violations
     -   Illustration: A Short Item and Dimensionality Analysis
     -   Other Graphical Options
+        -   `diff.level`
         -   `items`
         -   `scale`
-    -   `D3mirt` Profile Analysis
+-   `D3mirt` Profile Analysis
+-   Exporting the RGL device
 
 # 1. Model Identification
 
 ## The `modid()` Function
 
-For the `D3mirt` analysis, two items with the following properties must be chosen to identify the compensatory model (Reckase, 2009).
-
-The first item should not load on the second and third axes ($y$ and $z$), while the second item should not load on the third axis ($z$).
+For the `D3mirt` analysis, two items with the following properties must be chosen to identify the compensatory model (Reckase, 2009). The first item should not load on the second and third axes ($y$ and $z$), while the second item should not load on the third axis ($z$).
 If this can be empirically achieved, it will be possible to create the orthogonal structure necessary for the analysis.
-The `modid()` function can help by suggesting what items to use for this purpose.
+The `modid()` function can help with this step in the process by suggesting what items to use. The function does this based on an algorithmic approach that use factor and item loading strength to order the model.
 
-## Item Selection
+### Item Selection
 
 If the model is not known, the factor structure must be explored with exploratory factor analysis (EFA).
 However, because `D3mirt` analysis is based on the M2PL and the MGRM, it is recommended to use multidimensional item response theory EFA methods, such as the EFA option in `mirt()` (Chalmers, 2012), from the package with the same name, with `ìtemtype = 'graded'` or `'2PL'`, so that the EFA is performed with the proper item model.
@@ -195,10 +194,14 @@ x <- x[,3:22] # Remove columns for age and gender
 If the default mode `efa = TRUE` is not changed, the function first does a EFA with three factors as default before performing the model identification.
 In this example, however, the factor loadings are already available in the package file "efa.Rdata" and so the function call will only identify the model.
 
-```{r}
+```{r, include = FALSE}
+load("efa.Rdata")
+```
+```{r, eval = FALSE}
 # Optional: Load the EFA data for this example directly from the package file
 load(system.file("efa.Rdata", package = "D3mirt"))
-
+```
+```{r}
 # Call to modid()
 a <- modid(x, efa = FALSE)
 summary(a)
@@ -213,7 +216,7 @@ The absolute sum scores for the model identification items indicate statistical 
 Accordingly, the top items are the items that best meet the necessary statistical requirements for model identification.
 Note, the order of the factors follows the model identification items so that item 1 comes from the strongest factor, item 2 from the second strongest, and so on.
 
-## The Model Identification Procedure
+### The Model Identification Procedure
 
 If improper items are chosen the model will be hard to interpret, or even unempirical if the data is forced to fit the model.
 The `modid()` function was, therefore, developed to hinder these problems and to maximize the interpretive meaning by using an algorithmic approach that can be user adjusted.
@@ -232,7 +235,7 @@ Note, the absolute sum score is always assessed based on the number of factors l
 The model identification procedure orders the entire model so that the strongest loading item, from the strongest factor, always aligns perfectly with the $x$-axis and that the other items follow thereon.
 The model identification process is described in more detail below.
 
-## Trouble Shooting
+### Trouble Shooting
 
 Sometimes, however, the model is hard to identify.
 If this happens, try the following in the order suggested.
@@ -279,7 +282,7 @@ summary(c)
 In this case, we find the item "W7Q3" which was previously suggested for the $x$-axis, is now suggested for the $y$-axis.
 For the $x$-axis, we find a new item, "W7Q13".
 
-## Criteria For Model Identification
+### Criteria For Model Identification
 
 Model identification items should preferably (a) have an absolute sum score of $\leq .10$ and (b) have the highest factor loading scores on the factor of interest.
 Of these two criteria, (a) should be given the strongest weight in the selection decision.
@@ -359,10 +362,14 @@ If construct vectors are used, the function will also print the number of constr
 The `summary()` function, included in the package, is used to inspect the DMIRT estimates.
 In this example, the S4 object `mod.1` from the mirt estimation above is used directly in the call to `D3mirt()`.
 
-```{r}
+```{r, include = FALSE}
+load("mod.1.Rdata")
+```
+```{r, eval = FALSE}
 # Optional: Load the mod.1 data for this example directly from the package file
 load(system.file("mod.1.Rdata", package = "D3mirt"))
-
+```
+```{r}
 # Call D3mirt()
 g <- D3mirt(mod.1)
 summary(g) # Show summary of results
@@ -400,7 +407,7 @@ Moreover, compared to the previous function call to `D3mirt()`, there are also t
 
 ## The `plot()` Function
 
-The `plot()` function is built on functions from the `rgl` package (Adler & Murdoch, 2023) for visualization with OpenGL.
+The `plot()` method for objects of class `D3mirt` is built on functions from the `rgl` package (Adler & Murdoch, 2023) for visualization with OpenGL.
 The output consists of a three-dimensional interactive RGL device, displaying vector arrows with the latent dimensions running along the orthogonal axes centered at zero.
 If polytomous items are used each item will have multiple arrows, representing the multiple item step response functions, running along the same direction in the model.
 
@@ -490,7 +497,7 @@ plot(g, diff.level = 5,
         view = c(15, 20, 0.6))
 ```
 
-### `items`
+#### `items`
 
 A subset of items can be plotted for a more thorough investigation.
 In the example below constructs are kept in the function call which can help with the visual interpretation of the item subset.
@@ -541,10 +548,14 @@ f <- mirt::fscores(mod.1,
                    full.scores.SE = FALSE, QMC = TRUE)
 ```
 
-```{r}
+```{r, include = FALSE}
+load("fscores.Rdata")
+```
+```{r, eval = FALSE}
 # Optional: Load the respondent factor scores for this example directly from the package file
 load(system.file("fscores.Rdata", package = "D3mirt"))
-
+```
+```{r}
 # Attach f to the gender variable (column 2 from anes0809offwaves data set; "W3XGENDER")
 # Use cbind with fscores() output attached first
 data("anes0809offwaves")
@@ -670,7 +681,7 @@ An example of how the output can be described could be as follows.
 > In the figures we can see a tendency for a profile on age in which younger individuals could be described as less oriented towards trait Conformity.
 > We can also observe a tendency for what could be an interaction effect in which higher levels of trait Conformity seem to be associated with lower levels of trait Fairness.
 
-# Exporting The RGL Device
+## Exporting The RGL Device
 
 Some options for exporting the RGL device are shown below.
 Over and above these, it is also possible to export graphical devices in R Markdown documents with `rgl::hookwebgl()` together with graphical options for knitr, as was done when creating this vignette.

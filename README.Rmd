@@ -177,7 +177,7 @@ The `D3mirt()` function prints a short report containing the number of items use
 
 ## The `plot()` Function
 
-The `plot()` function is built on the `rgl` package (Adler & Murdoch, 2023) for visualization with OpenGL. Graphing in default mode by calling `plot()` will return an RGL device that will appear in an external window as a three-dimensional interactive object, containing vector arrows with the latent dimensions running along the orthogonal axes, that can be rotated. In this illustration, however, all RGL devices are plotted inline as still shots from two angles, $15^{\circ}$ (clockwise; default plot angle) and $90^{\circ}$. To change the plot output to $90^{\circ}$, use the `view` argument in the `plot()` function and change the first indicator from $15$ to $90$.
+The `plot()` method for objects of class `D3mirt` is built on the `rgl` package (Adler & Murdoch, 2023) for visualization with OpenGL. Graphing in default mode by calling `plot()` will return an RGL device that will appear in an external window as a three-dimensional interactive object, containing vector arrows with the latent dimensions running along the orthogonal axes, that can be rotated. In this illustration, however, all RGL devices are plotted inline as still shots from two angles, $15^{\circ}$ (clockwise; default plot angle) and $90^{\circ}$. To change the plot output to $90^{\circ}$, use the `view` argument in the `plot()` function and change the first indicator from $15$ to $90$.
 
 ```{r, eval = FALSE}
 # Plot RGL device with constructs visible and named
