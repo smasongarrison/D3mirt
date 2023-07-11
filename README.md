@@ -103,27 +103,11 @@ version of the package, by using the following codes for `R`.
 ``` r
 # Install from CRAN depository
 install.packages('D3mirt')
-#> Installing package into '/private/var/folders/kq/3nr_hgv12_s9tsqt9ttw6x4m0000gn/T/RtmpiyI2lC/temp_libpath1aa27ea73905'
-#> (as 'lib' is unspecified)
-#> 
-#> The downloaded binary packages are in
-#>  /var/folders/kq/3nr_hgv12_s9tsqt9ttw6x4m0000gn/T//RtmpVQ58km/downloaded_packages
 
 # Install development version from Github
 # install.packages("devtools")
 # To include package vignette in the installation add: build_vignettes = TRUE
 devtools::install_github("ForsbergPyschometrics/D3mirt")
-#> Downloading GitHub repo ForsbergPyschometrics/D3mirt@HEAD
-#> 
-#> ── R CMD build ─────────────────────────────────────────────────────────────────
-#> * checking for file ‘/private/var/folders/kq/3nr_hgv12_s9tsqt9ttw6x4m0000gn/T/RtmpVQ58km/remotes2309cd87839/ForsbergPyschometrics-D3mirt-e998577/DESCRIPTION’ ... OK
-#> * preparing ‘D3mirt’:
-#> * checking DESCRIPTION meta-information ... OK
-#> * checking for LF line-endings in source and make files and shell scripts
-#> * checking for empty or unneeded directories
-#> * building ‘D3mirt_1.0.5.tar.gz’
-#> Installing package into '/private/var/folders/kq/3nr_hgv12_s9tsqt9ttw6x4m0000gn/T/RtmpiyI2lC/temp_libpath1aa27ea73905'
-#> (as 'lib' is unspecified)
 ```
 
 In what follows, the `D3mirt` procedure will be described very briefly
