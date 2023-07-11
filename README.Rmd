@@ -51,7 +51,7 @@ The package includes the following main functions.
 
 You can install the `D3mirt` package from CRAN, or try the development version of the package, by using the following codes for `R`.
 
-``` {r, eval = FALSE}
+```{r, eval = FALSE}
 # Install from CRAN depository
 install.packages('D3mirt')
 
