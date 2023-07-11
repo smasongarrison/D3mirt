@@ -346,7 +346,6 @@ x <- x[,3:22] # Remove columns for age and gender
 
            FIXED=(W7Q20,a3) '
 
-
 mod.1 <- mirt::mirt(x, 
                    spec, 
                    itemtype = 'graded', 
