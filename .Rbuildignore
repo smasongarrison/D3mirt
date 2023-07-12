@@ -4,16 +4,9 @@
 ^data-raw$
 ^revdep$
 ^README\.Rmd$
-^item1.png
-^item2.png
-^ci1.png
-^ci2.png
-^anes1.png
-^anes2.png
-^p1.png
-^p2.png
 ^profile.png
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
 ^doc$
 ^Meta$
+^îmages
