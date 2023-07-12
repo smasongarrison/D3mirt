@@ -186,7 +186,7 @@ plot(g, constructs = TRUE,
 
 ![Items and constructs](/D3mirt/images/anes1.png)Figure 1: Three-dimensional vector plot for all items and the three constructs Compassion, Fairness, and Conformity (solid black arrows) plotted with the model rotated $15^{\circ}$ clockwise.
 
-<img src="./anes2.png" alt="Items and constructs"/>Figure 2: Three-dimensional vector plot for all items and the three constructs Compassion, Fairness, and Conformity (solid black arrows) plotted with the model rotated $90^{\circ}$ clockwise.
+<img src="./images/anes2.png" alt="Items and constructs"/>Figure 2: Three-dimensional vector plot for all items and the three constructs Compassion, Fairness, and Conformity (solid black arrows) plotted with the model rotated $90^{\circ}$ clockwise.
 
 An example of how the output can be described could be as follows.
 
