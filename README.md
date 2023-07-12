@@ -304,7 +304,7 @@ x <- x[,3:22] # Remove columns for age and gender
 # The model specification set all items in the data set (1-20) 
 # to load on all three factors (F1-F3)
 # The START and FIXED commands are used on the two items to identify the DMIRT model
- spec <- ' F1 = 1-20
+spec <-  ' F1 = 1-20
            F2 = 1-20
            F3 = 1-20
 
