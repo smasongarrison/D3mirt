@@ -18,7 +18,7 @@ modid(
 )
 }
 \arguments{
-\item{x}{A data frame with factor loadings}
+\item{x}{A data frame with item data or item factor loadings.}
 
 \item{efa}{Logical, if the data should be explored with exploratory factor analysis using the integrated \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) function. The default is \code{efa = TRUE}.}
 
