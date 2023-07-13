@@ -2,7 +2,7 @@
 #'
 #' @description `modid()` performs model identification for descriptive multidimensional item response theory (DMIRT) models by indicating what items, from a set or scale, to use to maximize the utility of the DMIRT model.
 #'
-#' @param x A data frame with factor loadings
+#' @param x A data frame with item data or item factor loadings.
 #' @param efa Logical, if the data should be explored with exploratory factor analysis using the integrated [mirt::mirt] (Chalmers, 2012) function. The default is `efa = TRUE`.
 #' @param factors The number of factors for the exploratory factor analysis. The default is `factors = 3`.
 #' @param lower The lower bound for the item pool is calculated using the standard deviation of scaled item factor loadings. The default is `lower = 0.5`.
