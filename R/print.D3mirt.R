@@ -65,6 +65,6 @@ print.D3mirt <- function(x, ...){
     }
     cat(paste("\n"))
   } else {
-    cat(paste("\nD3mirt:", nrow(tab1), "items and", ncol(tab2), "levels of difficulty\n"))
+    cat(paste("\nD3mirt:", nrow(tab1), "items and", ncol(tab2), "levels of difficulty\n\n"))
   }
 }
