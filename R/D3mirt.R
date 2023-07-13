@@ -108,6 +108,7 @@ D3mirt <- function(x, constructs = NULL){
   }
   if (ncol(x) < 4) stop("The data frame must have at least 4 columns")
   a <- x[,1:3, drop = FALSE]
+  if (any(rowSums(a) == 0)) stop("The number of items for the factors was set too low")
   ndiff <- ncol(x)-3
   diff <- x[,(4):(3+ndiff), drop = FALSE]
   mdisc <- sqrt(rowSums(a^2))

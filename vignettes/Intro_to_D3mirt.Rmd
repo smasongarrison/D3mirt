@@ -24,7 +24,7 @@ knitr::knit_hooks$set(webgl = hook_webgl)
 ```
 
 ::: {align="center"}
-<img src="https://github.com/ForsbergPyschometrics/D3mirt/raw/main/man/figures/logo.png" align="center" height="200"/>
+<img src="https://github.com/ForsbergPyschometrics/D3mirt/raw/main/man/figures/logo.png" align="center" height="300"/>
 :::
 
 # `D3MIRT` Modeling
@@ -167,9 +167,11 @@ The sections below are sorted under the following headings.
 
 ## The `modid()` Function
 
-For the `D3mirt` analysis, two items with the following properties must be chosen to identify the compensatory model (Reckase, 2009). The first item should not load on the second and third axes ($y$ and $z$), while the second item should not load on the third axis ($z$).
+For the `D3mirt` analysis, two items with the following properties must be chosen to identify the compensatory model (Reckase, 2009).
+The first item should not load on the second and third axes ($y$ and $z$), while the second item should not load on the third axis ($z$).
 If this can be empirically achieved, it will be possible to create the orthogonal structure necessary for the analysis.
-The `modid()` function can help with this step in the process by suggesting what items to use. The function does this based on an algorithmic approach that use factor and item loading strength to order the model.
+The `modid()` function can help with this step in the process by suggesting what items to use.
+The function does this based on an algorithmic approach that use factor and item loading strength to order the model.
 
 ### Item Selection
 
@@ -195,12 +197,15 @@ If the default mode `efa = TRUE` is not changed, the function first does a EFA w
 In this example, however, the factor loadings are already available in the package file "efa.Rdata" and so the function call will only identify the model.
 
 ```{r, include = FALSE}
-load("efa.Rdata")
+library(D3mirt)
+load(system.file("efa.Rdata", package = "D3mirt"))
 ```
+
 ```{r, eval = FALSE}
 # Optional: Load the EFA data for this example directly from the package file
 load(system.file("efa.Rdata", package = "D3mirt"))
 ```
+
 ```{r}
 # Call to modid()
 a <- modid(x, efa = FALSE)
@@ -334,7 +339,7 @@ x <- x[,3:22] # Remove columns for age and gender
 # The START and FIXED commands are used on the two items to identify the DMIRT model
 spec <-  ' F1 = 1-20
            F2 = 1-20
-           F3 = 1-20
+           F3 = 1-20 
 
            START=(W7Q3,a2,0)
            START=(W7Q3,a3,0)
@@ -362,12 +367,15 @@ The `summary()` function, included in the package, is used to inspect the DMIRT 
 In this example, the S4 object `mod.1` from the mirt estimation above is used directly in the call to `D3mirt()`.
 
 ```{r, include = FALSE}
-load("mod.1.Rdata")
+library(D3mirt)
+load(system.file("mod.1.Rdata", package = "D3mirt"))
 ```
+
 ```{r, eval = FALSE}
 # Optional: Load the mod.1 data for this example directly from the package file
 load(system.file("mod.1.Rdata", package = "D3mirt"))
 ```
+
 ```{r}
 # Call D3mirt()
 g <- D3mirt(mod.1)
@@ -548,12 +556,15 @@ f <- mirt::fscores(mod.1,
 ```
 
 ```{r, include = FALSE}
-load("fscores.Rdata")
+library(D3mirt)
+load(system.file("fscores.Rdata", package = "D3mirt"))
 ```
+
 ```{r, eval = FALSE}
 # Optional: Load the respondent factor scores for this example directly from the package file
 load(system.file("fscores.Rdata", package = "D3mirt"))
 ```
+
 ```{r}
 # Attach f to the gender variable (column 2 from anes0809offwaves data set; "W3XGENDER")
 # Use cbind with fscores() output attached first
