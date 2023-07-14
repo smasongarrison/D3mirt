@@ -23,10 +23,11 @@
 #' Briefly, this is done by first ordering factors by the sum of squares, and from this select the strongest loading items that meet the statistical assumptions described above.
 #' This orders the model so that the strongest loading item, from the strongest factor, always aligns perfectly with the x-axis and the other items follow thereon.
 #'
-#' If the model is not known, the factor structure must be explored with exploratory factor analysis (EFA).
-#' However, because `D3mirt` analysis is based on the M2PL and the MGRM, it is recommended to use multidimensional item response theory EFA methods, such as the EFA option in [mirt::mirt] (Chalmers, 2012) with `ìtemtype = 'graded'` or `'2PL'`, so that the EFA is performed with the proper item model.
+#' Consequently, if the model is not known the factor structure must be explored with exploratory factor analysis (EFA).
+#' Because `D3mirt` analysis is based on the M2PL and the MGRM it is recommended to use multidimensional item response theory EFA methods, such as the EFA option in [mirt::mirt] (Chalmers, 2012) with `ìtemtype = 'graded'` or `'2PL'`, so that the EFA is performed with the proper item model.
 #' The `mirt()` function is integrated into the `modid()` function so that the user needs only to provide the data frame containing empirical data directly in the first argument of the function.
 #' Accordingly, in the default mode (`efa = TRUE`) using raw data, the function performs an EFA, with three factors as default (`factors = 3`), and then finishes with the model identification.
+#'
 #' However, it is also possible to use the `modid()` function without performing the EFA internally by setting `efa = FALSE`, if, for instance, a factor loading data frame is already available.
 #' This allows the function to jump directly to the model identification.
 #' Note, the EFA is only used to find model identification items that meet the necessary DMIRT model specification requirements.
