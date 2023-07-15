@@ -76,17 +76,17 @@ spec <- '  F1 = 1-20
            FIXED=(W7Q20,a3) '
 
 
-mod.1 <- mirt::mirt(x,
+mod1 <- mirt::mirt(x,
                    spec,
                    itemtype = 'graded',
                    SE = TRUE,
                    method = 'QMCEM')
 
-# Optional: Load the mod.1 data for this example directly from the package file
-# load(system.file("mod.1.Rdata", package = "D3mirt"))
+# Optional: Load the mod1 data for this example directly from the package file
+# load(system.file("mod1.Rdata", package = "D3mirt"))
 
 # Call D3mirt() using the S4 object mod.1 as input
-g <- D3mirt(mod.1)
+g <- D3mirt(mod1)
 
 # Show summary of results
 summary(g)

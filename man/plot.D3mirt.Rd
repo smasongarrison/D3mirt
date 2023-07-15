@@ -245,20 +245,20 @@ spec <- '  F1 = 1-20
            FIXED=(W7Q20,a3) '
 
 
-mod.1 <- mirt::mirt(x,
+mod1 <- mirt::mirt(x,
                    spec,
                    itemtype = 'graded',
                    SE = TRUE,
                    method = 'QMCEM')
 
-# Optional: Load the mod.1 data for this example directly from the package file
-# load(system.file("mod.1.Rdata", package = "D3mirt"))
+# Optional: Load the mod1 data for this example directly from the package file
+# load(system.file("mod1.Rdata", package = "D3mirt"))
 
-# Call D3mirt() with mod.1 and constructs assigned to c
+# Call D3mirt() with mod1 and constructs assigned to c
 c <- list(list(1,2,3,4,5,6,7,8,9,10),
           list(11,12,13,14),
           list(15,17,18,19,20))
-g <- D3mirt(mod.1, c)
+g <- D3mirt(mod1, c)
 plot(g)
 
 # Plot RGL device with constructs visible and named
@@ -285,8 +285,8 @@ plot(g, scale = TRUE,
      construct.lab = c("Compassion", "Fairness", "Conformity"))
 
 # Profile Analysis
-# Extract respondent factor scores from mod.1 (see D3mirt()) with fscores()
-f <- mirt::fscores(mod.1,
+# Extract respondent factor scores from mod1 (see D3mirt()) with fscores()
+f <- mirt::fscores(mod1,
                    method="EAP",
                    full.scores = TRUE,
                    full.scores.SE = FALSE, QMC = TRUE)

@@ -318,7 +318,7 @@ spec <-  ' F1 = 1-20
 
            FIXED=(W7Q20,a3) '
 
-mod.1 <- mirt::mirt(x, 
+mod1 <- mirt::mirt(x, 
                    spec, 
                    itemtype = 'graded', 
                    SE = TRUE, 
@@ -339,7 +339,7 @@ visualizing the average direction for a subset set of items, and (b)
 showing how all items discriminate locally in the direction of the
 construct vector with the help of the $DDISC$ index.
 
-In this example, the S4 object `mod.1` from the `mirt` estimation above
+In this example, the S4 object `mod1` from the `mirt` estimation above
 is used directly in the call to `D3mirt()`, and the `summary()`
 function, included in the package, is used to inspect the DMIRT
 estimates. The constructs included below were grouped based on
@@ -347,8 +347,8 @@ exploratory reasons, i.e., because these items cluster in the model
 (observable in the graphical output below).
 
 ``` r
-# Optional: Load the mod.1 data for this example directly from the package file
-load(system.file("mod.Rdata", package = "D3mirt"))
+# Optional: Load the mod1 data for this example directly from the package file
+load(system.file("mod1.Rdata", package = "D3mirt"))
 
 # Call to D3mirt(), including optional nested lists for three constructs
 # Item W7Q16 is not included in any construct because of model violations
@@ -356,7 +356,7 @@ load(system.file("mod.Rdata", package = "D3mirt"))
 c <- list(list(1,2,3,4,5,6,7,8,9,10),
           list(11,12,13,14),
           list(15,17,18,19,20))
-g <- D3mirt(mod.1, c)
+g <- D3mirt(mod1, c)
 summary(g)
 #> 
 #> D3mirt: 20 items and 5 levels of difficulty
