@@ -8,42 +8,9 @@
 #' @author Erik Forsberg
 #'
 #' @examples
-#' \donttest{
-#' # Load data
-#' data("anes0809offwaves")
-#' x <- anes0809offwaves
-#' x <- x[,3:22] # Remove columns for age and gender
-#'
-#' # Fit a three-dimensional graded response model with orthogonal factors
-#' spec <- '  F1 = 1-20
-#'            F2 = 1-20
-#'            F3 = 1-20
-#'
-#'            START=(W7Q3,a2,0)
-#'            START=(W7Q3,a3,0)
-#'
-#'            START=(W7Q20,a3,0)
-#'
-#'            FIXED=(W7Q3,a2)
-#'            FIXED=(W7Q3,a3)
-#'
-#'            FIXED=(W7Q20,a3) '
-#'
-#'
-#' mod1 <- mirt::mirt(x,
-#'                    spec,
-#'                    itemtype = 'graded',
-#'                    SE = TRUE,
-#'                    method = 'QMCEM')
-#'
-#' # Optional: Load the mod1 data for this example directly from the package file
-#' # load(system.file("mod1.Rdata", package = "D3mirt"))
-#'
-#' # Call D3mirt() and create list of constructs
-#' c <- list(list(1,2,3,4,5,6,7,8,9,10),
-#'           list(11,12,13,14),
-#'           list(15,17,18,19,20))
-#' g <- D3mirt(mod1, c)
+#' \dontrun{
+#' # Call D3mirt()
+#' g <- D3mirt(mod1)
 #'
 #' # Print model summary
 #' print(g)

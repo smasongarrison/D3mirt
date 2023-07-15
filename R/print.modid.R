@@ -7,19 +7,11 @@
 #' @return Printed message reporting the number of factors and the suggested model identification items.
 #'
 #' @examples
-#' \donttest{
-#' # Load data
-#' data("anes0809offwaves")
-#' x <- anes0809offwaves
-#' x <- x[,3:22] # Remove columns for age and gender
-#'
+#' \dontrun{
 #' # Identify the DMIRT model using a three-factor EFA
 #' g <- modid(x)
-#'
-#' # Optional: Load the EFA data for this example directly from the package file
-#' # load(system.file("efa.Rdata", package = "D3mirt"))
-#'
-#' # Print model summary
+#*
+#' # Print model identification summary
 #' print(g)
 #' }
 #' @export
