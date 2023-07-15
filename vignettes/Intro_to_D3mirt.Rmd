@@ -196,10 +196,14 @@ x <- x[,3:22] # Remove columns for age and gender
 If the default mode `efa = TRUE` is not changed, the function first does a EFA with three factors as default before performing the model identification.
 In this example, however, the factor loadings are already available in the package file "efa.Rdata" and so the function call will only identify the model.
 
-```{r}
+```{r, include = FALSE}
+load("efa.Rdata")
+```
+```{r, eval = FALSE}
 # Optional: Load the EFA data for this example directly from the package file
 load(system.file("efa.Rdata", package = "D3mirt"))
-
+```
+```{r}
 # Call to modid()
 a <- modid(x, efa = FALSE)
 summary(a)
@@ -359,10 +363,14 @@ If construct vectors are used, the function will also print the number of constr
 The `summary()` function, included in the package, is used to inspect the DMIRT estimates.
 In this example, the S4 object `mod1` from the mirt estimation above is used directly in the call to `D3mirt()`.
 
-```{r}
+```{r, include = FALSE}
+load("mod1.Rdata")
+```
+```{r, eval = FALSE}
 # Optional: Load the mod1 data for this example directly from the package file
 load(system.file("mod1.Rdata", package = "D3mirt"))
-
+```
+```{r}
 # Call D3mirt()
 g <- D3mirt(mod1)
 summary(g) # Show summary of results
@@ -541,10 +549,14 @@ f <- mirt::fscores(mod1,
                    full.scores.SE = FALSE, QMC = TRUE)
 ```
 
-```{r}
+```{r, include = FALSE}
+load("fscores.Rdata")
+```
+```{r, eval = FALSE}
 # Optional: Load the respondent factor scores for this example directly from the package file
 load(system.file("fscores.Rdata", package = "D3mirt"))
-
+```
+```{r}
 # Attach f to the gender variable (column 2 from anes0809offwaves data set; "W3XGENDER")
 # Use cbind with fscores() output attached first
 data("anes0809offwaves")
