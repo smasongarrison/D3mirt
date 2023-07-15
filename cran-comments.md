@@ -1,7 +1,7 @@
 ## R CMD check results
 
 ── R CMD check results D3mirt 1.0.4 ────
-Duration: 15m 1.9s
+Duration: 15m 2s
 
 ❯ checking installed package size ... NOTE
     installed size is  5.5Mb

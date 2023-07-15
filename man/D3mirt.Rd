@@ -85,7 +85,7 @@ mod1 <- mirt::mirt(x,
 # Optional: Load the mod1 data for this example directly from the package file
 # load(system.file("mod1.Rdata", package = "D3mirt"))
 
-# Call D3mirt() using the S4 object mod.1 as input
+# Call D3mirt() using the S4 object mod1 as input
 g <- D3mirt(mod1)
 
 # Show summary of results
@@ -97,7 +97,7 @@ summary(g)
 c <- list(list(1,2,3,4,5,6,7,8,9,10),
           list(11,12,13,14),
           list(15,17,18,19,20))
-g <- D3mirt(mod.1, c)
+g <- D3mirt(mod1, c)
 
 # Show summary of results
 summary(g)
