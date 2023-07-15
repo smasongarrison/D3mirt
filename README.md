@@ -348,7 +348,7 @@ exploratory reasons, i.e., because these items cluster in the model
 
 ``` r
 # Optional: Load the mod.1 data for this example directly from the package file
-load(system.file("mod.1.Rdata", package = "D3mirt"))
+load(system.file("mod.Rdata", package = "D3mirt"))
 
 # Call to D3mirt(), including optional nested lists for three constructs
 # Item W7Q16 is not included in any construct because of model violations

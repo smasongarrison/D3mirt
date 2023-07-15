@@ -322,7 +322,7 @@ The three-dimensional compensatory model is specified so that all items load on 
 The fitting of the model is preferably done with the `mirt()` (Chalmers, 2012) function.
 Observe that the START and FIXED commands are used to fix the slope parameters on the second, $a2$, and third, $a3$.
 factor for item $_1$ (W7Q3), and the slope on the third, $a3$, factor for item $i_2$ (W7Q20).
-Note, because the fitting of the compensatory model in the `mirt()` function takes a long time, the item parameters are available in the package file "mod.1.Rdata" and are loaded in the next code chunk below.
+Note, because the fitting of the compensatory model in the `mirt()` function takes a long time, the item parameters are available in the package file "mod.Rdata" and are loaded in the next code chunk below.
 
 ```{r, message = FALSE, results = 'hide', eval = FALSE}
 # Load data
@@ -366,12 +366,12 @@ The `summary()` function, included in the package, is used to inspect the DMIRT 
 In this example, the S4 object `mod.1` from the mirt estimation above is used directly in the call to `D3mirt()`.
 
 ```{r, include = FALSE}
-load("mod.1.Rdata")
+load("mod.Rdata")
 ```
 
 ```{r, eval = FALSE}
 # Optional: Load the mod.1 data for this example directly from the package file
-load(system.file("mod.1.Rdata", package = "D3mirt"))
+load(system.file("mod.Rdata", package = "D3mirt"))
 ```
 
 ```{r}
