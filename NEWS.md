@@ -1,24 +1,23 @@
 # D3mirt 1.0.5
-- Print method added to the modid() and D3mirt() functions
-- Summary method added to the modid() function
-- Plot function changed to use generic plot() method
-- mirt::mirt() function integrated into modid() and D3mirt()
-- Minor revisions of documentation
+Print method added to the modid() and D3mirt() functions
+Summary method added to the modid() function
+Plot function changed to use generic plot() method
+mirt::mirt() function integrated into modid() and D3mirt()
+Minor revisions of documentation
 
 # D3mirt 1.0.4
-- Minor fix regarding error message in plot function
-- Minor documentation revisions
+Minor fix regarding error message in plot function
+Minor documentation revisions
 
 # D3mirt 1.0.3
-- Minor documentation revisions
+Minor documentation revisions
 
 # D3mirt 1.0.2
-- Change of D parameter to MDIFF
-- Minor documentation revisions
+Change of D parameter to MDIFF
+Minor documentation revisions
 
 # D3mirt 1.0.1
-
-- First release
+First release
 
 # D3mirt 1.0.0
 

@@ -4,7 +4,6 @@
 ^data-raw$
 ^revdep$
 ^README\.Rmd$
-^profile.png
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
 ^doc$
@@ -17,4 +16,3 @@
 ^item2.png
 ^p1.png
 ^p2.png
-^RGLdevice.png
