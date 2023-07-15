@@ -5,7 +5,6 @@
 #' @param ... Additional arguments.
 #'
 #' @return Printed message reporting the number of factors and the suggested model identification items.
-#' @export
 #'
 #' @examples
 #' \donttest{
@@ -23,6 +22,7 @@
 #' # Print model summary
 #' print(g)
 #' }
+#' @export
 print.modid <- function(x, ...){
   f <- NULL
   for (i in seq_along(x$id)){
