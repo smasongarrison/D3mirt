@@ -365,6 +365,7 @@ In this example, the S4 object `mod1` from the mirt estimation above is used dir
 
 ```{r, include = FALSE}
 load("mod1.Rdata")
+mod1 <- data.frame(mirt::coef(mod1, simplify=TRUE)$'items'[,1:8])
 ```
 ```{r, eval = FALSE}
 # Optional: Load the mod1 data for this example directly from the package file

@@ -24,7 +24,7 @@ The \code{summary.D3mirt()} function returns a compressed output from the \code{
 \dontrun{
 # Call D3mirt() and create list of constructs
 # The first argument can be data frame with model parameters
-# or an S4 object of class 'SingleGroupClass' exported from mirt::mirt
+# or an S4 object of class 'SingleGroupClass' exported from mirt()
 c <- list(list(1,2,3,4,5,6,7,8,9,10),
           list(11,12,13,14),
           list(15,17,18,19,20))

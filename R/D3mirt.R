@@ -77,7 +77,7 @@
 #'                    SE = TRUE,
 #'                    method = 'QMCEM')
 #'
-#' # Optional: Load the mod1 data for this example directly from the package file
+#' # Optional: Load the mod1 data as an S4 object from mirt() directly from the package file
 #' # load(system.file("mod1.Rdata", package = "D3mirt"))
 #'
 #' # Call D3mirt() using the S4 object mod1 as input
