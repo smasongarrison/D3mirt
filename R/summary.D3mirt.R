@@ -21,6 +21,9 @@
 #'
 #' # Call to summary
 #' summary(g)
+#'
+#' #' # Call to summary rounded off to 2 digits
+#' summary(g, digits = 2)
 #' }
 #' @export
 summary.D3mirt <- function(object, ..., digits = 4){

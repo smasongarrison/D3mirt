@@ -16,6 +16,9 @@
 #'
 #' # Call to summary
 #' summary(x)
+#'
+#' # Call to summary rounded off to 2 digits
+#' summary(x, digits = 2)
 #' }
 #' @export
 summary.modid <- function(object, ..., digits = 4){

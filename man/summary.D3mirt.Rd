@@ -32,6 +32,9 @@ g <- D3mirt(mod1, c)
 
 # Call to summary
 summary(g)
+
+#' # Call to summary rounded off to 2 digits
+summary(g, digits = 2)
 }
 }
 \author{
