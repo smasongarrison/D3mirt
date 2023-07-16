@@ -19,8 +19,11 @@ The \code{print.D3mirt()} function returns a compressed output from the \code{\l
 }
 \examples{
 \dontrun{
-# Identify the DMIRT model using a three-factor EFA
+# Identify the DMIRT model using a three-factor EFA with modid()
+# x can be a data frame with item data or item factor loadings.
+# In the case of the latter, set argument 'efa' to 'FALSE'
 g <- modid(x)
+
 # Print model identification summary
 print(g)
 }

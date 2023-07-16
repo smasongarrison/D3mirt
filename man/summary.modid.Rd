@@ -20,20 +20,14 @@ Model identification items (one less than the number of factors), factor loading
 The \code{summary.modid()} function returns a compressed output from the \code{\link[=modid]{modid()}} function.
 }
 \examples{
-\donttest{
-# Load data
-data("anes0809offwaves")
-x <- anes0809offwaves
-x <- x[,3:22] # Remove columns for age and gender
-
-# Identify the DMIRT model using a three-factor EFA
+\dontrun{
+# Identify the DMIRT model using a three-factor EFA with modid()
+# x can be a data frame with item data or item factor loadings.
+# In the case of the latter, set argument 'efa' to 'FALSE'
 g <- modid(x)
 
-# Optional: Load the EFA data for this example directly from the package file
-# load(system.file("efa.Rdata", package = "D3mirt"))
-
 # Call to summary
-summary(g)
+summary(x)
 }
 }
 \author{
