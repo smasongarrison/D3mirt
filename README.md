@@ -341,12 +341,13 @@ construct vector with the help of the $DDISC$ index.
 
 When creating this document, extracted model parameters from the S4
 object `mod1`, estimated in the previous step, were assigned to a data
-frame with the same name and is used in the call to `D3mirt()`. Note,
-however, it is possible to use `mod1` as an S4 object directly in the
-call to `D3mirt()`. The `summary()` function, included in the package,
-is used to inspect the DMIRT estimates. The constructs included below
-were grouped based on exploratory reasons, i.e., because these items
-cluster in the model (observable in the graphical output below).
+frame with the same name and stored as file in the package. This file is
+loaded and used in the call to `D3mirt()` below. Note, however, it is
+also possible to use the S4 object from `mirt()` directly in the call to
+`D3mirt()`. The `summary()` function, included in the package, is used
+to inspect the DMIRT estimates. The constructs included below were
+grouped based on exploratory reasons, i.e., because these items cluster
+in the model (observable in the graphical output below).
 
 ``` r
 # Optional: Load the mod1 data as data frame directly from the package file

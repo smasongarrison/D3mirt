@@ -361,7 +361,7 @@ The `D3mirt()` function prints a short report containing the number of items use
 If construct vectors are used, the function will also print the number of construct vectors and the names of the items included in each construct (for an example see below).
 
 The `summary()` function, included in the package, is used to inspect the DMIRT estimates.
-When creating this document, extracted model parameters from the S4 object `mod1`, estimated in the previous step, were assigned to a data frame with the same name and is used in the call to `D3mirt()`. Note, however, it is also possible to use `mod1` as an S4 object directly in the call to `D3mirt()`.
+When creating this document, extracted model parameters from the S4 object `mod1`, estimated in the previous step, were assigned to a data frame with the same name and stored as file in the package. This file is loaded and used in the call to `D3mirt()` below. Note, however, it is also possible to use the S4 object from `mirt()` directly in the call to `D3mirt()`. 
 
 ```{r, include = FALSE}
 load("mod1.Rdata")
