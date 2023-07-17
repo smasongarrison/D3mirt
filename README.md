@@ -200,9 +200,8 @@ used to identify the $y$-axis, and so on.
 # Optional: Load the EFA data for this example directly from the package file
 load(system.file("extdata/efa.Rdata", package = "D3mirt"))
 
-# Call to modid() with h, containing factors scores from EFA
+# Call to modid() with x, containing factors scores from the EFA
 # Observe that the efa argument is set to false 
-# The former is because item factor loadings are contained in x
 a <- modid(x, efa = FALSE)
 summary(a)
 #> 

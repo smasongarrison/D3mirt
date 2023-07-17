@@ -194,9 +194,10 @@ x <- x[,3:22] # Remove columns for age and gender
 ```
 
 If the default mode `efa = TRUE` is not changed, the function first does a EFA with three factors as default before performing the model identification.
-In this example, however, the factor loadings are already available in the package file "efa.Rdata" and so the function call will only identify the model.
+In this example, however, the factor loadings are already available in the package file "efa.Rdata" and so the function call will only identify the model and not perform an EFA (ì.e, `efa = FALSE`).
 
 ```{r, include = FALSE}
+library(D3mirt)
 load("efa.Rdata")
 ```
 ```{r, eval = FALSE}
@@ -364,6 +365,7 @@ The `summary()` function, included in the package, is used to inspect the DMIRT 
 When creating this document, extracted model parameters from the S4 object `mod1`, estimated in the previous step, were assigned to a data frame with the same name and stored as file in the package. This file is loaded and used in the call to `D3mirt()` below. Note, however, it is also possible to use the S4 object from `mirt()` directly in the call to `D3mirt()`. 
 
 ```{r, include = FALSE}
+library(D3mirt)
 load("mod1.Rdata")
 ```
 ```{r, eval = FALSE}
@@ -550,6 +552,7 @@ f <- mirt::fscores(mod1,
 ```
 
 ```{r, include = FALSE}
+library(D3mirt)
 load("fscores.Rdata")
 ```
 ```{r, eval = FALSE}
