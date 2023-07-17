@@ -491,15 +491,15 @@ plot(g, constructs = TRUE,
         construct.lab = c("Compassion", "Fairness", "Conformity"))
 ```
 
-![Items and constructs](./images/anes1.png)Figure 1: Three-dimensional
-vector plot for all items and the three constructs Compassion, Fairness,
-and Conformity (solid black arrows) plotted with the model rotated
-$15^{\circ}$ clockwise.
+<img src="./images/anes1.png" alt="Items and constructs"/>Figure 1:
+Three-dimensional vector plot for all items and the three constructs
+Compassion, Fairness, and Conformity (solid black arrows) plotted with
+the model rotated $15^{\circ}$ clockwise.
 
-![Items and constructs](./images/anes2.png)Figure 2: Three-dimensional
-vector plot for all items and the three constructs Compassion, Fairness,
-and Conformity (solid black arrows) plotted with the model rotated
-$90^{\circ}$ clockwise.
+<img src="./images/anes2.png" alt="Items and constructs"/>Figure 2:
+Three-dimensional vector plot for all items and the three constructs
+Compassion, Fairness, and Conformity (solid black arrows) plotted with
+the model rotated $90^{\circ}$ clockwise.
 
 An example of how the output can be described could be as follows.
 
@@ -538,11 +538,13 @@ plot(g, constructs = TRUE,
         construct.lab = c("Compassion", "Fairness", "Conformity"))
 ```
 
-![Item W7Q16](images/item1.png)Figure 3: The item W7Q16 plotted with the
-three constructs and with the model rotated $15^{\circ}$ clockwise.
+<img src="./images/item1.png" alt="Item W7Q16"/>Figure 3: The item W7Q16
+plotted with the three constructs and with the model rotated
+$15^{\circ}$ clockwise.
 
-![Item W7Q16](images/item2.png)Figure 4: The item W7Q16 plotted with the
-three constructs and with the model rotated $90^{\circ}$ clockwise.
+<img src="./images/item2.png" alt="Item W7Q16"/>Figure 4: The item W7Q16
+plotted with the three constructs and with the model rotated
+$90^{\circ}$ clockwise.
 
 An example of how the output can be described could be as follows.
 
@@ -631,13 +633,13 @@ plot(g, hide = TRUE,
      z.lab="Fairness")
 ```
 
-![Gender profile](images/p1.png)Figure 5: Gender profile for the
-`anes0809offwaves` data set plotted with the model rotated $15^{\circ}$
-clockwise.
+<img src="./images/p1.png" alt="Gender profile"/>Figure 5: Gender
+profile for the `anes0809offwaves` data set plotted with the model
+rotated $15^{\circ}$ clockwise.
 
-![Gender profile](images/p2.png)Figure 6: Gender profile for the
-`anes0809offwaves` data set plotted with the model rotated $90^{\circ}$
-clockwise.
+<img src="./images/p2.png" alt="Gender profile"/>Figure 6: Gender
+profile for the `anes0809offwaves` data set plotted with the model
+rotated $90^{\circ}$ clockwise.
 
 An example of how the output can be described could be as follows.
 
@@ -699,13 +701,13 @@ plot(g, hide = TRUE,
      ellipse.col = "orange")
 ```
 
-![95% CI](images/ci1.png)Figure 7: Adults less than or equal to age 30
-from the `anes0809offwaves` data set plotted surrounded by a $95\%\,CI$
-and with the model rotated $15^{\circ}$ clockwise.
+<img src="./images/ci1.png" alt="95% CI"/>Figure 7: Adults less than or
+equal to age 30 from the `anes0809offwaves` data set plotted surrounded
+by a $95\%\,CI$ and with the model rotated $15^{\circ}$ clockwise.
 
-![95% CI](images/ci2.png)Figure 8: Adults less than or equal to age 30
-from the `anes0809offwaves` data set plotted surrounded by a $95\%\,CI$
-and with the model rotated $90^{\circ}$ clockwise.
+<img src="./images/ci2.png" alt="95% CI"/>Figure 8: Adults less than or
+equal to age 30 from the `anes0809offwaves` data set plotted surrounded
+by a $95\%\,CI$ and with the model rotated $90^{\circ}$ clockwise.
 
 An example of how the output can be described could be as follows.
 
