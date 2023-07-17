@@ -8,12 +8,5 @@
 ^CRAN-SUBMISSION$
 ^doc$
 ^Meta$
-^anes1.png
-^anes2.png
-^ci1.png
-^ci2.png
-^item1.png
-^item2.png
-^p1.png
-^p2.png
+^images$
 ^\.github$
