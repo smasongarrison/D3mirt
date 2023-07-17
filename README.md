@@ -198,7 +198,7 @@ used to identify the $y$-axis, and so on.
 
 ``` r
 # Optional: Load the EFA data for this example directly from the package file
-load(system.file("efa.Rdata", package = "D3mirt"))
+load(system.file("extdata/efa.Rdata", package = "D3mirt"))
 
 # Call to modid() with h, containing factors scores from EFA
 # Observe that the efa argument is set to false 
@@ -350,7 +350,7 @@ cluster in the model (observable in the graphical output below).
 
 ``` r
 # Optional: Load the mod1 data as data frame directly from the package file
-load(system.file("mod1.Rdata", package = "D3mirt"))
+load(system.file("extdata/mod1.Rdata", package = "D3mirt"))
 
 # Call to D3mirt(), including optional nested lists for three constructs
 # Item W7Q16 is not included in any construct because of model violations
@@ -595,7 +595,7 @@ f <- mirt::fscores(mod1,
 
 ``` r
 # Optional: Load the respondent factor scores for this example directly from the package file
-load(system.file("fscores.Rdata", package = "D3mirt"))
+load(system.file("extdata/fscores.Rdata", package = "D3mirt"))
 
 # Attach f to the gender variable (column 2 from anes0809offwaves data set; "W3XGENDER")
 # Use cbind with fscores() output attached first
