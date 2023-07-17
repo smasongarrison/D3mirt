@@ -13,7 +13,7 @@ BugReports: https://github.com/ForsbergPyschometrics/D3mirt/issues
 Depends:
     mirt,
     R (>= 3.5.0),
-    rgl (>= 1.0.1)
+    rgl (>= 1.2.1)
 Suggests: 
     knitr,
     rmarkdown,
