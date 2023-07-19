@@ -491,12 +491,12 @@ plot(g, constructs = TRUE,
         construct.lab = c("Compassion", "Fairness", "Conformity"))
 ```
 
-<img src="./images/ANES1.png" alt="Items and constructs"/>Figure 1:
+<img src="./images/anes1.png" alt="Items and constructs"/>Figure 1:
 Three-dimensional vector plot for all items and the three constructs
 Compassion, Fairness, and Conformity (solid black arrows) plotted with
 the model rotated $15^{\circ}$ clockwise.
 
-<img src="./images/ANES2.png" alt="Items and constructs"/>Figure 2:
+<img src="./images/anes2.png" alt="Items and constructs"/>Figure 2:
 Three-dimensional vector plot for all items and the three constructs
 Compassion, Fairness, and Conformity (solid black arrows) plotted with
 the model rotated $90^{\circ}$ clockwise.
@@ -538,11 +538,11 @@ plot(g, constructs = TRUE,
         construct.lab = c("Compassion", "Fairness", "Conformity"))
 ```
 
-<img src="./images/ITEM1.png" alt="Item W7Q16"/>Figure 3: The item W7Q16
+<img src="./images/item1.png" alt="Item W7Q16"/>Figure 3: The item W7Q16
 plotted with the three constructs and with the model rotated
 $15^{\circ}$ clockwise.
 
-<img src="./images/ITEM2.png" alt="Item W7Q16"/>Figure 4: The item W7Q16
+<img src="./images/item2.png" alt="Item W7Q16"/>Figure 4: The item W7Q16
 plotted with the three constructs and with the model rotated
 $90^{\circ}$ clockwise.
 
@@ -633,11 +633,11 @@ plot(g, hide = TRUE,
      z.lab="Fairness")
 ```
 
-<img src="./images/P1.png" alt="Gender profile"/>Figure 5: Gender
+<img src="./images/p1.png" alt="Gender profile"/>Figure 5: Gender
 profile for the `anes0809offwaves` data set plotted with the model
 rotated $15^{\circ}$ clockwise.
 
-<img src="./images/P2.png" alt="Gender profile"/>Figure 6: Gender
+<img src="./images/p2.png" alt="Gender profile"/>Figure 6: Gender
 profile for the `anes0809offwaves` data set plotted with the model
 rotated $90^{\circ}$ clockwise.
 
@@ -701,11 +701,11 @@ plot(g, hide = TRUE,
      ellipse.col = "orange")
 ```
 
-<img src="./images/CI1.png" alt="95% CI"/>Figure 7: Adults less than or
+<img src="./images/ci1.png" alt="95% CI"/>Figure 7: Adults less than or
 equal to age 30 from the `anes0809offwaves` data set plotted surrounded
 by a $95\%\,CI$ and with the model rotated $15^{\circ}$ clockwise.
 
-<img src="./images/CI2.png" alt="95% CI"/>Figure 8: Adults less than or
+<img src="./images/ci2.png" alt="95% CI"/>Figure 8: Adults less than or
 equal to age 30 from the `anes0809offwaves` data set plotted surrounded
 by a $95\%\,CI$ and with the model rotated $90^{\circ}$ clockwise.
 
