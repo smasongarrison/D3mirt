@@ -44,7 +44,7 @@ The output can be visualized with the \link{plot} function that uses vector geom
 The user has the option of including constructs in the estimation.
 Constructs, in this context, refer to the assumption that a subset of items can measure a higher-order latent variable.
 To include constructs, the user must create one or more nested lists that indicate what items belong to what construct (from one item to all items in the set; see the examples section below).
-From this, the \code{D3mirt()} function calculates direction cosines for the constructs by adding and normalizing the direction cosines for the items in the nested lists.
+From this, the \code{D3mirt()} function calculates direction cosines for the constructs by adding and normalizing the direction cosines using the items in the nested lists.
 The construct vector arrows can contribute to the analysis by visualizing the average direction of multidimensional discrimination for a subset set of items.
 }
 
@@ -83,7 +83,7 @@ mod1 <- mirt::mirt(x,
                    method = 'QMCEM')
 
 # Optional: Load the mod1 data as a data frame directly from the package file
-# load(system.file("mod1.Rdata", package = "D3mirt"))
+# load(system.file("extdata/mod1.Rdata", package = "D3mirt"))
 
 # Call D3mirt() using the mod1 as input
 g <- D3mirt(mod1)
@@ -93,7 +93,7 @@ summary(g)
 
 # Call to D3mirt(), including optional nested lists for three constructs
 # Item W7Q16 is not included in any construct because of model violations
-# The model violations for the W7Q16 item can be seen when plotting the model
+# The model violations for the item W7Q16 can be seen when plotting the model
 c <- list(list(1,2,3,4,5,6,7,8,9,10),
           list(11,12,13,14),
           list(15,17,18,19,20))

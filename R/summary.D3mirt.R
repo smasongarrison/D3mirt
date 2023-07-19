@@ -1,6 +1,6 @@
 #' Summary Function for S3 Objects of Class `D3mirt`
 #'
-#' @description The `summary.D3mirt()` function returns a compressed output from the [D3mirt::D3mirt()] function.
+#' @description The `summary.D3mirt()` function returns the output from the [D3mirt::D3mirt()] function.
 #' @param object S3 object of class `D3mirt`.
 #' @param ... Additional arguments.
 #' @param digits The number of digits shown per estimate. The default is `digits = 4`.
@@ -13,7 +13,7 @@
 #' \dontrun{
 #' # Call D3mirt() and create list of constructs
 #' # The first argument can be data frame with model parameters
-#' # or an S4 object of class 'SingleGroupClass' exported from mirt()
+#' # or an S4 object of class 'SingleGroupClass' exported from mirt::mirt
 #' c <- list(list(1,2,3,4,5,6,7,8,9,10),
 #'           list(11,12,13,14),
 #'           list(15,17,18,19,20))

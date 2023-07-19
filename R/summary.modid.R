@@ -1,6 +1,6 @@
 #' Summary Function for S3 Objects of Class `modid`
 #'
-#' @description The `summary.modid()` function returns a compressed output from the [D3mirt::modid()] function.
+#' @description The `summary.modid()` function returns the output from the [D3mirt::modid()] function.
 #' @param object S3 object of class `modid`.
 #' @param ... Additional arguments.
 #' @param digits The number of digits shown per estimate. The default is `digits = 4`.

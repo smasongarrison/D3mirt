@@ -11,7 +11,7 @@
 #' \dontrun{
 #' # Call D3mirt()
 #' # The first argument can be data frame with model parameters
-#' # or an S4 object of class 'SingleGroupClass' exported from mirt()
+#' # or an S4 object of class 'SingleGroupClass' exported from mirt::mirt
 #' g <- D3mirt(mod1)
 #'
 #' # Print model summary

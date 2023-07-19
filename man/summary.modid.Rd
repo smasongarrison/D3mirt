@@ -17,7 +17,7 @@
 Model identification items (one less than the number of factors), factor loadings and absolute sum score for items, and squared factor loadings for the model identification items.
 }
 \description{
-The \code{summary.modid()} function returns a compressed output from the \code{\link[=modid]{modid()}} function.
+The \code{summary.modid()} function returns the output from the \code{\link[=modid]{modid()}} function.
 }
 \examples{
 \dontrun{

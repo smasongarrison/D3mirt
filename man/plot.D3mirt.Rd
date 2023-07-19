@@ -168,7 +168,7 @@ The first numeric adjusts the length in the positive direction and the second nu
 
 \item{ellipse.alpha}{Opacity for the confidence region from \code{ellipse3d()}. The default is \code{ellipse.alpha = 0.20}.}
 
-\item{...}{Additional arguments to be passed to RGL or methods.}
+\item{...}{Additional arguments passed to RGL or methods.}
 }
 \value{
 A RGL graphical device.
@@ -252,7 +252,7 @@ mod1 <- mirt::mirt(x,
                    method = 'QMCEM')
 
 # Optional: Load the mod1 data for this example directly from the package file
-# load(system.file("mod1.Rdata", package = "D3mirt"))
+# load(system.file("extdata/mod1.Rdata", package = "D3mirt"))
 
 # Call D3mirt() with mod1 and constructs assigned to c
 c <- list(list(1,2,3,4,5,6,7,8,9,10),
@@ -292,7 +292,7 @@ f <- mirt::fscores(mod1,
                    full.scores.SE = FALSE, QMC = TRUE)
 
 # Optional: Load the respondent factor scores for this example directly from the package file
-# load(system.file("fscores.Rdata", package = "D3mirt"))
+# load(system.file("extdata/fscores.Rdata", package = "D3mirt"))
 
 # Attach f to the gender variable (column 2 from anes0809offwaves data set; "W3XGENDER")
 # Use cbind with fscores() output attached first
