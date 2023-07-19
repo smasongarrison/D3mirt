@@ -489,7 +489,7 @@ plot(g, constructs = TRUE,
         construct.lab = c("Compassion", "Fairness", "Conformity"))
 ```
 
-![Items and constructs](/images/anes1.png) Figure 1: Three-dimensional
+![Items and constructs](./images/anes1.png)Figure 1: Three-dimensional
 vector plot for all items and the three constructs Compassion, Fairness,
 and Conformity (solid black arrows) plotted with the model rotated
 $15^{\circ}$ clockwise.
