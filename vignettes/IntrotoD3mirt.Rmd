@@ -194,7 +194,7 @@ x <- x[,3:22] # Remove columns for age and gender
 ```
 
 If the default mode `efa = TRUE` is not changed, the function first does a EFA with three factors as default before performing the model identification.
-In this example, however, the factor loadings are already available in the package file "efa.Rdata" and so the function call will only identify the model and not perform an EFA (ì.e, `efa = FALSE`).
+In this example, however, the factor loadings are already available in the package file "efa.Rdata" and so the function call will only identify the model and not perform an EFA (therefore `efa = FALSE`).
 
 ```{r, include = FALSE}
 x <- system.file("extdata/efa.Rdata", package = "D3mirt")
@@ -323,7 +323,7 @@ The three-dimensional compensatory model is specified so that all items load on 
 The fitting of the model is preferably done with the `mirt()` (Chalmers, 2012) function.
 Observe that the START and FIXED commands are used to fix the slope parameters on the second, $a2$, and third, $a3$.
 factor for item $_1$ (W7Q3), and the slope on the third, $a3$, factor for item $i_2$ (W7Q20).
-Note, because the fitting of the compensatory model in the `mirt()` function takes a long time, the item parameters are available in the package file "mod.Rdata" and are loaded in the next code chunk below.
+Note, because the fitting of the compensatory model in the `mirt()` function takes a long time, the item parameters are available in the package file "mod1.Rdata" and are loaded in the next code chunk below.
 
 ```{r, message = FALSE, results = 'hide', eval = FALSE}
 # Load data
