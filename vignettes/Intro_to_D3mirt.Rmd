@@ -197,13 +197,15 @@ If the default mode `efa = TRUE` is not changed, the function first does a EFA w
 In this example, however, the factor loadings are already available in the package file "efa.Rdata" and so the function call will only identify the model and not perform an EFA (ì.e, `efa = FALSE`).
 
 ```{r, include = FALSE}
-library(D3mirt)
-load("efa.Rdata")
+x <- system.file("extdata/efa.Rdata", package = "D3mirt")
+load(x)
 ```
+
 ```{r, eval = FALSE}
 # Optional: Load the EFA data for this example directly from the package file
 load(system.file("extdata/efa.Rdata", package = "D3mirt"))
 ```
+
 ```{r}
 # Call to modid()
 a <- modid(x, efa = FALSE)
@@ -362,16 +364,20 @@ The `D3mirt()` function prints a short report containing the number of items use
 If construct vectors are used, the function will also print the number of construct vectors and the names of the items included in each construct (for an example see below).
 
 The `summary()` function, included in the package, is used to inspect the DMIRT estimates.
-When creating this document, extracted model parameters from the S4 object `mod1`, estimated in the previous step, were assigned to a data frame with the same name and stored as file in the package. This file is loaded and used in the call to `D3mirt()` below. Note, however, it is also possible to use the S4 object from `mirt()` directly in the call to `D3mirt()`. 
+When creating this document, extracted model parameters from the S4 object `mod1`, estimated in the previous step, were assigned to a data frame with the same name and stored as file in the package.
+This file is loaded and used in the call to `D3mirt()` below.
+Note, however, it is also possible to use the S4 object from `mirt()` directly in the call to `D3mirt()`.
 
 ```{r, include = FALSE}
-library(D3mirt)
-load("mod1.Rdata")
+mod1 <- system.file("extdata/mod1.Rdata", package = "D3mirt")
+load(mod1)
 ```
+
 ```{r, eval = FALSE}
 # Optional: Load the mod1 as a data frame directly from the package file
 load(system.file("extdata/mod1.Rdata", package = "D3mirt"))
 ```
+
 ```{r}
 # Call D3mirt()
 g <- D3mirt(mod1)
@@ -552,13 +558,15 @@ f <- mirt::fscores(mod1,
 ```
 
 ```{r, include = FALSE}
-library(D3mirt)
-load("fscores.Rdata")
+fscores <- system.file("extdata/fscores.Rdata", package = "D3mirt")
+load(fscores)
 ```
+
 ```{r, eval = FALSE}
 # Optional: Load the respondent factor scores for this example directly from the package file
 load(system.file("extdata/fscores.Rdata", package = "D3mirt"))
 ```
+
 ```{r}
 # Attach f to the gender variable (column 2 from anes0809offwaves data set; "W3XGENDER")
 # Use cbind with fscores() output attached first
