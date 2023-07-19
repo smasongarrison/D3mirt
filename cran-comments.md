@@ -1,10 +1,10 @@
 ## R CMD check results
 
 ── R CMD check results D3mirt 1.0.4 ────
-Duration: 15m 2s
+Duration: 8m 25.1s
 
 ❯ checking installed package size ... NOTE
-    installed size is  5.5Mb
+    installed size is  5.2Mb
     sub-directories of 1Mb or more:
       doc   4.9Mb
 
