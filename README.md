@@ -491,6 +491,11 @@ plot(g, constructs = TRUE,
         construct.lab = c("Compassion", "Fairness", "Conformity"))
 ```
 
+![Items and constructs](../images/anes1.png) ![Items and
+constructs](/images/anes1.png) ![Items and
+constructs](./images/anes1.png) ![this
+screenshot](https://github.com/ForsbergPyschometrics/D3mirt/images/anes1.png)
+
 <img src="./images/anes1.png" alt="Items and constructs"/>Figure 1:
 Three-dimensional vector plot for all items and the three constructs
 Compassion, Fairness, and Conformity (solid black arrows) plotted with
