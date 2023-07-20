@@ -323,7 +323,7 @@ The three-dimensional compensatory model is specified so that all items load on 
 The fitting of the model is preferably done with the `mirt()` (Chalmers, 2012) function.
 Observe that the START and FIXED commands are used to fix the slope parameters on the second, $a2$, and third, $a3$.
 factor for item $_1$ (W7Q3), and the slope on the third, $a3$, factor for item $i_2$ (W7Q20).
-Note, because the fitting of the compensatory model in the `mirt()` function takes a long time, the item parameters are available in the package file "mod1.Rdata" and are loaded in the next code chunk below.
+However, because the fitting of the compensatory model in the `mirt()` function takes a long time, the item parameters for this example are contained in a data frame that is available in the package file "mod1.Rdata". 
 
 ```{r, message = FALSE, results = 'hide', eval = FALSE}
 # Load data
@@ -361,12 +361,7 @@ mod1 <- mirt::mirt(x,
 ### The `D3mirt()` Function Call
 
 The `D3mirt()` function prints a short report containing the number of items used and the levels of difficulty of the items when the estimation is done.
-If construct vectors are used, the function will also print the number of construct vectors and the names of the items included in each construct (for an example see below).
-
-The `summary()` function, included in the package, is used to inspect the DMIRT estimates.
-When creating this document, extracted model parameters from the S4 object `mod1`, estimated in the previous step, were assigned to a data frame with the same name and stored as file in the package.
-This file is loaded and used in the call to `D3mirt()` below.
-Note, however, it is also possible to use the S4 object from `mirt()` directly in the call to `D3mirt()`.
+If construct vectors are used, the function will also print the number of construct vectors and the names of the items included in each construct (for an example see below). The `summary()` function is used to inspect the DMIRT estimates.
 
 ```{r, include = FALSE}
 mod1 <- system.file("extdata/mod1.Rdata", package = "D3mirt")

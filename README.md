@@ -290,6 +290,10 @@ load on all three factors in the model, and that the factors are
 constrained to be orthogonal (see below). The fitting of the model is
 preferably done with the `mirt()` (Chalmers, 2012) function. Please note
 very carefully regarding the model specification in the example below.
+However, because the fitting of the compensatory model in the `mirt()`
+function takes a long time, the item parameters for this example are
+contained in a data frame that is available in the package file
+“mod1.Rdata”.
 
 ``` r
 # Load data
@@ -338,13 +342,10 @@ visualizing the average direction for a subset set of items, and (b)
 showing how all items discriminate locally in the direction of the
 construct vector with the help of the $DDISC$ index.
 
-When calling `D3mirt()` it is possible to use the S4 object from
-`mirt()` (called `mod1`above) directly in the call to `D3mirt()` or a
-data frame containing model parameters from the compensatory model. The
-`summary()` function, included in the package, is used to inspect the
-DMIRT estimates. The constructs included below were grouped based on
-exploratory reasons, i.e., because these items cluster in the model
-(observable in the graphical output below).
+The `summary()` function is used to inspect the DMIRT estimates. The
+constructs included below were grouped based on exploratory reasons,
+i.e., because these items cluster in the model (observable in the
+graphical output below).
 
 ``` r
 # Optional: Load the mod1 data as data frame directly from the package file

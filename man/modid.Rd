@@ -52,14 +52,14 @@ The first item should not load on the second and third axes (y and z), while the
 If this can be empirically achieved, it will be possible to create the orthogonal structure necessary for the analysis.
 
 The \code{modid()} function can help by suggesting what items to use for this purpose.
-Briefly, this is done by first ordering factors by the sum of squares, and from this select the strongest loading items that meet the statistical assumptions described above.
-This orders the model so that the strongest loading item, from the strongest factor, always aligns with the x-axis and the other items follow thereon.
+Briefly, this is done by \code{modid()} by first performing an EFA, then ordering factors by the sum of squares, and from this select the strongest loading items that meet the statistical assumptions described above.
+This orders the entire model so that the strongest loading item, from the strongest factor, always aligns with the x-axis and the other items follow thereon.
 
 Because \code{D3mirt} analysis is based on the M2PL and the MGRM it is recommended to use multidimensional item response theory EFA methods, such as the EFA option in \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) with \code{ìtemtype = 'graded'} or \code{'2PL'}, so that the EFA is performed with the proper item model.
 The \code{mirt()} function is integrated into the \code{modid()} function so that the user needs only to provide the data frame containing empirical item data in the first argument of the function.
-Accordingly, in the default mode (\code{efa = TRUE}) using raw data, the function performs an EFA, with three factors as default (\code{factors = 3}), and then finishes with the model identification.
+Accordingly, in the default mode (\code{efa = TRUE}) using raw item data, the function performs an EFA, with three factors as default (\code{factors = 3}), and then finishes with the model identification.
 
-However, it is also possible to use the \code{modid()} function without performing the EFA internally by setting \code{efa = FALSE}, if, for instance, a factor loading data frame is already available.
+However, it is also possible to use the \code{modid()} function without performing the EFA by setting \code{efa = FALSE}, if, for instance, a factor loading data frame is already available.
 This allows the function to jump directly to the model identification step.
 
 Note, the EFA is only used to find model identification items that meet the necessary DMIRT model specification requirements.
