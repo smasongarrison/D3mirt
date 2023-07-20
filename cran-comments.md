@@ -1,6 +1,6 @@
 ## R CMD check results
 
-── R CMD check results D3mirt 1.0.4 ────
+── R CMD check results D3mirt 1.0.5 ────
 Duration: 8m 25.1s
 
 ❯ checking installed package size ... NOTE

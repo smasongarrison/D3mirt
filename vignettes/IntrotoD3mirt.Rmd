@@ -197,8 +197,7 @@ If the default mode `efa = TRUE` is not changed, the function first does a EFA w
 In this example, however, the factor loadings are already available in the package file "efa.Rdata" and so the function call will only identify the model and not perform an EFA (therefore `efa = FALSE`).
 
 ```{r, include = FALSE}
-x <- system.file("extdata/efa.Rdata", package = "D3mirt")
-load(x)
+load(file = "efa.Rdata")
 ```
 
 ```{r, eval = FALSE}
@@ -364,8 +363,7 @@ The `D3mirt()` function prints a short report containing the number of items use
 If construct vectors are used, the function will also print the number of construct vectors and the names of the items included in each construct (for an example see below). The `summary()` function is used to inspect the DMIRT estimates.
 
 ```{r, include = FALSE}
-mod1 <- system.file("extdata/mod1.Rdata", package = "D3mirt")
-load(mod1)
+load(file = "mod1.Rdata")
 ```
 
 ```{r, eval = FALSE}
@@ -553,8 +551,7 @@ f <- mirt::fscores(mod1,
 ```
 
 ```{r, include = FALSE}
-fscores <- system.file("extdata/fscores.Rdata", package = "D3mirt")
-load(fscores)
+load(file = "fscores.Rdata")
 ```
 
 ```{r, eval = FALSE}
