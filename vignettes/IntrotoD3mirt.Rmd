@@ -196,11 +196,7 @@ x <- x[,3:22] # Remove columns for age and gender
 If the default mode `efa = TRUE` is not changed, the function first does a EFA with three factors as default before performing the model identification.
 In this example, however, the factor loadings are already available in the package file "efa.Rdata" and so the function call will only identify the model and not perform an EFA (therefore `efa = FALSE`).
 
-```{r, include = FALSE}
-load(file = "efa.Rdata")
-```
-
-```{r, eval = FALSE}
+```{r}
 # Optional: Load the EFA data for this example directly from the package file
 load(system.file("extdata/efa.Rdata", package = "D3mirt"))
 ```
@@ -362,11 +358,7 @@ mod1 <- mirt::mirt(x,
 The `D3mirt()` function prints a short report containing the number of items used and the levels of difficulty of the items when the estimation is done.
 If construct vectors are used, the function will also print the number of construct vectors and the names of the items included in each construct (for an example see below). The `summary()` function is used to inspect the DMIRT estimates.
 
-```{r, include = FALSE}
-load(file = "mod1.Rdata")
-```
-
-```{r, eval = FALSE}
+```{r}
 # Optional: Load the mod1 as a data frame directly from the package file
 load(system.file("extdata/mod1.Rdata", package = "D3mirt"))
 ```
@@ -550,11 +542,7 @@ f <- mirt::fscores(mod1,
                    full.scores.SE = FALSE, QMC = TRUE)
 ```
 
-```{r, include = FALSE}
-load(file = "fscores.Rdata")
-```
-
-```{r, eval = FALSE}
+```{r}
 # Optional: Load the respondent factor scores for this example directly from the package file
 load(system.file("extdata/fscores.Rdata", package = "D3mirt"))
 ```
