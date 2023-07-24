@@ -110,7 +110,8 @@ install.packages('D3mirt')
 devtools::install_github("ForsbergPyschometrics/D3mirt")
 ```
 
-In what follows, the `D3mirt` procedure will be described very briefly
+In what follows, the `D3mirt` procedure, including the main functions
+and some of the more essential arguments, will be described very briefly
 using the built-in data set “anes0809offwaves”. The data set
 ($N = 1046, M_{age} = 51.33, SD = 14.56, 57\%$ Female) is a subset from
 the American National Election Survey (ANES) from the 2008-2009 Panel
@@ -568,7 +569,8 @@ model rotated $15^{\circ}$ clockwise.
 Figure 4: The item W7Q16 plotted with the three constructs and with the
 model rotated $90^{\circ}$ clockwise.
 
-An example of how the output can be described could be as follows.
+An example of how the output for analysis of the single item could be as
+follows.
 
 > The Figures 3 and 4 shows that item W7Q16 is located at
 > $\theta = 16.085^{\circ}$, $\phi = 57.476^{\circ}$, indicating that
