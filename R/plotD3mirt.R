@@ -223,7 +223,8 @@
 #'      ci = TRUE,
 #'      ci.level = 0.95,
 #'      ellipse.col = "orange")
-#'
+#'}
+#' \dontrun{
 #' # Export an open RGL device to the console to be saved as html or image file
 #' plot(g, constructs = TRUE)
 #' s <- scene3d()
