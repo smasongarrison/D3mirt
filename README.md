@@ -515,10 +515,10 @@ An example of how the output can be described could be as follows.
 > $x$-axis. Thus, the output indicates that Compassion and Conformity
 > could be independent constructs but that Fairness seems not to be.
 
-## 3.1 `items`
+## 3.1. `items`
 
 A subset of items can be plotted for a more thorough investigation using
-the `items` argument. In the example below all constructs are plotted
+the `items` argument. In the example below, all constructs are plotted
 together with the items used for the conformity construct. In the
 function call, the numerical indicators in the `items` argument follow
 the item order in the original data frame (see `?anes0809offwaves`).
@@ -591,7 +591,7 @@ follows.
 > direction discrimination ($DDISC_1 = .502$, $DDISC_2 = .332$,
 > $DDISC_3 = .912$).
 
-## 3.2 `diff.level`
+## 3.2. `diff.level`
 
 The user has the option of plotting on one level of difficulty at a time
 with the `diff.level` argument studying the entire scale, a subset of
@@ -644,7 +644,7 @@ rotated $15^{\circ}$ clockwise.
 Figure 10: All items scaled to uniform length and plotted with the model
 rotated $90^{\circ}$ clockwise.
 
-# 4. `D3mirt` Profile Analysis
+## 3.4. `D3mirt` Profile Analysis
 
 The `plot()` function can also display respondents in the
 three-dimensional model represented as spheres located using respondent
@@ -728,7 +728,7 @@ An example of how the output can be described could be as follows.
 > easily observable gender difference related to trait Conformity or
 > trait Fairness.
 
-## 4.1 Plotting Confidence Intervals
+## 3.5. Plotting Confidence Intervals
 
 It is also possible to plot a confidence interval in the shape of an
 ellipse surrounding the individual factor scores. In the example below,
@@ -800,7 +800,7 @@ An example of how the output can be described could be as follows.
 > interaction effect in which higher levels of trait Conformity seem to
 > be associated with lower levels of trait Fairness.
 
-# Exporting The RGL Device
+# 4. Exporting The RGL Device
 
 Some options for exporting the RGL device are shown below. Over and
 above these, it is also possible to export graphical devices in R

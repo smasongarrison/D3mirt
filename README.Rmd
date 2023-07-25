@@ -191,9 +191,9 @@ An example of how the output can be described could be as follows.
 
 > As can be seen in Figures 1 and 2, the pattern in the data indicates the presence of foremost two main nested latent constructs indicated by the items, one aligned with the $x$-axis and one approaching the $y$-axis. We might also suspect the presence of a third construct located close to the $xy$-plane, between the $x$ and $z$ axes. Studying the content of the items, the labels *Compassion*, *Fairness*, and *Conformity* were introduced. The angles of the constructs inform us that Compassion ($\theta = 2.092^{\circ}$, $\phi = 86.061^{\circ}$) and Conformity ($\theta = -2.514 ^{\circ}$, $\phi = 28.193^{\circ}$) have some within-multidimensional tendencies. However, they are both more or less orthogonal to the $z$-axis. Next, we find Fairness ($\theta = 49.101^{\circ}$, $\phi = 78.313^{\circ}$) with clear within-multidimensional tendencies with respect to the $x$-axis. Thus, the output indicates that Compassion and Conformity could be independent constructs but that Fairness seems not to be.
 
-## 3.1 `items`
+## 3.1. `items`
 
-A subset of items can be plotted for a more thorough investigation using the `items` argument. In the example below all constructs are plotted together with the items used for the conformity construct. In the function call, the numerical indicators in the `items` argument follow the item order in the original data frame (see `?anes0809offwaves`).
+A subset of items can be plotted for a more thorough investigation using the `items` argument. In the example below, all constructs are plotted together with the items used for the conformity construct. In the function call, the numerical indicators in the `items` argument follow the item order in the original data frame (see `?anes0809offwaves`).
 
 ```{r, eval = FALSE}
 # The Conformity items from the model plotted with construct vector arrows
@@ -233,7 +233,7 @@ An example of how the output for analysis of the single item could be as follows
 
 > The Figures 3 and 4 shows that item W7Q16 is located at $\theta = 16.085^{\circ}$, $\phi = 57.476^{\circ}$, indicating that the item is within-multidimensional with respect to the $x$ and $y$-axis; but much less so with respect to the $z$-axis. In addition, the directional discrimination further underscores that the item does not seem to measure any particular construct ($DDISC_1 = .657$, $DDISC_2 = .617$, $DDISC_3 = .656$). The global discrimination ($MDISC = .770$, $MDIFF_{range} = [-4.838, 2.349]$) is also the lowest of all discrimination scores in the model. This, combined, implies that the item in question does not seem to fit the three-dimensional DMIRT model used in this analysis and should therefore be removed or adapted. On a side note, we can also note that item W7Q15, $MDISC = .923$, $MDIFF_{range} = [-4.680, 1.051]$) has the second lowest global discrimination score. However, this item does seem to belong to the Conformity construct, observable when comparing angle orientation ($\theta = -19.432^{\circ}, \phi = 31.515^{\circ}$) and direction discrimination ($DDISC_1 = .502$, $DDISC_2 = .332$, $DDISC_3 = .912$).
 
-## 3.2 `diff.level`
+## 3.2. `diff.level`
 
 The user has the option of plotting on one level of difficulty at a time with the `diff.level` argument studying the entire scale, a subset of items, or on one item at a time. Note, *difficulty* refers to the number of item response functions in the items, i.e., the total number of response options minus one. In this case, $6$ response options were used which means that the model has $5$ levels of difficulty.
 
@@ -271,7 +271,7 @@ Figure 9: All items scaled to uniform length and plotted with the model rotated 
 
 Figure 10: All items scaled to uniform length and plotted with the model rotated $90^{\circ}$ clockwise.
 
-# 4. `D3mirt` Profile Analysis
+## 3.4. `D3mirt` Profile Analysis
 
 The `plot()` function can also display respondents in the three-dimensional model represented as spheres located using respondent factors scores used as coordinates. This allows for a profile analysis in which respondents can be separated, or subset, conditioned on single or multiple criteria and then plotted. The resulting output shows where the respondents are located in the model, and, accordingly, what model profile best describes them. Similarly, respondent categories can be simultaneously compared to see if a group-level effect can be visually observed.
 
@@ -324,7 +324,7 @@ An example of how the output can be described could be as follows.
 
 > In Figures 5 and 6, it can be observed a simple profile on gender in which more women tend to have higher levels of trait Compassion. When rotating the model $90^{\circ}$ clockwise, there seems not to be any easily observable gender difference related to trait Conformity or trait Fairness.
 
-## 4.1 Plotting Confidence Intervals
+## 3.5. Plotting Confidence Intervals
 
 It is also possible to plot a confidence interval in the shape of an ellipse surrounding the individual factor scores. In the example below, the younger individuals ($\leq30$) are selected and plotted together with a $95\%$ *CI*.
 
@@ -375,7 +375,7 @@ An example of how the output can be described could be as follows.
 
 > In Figures 7 and 8 we can see a tendency for a profile on age in which younger individuals could be described as less oriented towards trait Conformity. We can also observe a tendency for what could be an interaction effect in which higher levels of trait Conformity seem to be associated with lower levels of trait Fairness.
 
-# Exporting The RGL Device
+# 4. Exporting The RGL Device
 
 Some options for exporting the RGL device are shown below. Over and above these, it is also possible to export graphical devices in R Markdown documents with `rgl::hookwebgl()` together with graphical options for knitr, as was done when creating this vignette.
 
