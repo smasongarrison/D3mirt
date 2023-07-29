@@ -1,3 +1,7 @@
+# D3mirt 1.1.0
+- Examples in README extended
+- Revisions of documentation
+
 # D3mirt 1.0.5
 - Print method added to the modid() and D3mirt() functions
 - Summary method added to the modid() function
