@@ -723,10 +723,9 @@ with the model rotated $90^{\circ}$ clockwise.
 An example of how the output can be described could be as follows.
 
 > In Figures 5 and 6, it can be observed a simple profile on gender in
-> which more women tend to have higher levels of trait Compassion. When
+> which more women tend to have higher levels of Compassion. When
 > rotating the model $90^{\circ}$ clockwise, there seems not to be any
-> easily observable gender difference related to trait Conformity or
-> trait Fairness.
+> easily observable gender difference related to Conformity or Fairness.
 
 ## 3.5. Plotting Confidence Intervals
 
@@ -795,10 +794,10 @@ the model rotated $90^{\circ}$ clockwise.
 An example of how the output can be described could be as follows.
 
 > In Figures 7 and 8 we can see a tendency for a profile on age in which
-> younger individuals could be described as less oriented towards trait
+> younger individuals could be described as less oriented towards
 > Conformity. We can also observe a tendency for what could be an
-> interaction effect in which higher levels of trait Conformity seem to
-> be associated with lower levels of trait Fairness.
+> interaction effect in which higher levels of Conformity seem to be
+> associated with lower levels of Fairness.
 
 # 4. Exporting The RGL Device
 

@@ -322,7 +322,7 @@ Figure 12: Gender profile for the `anes0809offwaves` data set plotted with the m
 
 An example of how the output can be described could be as follows.
 
-> In Figures 5 and 6, it can be observed a simple profile on gender in which more women tend to have higher levels of trait Compassion. When rotating the model $90^{\circ}$ clockwise, there seems not to be any easily observable gender difference related to trait Conformity or trait Fairness.
+> In Figures 5 and 6, it can be observed a simple profile on gender in which more women tend to have higher levels of Compassion. When rotating the model $90^{\circ}$ clockwise, there seems not to be any easily observable gender difference related to Conformity or Fairness.
 
 ## 3.5. Plotting Confidence Intervals
 
@@ -373,7 +373,7 @@ Figure 14: Adults less than or equal to age 30 from the `anes0809offwaves` data 
 
 An example of how the output can be described could be as follows.
 
-> In Figures 7 and 8 we can see a tendency for a profile on age in which younger individuals could be described as less oriented towards trait Conformity. We can also observe a tendency for what could be an interaction effect in which higher levels of trait Conformity seem to be associated with lower levels of trait Fairness.
+> In Figures 7 and 8 we can see a tendency for a profile on age in which younger individuals could be described as less oriented towards Conformity. We can also observe a tendency for what could be an interaction effect in which higher levels of Conformity seem to be associated with lower levels of Fairness.
 
 # 4. Exporting The RGL Device
 

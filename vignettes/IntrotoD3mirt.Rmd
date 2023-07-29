@@ -433,7 +433,7 @@ plot(g, hide = TRUE,
 
 An example of how the output can be described could be as follows.
 
-> In the figure, it can be observed a simple profile on gender in which more women tend to have higher levels of trait Compassion. When rotating the model $90^{\circ}$ clockwise, there seems not to be any easily observable gender difference related to trait Conformity or trait Fairness.
+> In the figure, it can be observed a simple profile on gender in which more women tend to have higher levels of Compassion. When rotating the model $90^{\circ}$ clockwise, there seems not to be any easily observable gender difference related to Conformity or Fairness.
 
 The use of `rep()` function makes it possible to create groups based on factor levels. This can be useful when a criterion variable has a wide data range, such as an age variable. More specifically, a color vector for the `sphere.col` argument can be created with color names repeated by `rep()`. When plotting, the `plot()` function will pick colors from the `sphere.col` argument following the factor order in the `levels` argument. The example below illustrates this when comparing respondents 30 years or younger against 70 years or older.
 
@@ -477,7 +477,7 @@ plot(g, hide = TRUE,
 
 An example of how the output can be described could be as follows.
 
-> As can be seen, the figure indicates an age effect in which older individuals have higher levels of trait Conformity. Rotating the model to the left also shows that older individuals may have slightly higher levels of trait Fairness, even if the effect is less clear. There does not seem to be any difference in trait Compassion, however. To sum, we can say, therefore, that the analysis indicates a possibility that older individuals may have a moral profile consisting of high trait Conformity and possibly also high trait Fairness.
+> As can be seen, the figure indicates an age effect in which older individuals have higher levels of Conformity. Rotating the model to the left also shows that older individuals may have slightly higher levels of Fairness, even if the effect is less clear. There does not seem to be any difference in Compassion, however. To sum, we can say, therefore, that the analysis indicates a possibility that older individuals may have a moral profile consisting of high Conformity and possibly also high Fairness.
 
 ### 3.2.1 Plotting Confidence Intervals
 
@@ -514,7 +514,7 @@ plot(g, hide = TRUE,
 
 An example of how the output can be described could be as follows.
 
-> In the figures we can see a tendency for a profile on age in which younger individuals could be described as less oriented towards trait Conformity. We can also observe a tendency for what could be an interaction effect in which higher levels of trait Conformity seem to be associated with lower levels of trait Fairness.
+> In the figures we can see a tendency for a profile on age in which younger individuals could be described as less oriented towards Conformity. We can also observe a tendency for what could be an interaction effect in which higher levels of Conformity seem to be associated with lower levels of Fairness.
 
 # 4. Exporting The RGL Device
 
