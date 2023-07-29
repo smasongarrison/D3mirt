@@ -1,5 +1,27 @@
 ## R CMD check results
 
+── R CMD check results D3mirt 1.1.0 ────
+Duration: 8m 22.6s
+
+❯ checking installed package size ... NOTE
+    installed size is  5.2Mb
+    sub-directories of 1Mb or more:
+      doc   4.9Mb
+
+Update includes:
+- README extended with examples.
+- Change of package version to indicate minor update to users.
+- Need to resubmit due to errors in creating vignette in the previous submission to CRAN.
+- Documentation revisions.
+
+Comment to CRAN:
+- Putting \dontrun{} around examples regarding exporting RGL device removed note regarding "Checking for non-standard things in check directory" when running RMD check
+
+
+
+## Previos updates and revisions
+
+## Revision 20230720
 ── R CMD check results D3mirt 1.0.5 ────
 Duration: 8m 25.1s
 
@@ -21,8 +43,6 @@ Update includes:
 - mirt::mirt() function integrated into modid() and D3mirt()
 - Minor revisions of documentation
 
-
-## Previos updates and revisions
 
 # Revision ## Revision 20230511
 ── R CMD check results D3mirt 1.0.3 ────
