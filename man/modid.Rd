@@ -40,10 +40,10 @@ The default is \code{fac.order = NULL}.}
 \item{...}{Any additional arguments passed to mirt().}
 }
 \value{
-S3 object of class \code{modid} with lists of items and absolute sum scores, sorted by the latter, and sum of squared factor loadings and frame with raw factor loadings with columns ordered on explained variance (high to low) or according to user settings.
+A S3 object of class \code{modid} with lists of items and absolute sum scores, sorted by the latter, and sum of squared factor loadings and frame with raw factor loadings with columns ordered on explained variance (high to low) or according to user settings.
 }
 \description{
-\code{modid()} performs model identification for descriptive multidimensional item response theory (DMIRT) models by indicating what items, from a set or scale, to use to maximize the utility of the DMIRT model.
+\code{modid()} performs model identification for descriptive multidimensional item response theory (DMIRT) models by indicating what items, from a set or scale, to use to identify the DMIRT model.
 }
 \details{
 Before performing DMIRT analysis it is necessary to identify the compensatory model (Reckase, 2009).
@@ -60,7 +60,7 @@ The \code{mirt()} function is integrated into the \code{modid()} function so tha
 Accordingly, in the default mode (\code{efa = TRUE}) using raw item data, the function performs an EFA, with three factors as default (\code{factors = 3}), and then finishes with the model identification.
 
 However, it is also possible to use the \code{modid()} function without performing the EFA by setting \code{efa = FALSE}, if, for instance, a factor loading data frame is already available.
-This allows the function to jump directly to the model identification step.
+This allows the function to move directly to the model identification step.
 
 Note, the EFA is only used to find model identification items that meet the necessary DMIRT model specification requirements.
 The EFA model itself is discarded after this step in the procedure and the user can, therefore, try different types of rotation methods and compare model identification results.
@@ -78,11 +78,14 @@ For a three-dimensional model this implies that the item highest up in the first
 When fitting the model, the first item is constrained not to load on the second and third axes (y and z), while the second item is only constrained not to load on the third axis (z).
 This will identify an orthogonal three-dimensional structure with the first item fixed on the x-axis.
 For more details on the model identification process, please see the package vignette.
-\subsection{Criteria}{
-
+}
+\section{Criteria}{
 Model identification items should preferably (a) have an absolute sum score of less than or equal to .10 and (b) have the highest factor loading scores on the factor of interest.
 Of these two criteria, (a) should be given the strongest weight in the selection decision.
 If these conditions cannot be met, the user is advised to proceed with caution since the loading scores, therefore, imply that an adequate orthogonal structure may not be empirically attainable.
+}
+
+\section{Troubleshooting}{
 If problems occur, try the following:
 
 \enumerate{
@@ -101,14 +104,16 @@ It is, therefore, recommended to adjust the lower limit up and down to see if th
 The user also has the option of overriding the automatic sorting of factor order (point 4) with the argument \code{fac.order} (see examples section).
 This can be useful when there is only a very small difference between the squared factor loadings that in turn can
 causes problems (often only observable at later stages) when trying to find the best items for the model identification.
+}
 
-Note, the \code{modid()} function is not limited to three-dimensional analysis and can be used on any number of factors.
+\section{Limitations}{
+Note, the \code{modid()} function is not limited to three-dimensional analysis and can be used to identify a DMIRT model on any number of factors.
 Moreover, although based on suggestions on model identification given by Reckase (2009) for this type of analysis, the function offers some expansions that introduce more precision.
 The latter foremost consists in incorporating sum of squares in the item selection process (unless the user has not specified otherwise).
 Experience tells that this often leads to better results compared to other options.
-However, it is important to recognize that the \code{modid()} function only gives suggestions to the model specification, and there could be situations where the researcher should consider other methods.
+However, it is important to recognize that the \code{modid()} function only gives suggestions to the model specification, and there could be situations where the researcher should consider other methods or options.
 }
-}
+
 \examples{
 \donttest{
 # Load data

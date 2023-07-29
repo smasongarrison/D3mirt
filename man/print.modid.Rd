@@ -7,12 +7,12 @@
 \method{print}{modid}(x, ...)
 }
 \arguments{
-\item{x}{S3 object of class \code{modid}.}
+\item{x}{A S3 object of class \code{modid}.}
 
 \item{...}{Additional arguments.}
 }
 \value{
-Printed message reporting the number of factors and the suggested model identification items.
+A printed message reporting the number of factors and the suggested model identification items.
 }
 \description{
 The \code{print.D3mirt()} function returns a compressed output from the \code{\link[=modid]{modid()}} function.

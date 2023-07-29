@@ -7,7 +7,7 @@
 \method{summary}{modid}(object, ..., digits = 4)
 }
 \arguments{
-\item{object}{S3 object of class \code{modid}.}
+\item{object}{A S3 object of class \code{modid}.}
 
 \item{...}{Additional arguments.}
 

@@ -36,7 +36,7 @@
 #' The construct vector arrows can contribute to the analysis by visualizing the average direction of multidimensional discrimination for a subset set of items.
 #'
 #'
-#' @return S3 object of class `D3mirt` with lists of \emph{a} and \emph{d} parameters from the M2PL or MGRM estimation, multidimensional difficulty (MDIFF), multidimensional discrimination (MDISC), direction cosines and degrees for vector angles, construct lists, and vector coordinates.
+#' @return A S3 object of class `D3mirt` with lists of \emph{a} and \emph{d} parameters from the M2PL or MGRM estimation, multidimensional difficulty (MDIFF), multidimensional discrimination (MDISC), direction cosines and degrees for vector angles, construct lists, and vector coordinates.
 #' @author Erik Forsberg
 #' @references Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
 #' @references Reckase, M. D. (2009). \emph{Multidimensional Item Response Theory}. Springer.

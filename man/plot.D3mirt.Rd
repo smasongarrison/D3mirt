@@ -58,7 +58,7 @@
 )
 }
 \arguments{
-\item{x}{S3 object of class \code{D3mirt}.}
+\item{x}{A S3 object of class \code{D3mirt}.}
 
 \item{scale}{Logical, if item vector arrow length should visualize the MDISC. If set to FALSE, the vector arrow length will be of one unit length. The default is \code{scale = FALSE}.}
 

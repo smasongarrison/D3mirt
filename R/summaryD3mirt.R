@@ -1,7 +1,7 @@
 #' Summary Function for S3 Objects of Class `D3mirt`
 #'
 #' @description The `summary.D3mirt()` function returns the output from the [D3mirt::D3mirt()] function.
-#' @param object S3 object of class `D3mirt`.
+#' @param object A S3 object of class `D3mirt`.
 #' @param ... Additional arguments.
 #' @param digits The number of digits shown per estimate. The default is `digits = 4`.
 #'

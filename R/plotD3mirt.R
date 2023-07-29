@@ -1,7 +1,7 @@
 #' Plot method for Objects of Class `D3mirt`
 #'
 #' @description For graphing of objects of class `D3mirt` from the [D3mirt::D3mirt()] function using the rgl 3D visualization device system (Adler & Murdoch, 2022).
-#' @param x S3 object of class `D3mirt`.
+#' @param x A S3 object of class `D3mirt`.
 #' @param scale Logical, if item vector arrow length should visualize the MDISC. If set to FALSE, the vector arrow length will be of one unit length. The default is `scale = FALSE`.
 #' @param hide Logical, if items should be plotted. The default is `hide = FALSE`.
 #' @param diff.level Optional. Plotting of a single level of difficulty indicated by an integer.
@@ -64,7 +64,6 @@
 #' @param ellipse.alpha Opacity for the confidence region from `ellipse3d()`. The default is `ellipse.alpha = 0.20`.
 #' @param ... Additional arguments passed to RGL or methods.
 #'
-#'
 #' @import rgl
 #' @importFrom stats cov
 #' @importFrom mirt fscores
@@ -107,6 +106,7 @@
 #' # Exporting The RGL Device
 #' The returned RGL device can, for example, be exported to the R console and be saved as an interactive html file or as a still shoot (see examples below).
 #' In the case of the latter, the model perspective in the still shoot can be manually adjusted by changing the `view` argument for the function.
+#'
 #'
 #' @return A RGL graphical device.
 #' @author Erik Forsberg

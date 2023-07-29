@@ -13,7 +13,7 @@ Regarding the data frame, the number of columns must be more than or equal to 4,
 \item{constructs}{Optional. Nested lists with integer values indicating construct. The default is \code{constructs = NULL}.}
 }
 \value{
-S3 object of class \code{D3mirt} with lists of \emph{a} and \emph{d} parameters from the M2PL or MGRM estimation, multidimensional difficulty (MDIFF), multidimensional discrimination (MDISC), direction cosines and degrees for vector angles, construct lists, and vector coordinates.
+A S3 object of class \code{D3mirt} with lists of \emph{a} and \emph{d} parameters from the M2PL or MGRM estimation, multidimensional difficulty (MDIFF), multidimensional discrimination (MDISC), direction cosines and degrees for vector angles, construct lists, and vector coordinates.
 }
 \description{
 Descriptive multidimensional item response theory modeling (DMIRT; Reckase, 2009, 1985, Reckase & McKinley, 1991) for dichotomous and polytomous items restricted to three dimensions.

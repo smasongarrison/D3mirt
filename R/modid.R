@@ -1,6 +1,6 @@
 #' D3mirt Model Identification
 #'
-#' @description `modid()` performs model identification for descriptive multidimensional item response theory (DMIRT) models by indicating what items, from a set or scale, to use to maximize the utility of the DMIRT model.
+#' @description `modid()` performs model identification for descriptive multidimensional item response theory (DMIRT) models by indicating what items, from a set or scale, to use to identify the DMIRT model.
 #'
 #' @param x A data frame with item data or item factor loadings that fit the multidimensional graded response model (MGRM) or the multidimensional 2-parameter logistic model (M2PL).
 #' @param efa Logical, if the data should be explored with exploratory factor analysis. The default is `efa = TRUE`.
@@ -13,6 +13,7 @@
 #' @param method A string indicating what integration algorithm to use. The default is `method = 'QMCEM'`. See [mirt::mirt] (Chalmers, 2012) for more on methods.
 #' @param rotate A string indicating what rotation method to use for the exploratory factor analysis. The default is `rotate = "oblimin"`. See [mirt::mirt] (Chalmers, 2012) for more on rotations.
 #' @param ... Any additional arguments passed to mirt().
+#'
 #' @importFrom mirt mirt
 #'
 #' @details Before performing DMIRT analysis it is necessary to identify the compensatory model (Reckase, 2009).
@@ -29,7 +30,7 @@
 #' Accordingly, in the default mode (`efa = TRUE`) using raw item data, the function performs an EFA, with three factors as default (`factors = 3`), and then finishes with the model identification.
 #'
 #' However, it is also possible to use the `modid()` function without performing the EFA by setting `efa = FALSE`, if, for instance, a factor loading data frame is already available.
-#' This allows the function to jump directly to the model identification step.
+#' This allows the function to move directly to the model identification step.
 #'
 #' Note, the EFA is only used to find model identification items that meet the necessary DMIRT model specification requirements.
 #' The EFA model itself is discarded after this step in the procedure and the user can, therefore, try different types of rotation methods and compare model identification results.
@@ -48,10 +49,12 @@
 #' This will identify an orthogonal three-dimensional structure with the first item fixed on the x-axis.
 #' For more details on the model identification process, please see the package vignette.
 #'
-#' ## Criteria
+#' # Criteria
 #' Model identification items should preferably (a) have an absolute sum score of less than or equal to .10 and (b) have the highest factor loading scores on the factor of interest.
 #' Of these two criteria, (a) should be given the strongest weight in the selection decision.
 #' If these conditions cannot be met, the user is advised to proceed with caution since the loading scores, therefore, imply that an adequate orthogonal structure may not be empirically attainable.
+#'
+#' # Troubleshooting
 #' If problems occur, try the following:
 #'
 #' \enumerate{
@@ -71,13 +74,15 @@
 #' This can be useful when there is only a very small difference between the squared factor loadings that in turn can
 #' causes problems (often only observable at later stages) when trying to find the best items for the model identification.
 #'
-#' Note, the `modid()` function is not limited to three-dimensional analysis and can be used on any number of factors.
+#' # Limitations
+#' Note, the `modid()` function is not limited to three-dimensional analysis and can be used to identify a DMIRT model on any number of factors.
 #' Moreover, although based on suggestions on model identification given by Reckase (2009) for this type of analysis, the function offers some expansions that introduce more precision.
 #' The latter foremost consists in incorporating sum of squares in the item selection process (unless the user has not specified otherwise).
 #' Experience tells that this often leads to better results compared to other options.
-#' However, it is important to recognize that the `modid()` function only gives suggestions to the model specification, and there could be situations where the researcher should consider other methods.
+#' However, it is important to recognize that the `modid()` function only gives suggestions to the model specification, and there could be situations where the researcher should consider other methods or options.
 #'
-#' @return S3 object of class `modid` with lists of items and absolute sum scores, sorted by the latter, and sum of squared factor loadings and frame with raw factor loadings with columns ordered on explained variance (high to low) or according to user settings.
+#'
+#' @return A S3 object of class `modid` with lists of items and absolute sum scores, sorted by the latter, and sum of squared factor loadings and frame with raw factor loadings with columns ordered on explained variance (high to low) or according to user settings.
 #' @author Erik Forsberg
 #' @references Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. \emph{Journal of Statistical Software, 48}(6), 1-29.
 #' @references Reckase, M. D. (2009). \emph{Multidimensional Item Response Theory}. Springer.

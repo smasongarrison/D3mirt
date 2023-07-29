@@ -7,7 +7,7 @@
 \method{summary}{D3mirt}(object, ..., digits = 4)
 }
 \arguments{
-\item{object}{S3 object of class \code{D3mirt}.}
+\item{object}{A S3 object of class \code{D3mirt}.}
 
 \item{...}{Additional arguments.}
 

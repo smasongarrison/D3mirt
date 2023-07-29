@@ -7,12 +7,12 @@
 \method{print}{D3mirt}(x, ...)
 }
 \arguments{
-\item{x}{S3 object of class \code{D3mirt}.}
+\item{x}{A S3 object of class \code{D3mirt}.}
 
 \item{...}{Additional arguments.}
 }
 \value{
-Model summary containing class, number of items, levels of difficulty, the number of construct vectors and their respective items.
+A model summary containing class, number of items, levels of difficulty, the number of construct vectors and their respective items.
 }
 \description{
 The \code{print.D3mirt()} function returns a compressed output from the \code{\link[=D3mirt]{D3mirt()}} function.

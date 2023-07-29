@@ -1,10 +1,10 @@
 #' Print Function for S3 Objects of Class `modid`
 #'
 #' @description The `print.D3mirt()` function returns a compressed output from the [D3mirt::modid()] function.
-#' @param x S3 object of class `modid`.
+#' @param x A S3 object of class `modid`.
 #' @param ... Additional arguments.
 #'
-#' @return Printed message reporting the number of factors and the suggested model identification items.
+#' @return A printed message reporting the number of factors and the suggested model identification items.
 #'
 #' @examples
 #' \dontrun{
