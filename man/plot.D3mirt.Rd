@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotD3mirt.R
 \name{plot.D3mirt}
 \alias{plot.D3mirt}
-\title{Plot method for Objects of Class \code{D3mirt}}
+\title{Plot Method for Objects of Class \code{D3mirt}}
 \usage{
 \method{plot}{D3mirt}(
   x,
@@ -177,50 +177,38 @@ A RGL graphical device.
 For graphing of objects of class \code{D3mirt} from the \code{\link[=D3mirt]{D3mirt()}} function using the rgl 3D visualization device system (Adler & Murdoch, 2022).
 }
 \details{
-The function is used for graphing class \code{D3mirt} S3 objects in three dimensions using the \link{rgl} package for visualization with OpenGL (Adler & Murdoch, 2022).
-}
-\section{Unidimensionality vs. Within-Dimensionality}{
-In DMIRT, the angle of the vector arrows indicates what traits, located along the orthogonal axes, an item can be said to describe (Reckase, 2009, 1985, Reckase & McKinley, 1991).
-For instance, an item located at 0° seen from the x-axis, and 90° as seen from the y and z-axis, only describes trait x.
-Such an item is unidimensional because its direction vector lies parallel and on the x-axis.
-In contrast, an item located at 45° between all three axes in a three-dimensional model describes all three traits in the model equally well.
-Such an item is within-multidimensional with respect to all three latent traits used in the analysis because its direction vector points in the neutral 45° direction in the model.
-}
+The plotting function allows plotting of all items, a selection of items as well as plotting a single item.
+Length of the vector arrows can be set to one unit length across all item vector arrows by setting \code{scale = TRUE}.
+This removes the visualization of the MDISC parameter.
+Note, when scaling items with \code{scale = TRUE}, the \code{plot()} function does not change the length of the model axes.
+This often means that the axes of the model may need to be adjusted, which can be achieved proportionally with \code{axis.scalar} or manually with \code{axis.length}.
 
-\section{Model Violations}{
+The user also has the option of adding constructs to the graphical output with \code{constructs = TRUE} (see the documentation for \link{D3mirt} or the package vignette regarding constructs).
+Other options include plotting one level of difficulty at a time with the \code{diff.level} argument if polytomous items are used in the model.
+Item row names are displayed by default, but the user has the option of adding new item labels for the items with \code{item.lab}, as well as labeling constructs with \code{construct.lab}.
+
+Regarding the interpretation of results, the angle of the vector arrows indicates what traits, located along the orthogonal axes, an item can be said to describe (Reckase, 2009, 1985, Reckase & McKinley, 1991).
+For instance, an item located at 0° seen from the x-axis, and 90° as seen from the y and z-axis, only describes trait x.
+Such an item is unidimensional since its direction vector lies parallel and on the x-axis.
+In contrast, an item located at 45° between all three axes in a three-dimensional model describes all three traits in the model equally well.
+Such an item is within-multidimensional with respect to all three latent traits used in the analysis because its direction vector points in a neutral direction in the model.
+
 When plotting the \code{D3mirt} model with \code{plot()}, it is possible to visually observe statistical violations in the graphical output returned.
 For instance, shorter vector arrows indicate weaker discrimination and therefore also higher amounts of statistical violations.
 Moreover, if a polytomous item struggles or even fail to describe any of the latent variables in the model, it can often lead to an extreme stretch of the MDIFF range.
 This is comparable to trace lines turning horizontal in a unidimensional item response theory model.
-}
 
-\section{Plotting Options}{
-The plotting function allows plotting of all items, a selection of items as well as plotting a single item.
-Length of the vector arrows can be set to one unit length across all item vector arrows by setting \code{scale = TRUE}.
-This removes the visualization of the MDISC parameter.
-Note, when scaling items with \code{scale = TRUE}, the \code{plot()} function does not change the length of the model axis.
-This often means that the axes of the model need to be adjusted, which can be achieved proportionally with \code{axis.scalar} or manually with \code{axis.length}.
-
-The user also has the option of adding constructs to the graphical output with \code{constructs = TRUE} (see the documentation for \link{D3mirt} or the package vignette regarding constructs).
-Other options include plotting one level of difficulty at a time with the \code{diff.level} argument if polytomous items are used in the model.
-Item row names are displayed by default, but the user has the option of adding new item labels for the items (with \code{item.lab}), as well as labeling constructs (with \code{construct.lab}).
-}
-
-\section{Profile Analysis}{
-The plot function can display respondent scores in the three-dimensional model space, represented as spheres located with factors scores used as coordinates.
-This allows for a profile analysis in which respondent rows are separated or selected conditioned on one or more external criteria.
+The plot function can also display respondent scores in the three-dimensional model space, represented as spheres located with factors scores used as coordinates.
+This allows for a profile analysis in which respondent rows are separated or selected conditioned on some external criteria.
 To do this, the user must first extract respondent factor scores with \link[mirt:fscores]{mirt::fscores}(Chalmers, 2012) and then use some selection process to separate or subset respondent rows.
 The resulting data frame is used in the \code{profiles} argument.
 If desired, a confidence interval can be added for the respondent scores by setting \code{ci = TRUE}.
 A general advice is also to hide vector arrows with \code{hide = TRUE} when analyzing respondent profiles to avoid visual cluttering.
 For more on profile analysis (e.g., preparation and examples), see package vignette.
-}
 
-\section{Exporting The RGL Device}{
 The returned RGL device can, for example, be exported to the R console and be saved as an interactive html file or as a still shoot (see examples below).
 In the case of the latter, the model perspective in the still shoot can be manually adjusted by changing the \code{view} argument for the function.
 }
-
 \examples{
 \donttest{
 # To plot, the data must be prepared with mirt::mirt and the D3mirt() function

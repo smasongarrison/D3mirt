@@ -69,7 +69,7 @@ The D3mirt approach largely consists of the following three steps:
 2.  D3mirt model estimation
 3.  Plotting
 
-For more details on the `D3mirt` package, including extended examples of analysis and functions, please see the vignette included in the package documentation.
+For more details on the `D3mirt` package, including extended examples of analysis and functions, please see the vignette included in the package.
 
 # 1. Model Identification
 
@@ -104,7 +104,7 @@ summary(a)
 
 The `summary()` function prints the number of items and the number of factors used in the analysis together with the suggested model identification items. As can be seen, the items suggested by `modid()` are the items "W7Q3" and "W7Q20". The output also includes data frames that hold all the model identification items (`Item.1...Item.n`) selected by `modid()` together with the items' absolute sum score (`ABS`), one frame for the sum of squares for factors sorted in descending order, and one frame for item factor loadings.
 
-The order of the factors follows the model identification items so that item 1 comes from the strongest factor (sorted highest up), item 2 from the second strongest (sorted second), and so on. The absolute sum scores indicate statistical fit to the structural assumptions of the DMIRT model and the items are, therefore, sorted with the lowest absolute sum score highest up. The top items are the items that best meet the necessary statistical requirements for the model identification. For a three-dimensional model this implies that the item highest up in the first data frame should be used to identify the $x$-axis, and the item highest up in the second data frame should be used to identify the $y$-axis, and so on. For more on the model identification procedure (e.g., trouble shooting, criteria, or limitations), see function documentation or package vignette.
+The order of the factors follows the model identification items so that item 1 comes from the strongest factor (sorted highest up), item 2 from the second strongest (sorted second), and so on. The absolute sum scores indicate statistical fit to the structural assumptions of the DMIRT model and the items are, therefore, sorted with the lowest absolute sum score highest up. The top items are the items that best meet the necessary statistical requirements for the model identification. For a three-dimensional model this implies that the item highest up in the first data frame should be used to identify the $x$-axis, and the item highest up in the second data frame should be used to identify the $y$-axis, and so on. For more on the model identification procedure (e.g., trouble shooting, criteria, or limitations), see package vignette.
 
 # 2. D3mirt Model Estimation
 
@@ -377,7 +377,7 @@ An example of how the output can be described could be as follows.
 
 # 4. Exporting The RGL Device
 
-Some options for exporting the RGL device are shown below. Over and above these, it is also possible to export graphical devices in R Markdown documents with `rgl::hookwebgl()` together with graphical options for knitr, as was done when creating this vignette.
+Some options for exporting the RGL device are shown below. Over and above these, it is also possible to export graphical devices in R Markdown documents with `rgl::hookwebgl()` together with graphical options for knitr, as was done when creating the package vignette.
 
 ```{r, eval = FALSE}
 # Export an open RGL device to the console that can be saved as an html or image file

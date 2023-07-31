@@ -128,8 +128,7 @@ The D3mirt approach largely consists of the following three steps:
 3.  Plotting
 
 For more details on the `D3mirt` package, including extended examples of
-analysis and functions, please see the vignette included in the package
-documentation.
+analysis and functions, please see the vignette included in the package.
 
 # 1. Model Identification
 
@@ -257,8 +256,8 @@ three-dimensional model this implies that the item highest up in the
 first data frame should be used to identify the $x$-axis, and the item
 highest up in the second data frame should be used to identify the
 $y$-axis, and so on. For more on the model identification procedure
-(e.g., trouble shooting, criteria, or limitations), see function
-documentation or package vignette.
+(e.g., trouble shooting, criteria, or limitations), see package
+vignette.
 
 # 2. D3mirt Model Estimation
 
@@ -804,7 +803,7 @@ An example of how the output can be described could be as follows.
 Some options for exporting the RGL device are shown below. Over and
 above these, it is also possible to export graphical devices in R
 Markdown documents with `rgl::hookwebgl()` together with graphical
-options for knitr, as was done when creating this vignette.
+options for knitr, as was done when creating the package vignette.
 
 ``` r
 # Export an open RGL device to the console that can be saved as an html or image file

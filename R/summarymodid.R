@@ -1,11 +1,11 @@
-#' Summary Function for S3 Objects of Class `modid`
+#' Summary Method for S3 Objects of Class `modid`
 #'
-#' @description The `summary.modid()` function returns the output from the [D3mirt::modid()] function.
+#' @description The summary method for the [D3mirt::modid()] function.
 #' @param object A S3 object of class `modid`.
 #' @param ... Additional arguments.
 #' @param digits The number of digits shown per estimate. The default is `digits = 4`.
 #'
-#' @return Model identification items (one less than the number of factors), factor loadings and absolute sum score for items, and squared factor loadings for the model identification items.
+#' @return Model identification items (one less than the number of factors), factor loadings and absolute sum score for model identification items, squared factor loadings and factor loadings for all items.
 #' @author Erik Forsberg
 #' @examples
 #' \dontrun{

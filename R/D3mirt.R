@@ -9,31 +9,20 @@
 #' @importFrom mirt mirt
 #'
 #' @details The `D3mirt()` function takes in model parameters from a compensatory three-dimensional multidimensional two-parameter logistic model (M2PL) or a multidimensional graded
-#' response model (MGRM), either in the form of a data frame or an S4 object of class 'SingleGroupClass' exported from [mirt::mirt] (Chalmers, 2012) function fitted in accordance with descriptive item response theory model specifications described below.
-#' The function returns an S3 object containing descriptive multidimensional item response theory estimates that can be graphed as vector arrows representing item response functions in a three-dimensional space with [D3mirt::plot].
+#' response model (MGRM), either in the form of a data frame or an S4 object of class 'SingleGroupClass' exported from [mirt::mirt] (Chalmers, 2012) function fitted in accordance with the descriptive item response theory model specifications described below.
+#' The function returns DMIRT estimates that can be visualized with [D3mirt::plot] that plot vector arrows representing item response function characteristics in a three-dimensional space.
+#' Regarding the former, this includes visualization of the single multidimensional discrimination (MDISC) parameter and the multidimensional difficulty (MDIFF) parameters (Reckase2009, 1985; Reckase & McKinley, 1991).
+#' For more on theory and how to interpret statistical estimates, please see the package vignette.
 #'
-#' Note, model parameters from the multidimensional M2PL or MGRM must be assessed prior to using the `D3mirt()` function (see examples section below or the vignette included in the package).
+#' Note, model parameters from the multidimensional M2PL or MGRM must be assessed prior to using the `D3mirt()` function (see examples section below or the package vignette).
 #' This means that the model must first be identified (see [D3mirt::modid] for more on model identification).
 #'
-#' # DMIRT Theory
-#' In DMIRT analysis, also called within multidimensional modeling, it is assumed that items in a multidimensional ability space can measure single or multiple latent traits (Reckase, 2009, 1985; Reckase & McKinley, 1991).
-#' The methodology is a type of data reduction technique for the compensatory model (Reckase, 2009), i.e., a type of measurement model that uses linear combinations of ability estimates.
-#' The method seeks to maximize item discrimination and so is \emph{descriptive} because the results describe the extent to which items in a test are unidimensional,
-#' i.e., that the items discriminate on one dimension only, or are within-multidimensional, i.e., that the items discriminate on more than one dimension.
-#'
-#' The most central estimates in DMIRT analysis are the single multidimensional discrimination (MDISC) parameter and the multidimensional difficulty (MDIFF) parameters (Reckase2009, 1985; Reckase & McKinley, 1991).
-#' In addition, if constructs are used (see below) the output will also contain the directional discrimination (DDISC) parameters for all items estimated in the direction set by the construct vectors.
-#' This makes it possible to compare item discrimination under the assumption that they measure the same construct.
-#'
-#' Using the parameters from the compensatory model, the `D3mirt()` function computes parameters describing the location and direction of the highest possible discrimination for each item.
-#' The output can be visualized with the [D3mirt::plot] function that uses vector geometry with vector arrows indicating level of difficulty and direction of the maximum discrimination.
-#'
-#' # Constructs
 #' The user has the option of including constructs in the estimation.
 #' Constructs, in this context, refer to the assumption that a subset of items can measure a higher-order latent variable.
-#' To include constructs, the user must create one or more nested lists that indicate what items belong to what construct (from one item to all items in the set; see the examples section below).
-#' From this, the `D3mirt()` function calculates direction cosines for the constructs by adding and normalizing the direction cosines using the items in the nested lists.
-#' The construct vector arrows can contribute to the analysis by visualizing the average direction of multidimensional discrimination for a subset set of items.
+#' To include constructs, the user must create one or more nested lists that indicate what items belong to what construct (from one item up to all items in the set; see the examples section below).
+#' From this, the `D3mirt()` function calculates the direction by adding and normalizing the direction cosines using the items in the nested lists.
+#' In addition, if constructs are used the output will also contain the directional discrimination (DDISC) parameters for all items assessed in the direction indicated by the construct vectors.
+#' This makes it possible to compare item discrimination under the assumption that they measure the same latent variable.
 #'
 #'
 #' @return A S3 object of class `D3mirt` with lists of \emph{a} and \emph{d} parameters from the M2PL or MGRM estimation, multidimensional difficulty (MDIFF), multidimensional discrimination (MDISC), direction cosines and degrees for vector angles, construct lists, and vector coordinates.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/printmodid.R
 \name{print.modid}
 \alias{print.modid}
-\title{Print Function for S3 Objects of Class \code{modid}}
+\title{Print Method for S3 Objects of Class \code{modid}}
 \usage{
 \method{print}{modid}(x, ...)
 }
@@ -15,7 +15,7 @@
 A printed message reporting the number of factors and the suggested model identification items.
 }
 \description{
-The \code{print.D3mirt()} function returns a compressed output from the \code{\link[=modid]{modid()}} function.
+The print method for the \code{\link[=modid]{modid()}} function.
 }
 \examples{
 \dontrun{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/printD3mirt.R
 \name{print.D3mirt}
 \alias{print.D3mirt}
-\title{Print Function for S3 Objects of Class \code{D3mirt}}
+\title{Print Method for S3 Objects of Class \code{D3mirt}}
 \usage{
 \method{print}{D3mirt}(x, ...)
 }
@@ -12,10 +12,10 @@
 \item{...}{Additional arguments.}
 }
 \value{
-A model summary containing class, number of items, levels of difficulty, the number of construct vectors and their respective items.
+A printed message reporting the number of items, levels of difficulty, the number of construct vectors and the row names of the respective items contained in each construct.
 }
 \description{
-The \code{print.D3mirt()} function returns a compressed output from the \code{\link[=D3mirt]{D3mirt()}} function.
+The print method for the \code{\link[=D3mirt]{D3mirt()}} function.
 }
 \examples{
 \dontrun{

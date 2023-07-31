@@ -2,7 +2,7 @@
 % Please edit documentation in R/summaryD3mirt.R
 \name{summary.D3mirt}
 \alias{summary.D3mirt}
-\title{Summary Function for S3 Objects of Class \code{D3mirt}}
+\title{Summary Method for S3 Objects of Class \code{D3mirt}}
 \usage{
 \method{summary}{D3mirt}(object, ..., digits = 4)
 }
@@ -18,7 +18,7 @@ Tables containing \emph{a} and \emph{d} parameters, multidimensional discriminat
 If constructs were used in the estimation process, the summary function will also show tables for direction cosines, and degrees for construct vectors as well as directional discrimination (DDISC) parameters.
 }
 \description{
-The \code{summary.D3mirt()} function returns the output from the \code{\link[=D3mirt]{D3mirt()}} function.
+The summary method for the \code{\link[=D3mirt]{D3mirt()}} function.
 }
 \examples{
 \dontrun{

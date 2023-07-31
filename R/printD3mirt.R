@@ -1,10 +1,10 @@
-#' Print Function for S3 Objects of Class `D3mirt`
+#' Print Method for S3 Objects of Class `D3mirt`
 #'
-#' @description The `print.D3mirt()` function returns a compressed output from the [D3mirt::D3mirt()] function.
+#' @description The print method for the [D3mirt::D3mirt()] function.
 #' @param x A S3 object of class `D3mirt`.
 #' @param ... Additional arguments.
 #'
-#' @return A model summary containing class, number of items, levels of difficulty, the number of construct vectors and their respective items.
+#' @return A printed message reporting the number of items, levels of difficulty, the number of construct vectors and the row names of the respective items contained in each construct.
 #' @author Erik Forsberg
 #'
 #' @examples
