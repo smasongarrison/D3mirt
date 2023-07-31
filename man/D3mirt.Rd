@@ -23,10 +23,6 @@ The \code{D3mirt()} function takes in model parameters from a compensatory three
 response model (MGRM), either in the form of a data frame or an S4 object of class 'SingleGroupClass' exported from \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) function fitted in accordance with the descriptive item response theory model specifications described below.
 The function returns DMIRT estimates that can be visualized with \link{plot} that plot vector arrows representing item response function characteristics in a three-dimensional space.
 Regarding the former, this includes visualization of the single multidimensional discrimination (MDISC) parameter and the multidimensional difficulty (MDIFF) parameters (Reckase2009, 1985; Reckase & McKinley, 1991).
-For more on theory and how to interpret statistical estimates, please see the package vignette.
-
-Note, model parameters from the multidimensional M2PL or MGRM must be assessed prior to using the \code{D3mirt()} function (see examples section below or the package vignette).
-This means that the model must first be identified (see \link{modid} for more on model identification).
 
 The user has the option of including constructs in the estimation.
 Constructs, in this context, refer to the assumption that a subset of items can measure a higher-order latent variable.
@@ -34,6 +30,10 @@ To include constructs, the user must create one or more nested lists that indica
 From this, the \code{D3mirt()} function calculates the direction by adding and normalizing the direction cosines using the items in the nested lists.
 In addition, if constructs are used the output will also contain the directional discrimination (DDISC) parameters for all items assessed in the direction indicated by the construct vectors.
 This makes it possible to compare item discrimination under the assumption that they measure the same latent variable.
+
+Note, model parameters from the multidimensional M2PL or MGRM must be assessed prior to using the \code{D3mirt()} function (see examples section below or the package vignette).
+This means that the model must first be identified (see \link{modid} for more on model identification).
+For more on theory and how to interpret statistical estimates, please see the package vignette.
 }
 \examples{
 \donttest{
