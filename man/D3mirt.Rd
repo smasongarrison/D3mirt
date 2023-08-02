@@ -22,7 +22,7 @@ Descriptive multidimensional item response theory model estimation (DMIRT; Recka
 The \code{D3mirt()} function takes in model parameters from a compensatory three-dimensional multidimensional two-parameter logistic model (M2PL) or a multidimensional graded
 response model (MGRM), either in the form of a data frame or an S4 object of class 'SingleGroupClass' exported from \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) function fitted in accordance with the descriptive item response theory model specifications described below.
 The function returns DMIRT estimates that can be visualized with \link{plot} that graph vector arrows representing item response characteristics in a three-dimensional space.
-Regarding the former, this includes visualization of the single multidimensional discrimination (MDISC) parameter and the multidimensional difficulty (MDIFF) parameters (Reckase2009, 1985; Reckase & McKinley, 1991).
+Regarding the former, this includes visualization of the single multidimensional discrimination (MDISC) parameter and the multidimensional difficulty (MDIFF) parameters (Reckase, 2009, 1985; Reckase & McKinley, 1991).
 
 The user has the option of including constructs in the estimation.
 Constructs, in this context, refer to the assumption that a subset of items can measure a higher-order latent variable.
