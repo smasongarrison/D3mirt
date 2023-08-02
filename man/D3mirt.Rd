@@ -16,18 +16,19 @@ Regarding the data frame, the number of columns must be more than or equal to 4,
 A S3 object of class \code{D3mirt} with lists of \emph{a} and \emph{d} parameters from the M2PL or MGRM estimation, multidimensional difficulty (MDIFF), multidimensional discrimination (MDISC), direction cosines and degrees for vector angles, construct lists, and vector coordinates.
 }
 \description{
-Descriptive multidimensional item response theory modeling (DMIRT; Reckase, 2009, 1985, Reckase & McKinley, 1991) for dichotomous and polytomous items restricted to three dimensions.
+Descriptive multidimensional item response theory model estimation (DMIRT; Reckase, 2009, 1985, Reckase & McKinley, 1991) for dichotomous and polytomous items restricted to three dimensions.
 }
 \details{
 The \code{D3mirt()} function takes in model parameters from a compensatory three-dimensional multidimensional two-parameter logistic model (M2PL) or a multidimensional graded
 response model (MGRM), either in the form of a data frame or an S4 object of class 'SingleGroupClass' exported from \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) function fitted in accordance with the descriptive item response theory model specifications described below.
-The function returns DMIRT estimates that can be visualized with \link{plot} that plot vector arrows representing item response function characteristics in a three-dimensional space.
+The function returns DMIRT estimates that can be visualized with \link{plot} that graph vector arrows representing item response characteristics in a three-dimensional space.
 Regarding the former, this includes visualization of the single multidimensional discrimination (MDISC) parameter and the multidimensional difficulty (MDIFF) parameters (Reckase2009, 1985; Reckase & McKinley, 1991).
 
 The user has the option of including constructs in the estimation.
 Constructs, in this context, refer to the assumption that a subset of items can measure a higher-order latent variable.
 To include constructs, the user must create one or more nested lists that indicate what items belong to what construct (from one item up to all items in the set; see the examples section below).
-From this, the \code{D3mirt()} function calculates the direction by adding and normalizing the direction cosines using the items in the nested lists.
+From this, the \code{D3mirt()} function calculates the average direction by adding and normalizing the direction cosines using the items in the nested lists.
+Constructs are visualized when plotting as solid black arrows running across the model space.
 In addition, if constructs are used the output will also contain the directional discrimination (DDISC) parameters for all items assessed in the direction indicated by the construct vectors.
 This makes it possible to compare item discrimination under the assumption that they measure the same latent variable.
 

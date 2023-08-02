@@ -89,11 +89,11 @@
 #' Moreover, if a polytomous item struggles or even fail to describe any of the latent variables in the model, it can often lead to an extreme stretch of the MDIFF range.
 #' This is comparable to trace lines turning horizontal in a unidimensional item response theory model.
 #'
-#' The plot function can also display respondent scores in the three-dimensional model space, represented as spheres located with factors scores used as coordinates.
+#' The plot function can also display respondent scores in the three-dimensional model space, represented as spheres whose coordinates are derived from the respondent's factor scores.
 #' This allows for a profile analysis in which respondent rows are separated or selected conditioned on some external criteria.
 #' To do this, the user must first extract respondent factor scores with [mirt::fscores](Chalmers, 2012) and then use some selection process to separate or subset respondent rows.
 #' The resulting data frame is used in the `profiles` argument.
-#' If desired, a confidence interval can be added for the respondent scores by setting `ci = TRUE`.
+#' If desired, a confidence interval can be added to the spheres by setting `ci = TRUE`.
 #' A general advice is also to hide vector arrows with `hide = TRUE` when analyzing respondent profiles to avoid visual cluttering.
 #' For more on profile analysis (e.g., preparation and examples), see package vignette.
 #'

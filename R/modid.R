@@ -22,12 +22,12 @@
 #' If this can be empirically achieved, it will be possible to create the orthogonal structure necessary for a three-dimensional DMIRT model.
 #'
 #' The `modid()` function can help by suggesting what items to use for this purpose.
-#' This is done by first performing an EFA on the data and then selecting the strongest loading items, following the order of strength of the factors, that meet the statistical assumptions described above.
+#' This is done by the function by first performing an EFA on the data and then selecting the strongest loading items, following the order of strength of the factors, in accordance with the statistical assumptions described above.
 #' This orders the entire model so that the strongest loading item, from the strongest factor, always aligns with the x-axis and the other items follow thereon.
 #' Note, the `modid()` function is not limited to three-dimensional analysis and can be used to identify a DMIRT model on any number of dimensions.
 #'
 #' Because `D3mirt` analysis is based on the M2PL and the MGRM, it is recommended to use multidimensional item response theory EFA methods, such as the EFA option in [mirt::mirt] (Chalmers, 2012) with `ìtemtype = 'graded'` or `'2PL'`, so that the EFA is performed with the proper item model.
-#' The `mirt()` function is, therefore, integrated into `modid()` so that the user needs only to provide the data frame containing empirical item data in the first argument in the call to the function.
+#' For this reason, the `mirt()` function is integrated into `modid()` so that the user needs only to provide the data frame containing empirical item data in the first argument in the call to the function.
 #' Accordingly, in the default mode (`efa = TRUE`), using raw item data, the function performs an EFA with three factors as default (`factors = 3`), and then finishes with the model identification.
 #'
 #' However, it is also possible to use the `modid()` function without performing the EFA by setting `efa = FALSE`, if, for instance, a factor loading data frame is already available.
@@ -36,7 +36,7 @@
 #' Note, the EFA is only used to find model identification items that meet the necessary DMIRT model specification requirements.
 #' The EFA model itself is discarded after this step in the procedure and the user can, therefore, try different types of rotation methods and compare the results.
 #'
-#' Running the function prints the number of items and factors together with the suggested model identification items to the console and the summary function is used to inspect the results.
+#' Running the function prints the number of items and factors together with the suggested model identification items to the console and the summary function is used to inspect the full results.
 #' The latter includes data frames that hold all the model identification items (`Item.1...Item.n`) selected by `modid()` together with the items absolute sum score (`ABS`), one frame for the sum of squares for factors sorted in descending order, and one frame for item factor loadings.
 #' The order of the factors follows the model identification items so that item 1 comes from the strongest factor, item 2 from the second strongest factor, and so on.
 #'

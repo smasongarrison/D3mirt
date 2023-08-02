@@ -385,7 +385,7 @@ plot(g, scale = TRUE,
 
 ## 3.2. Profile Analysis
 
-The `plot()` function can also display respondents in the three-dimensional model represented as spheres located using respondent factors scores used as coordinates. This allows for a profile analysis in which respondents can be separated, or subset, conditioned on single or multiple criteria and then plotted. The resulting output shows where the respondents are located in the model, and, accordingly, what model profile best describes them. Similarly, respondent categories can be simultaneously compared to see if a group-level effect can be visually observed.
+The `plot()` function can also display respondents in the three-dimensional model represented as spheres whose coordinates are derived from the respondent's factor scores. This allows for a profile analysis in which respondents can be separated, or subset, conditioned on single or multiple criteria and then plotted. The resulting output shows where the respondents are located in the model, and, accordingly, what model profile best describes them. Similarly, respondent categories can be simultaneously compared to see if a group-level effect can be visually observed.
 
 To do this, the user must first extract respondent factor scores with `fscores()` (Chalmers, 2012) and then separate or select a subset of respondent rows based on one or more criteria. The resulting data frame is imputed in the `profiles` argument. Generally, it can be useful to hide vector arrows with `hide = TRUE` when plotting respondent profiles to avoid visual cluttering. The example below separates respondents using the gender variable included in the built-in data set. To save some time in running the examples, the `fscores()` output is stored in the package file "fscores.Rdata" and is loaded in the next code chunk below.
 
@@ -481,7 +481,7 @@ An example of how the output can be described could be as follows.
 
 ### 3.2.1 Plotting Confidence Intervals
 
-It is also possible to plot a confidence interval in the shape of an ellipse surrounding the individual factor scores. In the example below, the younger individuals ($\leq30$) are selected and plotted with a $95\%$ *CI*.
+It is also possible to plot a confidence interval in the shape of an ellipse surrounding the spheres. In the example below, the younger individuals ($\leq30$) are selected and plotted with a $95\%$ *CI*.
 
 ```{r}
 # Column bind fscores() with age variable ("W3Xage")
