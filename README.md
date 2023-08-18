@@ -582,13 +582,15 @@ follows.
 > of all discrimination scores in the model. This, combined, implies
 > that the item in question does not seem to fit the three-dimensional
 > DMIRT model used in this analysis and should therefore be removed or
-> adapted. On a side note, we can also note that item W7Q15,
-> $MDISC = .923$, $MDIFF_{range} = [-4.680, 1.051]$) has the second
-> lowest global discrimination score. However, this item does seem to
-> belong to the Conformity construct, observable when comparing angle
+> adapted. We can also note that item W7Q15, $MDISC = .923$,
+> $MDIFF_{range} = [-4.680, 1.051]$) has the second lowest global
+> discrimination score. Compared to W7Q16, however, item W7Q15 does seem
+> to belong to the Conformity construct, observable when comparing angle
 > orientation ($\theta = -19.432^{\circ}, \phi = 31.515^{\circ}$) and
 > direction discrimination ($DDISC_1 = .502$, $DDISC_2 = .332$,
-> $DDISC_3 = .912$).
+> $DDISC_3 = .912$). In other words, even if item W7Q15 shows signs of
+> statistical violations in the model, the item still informs us of the
+> content of the Conformity construct.
 
 ## 3.2. `diff.level`
 
