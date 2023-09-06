@@ -73,7 +73,7 @@
 #' modid(x, fac.order = c(3,2,1))
 #' }
 #' @export
-modid <- function(x, efa = TRUE, factors = 3, lower = 0.5, upper = .10, fac.order = NULL, itemtype = "graded", method = 'EM', rotate = "oblimin", ...){
+modid <- function(x, efa = TRUE, factors = 3, lower = 0.5, upper = .10, fac.order = NULL, itemtype = "graded", method = "QMCEM", rotate = "oblimin", ...){
   if (efa == TRUE){
   if (!(itemtype %in% c("graded", "2PL"))) stop ("The item model must be of type graded or 2PL")
   x <- as.matrix(x)
