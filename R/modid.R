@@ -10,7 +10,7 @@
 #' @param fac.order Optional. Users can override the automatic sorting of factors by manually indicating factor order with integer values, e.g., `c(2,1,3)` to start with the second factor (or column) in data frame x, followed by the first factor (or column) in x, and then lastly the third factor (or column).
 #' The default is `fac.order = NULL`.
 #' @param itemtype The item model for the exploratory factor analysis. Note, only item type 'graded' (for the MGRM) or '2PL' (for the M2PL) are allowed. The default is `itemtype = "graded"`. See [mirt::mirt] (Chalmers, 2012) for more on item models.
-#' @param method A string indicating what integration algorithm to use for the EFA. The default is `method = 'QMCEM'`. See [mirt::mirt] (Chalmers, 2012) for more on methods.
+#' @param method A string indicating what integration algorithm to use for the EFA. The default is `method = 'EM'`. See [mirt::mirt] (Chalmers, 2012) for more on methods.
 #' @param rotate A string indicating what rotation method to use for the EFA. The default is `rotate = "oblimin"`. See [mirt::mirt] (Chalmers, 2012) for more on rotations.
 #' @param ... Any additional arguments passed to mirt().
 #'

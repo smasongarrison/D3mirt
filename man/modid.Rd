@@ -33,7 +33,7 @@ The default is \code{fac.order = NULL}.}
 
 \item{itemtype}{The item model for the exploratory factor analysis. Note, only item type 'graded' (for the MGRM) or '2PL' (for the M2PL) are allowed. The default is \code{itemtype = "graded"}. See \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) for more on item models.}
 
-\item{method}{A string indicating what integration algorithm to use for the EFA. The default is \code{method = 'QMCEM'}. See \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) for more on methods.}
+\item{method}{A string indicating what integration algorithm to use for the EFA. The default is \code{method = 'EM'}. See \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) for more on methods.}
 
 \item{rotate}{A string indicating what rotation method to use for the EFA. The default is \code{rotate = "oblimin"}. See \link[mirt:mirt]{mirt::mirt} (Chalmers, 2012) for more on rotations.}
 
