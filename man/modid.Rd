@@ -12,7 +12,7 @@ modid(
   upper = 0.1,
   fac.order = NULL,
   itemtype = "graded",
-  method = "QMCEM",
+  method = "EM",
   rotate = "oblimin",
   ...
 )
