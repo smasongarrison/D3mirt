@@ -388,7 +388,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           }
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(inames[i]), color = axis.col,
-                        adj = adjust.lab, size = 2)
+                        adj = adjust.lab, size = font.size)
           })
         } else {
           if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
@@ -400,7 +400,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           }
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.lab[i]), color = axis.col,
-                        adj = adjust.lab, size = 2)
+                        adj = adjust.lab, size = font.size)
           } )
         }
       } else {
@@ -409,7 +409,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
         dl <-  x$dir.vec[[diff.level]]
         sapply(seq(nrow(x$mdisc)), function(i){
           rgl::text3d(dl[(i*2),1],dl[(i*2),2], dl[(i*2),3], text = c(inames[i]), color = axis.col,
-                      adj = adjust.lab, size = 2)
+                      adj = adjust.lab, size = font.size)
         })
         } else {
           if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
@@ -417,7 +417,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           max <-  x$dir.vec[[diff.level]]
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.lab[i]), color = axis.col,
-                        adj = adjust.lab, size = 2)
+                        adj = adjust.lab, size = font.size)
           } )
         }
         }
@@ -435,7 +435,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(inames[m]), color = axis.col,
-                        adj = adjust.lab, size = 2)
+                        adj = adjust.lab, size = font.size)
           })
         } else {
           if(!length(item.lab) <= length(items)) warning("There are more item labels than items in the items list")
@@ -448,7 +448,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(item.lab[i]), color = axis.col,
-                        adj = adjust.lab, size = 2)
+                        adj = adjust.lab, size = font.size)
           })
         }
       } else {
@@ -458,7 +458,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(inames[m]), color = axis.col,
-                        adj = adjust.lab, size = 2)
+                        adj = adjust.lab, size = font.size)
           })
         } else {
           if(!length(item.lab) <= length(items)) warning("There are more item labels than items in the items list")
@@ -467,7 +467,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(item.lab[i]), color = axis.col,
-                        adj = adjust.lab, size = 2)
+                        adj = adjust.lab, size = font.size)
           })
         }
       }
@@ -537,7 +537,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           }
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(inames[i]), color = axis.col,
-                        adj = adjust.lab, size = 2)
+                        adj = adjust.lab, size = font.size)
           })
         } else {
           if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
@@ -549,7 +549,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           }
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.lab[i]), color = axis.col,
-                        adj = adjust.lab, size = 2)
+                        adj = adjust.lab, size = font.size)
           } )
         }
 
@@ -567,7 +567,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           max <-  x$scal.vec[[diff.level]]
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.lab[i]), color = axis.col,
-                        adj = adjust.lab, size = 2)
+                        adj = adjust.lab, size = font.size)
           } )
         }
       }
@@ -585,7 +585,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(inames[m]), color = axis.col,
-                        adj = adjust.lab, size = 2)
+                        adj = adjust.lab, size = font.size)
           })
         } else {
           if(!length(item.lab) <= length(items)) warning("There are more item labels than items in the items list")
@@ -598,7 +598,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(item.lab[i]), color = axis.col,
-                        adj = adjust.lab, size = 2)
+                        adj = adjust.lab, size = font.size)
           })
         }
       } else {
@@ -608,7 +608,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(inames[m]), color = axis.col,
-                        adj = adjust.lab, size = 2)
+                        adj = adjust.lab, size = font.size)
           })
         } else {
           if(!length(item.lab) <= length(items)) warning("There are more item labels than items in the items list")
@@ -617,7 +617,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(item.lab[i]), color = axis.col,
-                        adj = adjust.lab, size = 2)
+                        adj = adjust.lab, size = font.size)
           })
         }
       }
@@ -635,7 +635,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
       clab <-  x$c.vec*c.scalars[1]
       sapply(seq(nrow(x$c.dir.cos)), function(i){
         rgl::text3d(clab[(i*2),1],clab[(i*2),2], clab[(i*2),3], text = c(construct.lab[i]), color = axis.col,
-                    adj = adjust.lab, size = 2)
+                    adj = adjust.lab, size = font.size)
       })
     }
   }
