@@ -18,7 +18,8 @@
   x.lab = "X",
   y.lab = "Y",
   z.lab = "Z",
-  font.size = 2,
+  font = par3d("font"),
+  cex = par3d("font"),
   title = "",
   line = -5,
   axis.scalar = 1.1,
@@ -90,7 +91,9 @@ The first value is for horizontal adjustment and the second is for vertical adju
 
 \item{z.lab}{Labels for y-axis, the default is \code{z.lab = "Z"}.}
 
-\item{font.size}{Adjust font size, the default is \code{font.size = 2}.}
+\item{font}{Change font, the default is \code{font = par3d("font")}.}
+
+\item{cex}{Adjust font size, the default is \code{cex = par3d("cex")}.}
 
 \item{title}{The main title for the graphical device, plotted with the \code{title3d()} function. The default is no title.}
 

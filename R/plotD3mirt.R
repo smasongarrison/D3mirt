@@ -19,7 +19,8 @@
 #' @param x.lab Labels for x-axis, the default is `x.lab = "X"`.
 #' @param y.lab Labels for y-axis, the default is `y.lab = "Y"`.
 #' @param z.lab Labels for y-axis, the default is `z.lab = "Z"`.
-#' @param font.size Adjust font size, the default is `font.size = 2`.
+#' @param font Change font, the default is `font = par3d("font")`.
+#' @param cex Adjust font size, the default is `cex = par3d("cex")`.
 #' @param title The main title for the graphical device, plotted with the `title3d()` function. The default is no title.
 #' @param line  Title placement for `title3d()`. The default is `line = -5`.
 #' @param axis.scalar Scalar multiple for adjusting the length of all axes (x, y, z) in the 3D model proportionally. The default is `axis.scalar = 1.1`.
@@ -237,7 +238,7 @@
 #' @export
 plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items = NULL, item.names = TRUE,  item.lab = NULL,
                         constructs = FALSE, construct.lab = NULL, adjust.lab = c(0.5, -0.8),
-                        x.lab = "X", y.lab="Y", z.lab="Z", font.size = 2, title="", line = -5,
+                        x.lab = "X", y.lab="Y", z.lab="Z", font = par3d("font"), cex = par3d("font"), title="", line = -5,
                         axis.scalar = 1.1, axis.length = NULL, axis.col = "black", axis.points = "black",
                         points = TRUE, axis.ticks = TRUE, nticks = 4,  width.rgl.x = 1040, width.rgl.y= 1040, view = c(15, 20, 0.6),
                         show.plane = TRUE, plane.col = "grey80", background = "white",
@@ -312,7 +313,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
     rgl::points3d(axes, color = axis.points, size = 3)
   }
   rgl::text3d(axes, text = c(x.lab, y.lab, z.lab), color = axis.col,
-              adj = c(0.5, -0.8), size = font.size)
+              adj = c(0.5, -0.8), font = par3d("font"), cex = par3d("cex"))
   rgl::title3d(main= title,line= line)
   if (show.plane == TRUE) {
     rgl::material3d(color = plane.col)
@@ -388,7 +389,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           }
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(inames[i]), color = axis.col,
-                        adj = adjust.lab, size = font.size)
+                        adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
           })
         } else {
           if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
@@ -400,7 +401,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           }
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.lab[i]), color = axis.col,
-                        adj = adjust.lab, size = font.size)
+                        adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
           } )
         }
       } else {
@@ -409,7 +410,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
         dl <-  x$dir.vec[[diff.level]]
         sapply(seq(nrow(x$mdisc)), function(i){
           rgl::text3d(dl[(i*2),1],dl[(i*2),2], dl[(i*2),3], text = c(inames[i]), color = axis.col,
-                      adj = adjust.lab, size = font.size)
+                      adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
         })
         } else {
           if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
@@ -417,7 +418,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           max <-  x$dir.vec[[diff.level]]
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.lab[i]), color = axis.col,
-                        adj = adjust.lab, size = font.size)
+                        adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
           } )
         }
         }
@@ -435,7 +436,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(inames[m]), color = axis.col,
-                        adj = adjust.lab, size = font.size)
+                        adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
           })
         } else {
           if(!length(item.lab) <= length(items)) warning("There are more item labels than items in the items list")
@@ -448,7 +449,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(item.lab[i]), color = axis.col,
-                        adj = adjust.lab, size = font.size)
+                        adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
           })
         }
       } else {
@@ -458,7 +459,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(inames[m]), color = axis.col,
-                        adj = adjust.lab, size = font.size)
+                        adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
           })
         } else {
           if(!length(item.lab) <= length(items)) warning("There are more item labels than items in the items list")
@@ -467,7 +468,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(item.lab[i]), color = axis.col,
-                        adj = adjust.lab, size = font.size)
+                        adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
           })
         }
       }
@@ -537,7 +538,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           }
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(inames[i]), color = axis.col,
-                        adj = adjust.lab, size = font.size)
+                        adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
           })
         } else {
           if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
@@ -549,7 +550,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           }
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.lab[i]), color = axis.col,
-                        adj = adjust.lab, size = font.size)
+                        adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
           } )
         }
 
@@ -559,7 +560,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           dl <-  x$scal.vec[[diff.level]]
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(dl[(i*2),1],dl[(i*2),2], dl[(i*2),3], text = c(inames[i]), color = axis.col,
-                        adj = adjust.lab, size = 2)
+                        adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
           })
         } else {
           if(!length(item.lab) <= nrow(x$loadings)) warning("There are more item labels than items")
@@ -567,7 +568,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           max <-  x$scal.vec[[diff.level]]
           sapply(seq(nrow(x$mdisc)), function(i){
             rgl::text3d(max[(i*2),1],max[(i*2),2], max[(i*2),3], text = c(item.lab[i]), color = axis.col,
-                        adj = adjust.lab, size = font.size)
+                        adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
           } )
         }
       }
@@ -585,7 +586,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(inames[m]), color = axis.col,
-                        adj = adjust.lab, size = font.size)
+                        adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
           })
         } else {
           if(!length(item.lab) <= length(items)) warning("There are more item labels than items in the items list")
@@ -598,7 +599,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(max[m*2,1],max[m*2,2], max[m*2,3], text = c(item.lab[i]), color = axis.col,
-                        adj = adjust.lab, size = font.size)
+                        adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
           })
         }
       } else {
@@ -608,7 +609,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(inames[m]), color = axis.col,
-                        adj = adjust.lab, size = font.size)
+                        adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
           })
         } else {
           if(!length(item.lab) <= length(items)) warning("There are more item labels than items in the items list")
@@ -617,7 +618,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
           sapply(seq_along(items), function(i){
             m <- items[i]
             rgl::text3d(dl[m*2,1],dl[m*2,2], dl[m*2,3], text = c(item.lab[i]), color = axis.col,
-                        adj = adjust.lab, size = font.size)
+                        adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
           })
         }
       }
@@ -635,7 +636,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
       clab <-  x$c.vec*c.scalars[1]
       sapply(seq(nrow(x$c.dir.cos)), function(i){
         rgl::text3d(clab[(i*2),1],clab[(i*2),2], clab[(i*2),3], text = c(construct.lab[i]), color = axis.col,
-                    adj = adjust.lab, size = font.size)
+                    adj = adjust.lab, font = par3d("font"), cex = par3d("cex"))
       })
     }
   }
