@@ -19,6 +19,7 @@
 #' @param x.lab Labels for x-axis, the default is `x.lab = "X"`.
 #' @param y.lab Labels for y-axis, the default is `y.lab = "Y"`.
 #' @param z.lab Labels for y-axis, the default is `z.lab = "Z"`.
+#' @param font.size Adjust font size, the default is `font.size = 2`.
 #' @param title The main title for the graphical device, plotted with the `title3d()` function. The default is no title.
 #' @param line  Title placement for `title3d()`. The default is `line = -5`.
 #' @param axis.scalar Scalar multiple for adjusting the length of all axes (x, y, z) in the 3D model proportionally. The default is `axis.scalar = 1.1`.
@@ -236,7 +237,7 @@
 #' @export
 plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items = NULL, item.names = TRUE,  item.lab = NULL,
                         constructs = FALSE, construct.lab = NULL, adjust.lab = c(0.5, -0.8),
-                        x.lab = "X", y.lab="Y", z.lab="Z", title="", line = -5,
+                        x.lab = "X", y.lab="Y", z.lab="Z", font.size = 2, title="", line = -5,
                         axis.scalar = 1.1, axis.length = NULL, axis.col = "black", axis.points = "black",
                         points = TRUE, axis.ticks = TRUE, nticks = 4,  width.rgl.x = 1040, width.rgl.y= 1040, view = c(15, 20, 0.6),
                         show.plane = TRUE, plane.col = "grey80", background = "white",
@@ -311,7 +312,7 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
     rgl::points3d(axes, color = axis.points, size = 3)
   }
   rgl::text3d(axes, text = c(x.lab, y.lab, z.lab), color = axis.col,
-              adj = c(0.5, -0.8), size = 2)
+              adj = c(0.5, -0.8), size = font.size)
   rgl::title3d(main= title,line= line)
   if (show.plane == TRUE) {
     rgl::material3d(color = plane.col)
