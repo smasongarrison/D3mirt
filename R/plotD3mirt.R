@@ -238,7 +238,7 @@
 #' @export
 plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items = NULL, item.names = TRUE,  item.lab = NULL,
                         constructs = FALSE, construct.lab = NULL, adjust.lab = c(0.5, -0.8),
-                        x.lab = "X", y.lab="Y", z.lab="Z", font = par3d("font"), cex = par3d("font"), title="", line = -5,
+                        x.lab = "X", y.lab="Y", z.lab="Z", font = par3d("font"), cex = par3d("cex"), title="", line = -5,
                         axis.scalar = 1.1, axis.length = NULL, axis.col = "black", axis.points = "black",
                         points = TRUE, axis.ticks = TRUE, nticks = 4,  width.rgl.x = 1040, width.rgl.y= 1040, view = c(15, 20, 0.6),
                         show.plane = TRUE, plane.col = "grey80", background = "white",

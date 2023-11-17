@@ -19,7 +19,7 @@
   y.lab = "Y",
   z.lab = "Z",
   font = par3d("font"),
-  cex = par3d("font"),
+  cex = par3d("cex"),
   title = "",
   line = -5,
   axis.scalar = 1.1,
