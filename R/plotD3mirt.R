@@ -19,8 +19,8 @@
 #' @param x.lab Labels for x-axis, the default is `x.lab = "X"`.
 #' @param y.lab Labels for y-axis, the default is `y.lab = "Y"`.
 #' @param z.lab Labels for y-axis, the default is `z.lab = "Z"`.
-#' @param font Change font, the default is `font = par3d("font")`.
-#' @param cex Adjust font size, the default is `cex = par3d("cex")`.
+#' @param font A numeric font number from 1 to 5, the default is `font = 1`. See [rgl::text3d] for more on font options.
+#' @param cex A numeric character expansion value to adjust font size, the default is `cex = 1`.
 #' @param title The main title for the graphical device, plotted with the `title3d()` function. The default is no title.
 #' @param line  Title placement for `title3d()`. The default is `line = -5`.
 #' @param axis.scalar Scalar multiple for adjusting the length of all axes (x, y, z) in the 3D model proportionally. The default is `axis.scalar = 1.1`.
@@ -238,7 +238,7 @@
 #' @export
 plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, items = NULL, item.names = TRUE,  item.lab = NULL,
                         constructs = FALSE, construct.lab = NULL, adjust.lab = c(0.5, -0.8),
-                        x.lab = "X", y.lab="Y", z.lab="Z", font = par3d("font"), cex = par3d("cex"), title="", line = -5,
+                        x.lab = "X", y.lab="Y", z.lab="Z", font = 1, cex = 1, title="", line = -5,
                         axis.scalar = 1.1, axis.length = NULL, axis.col = "black", axis.points = "black",
                         points = TRUE, axis.ticks = TRUE, nticks = 4,  width.rgl.x = 1040, width.rgl.y= 1040, view = c(15, 20, 0.6),
                         show.plane = TRUE, plane.col = "grey80", background = "white",
@@ -303,18 +303,18 @@ plot.D3mirt <- function (x, scale = FALSE, hide = FALSE, diff.level = NULL, item
       a <-  rep(nticks[length(nticks)], (3-length(nticks)))
       nticks <- append(nticks, a)
       }
-    rgl::axis3d('x', pos = c(0, 0, 0), ticks = TRUE, nticks=nticks[1])
-    rgl::axis3d('y', pos = c(0, 0, 0), ticks = TRUE, nticks=nticks[2])
-    rgl::axis3d('z',pos = c(0, 0, 0), ticks = TRUE, nticks=nticks[3])
+    rgl::axis3d('x', pos = c(0, 0, 0), ticks = TRUE, nticks=nticks[1], cex = cex, font = font)
+    rgl::axis3d('y', pos = c(0, 0, 0), ticks = TRUE, nticks=nticks[2], cex = cex, font = font)
+    rgl::axis3d('z',pos = c(0, 0, 0), ticks = TRUE, nticks=nticks[3], cex = cex, font = font)
   }
   if (points == TRUE){
     axes <- rbind(c(xaxis[2], 0, 0), c(0, yaxis[2], 0),
                   c(0, 0, zaxis[2]))
-    rgl::points3d(axes, color = axis.points, size = 3)
+    rgl::points3d(axes, color = axis.points, cex = cex)
   }
   rgl::text3d(axes, text = c(x.lab, y.lab, z.lab), color = axis.col,
               adj = c(0.5, -0.8), font = font, cex = cex)
-  rgl::title3d(main= title,line= line)
+  rgl::title3d(main= title,line= line, cex = cex, font = font)
   if (show.plane == TRUE) {
     rgl::material3d(color = plane.col)
     xlim <- xaxis/1.5; zlim <- zaxis /1.5
