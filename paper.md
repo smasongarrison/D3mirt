@@ -17,7 +17,6 @@ output:
 authors:
 - name: Erik Forsberg
   orcid: "0000-0002-5228-9729"
-  equal-contrib: yes
   affiliation: '1'
 bibliography: refs.bib
 affiliations:
