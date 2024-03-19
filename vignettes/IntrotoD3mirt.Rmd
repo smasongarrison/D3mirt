@@ -289,9 +289,9 @@ The constructs included below were grouped based on exploratory reasons, i.e., b
 # Call to D3mirt(), including optional nested lists for three constructs
 # Item W7Q16 is not included in any construct because of model violations
 # The model violations for the W7Q16 item can be seen when plotting the model
-c <- list(list(1,2,3,4,5,6,7,8,9,10),
-          list(11,12,13,14),
-          list(15,17,18,19,20))
+c <- list(list(1:10),
+          list(11:14),
+          list(15:20))
 g <- D3mirt(mod1, c)
 summary(g)
 ```
@@ -341,7 +341,7 @@ A subset of items can be plotted for a more thorough investigation using the `it
 ```{r, testg5, webgl=TRUE, fig.width = 7, fig.height = 7}
 # A selection of Conformity items from the model plotted with constructs
 plot(g, constructs = TRUE, 
-        items = c(15,17,18,19,20), 
+        items = c(15, 17, 18, 19, 20), 
         construct.lab = c("Compassion", "Fairness", "Conformity"), 
         view = c(15, 20, 0.6))
 ```
@@ -411,7 +411,7 @@ load(system.file("extdata/fscores.Rdata", package = "D3mirt"))
 # Use cbind with fscores() output attached first
 data("anes0809offwaves")
 x <- anes0809offwaves
-z <- data.frame(cbind(f, x[,2]))
+z <- data.frame(cbind(f, x[, 2]))
 ```
 
 The `plot()` function uses `as.factor()` to count the number of factor levels in the data imputed in the `levels` argument. This means that raw data can be used as is but the number of colors in the color vectors argument (`sphere.col`) may need to be adapted. In the example below, the criteria variable for gender only hold two factor levels and therefore only two colors in the color vector are needed.
@@ -423,7 +423,7 @@ Call `plot()` with the respondent data frame $z$ in the `profiles` argument and 
 # Score levels: 1 = Blue ("male") and 2 = Red ("female")
 plot(g, hide = TRUE, 
         profiles = z, 
-        levels = z[,4], 
+        levels = z[, 4], 
         sphere.col = c("blue", "red"), 
         x.lab = "Compassion", 
         y.lab="Conformity", 
@@ -441,20 +441,20 @@ First, we must count the number of factor levels in the variable. This can be do
 
 ```{r}
 # Column bind fscores() with age variable ("W3Xage")
-y <- data.frame(cbind(f, x[,1]))
+y <- data.frame(cbind(f, x[, 1]))
 
 # Subset data frame y conditioned on age <= 30
-z1 <- subset(y, y[,4] <= 30)
+z1 <- subset(y, y[, 4] <= 30)
 
 # Subset data frame y conditioned on age >= 70
-z2 <- subset(y, y[,4] >= 70)
+z2 <- subset(y, y[, 4] >= 70)
 
 # Row bind z1 and z2
 z <- rbind(z1,z2)
 
 # Check number of factor levels with nlevels() and as.factor()
-nlevels(as.factor(z1[,4]))
-nlevels(as.factor(z2[,4]))
+nlevels(as.factor(z1[, 4]))
+nlevels(as.factor(z2[, 4]))
 
 # Use rep() to create a color vector to color groups based on the nlevels() output
 # z1 has 14 factor levels and z2 has 16 factor levels
@@ -467,7 +467,7 @@ colvec <- c(rep("red", 14),
 # Call plot() with profile data on age with item vector arrows hidden
 plot(g, hide = TRUE, 
      profiles = z, 
-     levels = z[,4], 
+     levels = z[, 4], 
      sphere.col = colvec, 
      x.lab = "Compassion", 
      y.lab="Conformity", 
@@ -485,10 +485,10 @@ It is also possible to plot a confidence interval in the shape of an ellipse sur
 
 ```{r}
 # Column bind fscores() with age variable ("W3Xage")
-y <- data.frame(cbind(f, x[,1]))
+y <- data.frame(cbind(f, x[, 1]))
 
 # Subset data frame y conditioned on age <= 30
-z1 <- subset(y, y[,4] <= 30)
+z1 <- subset(y, y[, 4] <= 30)
 
 # Use rep() to create a color vector to color groups based on the nlevels() output
 # z1 has 14 factor levels
@@ -501,7 +501,7 @@ To plot the *CI*, the `ci` argument is set to `TRUE`. The color of the sphere wa
 # Call plot() with profile data on age with item vector arrows hidden
 plot(g, hide = TRUE, 
      profiles = z1, 
-     levels = z1[,4], 
+     levels = z1[, 4], 
      sphere.col = colvec, 
      x.lab = "Compassion", 
      y.lab="Conformity", 
