@@ -98,7 +98,6 @@ D3mirt <- function(x, constructs = NULL){
   }
   if (ncol(x) < 4) stop("The data frame must have at least 4 columns")
   a <- x[,1:3, drop = FALSE]
-  if (any(rowSums(a) == 0)) stop("The number of items for the factors was set too low")
   ndiff <- ncol(x)-3
   diff <- x[,(4):(3+ndiff), drop = FALSE]
   mdisc <- sqrt(rowSums(a^2))
@@ -212,7 +211,7 @@ D3mirt <- function(x, constructs = NULL){
     for (i in nrow(csph)){
       rownames(csph) <- paste("C", 1:i, sep = "")
     }
-    dddisc <- as.data.frame(ddisc)
+    ddisc <- as.data.frame(ddisc)
     for (i in ncol(ddisc)){
       colnames(ddisc) <- paste("DDISC", 1:i, sep = "")
     }
